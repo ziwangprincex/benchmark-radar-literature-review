@@ -11,9 +11,9 @@ from typing import Any
 
 from radar.core.radar_core import db
 
-DOMAIN_ORDER = ["legal", "financial", "medical", "scientific", "agent", "general", "unclassified"]
+DOMAIN_ORDER = ["legal", "financial", "medical", "scientific", "agent", "coding", "general", "unclassified"]
 DOMAIN_CN = {"legal": "法律", "financial": "金融", "medical": "医疗", "scientific": "科研",
-             "agent": "Agent", "general": "通用", "unclassified": "其他领域"}
+             "agent": "Agent", "coding": "编程", "general": "通用", "unclassified": "其他领域"}
 STATES = ("unread", "read", "skip")
 
 _ARXIV_HEAD = re.compile(r"^\s*arXiv:\S+\s+Announce Type:\s*\S+\s+Abstract:\s*", re.I)
@@ -56,6 +56,7 @@ def reading_list() -> dict[str, Any]:
                JOIN source_items s ON s.id = l.source_item_id
                LEFT JOIN reading_status r ON r.source_item_id = s.id
                WHERE l.role IN ('benchmark','demand') AND s.source_id LIKE 'arxiv%'
+                 AND s.source_id NOT LIKE 'arxiv-backfill%'  -- 回补的旧论文只进综述，不算本周新收
                ORDER BY s.collected_at DESC, s.id DESC"""
         ).fetchall()
     from radar.core.lit_index import _other_domain

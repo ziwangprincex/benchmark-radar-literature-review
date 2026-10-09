@@ -37,6 +37,18 @@ def test_domain_terms_no_false_hits():
     assert detect_domain("Embodied memory for long-horizon stock of objects in trading rooms") != "financial"
 
 
+def test_coding_domain():
+    from radar.core.radar_core import detect_domain
+    assert detect_domain("SWE-Lancer: resolving GitHub issues with agentic coding in real codebases") == "coding"
+    assert detect_domain("RepoBench: repository-level code completion benchmark") == "coding"
+    assert detect_domain("Text-to-SQL evaluation on enterprise databases") == "coding"
+    # 非编程语境的 coding / programming / code
+    assert detect_domain("Automated ICD medical coding of clinical notes for patients") == "medical"
+    assert detect_domain("A dynamic programming approach to trajectory planning. Code is available.") != "coding"
+    # 浏览型 Agent 仍归 Agent
+    assert detect_domain("WebShop-X: a web agent benchmark for browsing and tool calling") == "agent"
+
+
 def test_bench_name_not_sentence():
     assert bench_name("Are Benchmarks Reliable? Toward Structural Diagnosis")[1] is False
     assert bench_name("ContractScrub: A benchmark for final review of legal contracts")[0] == "ContractScrub"

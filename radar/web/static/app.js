@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const LABELS={benchmark:'别人做的考题',workflow:'专家平时干的活',product_agent:'AI 产品能做什么',model_failure:'AI 犯过的错',financial:'金融',legal:'法律',medical:'医疗',scientific:'科研',agent:'Agent',general:'通用'};
+const LABELS={benchmark:'别人做的考题',workflow:'专家平时干的活',product_agent:'AI 产品能做什么',model_failure:'AI 犯过的错',financial:'金融',legal:'法律',medical:'医疗',scientific:'科研',agent:'Agent',coding:'编程',general:'通用'};
 const STATUS={mini_eval:'建议先试测',candidate:'候选',watch:'观察',approved:'已立项',rejected:'暂缓',superseded:'已作废'};
 const SCORE_LABEL={real_world_value:'真实任务价值',model_weakness:'AI 的短板',model_differentiation:'能不能拉开模型差距',novelty:'新不新',evaluability:'好不好判对错',data_feasibility:'数据好不好找',expert_cost:'要花多少专家'};
 const CAP={long_context:'长文档',numerical_grounding:'数字核对',citation_correctness:'引用准不准',judge_reliability:'打分靠不靠谱',cross_document_reasoning:'跨文档推理',domain_reasoning:'专业推理',tool_use:'用工具',safety:'安全',version_awareness:'版本新旧',planning:'多步规划',hypothesis_generation:'提出假设'};
@@ -21,7 +21,7 @@ const VORDER={probe:0,hold:1,drop:2};
 const e_=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let icV='probe',icD='';
 const VSEG=[['probe','值得先试测'],['hold','证据不够'],['drop','不做'],['nocard','作废']];
-const DSEG=[['','全部领域'],['financial','金融'],['legal','法律'],['medical','医疗'],['scientific','科研'],['agent','Agent'],['general','通用']];
+const DSEG=[['','全部领域'],['financial','金融'],['legal','法律'],['medical','医疗'],['scientific','科研'],['agent','Agent'],['coding','编程'],['general','通用']];
 const vOf=x=>x.card?x.card.verdict:'nocard';
 function filteredIdeas(){const q=$('#idea-search').value.trim().toLowerCase();return cache.ideas.filter(x=>{if(vOf(x)!==icV)return false;if(icD&&x.domain!==icD)return false;const c=x.card,t=c?`${c.title} ${c.test} ${c.sample}`:x.idea_name;return !q||t.toLowerCase().includes(q)}).sort((a,b)=>b.total_score-a.total_score)}
 function renderSegs(){const all=cache.ideas;$('#verdict-seg').innerHTML=VSEG.map(([k,l])=>`<button class="${k===icV?'on':''} v-${k}" data-v="${k}">${l}<b>${all.filter(x=>vOf(x)===k).length}</b></button>`).join('');const inV=all.filter(x=>vOf(x)===icV);$('#domain-seg').innerHTML=DSEG.filter(([k])=>!k||inV.some(x=>x.domain===k)).map(([k,l])=>`<button class="${k===icD?'on':''}" data-d="${k}">${l}<b>${k?inV.filter(x=>x.domain===k).length:inV.length}</b></button>`).join('');$$('#verdict-seg button').forEach(b=>b.onclick=()=>{icV=b.dataset.v;icD='';renderIdeas()});$$('#domain-seg button').forEach(b=>b.onclick=()=>{icD=b.dataset.d;renderIdeas()})}

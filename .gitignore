@@ -9,3 +9,4 @@ data/wecom_config.json
 data/wecom_push_state.json
 data/incoming.jsonl
 site/
+data/radar.db

@@ -61,7 +61,7 @@ DOMAIN_TERMS = {
     # 不放裸 "agent"：机器人、强化学习论文里的 "agent" 指的是控制体，
     # 会把导航、灵巧手等具身论文判成 Agent。只收 LLM Agent 语境的词。
     "agent": ["智能体", "llm agent", "llm-based agent", "language agent", "ai agent", "agentic",
-              "web agent", "gui agent", "coding agent", "software engineering agent", "multi-agent llm",
+              "web agent", "gui agent", "multi-agent llm",
               "computer use", "computer-use", "tool use", "tool-use", "function calling",
               "browsing", "deep research", "browser",
               # GAUGE 这类"用模拟用户评测任务型 Agent"的论文不写 "llm agent"
@@ -70,11 +70,29 @@ DOMAIN_TERMS = {
               "voice agent", "conversational agent", "enterprise agent", "agent societ",
               # 2026-10-09 补入：各类具体 LLM Agent 的写法。不放 "multi-agent system"
               # （无人机、艺术委托、数据整理等非 LLM-Agent 评测论文也这么写）
-              "language model agent", "lm agent", "software agent", "swe-agent", "mobile agent",
+              # 写代码的 Agent（coding agent、SWE-agent）归 coding，见下
+              "language model agent", "lm agent", "mobile agent",
               "shopping agent", "booking agent", "workspace agent", "smart-home agent",
               "forecasting agent", "persona-based agent", "tool-using", "tool-augmented",
               "agent harness", "agent memory", "llm-based multi-agent", "multi-agent collaboration",
               "multi-agent debate", "reliability agent", "agent players"],
+    # 2026-10-09 新增代码领域。在代码仓库里修 bug 的 Agent（SWE-bench 一系）也归这里，
+    # 与"临床 Agent 归医疗"同一口径，见 detect_domain 的 coding 优先规则。
+    # 不放裸 "code"/"coding"/"programming"/"software"：摘要常写 "code is available"、
+    # "medical coding"（ICD 编码）、"dynamic/linear programming"、"open-source software"。
+    "coding": ["code generation", "code completion", "code repair", "code editing", "code review",
+               "code reasoning", "code understanding", "code translation", "code search",
+               "code llm", "code model", "code language model", "code benchmark", "code agent",
+               "coding agent", "coding assistant", "coding task", "coding benchmark", "agentic coding",
+               "source code", "codebase", "repository-level", "repo-level", "github issue", "pull request",
+               "program repair", "program synthesis", "automated program", "bug fix", "bug-fix",
+               "software engineering", "software development", "software repositor", "software change",
+               "software agent", "swe-bench", "swe-agent", "swe bench", "humaneval", "mbpp", "livecodebench",
+               "programming language", "programming task", "programming problem", "competitive programming",
+               "programming benchmark", "unit test", "test generation", "test case generation",
+               "text-to-sql", "nl2sql", "verilog", "rtl generation", "hardware description language",
+               "compiler", "decompil", "smart contract", "vulnerable code", "code vulnerabilit",
+               "web development", "front-end code", "frontend code", "jupyter notebook", "vibe coding"],
     # general 必须有自己的词表，不能靠兜底产生。缺这一条时，"判不出垂类"和
     # "确实是通用能力议题"会共用 general，让 R2VC（事实核查）、GAUGE
     # （LLM-as-Judge 可靠性）这类真正的通用评测方法论跟噪声混在一起。
@@ -756,7 +774,7 @@ def collect_sources() -> dict[str, Any]:
 # 抽取器版本。改动 DOMAIN_TERMS / CAPABILITY_TERMS / THEMES 或任一 detect_*
 # 函数时必须一并更新——signals.extractor_version 靠它区分哪些信号需要重算。
 # 此前该值硬编码为 "rules-v1" 且从未变更，导致规则改了也看不出信号是旧口径。
-EXTRACTOR_VERSION = "rules-v10.2"
+EXTRACTOR_VERSION = "rules-v11.1"
 
 UNCLASSIFIED = "unclassified"
 
@@ -893,7 +911,8 @@ def gap_statement(gaps: list[str], caps: list[str], theme: str = "") -> str:
     return f"{statement}{suffix}"[:400]
 
 
-STRICT_DOMAINS = {"legal", "financial"}
+# 编程同理（2026-10-09）：VLA、GNN 论文摘要里一个 "bug fix"、"coding task" 不足以定类
+STRICT_DOMAINS = {"legal", "financial", "coding"}
 
 
 def detect_domain(text: str, title: str | None = None) -> str:
@@ -921,6 +940,11 @@ def detect_domain(text: str, title: str | None = None) -> str:
         return "general"
     # 垂类优先于 general：一篇临床事实核查论文同时命中 medical 和 general，应归 medical。
     if ok:
+        top = max(ok.values())
+        # 编程与 Agent 同分时归编程：写代码的 Agent（SWE-agent、agentic coding）
+        # 摘要里总带 "agentic"，按领域看它是编程论文
+        if ok.get("coding") == top:
+            return "coding"
         return max(ok, key=ok.get)
     return "general" if body["general"] else UNCLASSIFIED
 
@@ -1136,6 +1160,7 @@ def benchmark_names(domain: str) -> list[str]:
         "medical": ["MedBench", "CMB", "MedQA"],
         "scientific": ["GPQA", "ScienceAgentBench"],
         "agent": ["GAIA", "BrowseComp", "τ²-bench"],
+        "coding": ["SWE-bench", "HumanEval", "LiveCodeBench"],
         "general": ["Humanity's Last Exam"],
     }.get(domain, [])
 

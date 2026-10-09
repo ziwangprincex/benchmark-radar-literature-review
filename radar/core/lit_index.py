@@ -18,10 +18,10 @@ from radar.core.radar_core import db, now_iso, strip_feed_prefix
 LIT_VERSION = "lit-v4"
 MIN_TEXT = 300  # 短于此长度基本只有标题，抽不出维度
 
-# 五个垂类领域（覆盖表只统计这几个）
-VERTICALS = ("financial", "legal", "medical", "scientific", "agent")
+# 六个垂类领域（覆盖表只统计这几个）
+VERTICALS = ("financial", "legal", "medical", "scientific", "agent", "coding")
 DOMAIN_CN = {"financial": "金融", "legal": "法律", "medical": "医疗", "scientific": "科研",
-             "agent": "Agent", "general": "通用", "unclassified": "未分领域"}
+             "agent": "Agent", "coding": "编程", "general": "通用", "unclassified": "未分领域"}
 
 TASKS = {
     "问答": r"question[- ]answer|\bqa\b|answer(ing)? questions|问答",
@@ -313,7 +313,7 @@ OTHER_DOMAIN_RULES = [
     (r"telecom|wireless|5g\b|6g\b|network traffic", "通信/网络"),
     (r"fact-?check|factuality|fake news|propaganda|misinformation|hallucinat", "事实核查"),
     (r"jailbreak|moderation|harm|unlearning|privacy|adversarial|attack|safety|red[- ]team|secur", "安全"),
-    (r"code generation|programming|\bcode\b|software|test suites?\b|compiler|\bisa\b|verilog", "代码"),
+    (r"code generation|programming|\bcode\b|software|test suites?\b|compiler|\bisa\b|verilog", "编程相关"),
     (r"eeg|ecg|emg|brain|neuron|physiolog", "脑电/生物信号"),
     (r"time[- ]series|forecast|predictive maintenance|sensor", "时序/传感器"),
     (r"lidar|odometry|slam|point cloud|\b3d\b|depth estimation|localization|autonomous driving|trajector", "3D/自动驾驶"),

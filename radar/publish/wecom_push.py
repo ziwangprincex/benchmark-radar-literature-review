@@ -31,7 +31,7 @@ LOG_PATH = ROOT / "outputs" / "wecom_push_log.jsonl"
 MAX_BYTES = 4000  # 企业微信 markdown 上限 4096 字节，留点余量
 TITLES_PER_DOMAIN = 3
 DEFAULT_PAGE_URL = "https://ziwangprincex.github.io/benchmark-radar-literature-review/"
-SIX_DOMAINS = ["legal", "financial", "medical", "scientific", "agent", "general"]
+SIX_DOMAINS = ["legal", "financial", "medical", "scientific", "agent", "coding", "general"]
 
 
 def load_config() -> dict[str, Any]:

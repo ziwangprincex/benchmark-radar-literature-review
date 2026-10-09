@@ -14,7 +14,7 @@ from radar.core.radar_core import db
 from radar.core.reading import DOMAIN_CN, _ARXIV_HEAD, ensure_table
 
 ABSTRACT_LIMIT = 1500
-REVIEW_DOMAINS = ("legal", "financial", "medical", "scientific", "agent", "general")
+REVIEW_DOMAINS = ("legal", "financial", "medical", "scientific", "agent", "coding", "general")
 
 
 def clean_abstract(content: str, limit: int = ABSTRACT_LIMIT) -> str:
