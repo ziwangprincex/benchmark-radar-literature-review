@@ -47,26 +47,22 @@ python3 -m radar.web.app
 
 ## 每周自动更新
 
-每周一 15:00（北京时间）GitHub Actions 自动跑一遍（`.github/workflows/weekly.yml`）：
+每周一 15:00（北京时间）有两处各跑一遍，分工不同：
 
-1. 抓 arXiv 新论文，按领域分类，重建索引
-2. 重新生成网页，发布到 GitHub Pages
-3. 往企业微信群发待读提醒：本周新收多少篇、各领域未读几篇、前几篇标题和链接，有疑似撞车的也列出来
+| 在哪跑 | 做什么 | 推企业微信 |
+|---|---|---|
+| 内网开发机（`deploy/radar-weekly.timer`） | 抓 arXiv、分类，更新内网网页 | 推，同一周只推一次 |
+| GitHub Actions（`.github/workflows/weekly.yml`） | 抓 arXiv、分类，更新上面的网页版 | 不推 |
 
-不用开电脑。GitHub 的定时任务偶尔会晚几分钟到几十分钟。每次运行的结果在仓库 Actions 页面能看到；数据库跑完存到 `data` 分支，下次接着用。
+推送内容：本周新收多少篇、各领域未读几篇、前几篇标题和链接，有疑似撞车的也列出来。
 
-第一次部署要做两件事：
-
-- Settings → Pages → Source 选 GitHub Actions
-- Settings → Secrets and variables → Actions 新建 `WECOM_WEBHOOK_URL`，值是群机器人地址。不配就只更新网页、不推送
-
-想马上跑一次：Actions → weekly → Run workflow，勾"发企业微信"才会推送。或者：
+GitHub 这边不用开电脑，定时任务偶尔会晚几分钟到几十分钟，运行结果在仓库 Actions 页面看。数据库跑完存到 `data` 分支，下次接着用。想马上更新网页：Actions → weekly → Run workflow，或者：
 
 ```bash
-gh workflow run weekly.yml -f refresh=true -f push=true
+gh workflow run weekly.yml
 ```
 
-本地也能手动跑，结果写到 `reports/weekly_refresh.md`：
+本地手动跑，结果写到 `reports/weekly_refresh.md`：
 
 ```bash
 python3 scripts/weekly_refresh.py --no-push                # 刷新，不推送
@@ -74,7 +70,7 @@ python3 -m radar.publish.wecom_push --dry-run              # 看看推送消息�
 python3 -m radar.publish.wecom_push --set-webhook "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=..."
 ```
 
-本地的群机器人地址存在 `data/wecom_config.json`，不进 git。
+群机器人地址只存在本机 `data/wecom_config.json`，不进 git。
 
 ## 目录
 

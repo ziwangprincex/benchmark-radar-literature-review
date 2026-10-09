@@ -1,9 +1,9 @@
 """企业微信推送：每周把"新收了哪些论文、还有多少没读"发到群里。
 
 只推提醒，不推结论。Webhook 地址按顺序找：
-1. 环境变量 WECOM_WEBHOOK_URL（GitHub Actions 里来自仓库 Secret）
+1. 环境变量 WECOM_WEBHOOK_URL
 2. data/wecom_config.json 里的 {"webhook": "..."}（已在 .gitignore，不进仓库）
-消息末尾的网页链接：环境变量 WECOM_PAGE_URL > 配置里的 page_url > GitHub Pages 地址。
+消息末尾的网页链接：环境变量 WECOM_PAGE_URL > 配置里的 page_url（开发机上配的是内网网页）> GitHub Pages 地址。
 撞车提醒默认读 scripts/weekly_refresh.py 当天写的 reports/weekly_alerts.json。
 
 用法:

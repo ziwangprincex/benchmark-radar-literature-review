@@ -1,7 +1,5 @@
-# 每周一 15:00（北京时间）：抓 arXiv → 分类 → 生成网页（GitHub Pages）→ 推企业微信
-#
-# 需要在仓库 Settings → Secrets and variables → Actions 里配置：
-#   WECOM_WEBHOOK_URL  企业微信群机器人地址（没配就只更新网页，不推送）
+# 每周一 15:00（北京时间）：抓 arXiv → 分类 → 生成网页（GitHub Pages）
+# 只更新网页，不推企业微信（推送由内网开发机负责）。
 #
 # 数据库 data/radar.db 每次跑完存到 data 分支（只保留最新一份，强推覆盖），
 # 下次运行先从 data 分支取，避免 main 分支被每周的数据库撑大。
@@ -16,10 +14,6 @@ on:
         description: "抓 arXiv 并重新分类"
         type: boolean
         default: true
-      push:
-        description: "发企业微信"
-        type: boolean
-        default: false
   push:
     branches: [main]
     paths: ["radar/**", "scripts/build_static_site.py", ".github/workflows/weekly.yml"]
@@ -99,10 +93,3 @@ jobs:
       - name: 发布到 GitHub Pages
         id: deploy
         uses: actions/deploy-pages@v4
-
-      - name: 推送企业微信
-        if: github.event_name == 'schedule' || inputs.push
-        env:
-          WECOM_WEBHOOK_URL: ${{ secrets.WECOM_WEBHOOK_URL }}
-          WECOM_PAGE_URL: ${{ steps.deploy.outputs.page_url }}
-        run: python -m radar.publish.wecom_push --force

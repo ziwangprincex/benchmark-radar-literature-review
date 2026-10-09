@@ -1,7 +1,7 @@
 """每周刷新：抓 arXiv 新论文 → 分类 → 重建索引 → 撞车提醒。
 
 用法: python3 scripts/weekly_refresh.py [--no-push] [--from 论文文件.jsonl]
-由 GitHub Actions 每周一 15:00（北京时间）调用（.github/workflows/weekly.yml）。
+每周一 15:00（北京时间）由内网开发机定时器调用（会推送）；GitHub Actions 用 --no-push 调用，只更新网页版。
 --from 用于机器上不了外网：直接导入别处抓好的论文文件。
 结果写到 reports/weekly_refresh.md，
 有新论文挤进某个方向“最像的 10 篇”且未核对时，在报告顶部提醒。

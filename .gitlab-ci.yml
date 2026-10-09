@@ -1,7 +1,7 @@
 # Benchmark Idea Radar 定时任务（已停用）
 #
-# 已停用：现由 GitHub Actions（.github/workflows/weekly.yml）每周一 15:00（北京时间）
-# 运行 scripts/weekly_refresh.py。下面的 CI 定义仅留作参考，不要再建 Schedule。
+# 已停用：现由内网开发机 deploy/radar-weekly.timer（推企业微信）和 GitHub Actions
+# .github/workflows/weekly.yml（只更新网页版）每周一 15:00（北京时间）运行 scripts/weekly_refresh.py。下面的 CI 定义仅留作参考，不要再建 Schedule。
 #
 # 两个 job，都由 Pipeline Schedules 触发（Settings → CI/CD → Schedules）：
 #   daily-collect  变量 JOB=daily   每日 09:00  采集 → 抽 Signal → 重算 Idea → 生成页面
