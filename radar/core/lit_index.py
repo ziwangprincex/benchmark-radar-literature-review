@@ -205,7 +205,9 @@ def build_index() -> dict[str, int]:
                FROM source_items s JOIN signals g ON g.source_item_id = s.id
                WHERE s.validation_status NOT IN ('invalid', 'context_only')
                  AND s.source_quality != 'ai_generated'
-               ORDER BY s.id DESC"""  # 新版本在前，旧版本被判为重复
+               ORDER BY (s.source_id LIKE 'arxiv-backfill%'), s.id DESC"""
+            # 新版本在前，旧版本被判为重复；同一篇论文每周抓到的那条优先于回补那条，
+            # 否则它会被判成重复，从待读清单里消失（回补论文不进待读清单）
         ).fetchall()
         ts = now_iso()
         seen: set[str] = set()
