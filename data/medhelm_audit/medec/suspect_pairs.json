@@ -1,0 +1,1827 @@
+[
+ {
+  "correct_id": "id7",
+  "error_id": "id6",
+  "flag_sentence": "8",
+  "edited": [
+   "8"
+  ],
+  "correct_text": "Parainfluenza is determined as the causal pathogen of the patient's condition after an anteroposterior radiograph of the neck is shown in Figure A. A lung radiograph is normal.",
+  "error_text": "An anteroposterior radiograph of the neck is shown in Figure A. A lung radiograph is normal.",
+  "helm_error_ref": "9 Parainfluenza is the causal pathogen of the patient's condition.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "7 Parainfluenza is determined as the causal pathogen of the patient's condition after PCR testing. An anteroposterior radiograph of the neck is shown in Figure A. A lung radiograph is normal.\n\nThe error is in sentence 7 because parainfluenza (a viral pathogen) cannot be diagnosed via a neck radiogra",
+   "google_gemini-2.5-pro-preview-05-06": "8 Parainfluenza is determined as the causal pathogen of the patient's condition by virologic testing. An anteroposterior radiograph of the neck is shown in Figure A. A lung radiograph is normal.",
+   "openai_gpt-5-2025-08-07": "8 Parainfluenza is the most likely causal pathogen of the patient's condition based on clinical features and an anteroposterior neck radiograph demonstrating subglottic narrowing; a lung radiograph is normal.",
+   "openai_gpt-5-mini-2025-08-07": "8 An anteroposterior neck radiograph (Figure A) shows subglottic narrowing (the \"steeple sign\") consistent with croup; parainfluenza virus is the most common cause, and a chest radiograph is normal.",
+   "openai_o3-mini-2025-01-31": "8 An anteroposterior neck radiograph demonstrating subglottic narrowing (the “steeple sign”) supports a diagnosis of viral croup, which is most commonly caused by parainfluenza virus.",
+   "openai_o4-mini-2025-04-16": "8 Croup, most commonly caused by parainfluenza virus, is suggested by the steeple sign on the anteroposterior neck radiograph; the lung radiograph is normal."
+  }
+ },
+ {
+  "correct_id": "id9",
+  "error_id": "id8",
+  "flag_sentence": "4",
+  "edited": [
+   "4",
+   "5"
+  ],
+  "correct_text": "The responsible microbe is isolated and its structure is analyzed.",
+  "error_text": "Norovirus is suspected.",
+  "helm_error_ref": "4 Rotavirus is suspected.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "4 The responsible microbe is isolated",
+   "google_gemini-2.5-pro-preview-05-06": "4 The responsible microbe is isolated and found to be an enveloped, double-stranded RNA virus.",
+   "openai_gpt-5-2025-08-07": "CORRECT",
+   "openai_gpt-5-mini-2025-08-07": "4 The responsible pathogen is identified in stool by antigen testing or PCR rather than by routine culture and structural analysis.",
+   "openai_o3-mini-2025-01-31": "4 A stool sample is obtained for antigen testing to confirm a rotavirus infection, rather than isolating and analyzing the microbe’s structure.",
+   "openai_o4-mini-2025-04-16": "4 A stool sample is collected and sent for rotavirus antigen testing."
+  }
+ },
+ {
+  "correct_id": "id16",
+  "error_id": "id15",
+  "flag_sentence": "13",
+  "edited": [
+   "12",
+   "13",
+   "14",
+   "15",
+   "16",
+   "17",
+   "18",
+   "19",
+   "20"
+  ],
+  "correct_text": "Hemoglobin 11.4 g/d",
+  "error_text": "Laboratory studies show the following: Laboratory test",
+  "helm_error_ref": "12 Chikungunya virus infection is suspected.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "10 Both ankles are swollen and painful on active and passive motion.\n\nThe original sentence used \"to\" which is grammatically and medically incorrect. The correct preposition in this context is \"on\" or \"with\" (e.g., \"painful on active and passive motion\"), as it describes the relationship between the",
+   "google_gemini-2.5-pro-preview-05-06": "13 Hemoglobin 11.4 g/dL",
+   "openai_gpt-5-2025-08-07": "13 Hemoglobin 11.4 g/dL",
+   "openai_gpt-5-mini-2025-08-07": "13 Hemoglobin 11.4 g/dL",
+   "openai_o3-mini-2025-01-31": "13 Hemoglobin 11.4 g/dL.",
+   "openai_o4-mini-2025-04-16": "13 Hemoglobin 11.4 g/dL"
+  }
+ },
+ {
+  "correct_id": "id38",
+  "error_id": "id37",
+  "flag_sentence": "6",
+  "edited": [
+   "6"
+  ],
+  "correct_text": "The patient is diagnosed with a lipoma after physical exam is notable for a mass seen in Figure A, which is rubbery and non-tender.",
+  "error_text": "Physical exam is notable for a mass seen in Figure A, which is rubbery and non-tender.",
+  "helm_error_ref": "7 The patient has a lipoma.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "6 The patient is diagnosed with olecranon bursitis after physical exam is notable for a mass seen in Figure A, which is fluctuant and non-tender. \n\n**Explanation:** Lipomas are typically slow-growing and would not present suddenly overnight. The acute onset and history of recent boxing (potential tr",
+   "google_gemini-2.5-pro-preview-05-06": "6 The patient is diagnosed with olecranon bursitis after physical exam is notable for a mass seen in Figure A, which is rubbery and non-tender.",
+   "openai_gpt-5-2025-08-07": "6 The patient is diagnosed with olecranon bursitis after physical exam is notable for a fluctuant, non-tender swelling over the olecranon, as seen in Figure A.",
+   "openai_gpt-5-mini-2025-08-07": "6 The physical exam shows a rubbery, non-tender mass at the elbow; although this appearance can be seen with a lipoma, the acute onset raises concern for a traumatic hematoma or olecranon bursitis, and imaging (eg, ultrasound) is recommended before making a definitive diagnosis.",
+   "openai_o3-mini-2025-01-31": "CORRECT",
+   "openai_o4-mini-2025-04-16": "6 The patient is diagnosed with olecranon bursitis after physical exam revealed a fluctuant, non-tender mass over the olecranon."
+  }
+ },
+ {
+  "correct_id": "id42",
+  "error_id": "id41",
+  "flag_sentence": "11",
+  "edited": [
+   "10",
+   "11",
+   "12"
+  ],
+  "correct_text": "The patient is diagnosed with Bernard-Soulier syndrome after blood smear demonstrates increased megakaryocytes and enlarged platelets.",
+  "error_text": "40 secs",
+  "helm_error_ref": "14 The patient is diagnosed with Bernard-Soulier syndrome.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "11 The patient is diagnosed with Bernard-Soulier syndrome after blood smear demonstrates enlarged platelets.  \n**Explanation:**  \n- **Error in Sentence 11:** A peripheral blood smear cannot show \"increased megakaryocytes\" because megakaryocytes reside in the bone marrow, not peripheral blood. Bernar",
+   "google_gemini-2.5-pro-preview-05-06": "11 The patient is diagnosed with Bernard-Soulier syndrome after blood smear demonstrates giant platelets.",
+   "openai_gpt-5-2025-08-07": "10 Partial thromboplastin time: 30 secs",
+   "openai_gpt-5-mini-2025-08-07": "11 The patient is diagnosed with Bernard–Soulier syndrome after peripheral blood smear demonstrates thrombocytopenia with giant (enlarged) platelets.",
+   "openai_o3-mini-2025-01-31": "11 The patient is diagnosed with Bernard‐Soulier syndrome after a peripheral blood smear demonstrates giant platelets rather than increased megakaryocytes.",
+   "openai_o4-mini-2025-04-16": "11 The patient is diagnosed with Bernard–Soulier syndrome based on bone marrow aspirate demonstrating increased megakaryocytes and peripheral blood smear showing giant platelets."
+  }
+ },
+ {
+  "correct_id": "id44",
+  "error_id": "id43",
+  "flag_sentence": "8",
+  "edited": [
+   "7",
+   "8",
+   "9",
+   "10",
+   "11",
+   "12",
+   "13",
+   "14"
+  ],
+  "correct_text": "Hemoglobin 14 mg/dL",
+  "error_text": "His hemogram and chest X-ray findings are as follows:",
+  "helm_error_ref": "7 The differential diagnosis includes pneumonia.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "8 Hemoglobin 14 g/dL",
+   "google_gemini-2.5-pro-preview-05-06": "8 Hemoglobin 14 g/dL",
+   "openai_gpt-5-2025-08-07": "8 Hemoglobin 14 g/dL",
+   "openai_gpt-5-mini-2025-08-07": "8 Hemoglobin 14 g/dL",
+   "openai_o3-mini-2025-01-31": "8 Hemoglobin 14 g/dL",
+   "openai_o4-mini-2025-04-16": "8 Hemoglobin 14 g/dL"
+  }
+ },
+ {
+  "correct_id": "id48",
+  "error_id": "id47",
+  "flag_sentence": "8",
+  "edited": [
+   "7"
+  ],
+  "correct_text": "The patient is diagnosed with progressive multifocal encephalopathy (PML).",
+  "error_text": "",
+  "helm_error_ref": "7 Patient is diagnosed with progressive multifocal encephalopathy (PML) after a T1/T2 MRI of the brain is ordered and is shown.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "8 The patient is diagnosed with progressive multifocal leukoencephalopathy (PML).\n\nExplanation: The error lies in sentence 8. PML stands for \"progressive multifocal leukoencephalopathy,\" not \"encephalopathy.\" The omission of \"leuko-\" (referring to white matter involvement) is a critical medical term",
+   "google_gemini-2.5-pro-preview-05-06": "8 The patient is diagnosed with progressive multifocal leukoencephalopathy (PML).",
+   "openai_gpt-5-2025-08-07": "8 The patient is diagnosed with progressive multifocal leukoencephalopathy (PML).",
+   "openai_gpt-5-mini-2025-08-07": "8 The patient is diagnosed with progressive multifocal leukoencephalopathy (PML).",
+   "openai_o3-mini-2025-01-31": "8 The patient is diagnosed with progressive multifocal leukoencephalopathy (PML).",
+   "openai_o4-mini-2025-04-16": "8 The patient is diagnosed with progressive multifocal leukoencephalopathy (PML)."
+  }
+ },
+ {
+  "correct_id": "id52",
+  "error_id": "id51",
+  "flag_sentence": "10",
+  "edited": [
+   "6"
+  ],
+  "correct_text": "Patient is diagnosed with Arnold-Chiari malformation.",
+  "error_text": "",
+  "helm_error_ref": "6 Patient is diagnosed with Arnold-Chiari malformation after sensory examination reveals impaired pain and temperature sensation in a cape-like distribution across both shoulders, arms, and neck.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "10 Patient is diagnosed with Arnold-Chiari malformation with associated syringomyelia.\n\nThe clinical note describes a cape-like distribution of sensory loss (impaired pain and temperature), which is characteristic of syringomyelia. Arnold-Chiari malformation can lead to syringomyelia, but the sensor",
+   "google_gemini-2.5-pro-preview-05-06": "10 Patient is diagnosed with syringomyelia.",
+   "openai_gpt-5-2025-08-07": "10 Patient is diagnosed with Chiari I malformation.",
+   "openai_gpt-5-mini-2025-08-07": "10 Patient is diagnosed with syringomyelia (a central spinal cord cavitation causing loss of pain and temperature in a cape-like distribution), which can be associated with Chiari I malformation.",
+   "openai_o3-mini-2025-01-31": "10 Patient is diagnosed with syringomyelia (often associated with Arnold‐Chiari malformation), which explains his cape‐distribution loss of pain and temperature sensation.",
+   "openai_o4-mini-2025-04-16": "10 Patient is diagnosed with syringomyelia."
+  }
+ },
+ {
+  "correct_id": "id62",
+  "error_id": "id61",
+  "flag_sentence": "4",
+  "edited": [
+   "4"
+  ],
+  "correct_text": "Laboratory studies reveal decreased hemoglobin and a serum sodium value of 130 mEq/L. Small cell carcinoma of the lung is suspected after chest X-ray shows a 3 cm rounded opaque shadow.",
+  "error_text": "Laboratory studies reveal decreased hemoglobin and a serum sodium value of 130 mEq/L. Chest X-ray",
+  "helm_error_ref": "6 Small cell carcinoma of the lung is suspected.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "4 Laboratory studies reveal decreased hemoglobin and a serum sodium value of 130 mEq/L. Non-small cell carcinoma of the lung is suspected after chest X-ray shows a 3 cm rounded opaque shadow.\n\nExplanation: Small cell carcinoma typically appears as central/hilar masses with mediastinal involvement ra",
+   "google_gemini-2.5-pro-preview-05-06": "4 Laboratory studies reveal decreased hemoglobin and a serum sodium value of 130 mEq/L. Small cell carcinoma of the lung is suspected after chest X-ray shows a hilar mass.",
+   "openai_gpt-5-2025-08-07": "4 Laboratory studies reveal decreased hemoglobin and a serum sodium value of 130 mEq/L, and small cell carcinoma of the lung is suspected after chest X-ray shows a central hilar mass.",
+   "openai_gpt-5-mini-2025-08-07": "4 Laboratory studies reveal decreased hemoglobin and a serum sodium value of 130 mEq/L. A 3 cm rounded pulmonary opacity on chest X-ray raises suspicion for lung carcinoma, and further imaging and tissue diagnosis are required to determine whether it is small cell or non-small cell carcinoma.",
+   "openai_o3-mini-2025-01-31": "4 Laboratory studies reveal decreased hemoglobin and a serum sodium value of 130 mEq/L. A chest X-ray reveals a central, ill‐defined 3 cm opacity, raising suspicion for small cell carcinoma of the lung.",
+   "openai_o4-mini-2025-04-16": "4 A lung carcinoma is suspected after chest X-ray shows a 3 cm rounded opaque shadow."
+  }
+ },
+ {
+  "correct_id": "id64",
+  "error_id": "id63",
+  "flag_sentence": "5",
+  "edited": [
+   "7"
+  ],
+  "correct_text": "Auscultation shows a loud S1, loud S2, and S4.",
+  "error_text": "Auscultation shows a loud S1, loud S2, and S4.",
+  "helm_error_ref": "7 Patient is diagnosed with coarctation of the aorta after the chest X-ray reveals the notching of the ribs.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "5 Auscultation shows a loud S1, loud S2, and an ejection click. \n\nThe original sentence mentions S4, which is less commonly associated with coarctation of the aorta. A systolic ejection click (often due to an associated bicuspid aortic valve) is a more typical finding in this condition.",
+   "google_gemini-2.5-pro-preview-05-06": "5 Auscultation shows a loud S2 and an S4.",
+   "openai_gpt-5-2025-08-07": "5 Auscultation shows a loud S2 and S4.",
+   "openai_gpt-5-mini-2025-08-07": "5 Auscultation shows a loud S2 and an S4 (S1 is typically normal).",
+   "openai_o3-mini-2025-01-31": "CORRECT",
+   "openai_o4-mini-2025-04-16": "5 Auscultation shows an accentuated S2 and the presence of an S4."
+  }
+ },
+ {
+  "correct_id": "id68",
+  "error_id": "id67",
+  "flag_sentence": "19",
+  "edited": [
+   "17"
+  ],
+  "correct_text": "The patient is diagnosed with deliruim.",
+  "error_text": "",
+  "helm_error_ref": "17 The patient is diagnosed with delirium after she can recall 0/3 words after 5 minutes.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "",
+   "google_gemini-2.5-pro-preview-05-06": "19 The patient is diagnosed with delirium.",
+   "openai_gpt-5-2025-08-07": "19 The patient is diagnosed with delirium.",
+   "openai_gpt-5-mini-2025-08-07": "19 The patient is diagnosed with delirium.",
+   "openai_o3-mini-2025-01-31": "19 The patient is diagnosed with delirium.",
+   "openai_o4-mini-2025-04-16": "19 The patient is diagnosed with normal pressure hydrocephalus."
+  }
+ },
+ {
+  "correct_id": "id70",
+  "error_id": "id69",
+  "flag_sentence": "3",
+  "edited": [
+   "3"
+  ],
+  "correct_text": "The patient is diagnosed with primary syphillis when upon pelvic examination for cervical changes, the OB/GYN notices a vaginal chancre.",
+  "error_text": "Upon pelvic examination for cervical changes, the OB/GYN notices a vaginal chancre.",
+  "helm_error_ref": "5 Patient is diagnosed with primary syphillis.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3 The patient is diagnosed with primary syphilis when upon pelvic examination for cervical changes, the OB/GYN notices a vaginal chancre.",
+   "google_gemini-2.5-pro-preview-05-06": "3 The patient is diagnosed with primary syphilis when upon pelvic examination for cervical changes, the OB/GYN notices a vaginal chancre.",
+   "openai_gpt-5-2025-08-07": "3 The patient is diagnosed with primary syphilis when upon pelvic examination for cervical changes, the OB/GYN notices a vaginal chancre.",
+   "openai_gpt-5-mini-2025-08-07": "2 The patient's physical examination is notable for inguinal adenopathy and a vaginal chancre on pelvic examination.",
+   "openai_o3-mini-2025-01-31": "3 The patient is diagnosed with primary syphilis when, upon pelvic examination for cervical changes, the OB/GYN notices a vaginal chancre.",
+   "openai_o4-mini-2025-04-16": "3 The patient is diagnosed with primary syphilis when upon pelvic examination for cervical changes, the OB/GYN notices a vaginal chancre."
+  }
+ },
+ {
+  "correct_id": "id80",
+  "error_id": "id79",
+  "flag_sentence": "2",
+  "edited": [
+   "2"
+  ],
+  "correct_text": "Transvaginal sonogram reveals an enlarged, soft, and tender uterus, and uterine biopsy shows normal-appearing endometrial glands within the myometrium.",
+  "error_text": "Patient is diagnosed with endometriosis after transvaginal sonogram reveals an enlarged, soft, and tender uterus, and uterine biopsy shows normal-appearing endometrial glands within the myometrium.",
+  "helm_error_ref": "2 Patient is diagnosed with adenomyosis after transvaginal sonogram reveals an enlarged, soft, and tender uterus, and uterine biopsy shows normal-appearing endometrial glands within the myometrium.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2 Transvaginal sonogram reveals an enlarged, soft, and tender uterus, and uterine biopsy shows normal-appearing endometrial glands. \n\n**Explanation:**  \nThe error lies in sentence 2. While adenomyosis is characterized by the presence of endometrial glands/stroma *within the myometrium*, a standard u",
+   "google_gemini-2.5-pro-preview-05-06": "2 Physical exam reveals an enlarged, soft, and tender uterus, and uterine biopsy shows normal-appearing endometrial glands within the myometrium.",
+   "openai_gpt-5-2025-08-07": "2 Bimanual examination reveals an enlarged, soft, and tender uterus; transvaginal sonogram shows an enlarged uterus, and uterine biopsy shows normal-appearing endometrial glands within the myometrium.",
+   "openai_gpt-5-mini-2025-08-07": "2 Pelvic examination reveals an enlarged, soft, and tender uterus; transvaginal sonogram shows an enlarged, globular uterus with heterogeneous myometrium, and histology demonstrates endometrial glands and stroma within the myometrium.",
+   "openai_o3-mini-2025-01-31": "2 Transvaginal sonogram reveals an enlarged, soft, and tender uterus, and pelvic MRI shows a thickened junctional zone consistent with adenomyosis.",
+   "openai_o4-mini-2025-04-16": "2 On bimanual examination, the uterus was enlarged, soft, and tender, and transvaginal sonogram revealed a uniformly enlarged uterus with a heterogeneous myometrial echotexture."
+  }
+ },
+ {
+  "correct_id": "id82",
+  "error_id": "id81",
+  "flag_sentence": "3",
+  "edited": [
+   "4",
+   "5",
+   "6",
+   "7",
+   "8"
+  ],
+  "correct_text": "Despite these behaviors, he is meeting his language goals for his age (single word use).",
+  "error_text": "Despite these behaviors, he is meeting his language goals for his age (single word use).",
+  "helm_error_ref": "8 Autism spectrum disorder is suspected.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3 Despite these behaviors, he has a language delay as he is only using single words, which is below expected for his age.",
+   "google_gemini-2.5-pro-preview-05-06": "3 He is not meeting his language goals for his age (single word use).",
+   "openai_gpt-5-2025-08-07": "3 Despite these behaviors, he is not meeting his language goals for his age (uses only single words).",
+   "openai_gpt-5-mini-2025-08-07": "3 Despite these behaviors, he is not meeting language goals for his age — he is using only single words.",
+   "openai_o3-mini-2025-01-31": "3 Despite these behaviors, he is not meeting the language goals expected for his age; a 3‐year‐old should be using multiword phrases rather than only single words.",
+   "openai_o4-mini-2025-04-16": "3 Despite these behaviors, he is meeting his language goals for his age (speaking in multi-word sentences)."
+  }
+ },
+ {
+  "correct_id": "id88",
+  "error_id": "id87",
+  "flag_sentence": "15",
+  "edited": [
+   "18"
+  ],
+  "correct_text": "Urine negative",
+  "error_text": "Urine negative",
+  "helm_error_ref": "18 The patient's differential diagnosis include renal cell carcinoma after abdominal CT scan confirms the presence of a large solid mass originating in the left kidney.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "15 Urine negative  \nThe sentence \"Urine negative\" contradicts the prior finding of \"Blood 2+\" and \"RBC 45/hpf\" in the urine. A corrected version would specify which part of the urine test is negative (e.g., glucose, protein, leukocytes), or remove the line if unintended. For example:  \n**15 Urine pr",
+   "google_gemini-2.5-pro-preview-05-06": "19 The patient's differential diagnosis includes renal cell carcinoma.",
+   "openai_gpt-5-2025-08-07": "15 Protein negative",
+   "openai_gpt-5-mini-2025-08-07": "15 Urine protein negative.",
+   "openai_o3-mini-2025-01-31": "15 Urine protein: negative\n\nExplanation: The intended laboratory parameters for the urinalysis should include a protein measurement. In the original note, “Urine negative” appears without specifying the parameter, and it should be corrected to “Urine protein: negative” to clearly document that the p",
+   "openai_o4-mini-2025-04-16": "15 Urine protein negative."
+  }
+ },
+ {
+  "correct_id": "id90",
+  "error_id": "id89",
+  "flag_sentence": "4",
+  "edited": [
+   "7",
+   "8",
+   "9"
+  ],
+  "correct_text": "A plain radiograph of the left femur shows increased cortical thickness with widened intercortical space.",
+  "error_text": "A plain radiograph of the left femur shows increased cortical thickness with widened intercortical space.",
+  "helm_error_ref": "9 Patient is diagnosed with osteitis deformans.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "4 A plain radiograph of the left femur shows increased cortical thickness with trabecular coarsening.\n\nThe error in sentence 4 is the term \"widened intercortical space.\" In Paget's disease, radiographs typically show cortical thickening and trabecular coarsening rather than a widened intercortical s",
+   "google_gemini-2.5-pro-preview-05-06": "4 A plain radiograph of the left femur shows increased cortical thickness with widened intramedullary space.",
+   "openai_gpt-5-2025-08-07": "4 A plain radiograph of the left femur shows increased cortical thickness with narrowing of the medullary cavity.",
+   "openai_gpt-5-mini-2025-08-07": "4 A plain radiograph of the left femur shows cortical thickening with bone enlargement and widening of the medullary (intramedullary) cavity.",
+   "openai_o3-mini-2025-01-31": "4 A plain radiograph of the left femur shows thickening of the cortical bone with an expanded medullary canal and a coarse trabecular pattern, consistent with Paget’s disease.",
+   "openai_o4-mini-2025-04-16": "CORRECT"
+  }
+ },
+ {
+  "correct_id": "id96",
+  "error_id": "id95",
+  "flag_sentence": "5",
+  "edited": [
+   "9",
+   "10",
+   "11"
+  ],
+  "correct_text": "The blood pressure is 120/75 mm",
+  "error_text": "The blood pressure is 120/75 mm",
+  "helm_error_ref": "9 Differential diagnosis includes pill esophagitis.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "5 The blood pressure is 120/75 mm Hg.  \nERROR: Sentence 5 was split from its unit designation (mm Hg). The blood pressure measurement should be written as \"120/75 mm Hg\" in a single sentence without splitting \"mm\" and \"Hg\" across lines.",
+   "google_gemini-2.5-pro-preview-05-06": "5 The blood pressure is 120/75 mm Hg, pulse is 85/min, respirations are 19/min, and the temperature is 36.5 C (97.7 F).",
+   "openai_gpt-5-2025-08-07": "5 The blood pressure is 120/75 mm Hg.",
+   "openai_gpt-5-mini-2025-08-07": "5 The blood pressure is 120/75 mm Hg, pulse is 85/min, respirations are 19/min, and the temperature is 36.5 C (97.7 F).",
+   "openai_o3-mini-2025-01-31": "5 The blood pressure is 120/75 mm Hg, pulse is 85/min, respirations are 19/min, and the temperature is 36.5 C (97.7 F).",
+   "openai_o4-mini-2025-04-16": "5 The blood pressure is 120/75 mm Hg, pulse is 85/min, respirations are 19/min, and the temperature is 36.5 °C (97.7 °F)."
+  }
+ },
+ {
+  "correct_id": "id98",
+  "error_id": "id97",
+  "flag_sentence": "7",
+  "edited": [
+   "7",
+   "8",
+   "9",
+   "10"
+  ],
+  "correct_text": "The patient is diagnosed with delirium tremens after exam.",
+  "error_text": "On physical examination, the patient appears sweaty, distressed, and unable to remain still.",
+  "helm_error_ref": "10 The patient is experiencing delirium tremens.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "7 The patient is diagnosed with delirium after exam. \n\n**Explanation:** Delirium tremens specifically refers to delirium caused by alcohol withdrawal. The clinical note does not mention a history of alcohol use or withdrawal, making the diagnosis of \"delirium tremens\" inappropriate. The patient's sy",
+   "google_gemini-2.5-pro-preview-05-06": "7 The patient is diagnosed with alcohol withdrawal delirium after exam.",
+   "openai_gpt-5-2025-08-07": "CORRECT",
+   "openai_gpt-5-mini-2025-08-07": "7 The patient is diagnosed with delirium; delirium tremens should be considered only if there is a recent history of heavy alcohol use and withdrawal.",
+   "openai_o3-mini-2025-01-31": "7 The patient is diagnosed with postoperative delirium after exam. ",
+   "openai_o4-mini-2025-04-16": "7 The patient is diagnosed with acute delirium, likely secondary to sepsis from her cholangitis."
+  }
+ },
+ {
+  "correct_id": "id105",
+  "error_id": "id104",
+  "flag_sentence": "17",
+  "edited": [
+   "8",
+   "9",
+   "10",
+   "11",
+   "12",
+   "13",
+   "14",
+   "15",
+   "16",
+   "17",
+   "18",
+   "19",
+   "20"
+  ],
+  "correct_text": "HCO3- 20 mEq/L Po2 88",
+  "error_text": "Hg",
+  "helm_error_ref": "8 Patient is diagnosed with Gitelman's syndrome given laboratory findings shown below:",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "17 HCO3- 30 mEq/L Po2 88\n\nThe error is in sentence 17. Gitelman syndrome is characterized by metabolic alkalosis, which would result in an **elevated** serum bicarbonate (HCO3-) level (normal range: 22–28 mEq/L). The original value of 20 mEq/L is **low**, which contradicts the diagnosis of metabolic",
+   "google_gemini-2.5-pro-preview-05-06": "17 HCO3- 30 mEq/L Po2 88",
+   "openai_gpt-5-2025-08-07": "17 HCO3- 30 mEq/L Po2 88",
+   "openai_gpt-5-mini-2025-08-07": "17 HCO3- 29 mEq/L Po2 88 mm Hg",
+   "openai_o3-mini-2025-01-31": "",
+   "openai_o4-mini-2025-04-16": "17 HCO3- 30 mEq/L Po2 88 mm Hg"
+  }
+ },
+ {
+  "correct_id": "id107",
+  "error_id": "id106",
+  "flag_sentence": "9",
+  "edited": [
+   "9"
+  ],
+  "correct_text": "Patient is diagnosed with alpha-1 antitrypsin deficiency after a complete blood count is significant for the following: WBC 26300",
+  "error_text": "A complete blood count is significant for the following: WBC 26300",
+  "helm_error_ref": "23 Patient is diagnosed with alpha-1 antitrypsin deficiency.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "9 Patient is diagnosed with alpha-1 antitrypsin deficiency after serum protein electrophoresis shows characteristic findings, as a complete blood count is significant for the following: WBC 26300\n\nExplanation: The diagnosis of alpha-1 antitrypsin deficiency is made via serum protein electrophoresis ",
+   "google_gemini-2.5-pro-preview-05-06": "9 Patient is diagnosed with alpha-1 antitrypsin deficiency based on a low serum alpha-1 antitrypsin level.",
+   "openai_gpt-5-2025-08-07": "9 Patient is diagnosed with alpha-1 antitrypsin deficiency after serum protein electrophoresis demonstrates a decreased alpha-1 globulin fraction; the complete blood count is significant for the following: WBC 26300",
+   "openai_gpt-5-mini-2025-08-07": "9 Patient is suspected to have alpha-1 antitrypsin deficiency based on early-onset emphysema and recurrent pulmonary infections; diagnosis should be confirmed by measuring serum alpha-1 antitrypsin levels and phenotyping/genotyping rather than by a complete blood count.",
+   "openai_o3-mini-2025-01-31": "9 Patient is diagnosed with alpha‐1 antitrypsin deficiency based not on the CBC but on serum studies – for example, low serum alpha",
+   "openai_o4-mini-2025-04-16": "9 Patient is diagnosed with alpha-1 antitrypsin deficiency based on a reduced alpha-1 globulin band on serum protein electrophoresis and a low serum alpha-1 antitrypsin level."
+  }
+ },
+ {
+  "correct_id": "id114",
+  "error_id": "id113",
+  "flag_sentence": "8",
+  "edited": [
+   "7"
+  ],
+  "correct_text": "Patient is diagnosed with social anxiety disorder.",
+  "error_text": "",
+  "helm_error_ref": "7 Patient is diagnosed with social anxiety disorder after she reports that though this has never happened in the past it concerns her a great deal.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "8 Patient is diagnosed with social anxiety disorder and acute cystitis.\n\n**Explanation:** While the social anxiety component is relevant to the patient's behavior contributing to UTIs, the primary acute diagnosis in this encounter should be acute cystitis (supported by symptoms, physical exam, and u",
+   "google_gemini-2.5-pro-preview-05-06": "8 Patient is diagnosed with adjustment disorder with anxious mood.",
+   "openai_gpt-5-2025-08-07": "CORRECT",
+   "openai_gpt-5-mini-2025-08-07": "8 The patient likely has social anxiety manifesting as paruresis (shy bladder) — fear of using school restrooms — leading to urine-holding and recurrent urinary tract infections.",
+   "openai_o3-mini-2025-01-31": "8 Patient is diagnosed with recurrent urinary tract infections secondary to functional urinary retention, likely resulting from anxiety about using school toilets due to fear of peer judgment.",
+   "openai_o4-mini-2025-04-16": "8 Patient is diagnosed with paruresis (shy bladder syndrome), a situational specific phobia of using public restrooms."
+  }
+ },
+ {
+  "correct_id": "id120",
+  "error_id": "id119",
+  "flag_sentence": "7",
+  "edited": [
+   "7"
+  ],
+  "correct_text": "Patient is diagnosed with dermatomyositis after labs are drawn and a complete blood count and basic metabolic panel are normal.",
+  "error_text": "Labs are drawn and a complete blood count and basic metabolic panel are normal.",
+  "helm_error_ref": "8 Patient is diagnosed with dermatomyositis.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "7 Patient is diagnosed with dermatomyositis after labs are drawn and a complete blood count and basic metabolic panel are normal.  \n**Error Explanation**: The diagnosis of dermatomyositis requires elevated muscle enzymes (e.g., CK, aldolase) or other supportive tests (e.g., EMG, biopsy). Normal CBC ",
+   "google_gemini-2.5-pro-preview-05-06": "7 Patient is diagnosed with dermatomyositis after labs are drawn and reveal elevated creatine kinase levels.",
+   "openai_gpt-5-2025-08-07": "5 She states that she has had a rash around her eyes as well as on her neck and upper chest.",
+   "openai_gpt-5-mini-2025-08-07": "7 Patient is diagnosed with dermatomyositis after labs are drawn showing elevated muscle enzymes such as creatine kinase and aldolase, despite a normal complete blood count and basic metabolic panel.",
+   "openai_o3-mini-2025-01-31": "7 Patient is diagnosed with dermatomyositis after evaluation reveals elevated muscle enzyme levels and confirmatory electromyography and muscle biopsy findings.",
+   "openai_o4-mini-2025-04-16": "7 Patient is diagnosed with dermatomyositis after labs are drawn and demonstrate elevated muscle enzymes (creatine kinase and aldolase) with a normal complete blood count and basic metabolic panel."
+  }
+ },
+ {
+  "correct_id": "id128",
+  "error_id": "id127",
+  "flag_sentence": "1",
+  "edited": [
+   "4"
+  ],
+  "correct_text": "The mass is anteromedial to the right sternocleidomastoid muscle and has been present for 3 years.",
+  "error_text": "The mass is anteromedial to the right sternocleidomastoid muscle and has been present for 3 years.",
+  "helm_error_ref": "5 Patient is diagnosed with a second branchial cleft cyst.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "1 The mass is anterolateral to the right sternocleidomastoid muscle and has been present for 3 years.\n\nThe error is in the location of the mass. Second branchial cleft cysts are classically located **anterolateral** (not anteromedial) to the sternocleidomastoid muscle. Anteromedial positioning would",
+   "google_gemini-2.5-pro-preview-05-06": "1 The mass is anterior to the right sternocleidomastoid muscle and has been present for 3 years.",
+   "openai_gpt-5-2025-08-07": "1 The mass is anterior to the right sternocleidomastoid muscle and has been present for 3 years.",
+   "openai_gpt-5-mini-2025-08-07": "1 The mass is anterolateral to the right sternocleidomastoid muscle and has been present for 3 years.",
+   "openai_o3-mini-2025-01-31": "1 The mass is located along the anterior border of the right sternocleidomastoid muscle and has been present for 3 years.",
+   "openai_o4-mini-2025-04-16": "1 The mass is located along the anterior border of the right sternocleidomastoid muscle and has been present for 3 years."
+  }
+ },
+ {
+  "correct_id": "id130",
+  "error_id": "id129",
+  "flag_sentence": "9",
+  "edited": [
+   "8"
+  ],
+  "correct_text": "Serous pericarditis is diagnosed.",
+  "error_text": "",
+  "helm_error_ref": "8 Serous pericarditis is suspected after physical examination is significant for a friction rub heard best at the lower left sternal border.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "9 Acute pericarditis is diagnosed. \n\nThe error is in sentence 9. While serous fluid may be present in some pericarditis cases, the standard diagnostic term for this presentation (chest pain, friction rub, SLE association) is \"acute pericarditis.\" \"Serous pericarditis\" is not a standard diagnostic la",
+   "google_gemini-2.5-pro-preview-05-06": "9 Fibrinous pericarditis is diagnosed.",
+   "openai_gpt-5-2025-08-07": "9 Fibrinous pericarditis is diagnosed.",
+   "openai_gpt-5-mini-2025-08-07": "9 Acute pericarditis is diagnosed.",
+   "openai_o3-mini-2025-01-31": "CORRECT",
+   "openai_o4-mini-2025-04-16": "9 Serofibrinous pericarditis is diagnosed."
+  }
+ },
+ {
+  "correct_id": "id136",
+  "error_id": "id135",
+  "flag_sentence": "7",
+  "edited": [
+   "8",
+   "9"
+  ],
+  "correct_text": "Laboratory analysis reveals elevated serum creatinine, hematuria with RBC casts, and elevated urine protein without frank proteinuria.",
+  "error_text": "Laboratory analysis reveals elevated serum creatinine, hematuria with RBC casts, and elevated urine protein without frank proteinuria.",
+  "helm_error_ref": "9 Differential diagnosis includes poststreptococcal glomerulonephritis.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "7 Laboratory analysis reveals elevated serum creatinine, hematuria with RBC casts, and elevated urine protein without frank proteinuria.\n\nThe sentence contains a contradiction: \"elevated urine protein\" inherently indicates proteinuria. The phrase \"without frank proteinuria\" is incorrect in this cont",
+   "google_gemini-2.5-pro-preview-05-06": "7 Laboratory analysis reveals elevated serum creatinine, hematuria with RBC casts, and sub-nephrotic proteinuria.",
+   "openai_gpt-5-2025-08-07": "7 Laboratory analysis reveals elevated serum creatinine, hematuria with RBC casts, and elevated urine protein without nephrotic-range proteinuria.",
+   "openai_gpt-5-mini-2025-08-07": "7 Laboratory analysis reveals elevated serum creatinine, hematuria with RBC casts, and elevated urine protein that does not reach nephrotic-range (i.e., mild proteinuria).",
+   "openai_o3-mini-2025-01-31": "7 Laboratory analysis reveals elevated serum creatinine, hematuria with RBC casts, and sub-nephrotic range proteinuria.",
+   "openai_o4-mini-2025-04-16": "7 Laboratory analysis reveals elevated serum creatinine, hematuria with RBC casts, and mild proteinuria without nephrotic-range proteinuria."
+  }
+ },
+ {
+  "correct_id": "id156",
+  "error_id": "id155",
+  "flag_sentence": "2",
+  "edited": [
+   "2"
+  ],
+  "correct_text": "Patient is diagnosed with dermatitis herpetiformis and she is appropriately prescribed dapsone, which relieves the rash within hours.",
+  "error_text": "She is appropriately prescribed dapsone, which relieves the rash within hours.",
+  "helm_error_ref": "3 Patient is diagnosed with dermatitis herpetiformis.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2 Patient is diagnosed with dermatitis herpetiformis and she is appropriately prescribed dapsone, which relieves the rash within hours. \n\nDermatitis herpetiformis is a cutaneous manifestation of celiac disease. While dapsone is correctly prescribed for symptomatic relief, the standard of care requir",
+   "google_gemini-2.5-pro-preview-05-06": "2 Patient is diagnosed with dermatitis herpetiformis and she is appropriately prescribed dapsone, which relieves the rash within days.",
+   "openai_gpt-5-2025-08-07": "2 Patient is diagnosed with dermatitis herpetiformis and she is appropriately prescribed dapsone, which relieves pruritus within hours and clears the rash within 24-48 hours.",
+   "openai_gpt-5-mini-2025-08-07": "2 Patient is diagnosed with dermatitis herpetiformis and is appropriately prescribed dapsone, which typically relieves the rash within 24–48 hours; she should also be advised to begin a gluten‑free diet and be screened for celiac disease and for G6PD deficiency before starting dapsone.",
+   "openai_o3-mini-2025-01-31": "2 Patient is diagnosed with dermatitis herpetiformis and she is appropriately prescribed dapsone, which relieves her pruritus within hours, although the rash itself may take several weeks to fully resolve.",
+   "openai_o4-mini-2025-04-16": "2 Patient is diagnosed with dermatitis herpetiformis and is appropriately prescribed dapsone, which often relieves the rash and pruritus within days."
+  }
+ },
+ {
+  "correct_id": "id168",
+  "error_id": "id167",
+  "flag_sentence": "3",
+  "edited": [
+   "3"
+  ],
+  "correct_text": "Patient is diagnosed with a pineal tumor when on tandem walking, he tends to fall on both sides.",
+  "error_text": "On tandem walking, he tends to fall on both sides.",
+  "helm_error_ref": "5 Patient is diagnosed with a pineal tumor.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3 The patient is diagnosed with a pineal tumor; on tandem walking, he tends to fall on both sides.\n\nCORRECTED: The original sentence incorrectly links tandem walking findings to the diagnostic basis for a pineal tumor. The diagnosis would be established through imaging (e.g., MRI), while tandem walk",
+   "google_gemini-2.5-pro-preview-05-06": "3 On tandem walking, he tends to fall on both sides.",
+   "openai_gpt-5-2025-08-07": "3 Patient is suspected to have a pineal tumor; on tandem walking, he tends to fall to either side.",
+   "openai_gpt-5-mini-2025-08-07": "3 The patient is suspected to have a pineal tumor; on tandem walking he tends to fall to both sides.",
+   "openai_o3-mini-2025-01-31": "3 The patient is diagnosed with a pineal tumor, and during tandem walking he tends to fall to both sides.",
+   "openai_o4-mini-2025-04-16": "3 On tandem walking, he tends to fall to both sides."
+  }
+ },
+ {
+  "correct_id": "id172",
+  "error_id": "id171",
+  "flag_sentence": "2",
+  "edited": [
+   "5",
+   "6",
+   "7",
+   "8",
+   "9",
+   "10",
+   "11",
+   "12",
+   "13",
+   "14",
+   "15",
+   "16",
+   "17",
+   "18",
+   "19",
+   "20",
+   "21",
+   "22"
+  ],
+  "correct_text": "On physical examination, temperature is 99 F (37.2 C), blood pressure is 120/85",
+  "error_text": "On physical examination, temperature is 99 F (37.2 C), blood pressure is 120/85",
+  "helm_error_ref": "22 3%\n\nPatient is diagnosed with erythroblastosis fetalis.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2 On physical examination, temperature is 99 F (37.2 C), blood pressure is 70/45 mmHg, pulse is 120/min, respirations are 26/min, and pulse oximetry is 92% on room air.\n\n**Explanation:**  \nThe original blood pressure (120/85 mmHg) in a 1-day-old neonate is physiologically implausible. Normal systoli",
+   "google_gemini-2.5-pro-preview-05-06": "2 120/85 is an adult blood pressure and is not a neonatal blood pressure. A normal blood pressure for a 1-day-old term infant is approximately 65/40 mmHg. While hypertension can occur in neonates, a value of 120/85 mmHg is extreme and physiologically inconsistent for this age group.",
+   "openai_gpt-5-2025-08-07": "2 On physical examination, temperature is 99 F (37.2 C), blood pressure is 70/45",
+   "openai_gpt-5-mini-2025-08-07": "2 On physical examination, temperature is 99 F (37.2 C), blood pressure is 60/40 mmHg, pulse is 120/min, respirations are 26/min, and pulse oximetry is 92% on room air.",
+   "openai_o3-mini-2025-01-31": "",
+   "openai_o4-mini-2025-04-16": "2 On physical examination, temperature is 99 °F (37.2 °C), blood pressure is 65/40 mmHg, pulse is 120/min, respirations are 26/min, and pulse oximetry is 92% on room air."
+  }
+ },
+ {
+  "correct_id": "id174",
+  "error_id": "id173",
+  "flag_sentence": "35",
+  "edited": [
+   "34"
+  ],
+  "correct_text": "The patient is diagnosed with ASCA positivity.",
+  "error_text": "",
+  "helm_error_ref": "34 The patient is diagnosed with ASCA positivity and is started on IV fluids and morphine.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "35 The patient is diagnosed with Crohn's disease in the context of ASCA positivity. \n\nExplanation: The error is in sentence 35. ASCA (Anti-Saccharomyces cerevisiae antibodies) positivity is a laboratory finding, not a diagnosis. ASCA antibodies are associated with Crohn's disease, which aligns with ",
+   "google_gemini-2.5-pro-preview-05-06": "35 The patient is diagnosed with Crohn's disease.",
+   "openai_gpt-5-2025-08-07": "35 The patient is diagnosed with Crohn disease.",
+   "openai_gpt-5-mini-2025-08-07": "35 The patient tests positive for ASCA (anti‑Saccharomyces cerevisiae antibodies).",
+   "openai_o3-mini-2025-01-31": "35 The patient is diagnosed with Crohn’s disease based on clinical presentation and supportive ASCA positivity.",
+   "openai_o4-mini-2025-04-16": "35 The patient tests positive for anti‐Saccharomyces cerevisiae antibodies (ASCA)."
+  }
+ },
+ {
+  "correct_id": "id176",
+  "error_id": "id175",
+  "flag_sentence": "12",
+  "edited": [
+   "15"
+  ],
+  "correct_text": "m3",
+  "error_text": "m3",
+  "helm_error_ref": "17 Patient is diagnosed with alpha-thalassemia trait.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "12 Mean corpuscular volume (MCV) 76 fL\n\nThe error is in sentence 12 where the unit for MCV is incorrectly listed as \"m3\" (cubic meters). The correct unit for mean corpuscular volume is femtoliters (fL). The sentences should be structured to show the MCV value with proper units. The corrected lines w",
+   "google_gemini-2.5-pro-preview-05-06": "12 µm³",
+   "openai_gpt-5-2025-08-07": "12 µm^3",
+   "openai_gpt-5-mini-2025-08-07": "12 fL",
+   "openai_o3-mini-2025-01-31": "12 The correct unit for MCV is fL, not m3. The sentence should read: \"12 fL\"",
+   "openai_o4-mini-2025-04-16": "12 fL"
+  }
+ },
+ {
+  "correct_id": "id186",
+  "error_id": "id185",
+  "flag_sentence": "5",
+  "edited": [
+   "4"
+  ],
+  "correct_text": "Although his abnormal behavior continues despite warnings and punishments, he neither argues with his parents nor teachers and does not display verbal or physical aggression.",
+  "error_text": "Although his abnormal behavior continues despite warnings and punishments, he neither argues with his parents nor teachers and does not display verbal or physical aggression.",
+  "helm_error_ref": "4 Patient is diagnosed with conduct disorder when detailed history reveals that apart from such behavior, he is usually not angry or irritable.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "CORRECT",
+   "google_gemini-2.5-pro-preview-05-06": "5 Although his abnormal behavior continues despite warnings and punishments, he neither argues with his parents nor teachers.",
+   "openai_gpt-5-2025-08-07": "5 Although his abnormal behavior continues despite warnings and punishments, he neither argues with his parents nor teachers but does display verbal or physical aggression toward his classmates.",
+   "openai_gpt-5-mini-2025-08-07": "5 Although his abnormal behavior continues despite warnings and punishments, he sometimes argues with his parents or teachers and displays verbal and physical aggression toward peers.",
+   "openai_o3-mini-2025-01-31": "5 Although his abnormal behavior continues despite warnings and punishments, he exhibits aggressive behavior—as evidenced by bullying his younger classmates—even though he does not typically engage in overt arguments with his parents or teachers.",
+   "openai_o4-mini-2025-04-16": "5 Although his abnormal behavior continues despite warnings and punishments, he neither argues with his parents nor teachers and does not display verbal or physical aggression toward them."
+  }
+ },
+ {
+  "correct_id": "id199",
+  "error_id": "id198",
+  "flag_sentence": "32",
+  "edited": [
+   "13",
+   "14",
+   "15",
+   "16",
+   "17",
+   "18",
+   "19",
+   "20",
+   "21",
+   "22",
+   "23",
+   "24",
+   "25",
+   "26",
+   "27",
+   "28",
+   "29",
+   "30",
+   "31"
+  ],
+  "correct_text": "Antiphospholipid syndrome is diagnosed.",
+  "error_text": "",
+  "helm_error_ref": "13 Antiphospholipid syndrome is suspected.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "32 Antiphospholipid syndrome is diagnosed.  \n**Error:** The diagnosis of antiphospholipid syndrome (APS) requires confirmation with specific antiphospholipid antibodies (e.g., lupus anticoagulant, anticardiolipin antibodies, or anti-beta2 glycoprotein I antibodies) on two separate occasions. The cli",
+   "google_gemini-2.5-pro-preview-05-06": "32 Systemic lupus erythematosus and secondary antiphospholipid syndrome are diagnosed.",
+   "openai_gpt-5-2025-08-07": "24 Blood 10-20 rbc/hpf",
+   "openai_gpt-5-mini-2025-08-07": "32 Antiphospholipid syndrome is suspected and should be confirmed with antiphospholipid antibody testing (lupus anticoagulant, anticardiolipin, and anti–β2-glycoprotein I) on two occasions at least 12 weeks apart, and objective evidence of thrombosis (eg, CT pulmonary angiography for suspected PE) s",
+   "openai_o3-mini-2025-01-31": "32 Antiphospholipid syndrome is suspected based on the clinical presentation; however, a definitive diagnosis requires confirmatory testing (e.g., lupus anticoagulant, anticardiolipin, and anti‐β2 glycoprotein I antibodies on two separate occasions).",
+   "openai_o4-mini-2025-04-16": "32 Antiphospholipid syndrome is suspected; confirmatory testing for lupus anticoagulant, anticardiolipin, and anti–β2-glycoprotein I antibodies is required to establish the diagnosis."
+  }
+ },
+ {
+  "correct_id": "id219",
+  "error_id": "id218",
+  "flag_sentence": "8",
+  "edited": [
+   "7"
+  ],
+  "correct_text": "The attending physician suspects that this might be a case of a genetic mutation in the menin 1 gene on chromosome 11 and orders a genetic analysis.",
+  "error_text": "The attending physician suspects that this might be a case of a genetic mutation in the menin 1 gene on chromosome 11 and orders a genetic analysis.",
+  "helm_error_ref": "7 Laboratory findings are unremarkable, except for a potassium level of 3.3 mmol/L and serum calcium of 11 mg/dL. VIPoma is suspected.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "8 The attending physician suspects that this might be a case of a genetic mutation in the MEN1 gene on chromosome 11 and orders a genetic analysis. \n\nERROR: The term \"menin 1 gene\" is incorrect. The correct terminology is \"MEN1 gene\" (Multiple Endocrine Neoplasia type 1 gene), which encodes the meni",
+   "google_gemini-2.5-pro-preview-05-06": "8 The attending physician suspects that this might be a case of a genetic mutation in the MEN1 gene on chromosome 11 and orders a genetic analysis.",
+   "openai_gpt-5-2025-08-07": "8 The attending physician suspects that this might be a case of a genetic mutation in the MEN1 gene on chromosome 11 and orders a genetic analysis.",
+   "openai_gpt-5-mini-2025-08-07": "8 The attending physician suspects a mutation in the MEN1 gene (encoding menin) on chromosome 11 and orders a genetic analysis.",
+   "openai_o3-mini-2025-01-31": "8 The attending physician suspects that this might be a sporadic VIPoma and, therefore, orders further evaluation with hormonal assays and imaging studies rather than genetic analysis for a MEN1 mutation. ",
+   "openai_o4-mini-2025-04-16": "8 The attending physician suspects that this might be a case of a mutation in the MEN1 gene on chromosome 11 and orders a genetic analysis."
+  }
+ },
+ {
+  "correct_id": "id225",
+  "error_id": "id224",
+  "flag_sentence": "17",
+  "edited": [
+   "18"
+  ],
+  "correct_text": "Serum osmolality: 280 mOsm/kg Finger-stick glucose: 120 mg/dL",
+  "error_text": "Serum osmolality: 280 mOsm/kg Finger-stick glucose: 120 mg/dL",
+  "helm_error_ref": "19 Patient is diagnosed with nephrogenic diabetes insipidus.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "17 Serum osmolality: 310 mOsm/kg Finger-stick glucose: 120 mg/dL\n\nThe serum osmolality of 280 mOsm/kg is inconsistent with the sodium level of 148 mEq/L and glucose of 120 mg/dL. Using the formula for calculated serum osmolality (2[Na+] + glucose/18), the expected osmolality would be approximately 2",
+   "google_gemini-2.5-pro-preview-05-06": "17 Serum osmolality: 305 mOsm/kg Finger-stick glucose: 120 mg/dL",
+   "openai_gpt-5-2025-08-07": "17 Serum osmolality: 300 mOsm/kg Finger-stick glucose: 120 mg/dL",
+   "openai_gpt-5-mini-2025-08-07": "17 Serum osmolality: 308 mOsm/kg Finger-stick glucose: 120 mg/dL",
+   "openai_o3-mini-2025-01-31": "17 Serum osmolality: approximately 300 mOsm/kg Finger-stick glucose: 120 mg/dL",
+   "openai_o4-mini-2025-04-16": "17 Serum osmolality: 305 mOsm/kg; Finger‐stick glucose: 120 mg/dL."
+  }
+ },
+ {
+  "correct_id": "id227",
+  "error_id": "id226",
+  "flag_sentence": "9",
+  "edited": [
+   "8"
+  ],
+  "correct_text": "The patient is diagnosed with transpositon of great vessels.",
+  "error_text": "",
+  "helm_error_ref": "8 Patient is diagnosed with transposition of great vessels after chest X-ray is shown in the exhibit.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "9 The patient is diagnosed with transposition of great vessels.\n\nThe error in sentence 9 is the misspelling of \"transpositon\" (correct: \"transposition\"). The corrected sentence reflects the accurate term for the congenital heart defect described.",
+   "google_gemini-2.5-pro-preview-05-06": "9 The patient is diagnosed with transposition of great vessels.",
+   "openai_gpt-5-2025-08-07": "9 The patient is diagnosed with transposition of the great arteries.",
+   "openai_gpt-5-mini-2025-08-07": "9 The patient is diagnosed with transposition of the great vessels.",
+   "openai_o3-mini-2025-01-31": "9 The patient is diagnosed with transposition of the great arteries.",
+   "openai_o4-mini-2025-04-16": "9 The patient is diagnosed with transposition of the great arteries."
+  }
+ },
+ {
+  "correct_id": "id231",
+  "error_id": "id230",
+  "flag_sentence": "6",
+  "edited": [
+   "5",
+   "6"
+  ],
+  "correct_text": "Patient is diagnosed with osteomyelitis.",
+  "error_text": "Laboratory values are only notable for a leukocytosis and an elevated ESR and CRP.",
+  "helm_error_ref": "5 Patient is diagnosed with osteomyelitis.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "6 Patient is diagnosed with epidural abscess.\n\n**Explanation:** Osteomyelitis typically has a subacute or chronic presentation (weeks), whereas the patient's symptoms progressed over only 3 days. In an IV drug user with acute-onset fever, spinal tenderness, and elevated inflammatory markers, a spina",
+   "google_gemini-2.5-pro-preview-05-06": "6 Patient is presumptively diagnosed with osteomyelitis.",
+   "openai_gpt-5-2025-08-07": "6 Patient is diagnosed with a spinal epidural abscess.",
+   "openai_gpt-5-mini-2025-08-07": "6 Patient is suspected to have vertebral osteomyelitis; diagnostic confirmation requires blood cultures and MRI of the spine.",
+   "openai_o3-mini-2025-01-31": "6 Patient is diagnosed with a spinal epidural abscess.\n\nExplanation: In an IV drug user presenting with acute back pain (3 days of symptoms), fever, tachycardia, and focal mid‐thoracic tenderness, the clinical picture is more consistent with a spinal epidural abscess rather than straightforward oste",
+   "openai_o4-mini-2025-04-16": "6 Patient is diagnosed with suspected vertebral osteomyelitis pending imaging confirmation."
+  }
+ },
+ {
+  "correct_id": "id237",
+  "error_id": "id236",
+  "flag_sentence": "6",
+  "edited": [
+   "5",
+   "6"
+  ],
+  "correct_text": "Figure B. Patient is diagnosed with stress cardiomyopathy when an initial set of cardiac troponins is notable for a value of 0.8 ng/mL and a D-dimer is elevated.",
+  "error_text": "B. An initial set of cardiac troponins is notable for a value of 0.8 ng/mL and a D-dimer is elevated.",
+  "helm_error_ref": "7 Patient is diagnosed with stress cardiomyopathy.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "6 Patient is diagnosed with stress cardiomyopathy when an initial set of cardiac troponins is notable for a value of 0.8 ng/mL and echocardiography demonstrates apical ballooning with left ventricular systolic dysfunction. \n\nExplanation: The diagnosis of stress cardiomyopathy (Takotsubo) relies on e",
+   "google_gemini-2.5-pro-preview-05-06": "6 Patient is suspected of having a pulmonary embolism when an initial set of cardiac troponins is notable for a value of 0.8 ng/mL and a D-dimer is elevated.",
+   "openai_gpt-5-2025-08-07": "6 Figure B. The patient is diagnosed with stress cardiomyopathy after echocardiography demonstrates apical ballooning; the initial cardiac troponin is 0.8 ng/mL.",
+   "openai_gpt-5-mini-2025-08-07": "6 Patient is suspected to have stress (Takotsubo) cardiomyopathy; an initial cardiac troponin is 0.8 ng/mL and D-dimer is elevated, but diagnosis requires demonstration of characteristic wall‑motion abnormalities on echocardiography or ventriculography and exclusion of obstructive coronary disease.",
+   "openai_o3-mini-2025-01-31": "6 Patient is diagnosed with stress cardiomyopathy based on her clinical presentation, a mildly elevated cardiac troponin level of 0.8 ng/mL, and confirmatory echocardiographic findings (such as apical ballooning) rather than on an elevated D-dimer, which is typically used to assess for thromboemboli",
+   "openai_o4-mini-2025-04-16": "6 Patient is diagnosed with stress cardiomyopathy based on characteristic apical ballooning on echocardiogram, a troponin level of 0.8 ng/mL, and absence of obstructive coronary disease on angiography."
+  }
+ },
+ {
+  "correct_id": "id258",
+  "error_id": "id257",
+  "flag_sentence": "3",
+  "edited": [
+   "11"
+  ],
+  "correct_text": "He has a history of hypertension and types 2 diabetes mellitus, for which he takes lisinopril and methotrexate.",
+  "error_text": "He has a history of hypertension and types 2 diabetes mellitus, for which he takes lisinopril and methotrexate.",
+  "helm_error_ref": "11 Indomethacin is administered after an arthrocentesis is performed and shows negatively birefringent crystals on polarized light.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3 He has a history of hypertension and type 2 diabetes mellitus, for which he takes lisinopril and metformin.\n\nERROR FOUND: Methotrexate is not a standard treatment for type 2 diabetes mellitus. Metformin is a first-line agent for diabetes management, making this substitution appropriate. The origin",
+   "google_gemini-2.5-pro-preview-05-06": "3 He has a history of hypertension and types 2 diabetes mellitus, for which he takes lisinopril and metformin.",
+   "openai_gpt-5-2025-08-07": "3 He has a history of hypertension and type 2 diabetes mellitus, for which he takes lisinopril and metformin.",
+   "openai_gpt-5-mini-2025-08-07": "3 He has a history of hypertension and type 2 diabetes mellitus, for which he takes lisinopril and metformin.",
+   "openai_o3-mini-2025-01-31": "3 He has a history of hypertension and type 2 diabetes mellitus, for which he takes lisinopril and metformin.",
+   "openai_o4-mini-2025-04-16": "3 He has a history of hypertension and type 2 diabetes mellitus, for which he takes lisinopril and metformin."
+  }
+ },
+ {
+  "correct_id": "id264",
+  "error_id": "id263",
+  "flag_sentence": "10",
+  "edited": [
+   "8",
+   "9",
+   "10"
+  ],
+  "correct_text": "Strength is 2+ bilaterally in the upper and lower extremities.",
+  "error_text": "Head CT is performed.",
+  "helm_error_ref": "10 IV labetalol is administered.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "10 Strength is 2/5 bilaterally in the upper and lower extremities.",
+   "google_gemini-2.5-pro-preview-05-06": "10 Strength is 5/5 bilaterally in the upper and lower extremities.",
+   "openai_gpt-5-2025-08-07": "10 Strength is 5/5 bilaterally in the upper and lower extremities.",
+   "openai_gpt-5-mini-2025-08-07": "10 Strength is 2/5 bilaterally in the upper and lower extremities.",
+   "openai_o3-mini-2025-01-31": "10 Deep tendon reflexes are 2+ bilaterally in the upper and lower extremities.",
+   "openai_o4-mini-2025-04-16": "10 Deep tendon reflexes are 2+ bilaterally in the upper and lower extremities."
+  }
+ },
+ {
+  "correct_id": "id269",
+  "error_id": "id268",
+  "flag_sentence": "7",
+  "edited": [
+   "6"
+  ],
+  "correct_text": "Platelet aggregation tests are ordered.",
+  "error_text": "",
+  "helm_error_ref": "6 Platelet aggregation tests are ordered after a complete blood count shows mild anemia with a normal platelet count.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "7 Coagulation studies including von Willebrand factor testing are ordered.\n\nThe patient's symptoms (recurrent mucocutaneous bleeding, menorrhagia) with normal platelet count suggest a possible coagulation disorder such as von Willebrand disease. Platelet aggregation tests primarily assess platelet f",
+   "google_gemini-2.5-pro-preview-05-06": "3 She also typically has relatively heavy menstrual periods, soaking through more than ten tampons per day.",
+   "openai_gpt-5-2025-08-07": "7 A von Willebrand factor panel (vWF antigen, vWF activity [ristocetin cofactor], and factor VIII levels) is ordered.",
+   "openai_gpt-5-mini-2025-08-07": "7 von Willebrand factor studies (vWF antigen, vWF activity/ristocetin cofactor assay, and factor VIII level) are ordered.",
+   "openai_o3-mini-2025-01-31": "7 Von Willebrand factor studies, including vWF antigen and ristocetin cofactor activity assays, are ordered.",
+   "openai_o4-mini-2025-04-16": "7 Von Willebrand factor studies (vWF antigen, vWF activity/ristocetin cofactor assay, and factor VIII level) are ordered."
+  }
+ },
+ {
+  "correct_id": "id271",
+  "error_id": "id270",
+  "flag_sentence": "7",
+  "edited": [
+   "7"
+  ],
+  "correct_text": "Ampicillin is added after a lumbar puncture was performed and cerebrospinal fluid (CSF) is sent to analysis while ceftriaxone and vancomycin are started.",
+  "error_text": "A lumbar puncture was performed and cerebrospinal fluid (CSF) is sent to analysis while ceftriaxone and vancomycin are started.",
+  "helm_error_ref": "8 Ampicillin is given.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "7 Ampicillin is added after a lumbar puncture was performed and cerebrospinal fluid (CSF) is sent for analysis while ceftriaxone and vancomycin are started.\n\nThe error is in sentence 7. In a 62-year-old patient with potential immunocompromise (history of cancer) and suspected bacterial meningitis, e",
+   "google_gemini-2.5-pro-preview-05-06": "7 Ceftriaxone, vancomycin, and ampicillin are started empirically before a lumbar puncture is performed and cerebrospinal fluid (CSF) is sent for analysis.",
+   "openai_gpt-5-2025-08-07": "7 Ceftriaxone, vancomycin, and ampicillin are started empirically, and a lumbar puncture is performed with cerebrospinal fluid (CSF) sent for analysis.",
+   "openai_gpt-5-mini-2025-08-07": "7 Ampicillin is added empirically at the time ceftriaxone and vancomycin are started to provide Listeria coverage in adults over 50; antibiotics should be administered promptly after blood cultures and before or immediately after lumbar puncture as indicated.",
+   "openai_o3-mini-2025-01-31": "CORRECT",
+   "openai_o4-mini-2025-04-16": "7 Ceftriaxone, vancomycin, and ampicillin are started empirically immediately after blood cultures are obtained and before or immediately after lumbar puncture for CSF analysis."
+  }
+ },
+ {
+  "correct_id": "id290",
+  "error_id": "id289",
+  "flag_sentence": "18",
+  "edited": [
+   "7",
+   "8",
+   "9",
+   "10",
+   "11",
+   "12",
+   "13",
+   "14",
+   "15",
+   "16",
+   "17"
+  ],
+  "correct_text": "Liver transplantation is scheduled.",
+  "error_text": "",
+  "helm_error_ref": "7 Liver transplantation is scheduled.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "18 Phototherapy and exchange transfusion are initiated. \n\nThe error is in sentence 18. Liver transplantation is not indicated for unconjugated hyperbilirubinemia (which is the case here, with unconjugated bilirubin 33 mg/dL and conjugated 0.9 mg/dL). The appropriate treatment for severe unconjugated",
+   "google_gemini-2.5-pro-preview-05-06": "18 An exchange transfusion is performed immediately.",
+   "openai_gpt-5-2025-08-07": "2 Further perinatal history reveals that he was born by cesarean section at 36 weeks of gestation, and his birth weight was 2.8 kg (6.2 lb).",
+   "openai_gpt-5-mini-2025-08-07": "18 Exchange transfusion is scheduled.",
+   "openai_o3-mini-2025-01-31": "18 Intensive phototherapy is initiated with consideration for an exchange transfusion if the unconjugated bilirubin levels do not decline, since liver transplantation is not indicated for neonatal unconjugated hyperbilirubinemia.",
+   "openai_o4-mini-2025-04-16": "18 An exchange transfusion is scheduled."
+  }
+ },
+ {
+  "correct_id": "id294",
+  "error_id": "id293",
+  "flag_sentence": "10",
+  "edited": [
+   "10"
+  ],
+  "correct_text": "Inspection of the patient's left knee reveals an erythamatous knee that is tender and warm to the touch.",
+  "error_text": "Antibiotics are given after inspection of the patient's left knee reveals an erythamatous knee that is tender and warm to the touch.",
+  "helm_error_ref": "10 Arthrocentesis is performed after inspection of the patient's left knee reveals an erythamatous knee that is tender and warm to the touch.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "10 Inspection of the patient's left knee reveals an erythematous knee that is tender and warm to the touch.",
+   "google_gemini-2.5-pro-preview-05-06": "10 Inspection of the patient's left knee reveals an erythematous knee that is tender and warm to the touch.",
+   "openai_gpt-5-2025-08-07": "10 Inspection of the patient's left knee reveals an erythematous knee that is tender and warm to the touch.",
+   "openai_gpt-5-mini-2025-08-07": "10 Inspection of the patient's left knee reveals an erythematous knee that is tender and warm to the touch.",
+   "openai_o3-mini-2025-01-31": "10 Inspection of the patient's left knee reveals an erythematous knee that is tender and warm to the touch.",
+   "openai_o4-mini-2025-04-16": "10 Inspection of the patient's left knee reveals an erythematous knee that is tender and warm to the touch."
+  }
+ },
+ {
+  "correct_id": "id315",
+  "error_id": "id314",
+  "flag_sentence": "26",
+  "edited": [
+   "25"
+  ],
+  "correct_text": "Slowed conduction through the AV node via increased CN IX firing is done.",
+  "error_text": "",
+  "helm_error_ref": "25 Slowed conduction through the AV node via increased CN IX firing is done after cardiac exam is notable for tachycardia.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "26 Slowed conduction through the AV node via increased CN X firing is noted.\n\nThe error in sentence 26 involves two issues: (1) CN IX (glossopharyngeal nerve) does not innervate the AV node - this is controlled by the vagus nerve (CN X). (2) \"Is done\" is grammatically incorrect and unclear. The corr",
+   "google_gemini-2.5-pro-preview-05-06": "26 Slowed conduction through the AV node via increased CN X firing is done.",
+   "openai_gpt-5-2025-08-07": "26 Slowed conduction through the AV node is achieved via increased CN X (vagus nerve) firing.",
+   "openai_gpt-5-mini-2025-08-07": "26 Slowed conduction through the AV node is mediated by increased vagal (cranial nerve X) firing.",
+   "openai_o3-mini-2025-01-31": "26 Slowed conduction through the AV node via increased CN X (vagus nerve) firing is done.",
+   "openai_o4-mini-2025-04-16": "26 Increased firing of the vagus nerve (cranial nerve X) slows conduction through the AV node."
+  }
+ },
+ {
+  "correct_id": "id321",
+  "error_id": "id320",
+  "flag_sentence": "0",
+  "edited": [
+   "6",
+   "7",
+   "8",
+   "9"
+  ],
+  "correct_text": "A 6-week-old child is brought to his pediatrician for a physical exam and hepatitis B booster.",
+  "error_text": "A 6-week-old child is brought to his pediatrician for a physical exam and hepatitis B booster.",
+  "helm_error_ref": "9 Child protective services are contacted.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "0 A 6-week-old child is brought to his pediatrician for a physical exam and hepatitis B vaccine.  \nERROR FOUND: The term \"hepatitis B booster\" is incorrect in this context. At 6 weeks of age, the infant should receive the second dose of the hepatitis B vaccine series (not a booster, which is given l",
+   "google_gemini-2.5-pro-preview-05-06": "2 He was previously up to date on all vaccines and is meeting all developmental milestones.",
+   "openai_gpt-5-2025-08-07": "0 A 6-week-old child is brought to his pediatrician for a physical exam and the second dose of the hepatitis B vaccine.",
+   "openai_gpt-5-mini-2025-08-07": "0 A 6-week-old child is brought to his pediatrician for a physical exam and second dose of hepatitis B vaccine.",
+   "openai_o3-mini-2025-01-31": "0 A 6-week-old child is brought to his pediatrician for a physical exam and his second dose of the hepatitis B vaccine.",
+   "openai_o4-mini-2025-04-16": "0 A 6-week-old child is brought to his pediatrician for a physical exam and for administration of the second dose of hepatitis B vaccine."
+  }
+ },
+ {
+  "correct_id": "id323",
+  "error_id": "id322",
+  "flag_sentence": "9",
+  "edited": [
+   "9"
+  ],
+  "correct_text": "Ultrasonography of the hip revealed a 50  angle between the lines along the bone acetabulum and the ilium.",
+  "error_text": "The patient's hips are immobilized with a spica cast after ultrasonography of the hip revealed a 50  angle between the lines along the bone acetabulum and the ilium.",
+  "helm_error_ref": "9 The patient is treated using a harness after ultrasonography of the hip revealed a 50  angle between the lines along the bone acetabulum and the ilium.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "9 Ultrasonography of the hip revealed a 50° angle between the lines along the acetabular roof and the ilium. \n\nExplanation: The alpha angle in hip ultrasonography is measured between the baseline (ilium) and the acetabular roof line. The original phrase \"bone acetabulum\" is anatomically imprecise, a",
+   "google_gemini-2.5-pro-preview-05-06": "9 Ultrasonography of the hip revealed a >60° angle between the lines along the bone acetabulum and the ilium.",
+   "openai_gpt-5-2025-08-07": "9 Ultrasonography of the hip revealed an alpha angle of 50 degrees between the lines along the bony acetabular roof and the ilium.",
+   "openai_gpt-5-mini-2025-08-07": "9 Ultrasonography of the hip revealed an alpha angle of 50° measured between the ilium and the bony acetabular roof.",
+   "openai_o3-mini-2025-01-31": "9 Ultrasonography of the right hip revealed an alpha angle of 50° between the bony acetabular roof and the vertical ilium.",
+   "openai_o4-mini-2025-04-16": "CORRECT"
+  }
+ },
+ {
+  "correct_id": "id325",
+  "error_id": "id324",
+  "flag_sentence": "4",
+  "edited": [
+   "13"
+  ],
+  "correct_text": "Her weight is 75 kg (165 lb) and her height is 166 cm (5 ft 40 in).",
+  "error_text": "Her weight is 75 kg (165 lb) and her height is 166 cm (5 ft 40 in).",
+  "helm_error_ref": "14 Bladder catheterization is performed.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3 She is prescribed amlodipine, valsartan, atorvastatin, metformin, and amitriptyline.  \nAmitriptyline (a tricyclic antidepressant) is contraindicated in patients with urinary retention due to its anticholinergic effects, which can worsen bladder emptying. The error lies in prescribing amitriptyline",
+   "google_gemini-2.5-pro-preview-05-06": "4 Her weight is 75 kg (165 lb) and her height is 166 cm (5 ft 5 in).",
+   "openai_gpt-5-2025-08-07": "4 Her weight is 75 kg (165 lb) and her height is 166 cm (5 ft 5 in).",
+   "openai_gpt-5-mini-2025-08-07": "4 Her weight is 75 kg (165 lb) and her height is 166 cm (5 ft 5 in).",
+   "openai_o3-mini-2025-01-31": "4 Her weight is 75 kg (165 lb) and her height is 166 cm (5 ft 5 in).",
+   "openai_o4-mini-2025-04-16": "4 Her weight is 75 kg (165 lb) and her height is 166 cm (5 ft 5 in)."
+  }
+ },
+ {
+  "correct_id": "id345",
+  "error_id": "id344",
+  "flag_sentence": "8",
+  "edited": [
+   "9",
+   "10"
+  ],
+  "correct_text": "The patient is started on radiation induction therapy and scheduled for a modified radical mastectomy.",
+  "error_text": "The patient is started on radiation induction therapy and scheduled for a modified radical mastectomy.",
+  "helm_error_ref": "10 Post-masectomy, trastuzumab will be started.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "6 A mammogram is performed, which identifies an irregular mass with a spiculated border.",
+   "google_gemini-2.5-pro-preview-05-06": "8 The patient is scheduled for a modified radical mastectomy.",
+   "openai_gpt-5-2025-08-07": "8 The patient is started on neoadjuvant chemotherapy and scheduled for a modified radical mastectomy.",
+   "openai_gpt-5-mini-2025-08-07": "8 The patient is started on neoadjuvant (induction) chemotherapy and scheduled for a modified radical mastectomy.",
+   "openai_o3-mini-2025-01-31": "8 The patient is started on neoadjuvant chemotherapy and scheduled for a modified radical mastectomy.",
+   "openai_o4-mini-2025-04-16": "8 The patient is started on neoadjuvant chemotherapy and scheduled for a modified radical mastectomy."
+  }
+ },
+ {
+  "correct_id": "id353",
+  "error_id": "id352",
+  "flag_sentence": "6",
+  "edited": [
+   "6"
+  ],
+  "correct_text": "Hydrocortisone is administered after a T1/T2 MRI of the head shows evidence of a pituitary adenoma, and she undergoes surgical resection of the tumor.",
+  "error_text": "A T1/T2 MRI of the head shows evidence of a pituitary adenoma, and she undergoes surgical resection of the tumor.",
+  "helm_error_ref": "7 Hydrocortisone is administered to ensure normal functioning of her hypothalamic-pituitary-adrenal (HPA)",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "6 After a T1/T2 MRI of the head shows evidence of a pituitary adenoma, she undergoes surgical resection of the tumor, and hydrocortisone is administered postoperatively. \n\nThe error is in sentence 6. Administering hydrocortisone (a glucocorticoid) *before* surgical resection of a pituitary adenoma (",
+   "google_gemini-2.5-pro-preview-05-06": "6 Metyrapone is administered after a T1/T2 MRI of the head shows evidence of a pituitary adenoma, and she undergoes surgical resection of the tumor.",
+   "openai_gpt-5-2025-08-07": "6 She undergoes transsphenoidal resection of the pituitary adenoma; hydrocortisone is not administered preoperatively.",
+   "openai_gpt-5-mini-2025-08-07": "6 Hydrocortisone is administered after surgical resection of the pituitary adenoma to provide glucocorticoid replacement for potential postoperative adrenal insufficiency.",
+   "openai_o3-mini-2025-01-31": "6 After surgical resection of the pituitary adenoma, hydrocortisone replacement therapy is initiated postoperatively to prevent adrenal insufficiency.",
+   "openai_o4-mini-2025-04-16": "6 After surgical resection of the pituitary adenoma, hydrocortisone is administered to prevent adrenal insufficiency."
+  }
+ },
+ {
+  "correct_id": "id368",
+  "error_id": "id367",
+  "flag_sentence": "11",
+  "edited": [
+   "18"
+  ],
+  "correct_text": "The cardiac exam is significant for a narrow pulse pressure.",
+  "error_text": "The cardiac exam is significant for a narrow pulse pressure.",
+  "helm_error_ref": "18 The patient is prepped for an emergency laparotomy after aggressive intravenous fluid resuscitation is administered but fails to improve upon the patient's hemodynamics.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "11 The cardiac exam is significant for a narrow pulse pressure.  \n**Explanation:**  \nThe patient's blood pressure is 90/50 mmHg, resulting in a pulse pressure of 40 mmHg (90 - 50 = 40). A narrow pulse pressure is typically defined as ≤ 25-30 mmHg. Since 40 mmHg is within the normal range, the mentio",
+   "google_gemini-2.5-pro-preview-05-06": "11 The cardiac exam is significant for tachycardia.",
+   "openai_gpt-5-2025-08-07": "11 The cardiac exam is significant for a normal pulse pressure.",
+   "openai_gpt-5-mini-2025-08-07": "11 The cardiac exam is significant for a wide pulse pressure.",
+   "openai_o3-mini-2025-01-31": "",
+   "openai_o4-mini-2025-04-16": "11 The cardiac exam is significant for a weak, thready pulse."
+  }
+ },
+ {
+  "correct_id": "id370",
+  "error_id": "id369",
+  "flag_sentence": "15",
+  "edited": [
+   "13"
+  ],
+  "correct_text": "There is asymmetry of the labial skin folds.",
+  "error_text": "There is asymmetry of the labial skin folds.",
+  "helm_error_ref": "17 An ultrasound of the hips is performed.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "15 There is asymmetry of the gluteal skin folds. \n\nThe error is in sentence 15. \"Labial\" refers to the labia (female genitalia), which are not typically assessed for asymmetry in the context of developmental hip dysplasia. The correct term is \"gluteal\" (buttock) or \"thigh\" skin fold asymmetry, which",
+   "google_gemini-2.5-pro-preview-05-06": "15 There is asymmetry of the gluteal skin folds.",
+   "openai_gpt-5-2025-08-07": "15 There is asymmetry of the gluteal and thigh skin folds.",
+   "openai_gpt-5-mini-2025-08-07": "15 There is asymmetry of the thigh and gluteal skin folds.",
+   "openai_o3-mini-2025-01-31": "CORRECT",
+   "openai_o4-mini-2025-04-16": "15 There is asymmetry of the thigh skin folds."
+  }
+ },
+ {
+  "correct_id": "id377",
+  "error_id": "id376",
+  "flag_sentence": "16",
+  "edited": [
+   "8",
+   "9"
+  ],
+  "correct_text": "m3 74  m3",
+  "error_text": "m3 74  m3",
+  "helm_error_ref": "8 Helicobacter pylori fecal antigen test is ordered after laboratory findings are significant for the following:\n  3 month ago",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "16 Mean corpuscular volume (MCV) 72 fL 74 fL\n\nThe error is in sentence 16. The unit for mean corpuscular volume (MCV) should be femtoliters (fL), not cubic meters (m³). Cubic meters is an implausibly large unit for cellular volume measurements, and using \"m³\" here represents a critical medical unit ",
+   "google_gemini-2.5-pro-preview-05-06": "16  fL 74 fL",
+   "openai_gpt-5-2025-08-07": "16 fL 74 fL",
+   "openai_gpt-5-mini-2025-08-07": "16 74 fL",
+   "openai_o3-mini-2025-01-31": "16 m3 74 m3\nCorrected: 16 74 fL\n\nExplanation: The mean corpuscular volume (MCV) should be reported in femtoliters (fL) rather than in cubic meters (m3).",
+   "openai_o4-mini-2025-04-16": "16 72 fL 74 fL"
+  }
+ },
+ {
+  "correct_id": "id380",
+  "error_id": "id379",
+  "flag_sentence": "5",
+  "edited": [
+   "4",
+   "5"
+  ],
+  "correct_text": "The physician asks closed-ended questions and uses a chaperone for future visits.",
+  "error_text": "The physician also manages his hypertension.",
+  "helm_error_ref": "4 The physician asks closed-ended questions and uses a chaperone for future visits.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "5 The physician asks open-ended questions and uses a chaperone for future visits. \n\nThe error in sentence 5 lies in the use of \"closed-ended questions.\" When addressing a patient's inappropriate attraction, open-ended questions are more appropriate to facilitate dialogue, clarify boundaries, and add",
+   "google_gemini-2.5-pro-preview-05-06": "5 The physician reinforces professional boundaries and uses a chaperone for future visits.",
+   "openai_gpt-5-2025-08-07": "5 The physician asks open-ended questions and uses a chaperone for future visits.",
+   "openai_gpt-5-mini-2025-08-07": "5 The physician asks open-ended questions and uses a chaperone for future visits.",
+   "openai_o3-mini-2025-01-31": "5 The physician asks open‐ended questions to further explore the patient's feelings and arranges for a chaperone for future visits.",
+   "openai_o4-mini-2025-04-16": "5 The physician asks open-ended questions and uses a chaperone for future visits."
+  }
+ },
+ {
+  "correct_id": "id385",
+  "error_id": "id384",
+  "flag_sentence": "9",
+  "edited": [
+   "12",
+   "13",
+   "14",
+   "15"
+  ],
+  "correct_text": "She is currently taking metformin, aspirin, artovastatin, metoprolol, and lisinopril.",
+  "error_text": "She is currently taking metformin, aspirin, artovastatin, metoprolol, and lisinopril.",
+  "helm_error_ref": "15 Gabapentin is prescribed.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "9 She is currently taking metformin, aspirin, atorvastatin, metoprolol, and lisinopril.",
+   "google_gemini-2.5-pro-preview-05-06": "9 She is currently taking metformin, aspirin, atorvastatin, metoprolol, and lisinopril.",
+   "openai_gpt-5-2025-08-07": "9 She is currently taking metformin, aspirin, atorvastatin, metoprolol, and lisinopril.",
+   "openai_gpt-5-mini-2025-08-07": "9 She is currently taking metformin, aspirin, atorvastatin, metoprolol, and lisinopril.",
+   "openai_o3-mini-2025-01-31": "9 She is currently taking metformin, aspirin, atorvastatin, metoprolol, and lisinopril.",
+   "openai_o4-mini-2025-04-16": "9 She is currently taking metformin, aspirin, atorvastatin, metoprolol, and lisinopril."
+  }
+ },
+ {
+  "correct_id": "id389",
+  "error_id": "id388",
+  "flag_sentence": "3",
+  "edited": [
+   "7"
+  ],
+  "correct_text": "Her blood pressure is 140/90 mm",
+  "error_text": "Her blood pressure is 140/90 mm",
+  "helm_error_ref": "8 Urine culture is done.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3 Her blood pressure is 140/90 mm Hg. \n\nThe original text split the blood pressure unit \"mm Hg\" across two lines (sentences 3 and 4), which is an error in medical documentation. The complete unit should be written together as \"mm Hg\" in a single sentence. The corrected version combines the unit prop",
+   "google_gemini-2.5-pro-preview-05-06": "3 Her blood pressure is 140/90 mm Hg, heart rate is 86/min, respiratory rate is 22/min, and temperature is 37.7 C (99.9 F).",
+   "openai_gpt-5-2025-08-07": "3 Her blood pressure is 140/90 mm Hg.",
+   "openai_gpt-5-mini-2025-08-07": "3 Her blood pressure is 140/90 mm Hg.",
+   "openai_o3-mini-2025-01-31": "CORRECT",
+   "openai_o4-mini-2025-04-16": "3 Her blood pressure is 140/90 mm Hg."
+  }
+ },
+ {
+  "correct_id": "id396",
+  "error_id": "id395",
+  "flag_sentence": "10",
+  "edited": [
+   "10"
+  ],
+  "correct_text": "Laboratory studies after hemodialysis show a Hb of 10.5 mg/dL, a blood sugar of 189 mg/dL, and a hemoglobin A1C of 7.1%.",
+  "error_text": "Ultrafiltration is increased after laboratory studies after hemodialysis show a Hb of 10.5 mg/dL, a blood sugar of 189 mg/dL, and a hemoglobin A1C of 7.1%.",
+  "helm_error_ref": "10 Cooling the dialysate began after laboratory studies after hemodialysis show a Hb of 10.5 mg/dL, a blood sugar of 189 mg/dL, and a hemoglobin A1C of 7.1%.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "10 Laboratory studies after hemodialysis show a Hb of 10.5 g/dL, a blood sugar of 189 mg/dL, and a hemoglobin A1C of 7.1%.",
+   "google_gemini-2.5-pro-preview-05-06": "10 Laboratory studies after hemodialysis show a Hb of 10.5 g/dL, a blood sugar of 189 mg/dL, and a hemoglobin A1C of 7.1%.",
+   "openai_gpt-5-2025-08-07": "10 Laboratory studies after hemodialysis show a Hb of 10.5 g/dL, a blood sugar of 189 mg/dL, and a hemoglobin A1C of 7.1%.",
+   "openai_gpt-5-mini-2025-08-07": "10 Laboratory studies after hemodialysis show a Hb of 10.5 g/dL, a blood sugar of 189 mg/dL, and a hemoglobin A1C of 7.1%.",
+   "openai_o3-mini-2025-01-31": "10 Laboratory studies after hemodialysis show a Hb of 10.5 g/dL, a blood sugar of 189 mg/dL, and a hemoglobin A1C of 7.1%.",
+   "openai_o4-mini-2025-04-16": "10 Laboratory studies after hemodialysis show a hemoglobin of 10.5 g/dL, a blood sugar of 189 mg/dL, and a hemoglobin A1C of 7.1%."
+  }
+ },
+ {
+  "correct_id": "id400",
+  "error_id": "id399",
+  "flag_sentence": "1",
+  "edited": [
+   "2",
+   "3"
+  ],
+  "correct_text": "The baby is found to have an atrial septal defect that is causing a left to right shunt, resulting in cyanosis and pulmonary hypertension.",
+  "error_text": "The baby is found to have an atrial septal defect that is causing a left to right shunt, resulting in cyanosis and pulmonary hypertension.",
+  "helm_error_ref": "3 The patient's mother was allowed to take the child for a second opinion when the mother wanted to go to another hospital for a second opinion.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "1 The baby is found to have an atrial septal defect that is causing a right to left shunt, resulting in cyanosis and pulmonary hypertension.\n\n**Explanation:**  \nAtrial septal defects (ASDs) typically cause **left-to-right shunts**, which do not produce cyanosis (as oxygenated blood recirculates thro",
+   "google_gemini-2.5-pro-preview-05-06": "1 The baby is found to have an atrial septal defect that is causing a right to left shunt, resulting in cyanosis and pulmonary hypertension.",
+   "openai_gpt-5-2025-08-07": "1 The baby is found to have tetralogy of Fallot causing a right-to-left shunt, resulting in cyanosis.",
+   "openai_gpt-5-mini-2025-08-07": "1 The baby is found to have an atrial septal defect causing a left-to-right shunt, which typically does not cause cyanosis initially but can increase pulmonary blood flow and, if severe and untreated, may eventually lead to pulmonary hypertension; cyanosis would occur only if the shunt reverses to r",
+   "openai_o3-mini-2025-01-31": "1 The baby is found to have an atrial septal defect that is causing a left to right shunt, leading to increased pulmonary blood flow and a risk for pulmonary hypertension, although isolated ASDs in infancy do not typically produce cyanosis unless complicated by Eisenmenger syndrome.",
+   "openai_o4-mini-2025-04-16": "1 The baby is found to have an atrial septal defect causing a left-to-right shunt, resulting in increased pulmonary blood flow and pulmonary hypertension."
+  }
+ },
+ {
+  "correct_id": "id402",
+  "error_id": "id401",
+  "flag_sentence": "3",
+  "edited": [
+   "3"
+  ],
+  "correct_text": "The patient's hand is splinted after on physical examination, pain and paresthesias are elicited when the physician percusses the patient's wrist as well as when the patient is asked to flex both of her palms at the wrist.",
+  "error_text": "On physical examination, pain and paresthesias are elicited when the physician percusses the patient's wrist as well as when the patient is asked to flex both of her palms at the wrist.",
+  "helm_error_ref": "4 The patient's hand is splinted.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3 On physical examination, the patient's hand is splinted, and pain and paresthesias are elicited when the physician percusses the patient's wrist as well as when the patient is asked to flex both of her wrists. \n\nExplanation: The original sentence (ID 3) contains two errors. First, \"after on physic",
+   "google_gemini-2.5-pro-preview-05-06": "3 On physical examination, pain and paresthesias are elicited when the physician percusses the patient's wrist, as well as when the patient is asked to flex both of her wrists.",
+   "openai_gpt-5-2025-08-07": "3 The patient's hand is splinted; on physical examination, pain and paresthesias are elicited when the physician percusses the patient's wrist and when the patient flexes both wrists.",
+   "openai_gpt-5-mini-2025-08-07": "3 On physical examination, the patient's hand is splinted; pain and paresthesias are elicited when the physician percusses the patient's wrist (positive Tinel sign) and when the patient flexes both wrists by pressing the dorsal aspects of her hands together (positive Phalen test).",
+   "openai_o3-mini-2025-01-31": "3 On physical examination, pain and paresthesias were elicited when the physician percussed the patient's wrist (Tinel’s sign) and when the patient performed wrist flexion (Phalen’s maneuver); her hand was then splinted.",
+   "openai_o4-mini-2025-04-16": "3 On physical examination, pain and paresthesias are elicited when the physician percusses over the patient’s median nerve at the wrist (Tinel’s sign) and when the patient flexes both wrists (Phalen’s test)."
+  }
+ },
+ {
+  "correct_id": "id421",
+  "error_id": "id420",
+  "flag_sentence": "11",
+  "edited": [
+   "10"
+  ],
+  "correct_text": "Patient is given warfarin.",
+  "error_text": "",
+  "helm_error_ref": "10 The patient is started on warfarin and 100% oxygen.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "11 The patient is given heparin. \n\nThe error is in sentence 11. Warfarin is not appropriate as initial anticoagulation in an acute setting (e.g., suspected PE or acute coronary syndrome) because it has a delayed onset. A parenteral anticoagulant (e.g., heparin, enoxaparin) should be used instead.",
+   "google_gemini-2.5-pro-preview-05-06": "11 Patient is given heparin.",
+   "openai_gpt-5-2025-08-07": "11 Patient is given intravenous heparin.",
+   "openai_gpt-5-mini-2025-08-07": "11 Patient is given intravenous heparin for anticoagulation.",
+   "openai_o3-mini-2025-01-31": "11 Patient is initiated on intravenous heparin for acute anticoagulation rather than warfarin, which would be inappropriate for immediate management in this setting.",
+   "openai_o4-mini-2025-04-16": "11 The patient is started on low molecular weight heparin for anticoagulation."
+  }
+ },
+ {
+  "correct_id": "id423",
+  "error_id": "id422",
+  "flag_sentence": "9",
+  "edited": [
+   "9"
+  ],
+  "correct_text": "Biopsy is recommended after, upon physical examination, there is a skin lesion on the patent's right cheek, as shown in Figure A.",
+  "error_text": "Upon physical examination, there is a skin lesion on the patent's right cheek, as shown in Figure A. Topical 5-fluorouracil is prescribed.",
+  "helm_error_ref": "9 Upon physical examination, there is a skin lesion on the patent's right cheek, as shown in Figure A. Biopsy is recommended.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "4 She denies pain, bleeding, or pruritus.",
+   "google_gemini-2.5-pro-preview-05-06": "9 Biopsy is recommended after, upon physical examination, there is a skin lesion on the patient's right cheek, as shown in Figure A.",
+   "openai_gpt-5-2025-08-07": "9 Biopsy is recommended after physical examination reveals a skin lesion on the patient's right cheek, as shown in Figure A.",
+   "openai_gpt-5-mini-2025-08-07": "9 Biopsy is recommended because physical examination revealed a skin lesion on the patient's right cheek, as shown in Figure A.",
+   "openai_o3-mini-2025-01-31": "9 Biopsy is recommended after physical examination reveals a skin lesion on the patient's right cheek, as shown in Figure A.",
+   "openai_o4-mini-2025-04-16": "9 On physical examination, a skin lesion is present on the patient’s right cheek (Figure A), and a biopsy is recommended."
+  }
+ },
+ {
+  "correct_id": "id431",
+  "error_id": "id430",
+  "flag_sentence": "7",
+  "edited": [
+   "7"
+  ],
+  "correct_text": "Colposcpy is ordered after the high-risk HPV DNA test is positive.",
+  "error_text": "The high-risk HPV DNA test is positive.",
+  "helm_error_ref": "8 Colposcopy is ordered.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "7 Colposcopy is ordered after the high-risk HPV DNA test is positive.",
+   "google_gemini-2.5-pro-preview-05-06": "7 Colposcopy is ordered after the high-risk HPV DNA test is positive.",
+   "openai_gpt-5-2025-08-07": "7 Colposcopy is ordered after the high-risk HPV DNA test is positive.",
+   "openai_gpt-5-mini-2025-08-07": "7 Colposcopy is ordered after the high-risk HPV DNA test is positive.",
+   "openai_o3-mini-2025-01-31": "7 Colposcopy is ordered after the high-risk HPV DNA test is positive.",
+   "openai_o4-mini-2025-04-16": "7 Colposcopy is ordered after the high-risk human papillomavirus DNA test is positive."
+  }
+ },
+ {
+  "correct_id": "id437",
+  "error_id": "id436",
+  "flag_sentence": "8",
+  "edited": [
+   "8"
+  ],
+  "correct_text": "Bronchoalveolar lavage is performed and methenamine silver staining confirms a parasitic infestation.",
+  "error_text": "Oral trimethoprim-sulfamethoxazole is started after a bronchoalveolar lavage is performed and methenamine silver staining confirms a parasitic infestation.",
+  "helm_error_ref": "8 Intravenous trimethoprim-sulfamethoxazole is started after a bronchoalveolar lavage is performed and methenamine silver staining confirms a parasitic infestation.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "8 Bronchoalveolar lavage is performed and methenamine silver staining confirms a fungal infection.\n\n**Explanation:**  \nMethenamine silver staining (e.g., Grocott's methenamine silver stain) is used to detect **fungal organisms** (e.g., *Pneumocystis jirovecii*), not parasitic infestations. The clini",
+   "google_gemini-2.5-pro-preview-05-06": "8 Bronchoalveolar lavage is performed and methenamine silver staining confirms a fungal infestation.",
+   "openai_gpt-5-2025-08-07": "8 Bronchoalveolar lavage is performed and methenamine silver staining confirms a fungal infection with Pneumocystis jirovecii.",
+   "openai_gpt-5-mini-2025-08-07": "8 Bronchoalveolar lavage is performed and methenamine silver staining confirms Pneumocystis jirovecii infection (Pneumocystis pneumonia).",
+   "openai_o3-mini-2025-01-31": "8 Bronchoalveolar lavage is performed and methenamine silver staining confirms Pneumocystis jirovecii pneumonia, a fungal infection.",
+   "openai_o4-mini-2025-04-16": "8 Bronchoalveolar lavage is performed and methenamine silver staining confirms a Pneumocystis jirovecii fungal infection."
+  }
+ },
+ {
+  "correct_id": "id439",
+  "error_id": "id438",
+  "flag_sentence": "6",
+  "edited": [
+   "6"
+  ],
+  "correct_text": "Low-dose vaginal estrogen is prescribed as the patient is currently interested in therapies to help control her symptoms.",
+  "error_text": "The patient is currently interested in therapies to help control her symptoms.",
+  "helm_error_ref": "7 Low-dose vaginal estrogen is prescribed.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "5 She was diagnosed with breast cancer 15 years ago, which was promptly detected and treated successfully via mastectomy.\n\nExplanation: The error lies in the use of \"cured\" in sentence 5. In oncology, the term \"cured\" is generally avoided due to the potential for late recurrences, even after long di",
+   "google_gemini-2.5-pro-preview-05-06": "6 Non-hormonal vaginal moisturizers and lubricants are prescribed as the patient is currently interested in therapies to help control her symptoms.",
+   "openai_gpt-5-2025-08-07": "6 Nonhormonal therapies are initiated for her vasomotor and genitourinary symptoms given her history of breast cancer; low-dose vaginal estrogen is reserved for refractory genitourinary symptoms after nonhormonal options fail and with oncologic consultation.",
+   "openai_gpt-5-mini-2025-08-07": "6 Nonhormonal vaginal therapies (lubricants and moisturizers) should be tried first; if these fail, low‑dose vaginal estrogen may be considered only after discussion of risks and benefits with her oncologist given her history of breast cancer.",
+   "openai_o3-mini-2025-01-31": "6 Given the patient's history of breast cancer, low‐dose vaginal estrogen is generally avoided; instead, nonhormonal options (such as vaginal moisturizers and lubricants) should be considered to manage her genitourinary symptoms.",
+   "openai_o4-mini-2025-04-16": "6 Given her history of breast cancer, nonhormonal vaginal therapies such as moisturizers and lubricants should be used as first-line treatment for her symptoms, with low-dose vaginal estrogen reserved only after a thorough risk–benefit discussion with her oncologist."
+  }
+ },
+ {
+  "correct_id": "id449",
+  "error_id": "id448",
+  "flag_sentence": "2",
+  "edited": [
+   "8"
+  ],
+  "correct_text": "On examination, he is noted to have 1st-degree burns involving 54% of his total body surface area.",
+  "error_text": "On examination, he is noted to have 1st-degree burns involving 54% of his total body surface area.",
+  "helm_error_ref": "8 Piperacillin with gentamicin is started after a sample exudate is collected with a sterile swab and sent to the laboratory for culture, which yields the growth of aerobic gram-negative rods.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2 On examination, he is noted to have 2nd-degree burns involving 54% of his total body surface area.\n\nExplanation: First-degree burns (superficial epidermal damage) are not counted in total body surface area (TBSA) calculations for burn severity assessment. Only partial-thickness (2nd-degree) and fu",
+   "google_gemini-2.5-pro-preview-05-06": "2 On examination, he is noted to have 2nd- and 3rd-degree burns involving 54% of his total body surface area.",
+   "openai_gpt-5-2025-08-07": "2 On examination, he is noted to have 2nd-degree burns involving 54% of his total body surface area.",
+   "openai_gpt-5-mini-2025-08-07": "2 On examination, he is noted to have second-degree (partial-thickness) burns involving 54% of his total body surface area.",
+   "openai_o3-mini-2025-01-31": "2 On examination, he is noted to have second‐degree burns involving 54% of his total body surface area.",
+   "openai_o4-mini-2025-04-16": "2 On examination, he is noted to have second-degree burns involving 54% of his total body surface area."
+  }
+ },
+ {
+  "correct_id": "id453",
+  "error_id": "id452",
+  "flag_sentence": "7",
+  "edited": [
+   "6"
+  ],
+  "correct_text": "The patient is prescribed amiloride.",
+  "error_text": "",
+  "helm_error_ref": "6 She is subsequently given a medication called amiloride that will reduce her volume status by competitively binding to aldosterone receptors.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "6 She is subsequently given a medication that will reduce her volume status by competitively binding to aldosterone receptors.  \n**Correction:**  \n6 She is subsequently given a medication that will reduce her volume status by blocking epithelial sodium channels in the distal nephron.  \n\n**Explanatio",
+   "google_gemini-2.5-pro-preview-05-06": "7 The patient is prescribed spironolactone.",
+   "openai_gpt-5-2025-08-07": "7 The patient is prescribed spironolactone.",
+   "openai_gpt-5-mini-2025-08-07": "7 The patient is prescribed spironolactone.",
+   "openai_o3-mini-2025-01-31": "7 The patient is prescribed spironolactone.",
+   "openai_o4-mini-2025-04-16": "7 The patient is prescribed spironolactone."
+  }
+ },
+ {
+  "correct_id": "id457",
+  "error_id": "id456",
+  "flag_sentence": "7",
+  "edited": [
+   "10"
+  ],
+  "correct_text": "His blood pressure is 230/130 mm",
+  "error_text": "His blood pressure is 230/130 mm",
+  "helm_error_ref": "10 Patient is given esmolol and intravenous nitroglycerin after laboratory testing is significant for elevated troponin.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "7 His blood pressure is 230/130 mm Hg in both arms, the temperature is 36.9 C (98.4 F), and the pulse is 90/min.\n\nThe original text split \"mm Hg\" across two lines (sentences 7 and 8), which is a formatting error. Blood pressure units \"mm Hg\" should not be separated. The corrected version keeps \"mm H",
+   "google_gemini-2.5-pro-preview-05-06": "7 His blood pressure is 230/130 mm Hg in both arms.",
+   "openai_gpt-5-2025-08-07": "7 His blood pressure is 230/130 mm Hg.",
+   "openai_gpt-5-mini-2025-08-07": "7 His blood pressure is 230/130 mm Hg in both arms.",
+   "openai_o3-mini-2025-01-31": "7 His blood pressure is 230/130 mm Hg in both arms, the temperature is 36.9 C (98.4 F), and the pulse is 90/min. ",
+   "openai_o4-mini-2025-04-16": "7 His blood pressure is 230/130 mmHg in both arms."
+  }
+ },
+ {
+  "correct_id": "id464",
+  "error_id": "id463",
+  "flag_sentence": "8",
+  "edited": [
+   "9"
+  ],
+  "correct_text": "On physical examination, she has a grade 2/6 holosystolic murmur heard best at the left upper sternal border, bilateral bibasilar crackles on the lungs, and a normal abdominal examination.",
+  "error_text": "On physical examination, she has a grade 2/6 holosystolic murmur heard best at the left upper sternal border, bilateral bibasilar crackles on the lungs, and a normal abdominal examination.",
+  "helm_error_ref": "9 Dexamethasone, aprepitant,  and a 5-HT3 receptor antagonist are planned to be administered on day of chemotherapy treatment after, at her follow-up with the oncologist, they subsequently plan to start the patient on a highly emetic chemotherapeutic regimen.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "CORRECT",
+   "google_gemini-2.5-pro-preview-05-06": "8 On physical examination, she has a grade 2/6 holosystolic murmur heard best at the left lower sternal border, bilateral bibasilar crackles on the lungs, and a normal abdominal examination.",
+   "openai_gpt-5-2025-08-07": "8 On physical examination, she has a grade 2/6 holosystolic murmur heard best at the cardiac apex, bilateral bibasilar crackles on the lungs, and a normal abdominal examination.",
+   "openai_gpt-5-mini-2025-08-07": "8 On physical examination, she has a grade 2/6 holosystolic murmur heard best at the apex (5th intercostal space at the midclavicular line), bilateral bibasilar crackles on the lungs, and a normal abdominal examination.",
+   "openai_o3-mini-2025-01-31": "8 On physical examination, she has a grade 2/6 holosystolic murmur heard best at the cardiac apex, bilateral bibasilar crackles on lung exam, and a normal abdominal examination.",
+   "openai_o4-mini-2025-04-16": "8 On physical examination, she has a grade 2/6 holosystolic murmur heard best at the left lower sternal border, bilateral bibasilar crackles on lung auscultation, and a normal abdominal examination."
+  }
+ },
+ {
+  "correct_id": "id473",
+  "error_id": "id472",
+  "flag_sentence": "11",
+  "edited": [
+   "9"
+  ],
+  "correct_text": "Amiodarone is started.",
+  "error_text": "",
+  "helm_error_ref": "9 The patient is given intravenous magnesium and amdiodarone after the decision is made to also start medical therapy.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "9 The patient is given intravenous metoprolol.\n\n**Answer:** 9 The patient is given",
+   "google_gemini-2.5-pro-preview-05-06": "11 Temporary cardiac pacing is initiated.",
+   "openai_gpt-5-2025-08-07": "11 Isoproterenol is started.",
+   "openai_gpt-5-mini-2025-08-07": "11 Amiodarone is not started; because the rhythm is torsades de pointes, management focuses on IV magnesium (already given), stopping QT‑prolonging drugs, and increasing heart rate with IV isoproterenol or temporary overdrive pacing rather than using amiodarone.",
+   "openai_o3-mini-2025-01-31": "11 Amiodarone is contraindicated when the monitor shows episodes consistent with torsades de pointes; instead, management should continue with intravenous magnesium, correction of electrolyte imbalances, and consideration of overdrive pacing rather than initiating amiodarone.",
+   "openai_o4-mini-2025-04-16": "11 An isoproterenol infusion is started to increase heart rate and shorten the QT interval."
+  }
+ },
+ {
+  "correct_id": "id489",
+  "error_id": "id488",
+  "flag_sentence": "10",
+  "edited": [
+   "8"
+  ],
+  "correct_text": "Patient is given methimazole.",
+  "error_text": "",
+  "helm_error_ref": "8 She visited a community hospital and was prescribed a medication called methimazole for this problem.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "10 The mother is given methimazole. \n\n**Explanation:**  \nThe error is in sentence 10. Methimazole is used to treat hyperthyroidism. The mother's history (sentence 7) describes symptoms of hyperthyroidism (weight loss, diarrhea, palpitations, heat sensitivity), and she was prescribed medication (like",
+   "google_gemini-2.5-pro-preview-05-06": "10 The mother reports that she is taking methimazole.",
+   "openai_gpt-5-2025-08-07": "10 Patient is given propylthiouracil (PTU) during the first trimester, with a switch to methimazole in the second and third trimesters.",
+   "openai_gpt-5-mini-2025-08-07": "10 The patient should have been given propylthiouracil (PTU) during the first trimester rather than methimazole, because methimazole is associated with congenital scalp defects (aplasia cutis).",
+   "openai_o3-mini-2025-01-31": "10 The mother is given methimazole for her hyperthyroidism (not the newborn), noting that anti‐thyroid therapy during early pregnancy is typically managed with propylthiouracil to minimize fetal teratogenic risks.",
+   "openai_o4-mini-2025-04-16": "10 During the first trimester of pregnancy, the patient should have been treated with propylthiouracil rather than methimazole to minimize the risk of congenital skin defects."
+  }
+ },
+ {
+  "correct_id": "id491",
+  "error_id": "id490",
+  "flag_sentence": "9",
+  "edited": [
+   "9"
+  ],
+  "correct_text": "Prednisone is given after bilateral radiographs of the hands demonstrate mild periarticular osteopenia around the left fifth metacarpophalangeal joint.",
+  "error_text": "Bilateral radiographs of the hands demonstrate mild periarticular osteopenia around the left fifth metacarpophalangeal joint.",
+  "helm_error_ref": "10 Prednisone is given.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "9 Prednisone is given after bilateral radiographs of the hands demonstrate mild periarticular osteopenia around the bilateral fifth metacarpophalangeal joints. \n\n**Explanation:** The physical exam in sentence 8 describes bilateral wrist and MCP joint involvement, but the original sentence 9 mentions",
+   "google_gemini-2.5-pro-preview-05-06": "9 Prednisone is given after bilateral radiographs of the hands demonstrate mild periarticular osteopenia around the metacarpophalangeal joints bilaterally.",
+   "openai_gpt-5-2025-08-07": "6 Temperature is 99.3 F (37.4 C), blood pressure is 119/73",
+   "openai_gpt-5-mini-2025-08-07": "9 Prednisone is given after bilateral radiographs of the hands demonstrate mild periarticular osteopenia involving the metacarpophalangeal joints bilaterally.",
+   "openai_o3-mini-2025-01-31": "9 Prednisone is initiated as bridging therapy after bilateral radiographs of the hands demonstrate mild periarticular osteopenia in the wrists and metacarpophalangeal joints bilaterally, consistent with early rheumatoid arthritis.",
+   "openai_o4-mini-2025-04-16": "9 Methotrexate is initiated along with a short course of low-dose prednisone for symptom control, and laboratory tests for rheumatoid factor, anti-cyclic citrullinated peptide antibodies, ESR, and CRP are ordered."
+  }
+ },
+ {
+  "correct_id": "id493",
+  "error_id": "id492",
+  "flag_sentence": "5",
+  "edited": [
+   "4"
+  ],
+  "correct_text": "The patient is taking efavirenz and delavirdine.",
+  "error_text": "",
+  "helm_error_ref": "4 She gives a printed list of such drugs including efavirenz and delavirdine to the woman for educational and informational purposes.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "5 The patient is taking dolutegravir and tenofovir/emtricitabine. \n\nExplanation: The error is in sentence 5. Efavirenz is contraindicated in pregnancy due to teratogenic risk (neural tube defects), and delavirdine is rarely used in modern HAART regimens. A preferred regimen for pregnancy (e.g., dolu",
+   "google_gemini-2.5-pro-preview-05-06": "5 The patient is taking a combination of tenofovir, emtricitabine, and efavirenz.",
+   "openai_gpt-5-2025-08-07": "5 The patient is taking efavirenz, tenofovir disoproxil fumarate, and emtricitabine.",
+   "openai_gpt-5-mini-2025-08-07": "5 The patient is taking efavirenz and delavirdine concurrently, which is inappropriate because the combination of two NNRTIs is not recommended.",
+   "openai_o3-mini-2025-01-31": "5 The patient is currently taking delavirdine only; efavirenz is contraindicated in women planning pregnancy due to its teratogenic risk and should be replaced with a safer alternative.",
+   "openai_o4-mini-2025-04-16": ""
+  }
+ },
+ {
+  "correct_id": "id496",
+  "error_id": "id495",
+  "flag_sentence": "28",
+  "edited": [
+   "28"
+  ],
+  "correct_text": "In addition to appropriate medications for his cholesterol and a follow-up for his hypertension, the patient was recommended to start vitamin E.",
+  "error_text": "The patient was recommended to start folic acid in addition to appropriate medications for his cholesterol and a follow-up for his hypertension.",
+  "helm_error_ref": "28 The patient was recommended to start vitamin E, in addition to appropriate medications for his cholesterol and a follow-up for his hypertension.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "28 In addition to appropriate medications for his cholesterol and a follow-up for his hypertension, the patient was recommended to start vitamin E.  \n**Error Explanation**:  \nThe recommendation to start vitamin E for cholesterol management is incorrect. Vitamin E is not a standard treatment for hype",
+   "google_gemini-2.5-pro-preview-05-06": "28 In addition to appropriate medications for his cholesterol and a follow-up for his hypertension, the patient was counseled on lifestyle modifications including diet and exercise.",
+   "openai_gpt-5-2025-08-07": "28 In addition to appropriate medications for his cholesterol and a follow-up for his hypertension, vitamin E supplementation was not recommended.",
+   "openai_gpt-5-mini-2025-08-07": "28 In addition to initiating appropriate antihypertensive follow-up, the patient was recommended to start high‑intensity statin therapy (e.g., atorvastatin), receive lifestyle counseling, and be referred for evaluation of possible familial hypercholesterolemia; vitamin E is not recommended for cardi",
+   "openai_o3-mini-2025-01-31": "28 In addition to appropriate medications for his cholesterol and follow‐up for his hypertension, the patient was advised to adopt lifestyle modifications (diet and exercise), as vitamin E supplementation is not recommended for cardiovascular risk reduction.",
+   "openai_o4-mini-2025-04-16": "28 In addition to initiating antihypertensive therapy, the patient was recommended to start high-intensity statin therapy for management of his severely elevated LDL cholesterol."
+  }
+ },
+ {
+  "correct_id": "id506",
+  "error_id": "id505",
+  "flag_sentence": "6",
+  "edited": [
+   "10"
+  ],
+  "correct_text": "His past medical history is significant for stable angina secondary to coronary artery disease diagnosed on a stress echocardiogram 1 year ago.",
+  "error_text": "His past medical history is significant for stable angina secondary to coronary artery disease diagnosed on a stress echocardiogram 1 year ago.",
+  "helm_error_ref": "11 100% oxygen is administered.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "6 His past medical history is significant for stable angina secondary to coronary artery disease diagnosed by coronary angiography 1 year ago.\n\nCORRECT\n\nWait, no. The original sentence says diagnosed on stress echo. The correction should be that CAD is diagnosed via angiography, not stress echo. So ",
+   "google_gemini-2.5-pro-preview-05-06": "6 His past medical history is unremarkable.",
+   "openai_gpt-5-2025-08-07": "",
+   "openai_gpt-5-mini-2025-08-07": "6 His past medical history is significant for stable angina secondary to coronary artery disease diagnosed by coronary angiography 1 year ago.",
+   "openai_o3-mini-2025-01-31": "6 His past medical history is unremarkable.",
+   "openai_o4-mini-2025-04-16": "6 His past medical history is unremarkable."
+  }
+ },
+ {
+  "correct_id": "id514",
+  "error_id": "id513",
+  "flag_sentence": "5",
+  "edited": [
+   "5"
+  ],
+  "correct_text": "Liver transplation is necessary when two days later, his creatinine has risen to 2.34 and he is oliguric.",
+  "error_text": "Two days later, his creatinine has risen to 2.34 and he is oliguric.",
+  "helm_error_ref": "6 Liver transplantion is necessary.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "5 Liver transplantation is necessary when two days later, his creatinine has risen to 2.34 and he is oliguric.",
+   "google_gemini-2.5-pro-preview-05-06": "5 Liver transplantation is necessary when two days later, his creatinine has risen to 2.34 and he is oliguric.",
+   "openai_gpt-5-2025-08-07": "5 Vasoconstrictor therapy with terlipressin plus continued albumin is initiated when two days later his creatinine has risen to 2.34 mg/dL and he is oliguric, and he is evaluated for liver transplantation.",
+   "openai_gpt-5-mini-2025-08-07": "5 Two days later his creatinine has risen to 2.34 mg/dL and he is oliguric, prompting consideration of hepatorenal syndrome and evaluation for liver transplantation.",
+   "openai_o3-mini-2025-01-31": "5 Given his worsening renal function, he now meets criteria for hepatorenal syndrome and should be started on vasoconstrictor therapy (in addition to albumin) while concurrently being evaluated for urgent liver transplantation.",
+   "openai_o4-mini-2025-04-16": "4 A large-volume paracentesis is performed that is negative for infection, and he is admitted to the hospital for further management and is initiated on albumin."
+  }
+ },
+ {
+  "correct_id": "id516",
+  "error_id": "id515",
+  "flag_sentence": "10",
+  "edited": [
+   "10"
+  ],
+  "correct_text": "Cytogenetic analysis is positive for the Ph1 gene.",
+  "error_text": "Cytarabine is prescribed after cytogenetic analysis is positive for the Ph1 gene.",
+  "helm_error_ref": "10 Imatinib is prescribed after cytogenetic analysis is positive for the Ph1 gene.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "10 Cytogenetic analysis is positive for the Philadelphia chromosome (Ph1). \n\nThe error in sentence 10 is the use of \"Ph1 gene.\" The Philadelphia chromosome (abbreviated as Ph or Ph1) refers to the chromosomal abnormality (t(9;22)), not a gene. The correct terminology specifies the chromosome, not a ",
+   "google_gemini-2.5-pro-preview-05-06": "10 Cytogenetic analysis is positive for the Philadelphia chromosome.",
+   "openai_gpt-5-2025-08-07": "10 Cytogenetic analysis is positive for the Philadelphia chromosome (t(9;22)) with the BCR-ABL fusion gene.",
+   "openai_gpt-5-mini-2025-08-07": "8 Laboratory findings are significant for a leukocyte count of 16,700/mm3 and a low leukocyte alkaline phosphatase (LAP) score.",
+   "openai_o3-mini-2025-01-31": "10 Cytogenetic analysis is positive for the Philadelphia chromosome (t[9;22](q34;q11)), which results in the BCR-ABL fusion gene.",
+   "openai_o4-mini-2025-04-16": "10 Cytogenetic analysis is positive for the Philadelphia chromosome (BCR-ABL fusion gene)."
+  }
+ },
+ {
+  "correct_id": "id520",
+  "error_id": "id519",
+  "flag_sentence": "13",
+  "edited": [
+   "12",
+   "13"
+  ],
+  "correct_text": "Pralidoxime is administered.",
+  "error_text": "The patient's clothing is removed, and he is placed in a medical gown.",
+  "helm_error_ref": "12 Pralidoxime is administered.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "13 Pralidoxime and atropine are administered.  \n**Explanation:** The patient's presentation (miosis, tremors, diarrhea, bradycardia, respiratory findings) and history of insecticide exposure suggest organophosphate poisoning. The mainstay of treatment includes both atropine (to block muscarinic effe",
+   "google_gemini-2.5-pro-preview-05-06": "13 Atropine is administered.",
+   "openai_gpt-5-2025-08-07": "13 Atropine is administered before pralidoxime.",
+   "openai_gpt-5-mini-2025-08-07": "13 Atropine is administered immediately for muscarinic symptoms, followed by pralidoxime to reactivate acetylcholinesterase.",
+   "openai_o3-mini-2025-01-31": "13 Atropine and pralidoxime are administered.",
+   "openai_o4-mini-2025-04-16": "13 Atropine and pralidoxime are administered."
+  }
+ },
+ {
+  "correct_id": "id524",
+  "error_id": "id523",
+  "flag_sentence": "1",
+  "edited": [
+   "4"
+  ],
+  "correct_text": "She mentions that she has episodes of shivering and chills on alternate days that last for approximately 2 hours, followed by high-grade fevers; then she has profuse sweating and her body temperature returns to normal.",
+  "error_text": "She mentions that she has episodes of shivering and chills on alternate days that last for approximately 2 hours, followed by high-grade fevers; then she has profuse sweating and her body temperature returns to normal.",
+  "helm_error_ref": "4 Patient is given quinine sulfate plus clindamycin after a peripheral blood smear confirms the diagnosis of P. falciparum infection.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "1 She mentions that she has episodes of shivering and chills that last for approximately 2 hours, followed by high-grade fevers; then she has profuse sweating and her body temperature returns to normal.\n\n**Explanation:**  \nThe original sentence 1 states that fever episodes occur \"on alternate days,\"",
+   "google_gemini-2.5-pro-preview-05-06": "1 She mentions that she has episodes of shivering and chills daily that last for approximately 2 hours, followed by high-grade fevers; then she has profuse sweating and her body temperature returns to normal.",
+   "openai_gpt-5-2025-08-07": "1 She mentions that she has episodes of shivering and chills that occur irregularly rather than on alternate days, lasting approximately 2 hours, followed by high-grade fevers; then she has profuse sweating and her body temperature returns to normal.",
+   "openai_gpt-5-mini-2025-08-07": "1 She mentions that she has episodes of shivering and chills occurring irregularly, each lasting approximately 2 hours and followed by high-grade fevers and profuse sweating before her temperature returns to normal.",
+   "openai_o3-mini-2025-01-31": "1 She mentions that she experiences episodes of shivering, chills, and high-grade fevers with profuse sweating at irregular intervals (rather than strictly on alternate days), with each episode lasting approximately 2 hours before her body temperature returns to normal.",
+   "openai_o4-mini-2025-04-16": "1 She mentions that she has irregular episodes of shivering and chills lasting approximately 15–60 minutes, followed by high-grade fevers for 2–6 hours, then profuse sweating before her body temperature returns to normal."
+  }
+ },
+ {
+  "correct_id": "id529",
+  "error_id": "id528",
+  "flag_sentence": "37",
+  "edited": [
+   "30",
+   "42"
+  ],
+  "correct_text": "RBCs negative",
+  "error_text": "RBCs negative",
+  "helm_error_ref": "43 Corticosteroids are prescribed.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "37 RBCs positive\n\nThe patient presents with visible blood in her urine (hematuria), but the urinalysis reports RBCs as negative. This is a contradiction. In lupus nephritis, hematuria is a common finding, and the urinalysis should reflect this with RBCs present. The corrected sentence should indicat",
+   "google_gemini-2.5-pro-preview-05-06": "37 RBCs +++",
+   "openai_gpt-5-2025-08-07": "37 RBCs positive",
+   "openai_gpt-5-mini-2025-08-07": "37 RBCs positive",
+   "openai_o3-mini-2025-01-31": "37 RBCs are positive on urinalysis, consistent with the patient’s reported hematuria.",
+   "openai_o4-mini-2025-04-16": "37 RBCs present (10–20 per high-power field) on urinalysis."
+  }
+ },
+ {
+  "correct_id": "id531",
+  "error_id": "id530",
+  "flag_sentence": "17",
+  "edited": [
+   "16"
+  ],
+  "correct_text": "In addition to drugs for symptomatic relief, the patient is given ceftriaxone.",
+  "error_text": "",
+  "helm_error_ref": "16 The patient is given ceftriaxone after microscopic examination of a peripheral blood smear stained with Wright-Giemsa stain shows the presence of morulae in the cytoplasm of leukocytes.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "17 In addition to drugs for symptomatic relief, the patient is given doxycycline.\n\nThe error is in sentence 17. Ceftriaxone is not the appropriate treatment for ehrlichiosis/anaplasmosis, which is indicated by the presence of morulae. Doxycycline is the correct first-line therapy.",
+   "google_gemini-2.5-pro-preview-05-06": "17 In addition to drugs for symptomatic relief, the patient is given doxycycline.",
+   "openai_gpt-5-2025-08-07": "17 In addition to drugs for symptomatic relief, the patient is given doxycycline.",
+   "openai_gpt-5-mini-2025-08-07": "17 In addition to drugs for symptomatic relief, the patient is given doxycycline.",
+   "openai_o3-mini-2025-01-31": "17 In addition to drugs for symptomatic relief, the patient is given doxycycline.",
+   "openai_o4-mini-2025-04-16": "17 In addition to drugs for symptomatic relief, the patient is given doxycycline."
+  }
+ },
+ {
+  "correct_id": "id535",
+  "error_id": "id534",
+  "flag_sentence": "9",
+  "edited": [
+   "9",
+   "10"
+  ],
+  "correct_text": "An abdominal radiograph and barium swallow are within normal limits.",
+  "error_text": "Starting ciprofloxacin.",
+  "helm_error_ref": "9 Scheduling cautery of an arteriovenous malformation.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "9 An abdominal radiograph and colonoscopy are within normal limits.\n\nThe error is in sentence 9. A barium swallow evaluates the upper GI tract (esophagus/stomach), which is less relevant for lower GI bleeding. Colonoscopy or CT angiography would be more appropriate tests to assess for a lower GI sou",
+   "google_gemini-2.5-pro-preview-05-06": "9 A colonoscopy is performed and reveals an arteriovenous malformation.",
+   "openai_gpt-5-2025-08-07": "9 A colonoscopy reveals an arteriovenous malformation in the colon.",
+   "openai_gpt-5-mini-2025-08-07": "9 An abdominal radiograph and barium enema are within normal limits.",
+   "openai_o3-mini-2025-01-31": "10 Scheduling a colonoscopy to evaluate for a suspected colonic angiodysplasia and, if confirmed, performing endoscopic cautery.",
+   "openai_o4-mini-2025-04-16": "9 An abdominal radiograph and barium enema are within normal limits."
+  }
+ },
+ {
+  "correct_id": "id550",
+  "error_id": "id549",
+  "flag_sentence": "6",
+  "edited": [
+   "6",
+   "7"
+  ],
+  "correct_text": "Cognitive behavioral therapy (CBT) is recommended.",
+  "error_text": "She holds a regular job at the local hardware store and lives alone.",
+  "helm_error_ref": "7 Cognitive behavioral therapy (CBT) is recommended.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "6 Antipsychotic medication in addition to cognitive behavioral therapy (CBT) is recommended.",
+   "google_gemini-2.5-pro-preview-05-06": "6 An antipsychotic medication is initiated.",
+   "openai_gpt-5-2025-08-07": "6 Antipsychotic medication is recommended.",
+   "openai_gpt-5-mini-2025-08-07": "6 A referral for psychiatric evaluation and consideration of antipsychotic medication (with CBT as an adjunctive therapy) is recommended.",
+   "openai_o3-mini-2025-01-31": "6 Antipsychotic medication, such as a second‐generation antipsychotic (eg, risperidone), is recommended as first‐line treatment for her delusional symptoms, with CBT offered as a beneficial adjunct.",
+   "openai_o4-mini-2025-04-16": "6 Treatment with a second-generation (atypical) antipsychotic, such as risperidone, is recommended, with cognitive behavioral therapy (CBT) as an adjunctive treatment."
+  }
+ },
+ {
+  "correct_id": "id565",
+  "error_id": "id564",
+  "flag_sentence": "8",
+  "edited": [
+   "8"
+  ],
+  "correct_text": "Mohs micrographic surgery is scheduled after physical examination is notable for mild conjunctival injection bilaterally and a nodule located inferior to the left nasal ala, as shown in Figure A.",
+  "error_text": "Physical examination is notable for mild conjunctival injection bilaterally and a nodule located inferior to the left nasal ala, as shown in Figure A. Surgical excision is scheduled.",
+  "helm_error_ref": "8 Physical examination is notable for mild conjunctival injection bilaterally and a nodule located inferior to the left nasal ala, as shown in Figure A. Mohs micrographic surgery is scheduled.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "8 Mohs micrographic surgery is scheduled after physical examination is notable for mild conjunctival injection bilaterally and a nodule located inferior to the left nasal ala, as shown in Figure A.\n\nERROR: Mohs surgery is indicated for confirmed skin cancers (e.g., basal cell carcinoma, squamous cel",
+   "google_gemini-2.5-pro-preview-05-06": "8 A biopsy of the nodule is scheduled after physical examination is notable for mild conjunctival injection bilaterally and a nodule located inferior to the left nasal ala, as shown in Figure A.",
+   "openai_gpt-5-2025-08-07": "8 After physical examination is notable for mild conjunctival injection bilaterally and a nodule located inferior to the left nasal ala (Figure A), a biopsy of the lesion is obtained to confirm the diagnosis prior to scheduling Mohs micrographic surgery.",
+   "openai_gpt-5-mini-2025-08-07": "8 Referral to dermatology was made for biopsy of the lesion; Mohs micrographic surgery will be scheduled if histopathology confirms a high-risk nonmelanoma skin cancer.",
+   "openai_o3-mini-2025-01-31": "CORRECT",
+   "openai_o4-mini-2025-04-16": "8 A punch biopsy of the nodule was performed for histopathological confirmation, and upon diagnosis of basal cell carcinoma, Mohs micrographic surgery was scheduled."
+  }
+ },
+ {
+  "correct_id": "id569",
+  "error_id": "id568",
+  "flag_sentence": "4",
+  "edited": [
+   "3",
+   "4",
+   "5",
+   "6",
+   "7"
+  ],
+  "correct_text": "He has a rapid, thready pulse with a systolic blood pressure of 60 mm",
+  "error_text": "Hg and his respirations are 33/min.",
+  "helm_error_ref": "7 IV fluid resuscitation with normal saline or Ringer's lactate will be started, along with monitoring of vitals and urine output.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "4 He has a rapid, thready pulse with a systolic blood pressure of 60 mm Hg",
+   "google_gemini-2.5-pro-preview-05-06": "4 He has a rapid, thready pulse with a systolic blood pressure of 60 mm Hg and his respirations are 33/min.",
+   "openai_gpt-5-2025-08-07": "4 He has a rapid, thready pulse with a systolic blood pressure of 60 mm Hg.",
+   "openai_gpt-5-mini-2025-08-07": "4 He has a rapid, thready pulse with a systolic blood pressure of 60 mm Hg and his respirations are 33/min.",
+   "openai_o3-mini-2025-01-31": "4 He has a rapid, thready pulse with a systolic blood pressure of 60 mm Hg and his respirations are 33/min.",
+   "openai_o4-mini-2025-04-16": "CORRECT"
+  }
+ },
+ {
+  "correct_id": "id579",
+  "error_id": "id578",
+  "flag_sentence": "10",
+  "edited": [
+   "13",
+   "14",
+   "15",
+   "16",
+   "17",
+   "18",
+   "19",
+   "20",
+   "21",
+   "22",
+   "23",
+   "24",
+   "25",
+   "26",
+   "27",
+   "28",
+   "29"
+  ],
+  "correct_text": "There is severe tenderness to palpation over the right chest and a painful stripe of vesicular lesions, but no evidence of lesions, bruising or trauma.",
+  "error_text": "There is severe tenderness to palpation over the right chest and a painful stripe of vesicular lesions, but no evidence of lesions, bruising or trauma.",
+  "helm_error_ref": "13 Famciclovir is prescribed.",
+  "same_as_edit": false,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "10 There is severe tenderness to palpation over the right chest and a painful stripe of vesicular lesions, but no evidence of bruising or trauma.\n\n**Explanation:**  \nThe original sentence (ID 10) contains a contradiction. It describes \"a painful stripe of vesicular lesions\" (which are lesions by def",
+   "google_gemini-2.5-pro-preview-05-06": "10 There is severe tenderness to palpation over the right chest and a painful stripe of vesicular lesions, but no evidence of bruising or trauma.",
+   "openai_gpt-5-2025-08-07": "10 There is severe tenderness to palpation over the right chest and a painful stripe of vesicular lesions, but no evidence of bruising or trauma.",
+   "openai_gpt-5-mini-2025-08-07": "10 There is severe tenderness to palpation over the right chest and a painful stripe of vesicular lesions, but no evidence of bruising or other trauma.",
+   "openai_o3-mini-2025-01-31": "10 There is severe tenderness to palpation over the right chest along with a painful, linear band of vesicular lesions, with no evidence of additional skin abnormalities, bruising, or trauma.",
+   "openai_o4-mini-2025-04-16": "10 There is severe tenderness to palpation over the right chest and a painful stripe of vesicular lesions, but no evidence of bruising or other trauma."
+  }
+ },
+ {
+  "correct_id": "id592",
+  "error_id": "id591",
+  "flag_sentence": "12",
+  "edited": [
+   "12"
+  ],
+  "correct_text": "Desmopressin is given and a hematology workup is completed and the appropriate treatment was administered.",
+  "error_text": "A hematology workup is completed and the appropriate treatment was administered.",
+  "helm_error_ref": "13 Desmopressin is given.",
+  "same_as_edit": true,
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "12 A hematology workup is completed, desmopressin is given, and the appropriate treatment was administered.\n\nThe error in sentence 12 involves improper sequencing of actions. Desmopressin should only be administered *after* completing the hematology workup to confirm the underlying diagnosis (e.g., ",
+   "google_gemini-2.5-pro-preview-05-06": "12 Factor VIII concentrate is given and a hematology workup is completed and the appropriate treatment was administered.",
+   "openai_gpt-5-2025-08-07": "12 Factor VIII concentrate is given and a hematology workup is completed, and the appropriate treatment was administered.",
+   "openai_gpt-5-mini-2025-08-07": "12 A hematology workup was completed and appropriate treatment was administered; in suspected hemophilia A, acute hemarthrosis is generally treated with factor VIII replacement, with desmopressin reserved for selected cases under hematology guidance.",
+   "openai_o3-mini-2025-01-31": "12 Recombinant factor VIII replacement therapy is initiated while a hematology workup is performed to confirm the diagnosis and tailor further treatment appropriately.",
+   "openai_o4-mini-2025-04-16": "11 An ultrasound of the knee demonstrates a joint effusion, and arthrocentesis confirms hemarthrosis."
+  }
+ }
+]

@@ -1,0 +1,290 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Failure Case · off_topic</title><style>
+:root{--ink:#152220;--muted:#687673;--green:#087a61;--line:#dce5e2;--bg:#f4f7f6;--red:#b5483f}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1050px;margin:auto;padding:34px 22px 70px}a{color:var(--green)}.crumb{font-size:12px;color:var(--muted);margin-bottom:18px}.hero{background:#10352d;color:#fff;border-radius:17px;padding:29px;margin-bottom:15px}.hero small{color:#83d8be;text-transform:uppercase;letter-spacing:.12em}.hero h1{margin:9px 0 5px;font-size:30px}.hero p{color:#bdd8d0;line-height:1.6}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:21px;margin-top:13px}.panel h2{font-size:18px;margin-top:0}.panel h3{font-size:14px;margin:12px 0 6px}p,li{line-height:1.7}.muted{color:var(--muted)}.meta{display:flex;gap:7px;flex-wrap:wrap}.tag{padding:5px 8px;background:#e7f2ee;color:#176550;border-radius:6px;font-size:11px}.evidence{border-top:1px solid var(--line);padding:16px 0}.evidence:first-of-type{border-top:0}.evidence strong{display:block;margin-bottom:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{background:#f4f7f6;border-radius:9px;padding:13px}.field small{display:block;color:var(--muted);margin-bottom:5px}pre{white-space:pre-wrap;word-break:break-word;background:#102521;color:#d9eee7;padding:14px;border-radius:9px;overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-top:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted)}.severity-critical,.severity-high{color:#a32d25;font-weight:800}.severity-medium{color:#9b690e;font-weight:800}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}select{padding:9px;border:1px solid var(--line);border-radius:7px;background:#fff}.count{font-weight:900;color:var(--green)}.raw-panel{border-left:5px solid #3157a4}.extract-panel{border-left:5px solid #087a61}.ai-panel{border-left:5px solid #8655a8}.evidence-label{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.12em;padding:5px 8px;border-radius:5px;margin-bottom:10px}.raw-label{background:#e5ecfa;color:#3157a4}.extract-label{background:#e2f2ed;color:#087a61}.ai-label{background:#f0e8f6;color:#754797}.case-card{border:1px solid var(--line);border-radius:9px;padding:13px;margin-top:9px}@media(max-width:720px){.grid,.controls{grid-template-columns:1fr}}
+</style></head><body><main><div class="crumb"><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a> / <a href="idea-1-evidence-417.html">Evidence</a> / Failure Case #67</div><header class="hero"><small>Model Failure Case #67</small><h1>off_topic</h1><p>PDF财报异常识别与证据引用 · claude-2 · high</p></header>
+<section class="panel"><h2>Case Detail</h2><div class="grid"><div class="field"><small>Eval Run ID</small></div><div class="field"><small>Failure Case ID</small>financebench::financebench_id_00080::claude-2_inContext</div><div class="field"><small>Task / Prompt</small>Does Paypal have positive working capital based on FY2022 data? If working capital is not a useful or relevant metric for this company, then please state that and explain why.</div><div class="field"><small>Input</small>doc=PAYPAL_2022_10K evidence_pages=[60] mode=inContext</div><div class="field"><small>Reference Answer</small>Yes. Paypal has a positive working capital of $ 1.6Bn as of FY2022 end.</div><div class="field"><small>Rubric</small>FinanceBench 作者人工判分：Correct Answer / Incorrect Answer / Refusal</div><div class="field"><small>Model</small>claude-2 claude-2_inContext</div><div class="field"><small>Model Response</small> Here are the key points on RSU, PBRSU, and restricted stock activity under the equity incentive plans:
+
+- 17.2 million RSUs, PBRSUs, and restricted stock were awarded and assumed in 2022. This includes about 0.5 million additional PBRSUs issued due to achievement of performance metrics. 
+
+- 9.9 million RSUs, PBRSUs, and restricted stock vested in 2022. 
+
+- 5.3 million RSUs, PBRSUs, and restricted stock were forfeited/cancelled in 2022. This includes about 1 million PBRSUs cancelled due to a change in payout method.
+
+- As of December 31, 2022, there were 19.6 million RSUs, PBRSUs, and restricted stock outstanding with a weighted average grant date fair value of $133.27 per share. 
+
+- 17.5 million RSUs, PBRSUs, and restricted stock outstanding at December 31, 2022 are expected to vest.
+
+- The aggregate intrinsic value of RSUs and PBRSUs vested was $935 million in 2022 compared to $3.4 billion in 2021 and $1.7 billion in 2020.
+
+- 1.5 million PBRSUs were granted in 2022 with a one-year performance period, of which 1 million were cancelled and 0.5 million will vest in early 2023.
+
+In summary, RSU, PBRSU and restricted stock activity reflects new grants and vesting of prior awards, as well as cancellations. The total outstanding decreased from 2021 due to higher vesting activity, partially offset by new grants. The weighted average grant date fair value decreased reflecting lower stock prices.
+
+(1)
+(2)
+(1) 
+(2)
+115
+ Table of Contents
+PayPal Holdings, Inc.
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS—(Continued)
+the Compensation Committee’s approval of the level of achievement against the pre-established performance targets in early 2023.
+STOCK OPTION ACTIVITY
+The following table summarizes stock option activity under the Plan as of December 31, 2022 and changes during the year ended December 31, 2022:
+Options
+Weighted Average
+Exercise Price
+Weighted Average
+Remaining
+Contractual Term
+(Years)
+Aggregate
+Intrinsic Value
+(In thousands)
+(per share)
+(in millions)
+Outstanding at January 1, 2022
+1,819 
+$
+39.06 
+1.7 $
+226
+Exercised
+(1,819)
+$
+39.06 
+— $
+—
+Forfeited/cancelled
+— 
+$
+— 
+— $
+—
+Outstanding at December 31, 2022
+— 
+$
+— 
+— $
+—
+Vested and expected to vest at December 31, 2022
+— 
+$
+— 
+— $
+—
+Exercisable at December 31, 2022
+— 
+$
+— 
+— $
+—
+The aggregate intrinsic value of stock options exercised during the years ended December 31, 2022, 2021, and 2020 was $176 million, $1.1 billion, and $1.0
+billion, respectively. All outstanding stock options were fully vested and exercised during the year ended December 31, 2022. No stock options were granted in
+2022, 2021, or 2020.
+STOCK-BASED COMPENSATION EXPENSE
+The impact on our results of operations of recording stock-based compensation expense under the Plan and the Inducement Plan for the years ended
+December 31, 2022, 2021, and 2020 was as follows:
+Year Ended December 31,
+2022
+2021
+2020
+(In millions)
+Customer support and operations
+$
+133 
+$
+133 
+$
+128 
+Sales and marketing
+180 
+194 
+176 
+Technology and development
+573 
+579 
+573 
+General and administrative
+375 
+470 
+499 
+Total stock-based compensation expense
+$
+1,261 
+$
+1,376 
+$
+1,376 
+Capitalized as part of internal use software and website development costs
+$
+52 
+$
+69 
+$
+69 
+We capitalize stock-based compensation costs related to employees directly associated with the development of internal use software and platform development
+as part of internal use software and website development costs.
+116
+ Table of Contents
+PayPal Holdings, Inc.
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS—(Continued)
+As of December 31, 2022, there was approximately $2.1 billion of unrecognized compensation cost related to RSUs and PBRSUs expected to vest. The
+unrecognized compensation cost is expected to be recognized over a weighted-average period of approximately 2.1 years.
+During the years ended December 31, 2022, 2021, and 2020, the tax benefits realized from stock options exercised and the vesting of RSUs and PBRSUs were
+$336 million, $1.0 billion, and $521 million, respectively.
+DETERMINATION OF FAIR VALUE
+The fair value of RSUs and PBRSUs is based on the closing price of our common stock on the date of grant. Our stock options and ESPP shares were valued
+using the Black-Scholes option pricing model.
+The following table summarizes the weighted average assumptions used in valuing stock options granted:
+Year Ended December 31,
+2022
+2021
+2020
+Risk-free interest rate
+N/A
+N/A
+N/A
+Expected life (in years)
+N/A
+N/A
+N/A
+Dividend yield
+N/A
+N/A
+N/A
+Volatility
+N/A
+N/A
+N/A
+Weighted-average fair value of options granted
+N/A
+N/A
+N/A
+No stock options were granted in 2022, 2021, or 2020.
+The following table summarizes the weighted average assumptions used in valuing ESPP shares:
+Year Ended December 31,
+2022
+2021
+2020
+Risk-free interest rate
+0.8%
+0.1%
+1.6%
+Expected life (in years)
+0.5
+0.5
+0.5
+Dividend yield
+—%
+—%
+—%
+Volatility
+38%
+36%
+30%
+Weighted-average fair value of each purchase right under the ESPP
+$
+18.42
+$
+32.07
+$
+21.01
+The expected volatility assumptions used were based on the historical volatility of our common stock using daily price observations over periods, prior to the
+grant date, which were commensurate with the expected life assumptions. The risk-free interest rate assumptions were based on the implied yield available on
+U.S. Treasury zero-coupon issues with remaining terms equivalent to the expected term of the equity award. The expected life assumptions were based on the
+simplified method prescribed by accounting guidance for stock-based compensation due to limited historical exercise data. The dividend yield assumed was
+zero as we have never paid dividends and do not expect to pay dividends in the foreseeable future.
+117
+ Table of Contents
+PayPal Holdings, Inc.
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS—(Continued)
+EMPLOYEE SAVINGS PLAN
+We have a defined contribution savings plan in the U.S. that qualifies under Section 401(k) of the Internal Revenue Code (the “Code”). Our non-U.S.
+employees are covered by other savings plans. Participating employees may contribute up to 50% of their eligible compensation, but not more than statutory
+limits. We contribute one dollar for each dollar a participant contributes, with a maximum contribution of 4% of each employee’s eligible compensation,
+subject to a maximum employer contribution mandated by the Code. Our non-elective and discretionary contributions vest over two years. Our matching
+contributions under the plans were $88 million, $84 million, and $79 million for the years ended December 31, 2022, 2021, and 2020, respectively.
+NOTE 16—INCOME TAXES
+The components of income before income taxes are as follows:
+Year Ended December 31,
+2022
+2021
+2020
+(In millions)
+U.S.
+$
+2,819 
+$
+3,819 
+$
+4,819 
+International
+547 
+280 
+246 
+Income before income taxes
+$
+3,366 
+$
+4,099 
+$
+5,065 
+The provision for income taxes is composed of the following:
+Year Ended December 31,
+2022
+2021
+2020
+(In millions)
+Current:
+Federal
+$
+(1)
+$
+(1)
+$
+(1)
+State
+(1)
+(1)
+(1)
+Foreign
+(1)
+(1)
+(1)
+Current income tax expense
+(3)
+(3)
+(3)
+Deferred:
+Federal
+(1)
+(1)
+(1)
+State
+(1)
+(1)
+(1)
+Foreign
+(1)
+(1)
+(1)
+Deferred income tax expense
+(3)
+(3)
+(3)
+Income tax expense (benefit)
+$
+(6)</div><div class="field"><small>Score / Pass-Fail</small>0.0 / FAIL</div><div class="field"><small>Failure Type</small>off_topic</div><div class="field"><small>Severity</small>high</div><div class="field"><small>Error Analysis</small>[规则归类] 回答开头与问题关键词重合 &lt;20%，疑为读错文档段落（Amcor 证券登记、3M 套期保值等）。同题失败配置数 4/4。</div><div class="field"><small>Judge Result</small>Incorrect Answer（FinanceBench 作者人工标注，未重判）</div><div class="field"><small>Benchmark</small>FinanceBench</div><div class="field"><small>Run Date</small>2023-11-20</div></div><p><span class="muted">未关联可验证 Eval Run</span></p></section>
+<section class="panel"><h2>原始附件 / 数据</h2><p class="muted">无附件</p><details><summary>Raw Case JSON</summary><pre>{
+  &quot;question_type&quot;: &quot;domain-relevant&quot;,
+  &quot;question_reasoning&quot;: &quot;Numerical reasoning OR Logical reasoning&quot;,
+  &quot;evidence_pages&quot;: [
+    60
+  ],
+  &quot;fail_configs&quot;: [
+    &quot;gpt-4-1106-preview_oracle&quot;,
+    &quot;gpt-4-1106-preview_singleStore&quot;,
+    &quot;claude-2_inContext&quot;,
+    &quot;llama2_singleStore&quot;
+  ]
+}</pre></details><a href="raw-source-417.html">查看关联 Raw Source →</a></section></main></body></html>

@@ -1,0 +1,350 @@
+{
+  "generated_at": "2026-09-24T03:26:06+00:00",
+  "retriever_version": "benchmark-radar-catalog-v1",
+  "catalog_repo": "/Users/prince/benchmark-radar",
+  "catalog_sync": {
+    "status": "skipped"
+  },
+  "dry_run": false,
+  "idea_count": 5,
+  "selected_total": 13,
+  "coverage_written_total": 13,
+  "error_total": 0,
+  "ideas": [
+    {
+      "idea_id": 28,
+      "idea_name": "金融搜索结果的时效有效性",
+      "domain": "financial",
+      "status": "watch",
+      "total_score": 54.0,
+      "queries": [
+        {
+          "query": "financial search retrieval source traceability temporal benchmark evaluation",
+          "run_id": 79,
+          "total_matches": 855,
+          "full_match_count": 0,
+          "candidates": 10,
+          "selected": 2,
+          "rejected": 8
+        },
+        {
+          "query": "financial finance citation attribution grounding evidence llm judge evaluator agreement tool use function calling api benchmark",
+          "run_id": 80,
+          "total_matches": 1113,
+          "full_match_count": 0,
+          "candidates": 10,
+          "selected": 0,
+          "rejected": 10
+        }
+      ],
+      "selected": [
+        {
+          "name": "CRAG",
+          "key": "llm-stats:crag",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "search",
+            "finance",
+            "economics"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/crag?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['finance']，任务信号 ['search', 'temporal']，命中词 ['benchmark', 'retrieval', 'search', 'temporal']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "WideSearch",
+          "key": "llm-stats:widesearch",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "search",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/widesearch?top_n=500",
+          "query_coverage": 0.375,
+          "reason": "无 financial 领域标注，但任务信号强命中 ['search', 'source']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        }
+      ],
+      "coverage_written": 2,
+      "errors": []
+    },
+    {
+      "idea_id": 25,
+      "idea_name": "生物医学假设的证据支持度",
+      "domain": "medical",
+      "status": "watch",
+      "total_score": 53.0,
+      "queries": [
+        {
+          "query": "biomedical hypothesis generation knowledge graph evidence benchmark evaluation",
+          "run_id": 81,
+          "total_matches": 889,
+          "full_match_count": 0,
+          "candidates": 10,
+          "selected": 0,
+          "rejected": 10
+        },
+        {
+          "query": "medical clinical health citation attribution grounding evidence domain reasoning professional reasoning hypothesis generation scientific discovery benchmark",
+          "run_id": 82,
+          "total_matches": 1026,
+          "full_match_count": 0,
+          "candidates": 10,
+          "selected": 0,
+          "rejected": 10
+        }
+      ],
+      "selected": [],
+      "coverage_written": 0,
+      "errors": []
+    },
+    {
+      "idea_id": 24,
+      "idea_name": "Agent选型门禁的判据可靠性",
+      "domain": "agent",
+      "status": "watch",
+      "total_score": 50.0,
+      "queries": [
+        {
+          "query": "llm judge user simulator agent evaluation reliability benchmark evaluation",
+          "run_id": 83,
+          "total_matches": 1140,
+          "full_match_count": 0,
+          "candidates": 10,
+          "selected": 3,
+          "rejected": 7
+        },
+        {
+          "query": "agent agentic llm judge evaluator agreement benchmark",
+          "run_id": 84,
+          "total_matches": 1138,
+          "full_match_count": 0,
+          "candidates": 10,
+          "selected": 1,
+          "rejected": 9
+        }
+      ],
+      "selected": [
+        {
+          "name": "MM-MT-Bench",
+          "key": "llm-stats:mm-mt-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "communication"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/mm-mt-bench?top_n=500",
+          "query_coverage": 0.625,
+          "reason": "无 agent 领域标注，但任务信号强命中 ['judge', 'dialog']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "Tau-bench",
+          "key": "llm-stats:tau-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/tau-bench?top_n=500",
+          "query_coverage": 0.625,
+          "reason": "领域信号 ['agent']，任务信号 ['reliab', 'conversation']，命中词 ['agent', 'benchmark', 'llm', 'reliability', 'user']（query coverage 0.62）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "HaluEval",
+          "key": "opencompass:1121",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "安全",
+            "Safety",
+            "大语言模型",
+            "LLM",
+            "安全对齐",
+            "Safety Alignment",
+            "事实可靠性",
+            "Factual Reliability",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/HaluEval",
+          "query_coverage": 0.375,
+          "reason": "无 agent 领域标注，但任务信号强命中 ['reliab', 'dialog']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "HealthBench Consensus",
+          "key": "llm-stats:healthbench-consensus",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "healthcare"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/healthbench-consensus?top_n=500",
+          "query_coverage": 0.2857,
+          "reason": "无 agent 领域标注，但任务信号强命中 ['agreement', 'conversation']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        }
+      ],
+      "coverage_written": 4,
+      "errors": []
+    },
+    {
+      "idea_id": 27,
+      "idea_name": "垂类Deep Research任务完成度",
+      "domain": "agent",
+      "status": "rejected",
+      "total_score": 48.0,
+      "queries": [
+        {
+          "query": "deep research web browsing search agent benchmark evaluation",
+          "run_id": 85,
+          "total_matches": 886,
+          "full_match_count": 0,
+          "candidates": 10,
+          "selected": 6,
+          "rejected": 4
+        },
+        {
+          "query": "agent agentic tool use function calling api benchmark",
+          "run_id": 86,
+          "total_matches": 832,
+          "full_match_count": 0,
+          "candidates": 10,
+          "selected": 0,
+          "rejected": 10
+        }
+      ],
+      "selected": [
+        {
+          "name": "DeepSearchQA",
+          "key": "model-reports:deepsearchqa",
+          "catalog_source": "model_reports",
+          "categories": [
+            "agent"
+          ],
+          "source_url": "https://huggingface.co/datasets/PokeeAI/DeepSearchQA",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['agent']，任务信号 ['deep research', 'web']，命中词 ['agent', 'deep', 'research', 'web']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MM-BrowserComp",
+          "key": "llm-stats:mm-browsercomp",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "search",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/mm-browsercomp?top_n=500",
+          "query_coverage": 0.375,
+          "reason": "领域信号 ['agent']，任务信号 ['brows', 'search', 'web']，命中词 ['browsing', 'search', 'web']（query coverage 0.38）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BrowseComp-VL",
+          "key": "llm-stats:browsecomp-vl",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "search",
+            "agents",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/browsecomp-vl?top_n=500",
+          "query_coverage": 0.375,
+          "reason": "领域信号 ['agent']，任务信号 ['brows', 'search', 'web']，命中词 ['browsing', 'search', 'web']（query coverage 0.38）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "DRACO",
+          "key": "llm-stats:draco",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "search",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/draco?top_n=500",
+          "query_coverage": 0.625,
+          "reason": "领域信号 ['agent']，任务信号 ['deep research', 'search']，命中词 ['agent', 'benchmark', 'deep', 'research', 'search']（query coverage 0.62）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BrowseComp Long Context 128k",
+          "key": "llm-stats:browsecomp-long-128k",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "search"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/browsecomp-long-128k?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['agent']，任务信号 ['brows', 'search', 'web']，命中词 ['benchmark', 'browsing', 'search', 'web']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BrowseComp-zh",
+          "key": "llm-stats:browsecomp-zh",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "search"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/browsecomp-zh?top_n=500",
+          "query_coverage": 0.375,
+          "reason": "领域信号 ['agent']，任务信号 ['brows', 'search', 'web']，命中词 ['benchmark', 'search', 'web']（query coverage 0.38）；进入人工 Coverage 核查"
+        }
+      ],
+      "coverage_written": 6,
+      "errors": []
+    },
+    {
+      "idea_id": 26,
+      "idea_name": "评测集压缩后的结论保真度",
+      "domain": "scientific",
+      "status": "rejected",
+      "total_score": 47.0,
+      "queries": [
+        {
+          "query": "benchmark compression subset efficient evaluation ranking benchmark evaluation",
+          "run_id": 87,
+          "total_matches": 816,
+          "full_match_count": 0,
+          "candidates": 10,
+          "selected": 1,
+          "rejected": 9
+        },
+        {
+          "query": "scientific research science version temporal knowledge update benchmark",
+          "run_id": 88,
+          "total_matches": 870,
+          "full_match_count": 0,
+          "candidates": 10,
+          "selected": 0,
+          "rejected": 10
+        }
+      ],
+      "selected": [
+        {
+          "name": "K-Sort-Arena",
+          "key": "opencompass:2076",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "图像评估",
+            "视频评估",
+            "多模态模型",
+            "VLM",
+            "视觉生成",
+            "Visual Generation",
+            "视频理解",
+            "Video Understanding",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/K-Sort-Arena",
+          "query_coverage": 0.3333,
+          "reason": "无 scientific 领域标注，但任务信号强命中 ['efficient', 'ranking']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        }
+      ],
+      "coverage_written": 1,
+      "errors": []
+    }
+  ]
+}

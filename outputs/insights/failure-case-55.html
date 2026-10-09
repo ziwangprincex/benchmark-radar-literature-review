@@ -1,0 +1,103 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Failure Case · off_topic</title><style>
+:root{--ink:#152220;--muted:#687673;--green:#087a61;--line:#dce5e2;--bg:#f4f7f6;--red:#b5483f}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1050px;margin:auto;padding:34px 22px 70px}a{color:var(--green)}.crumb{font-size:12px;color:var(--muted);margin-bottom:18px}.hero{background:#10352d;color:#fff;border-radius:17px;padding:29px;margin-bottom:15px}.hero small{color:#83d8be;text-transform:uppercase;letter-spacing:.12em}.hero h1{margin:9px 0 5px;font-size:30px}.hero p{color:#bdd8d0;line-height:1.6}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:21px;margin-top:13px}.panel h2{font-size:18px;margin-top:0}.panel h3{font-size:14px;margin:12px 0 6px}p,li{line-height:1.7}.muted{color:var(--muted)}.meta{display:flex;gap:7px;flex-wrap:wrap}.tag{padding:5px 8px;background:#e7f2ee;color:#176550;border-radius:6px;font-size:11px}.evidence{border-top:1px solid var(--line);padding:16px 0}.evidence:first-of-type{border-top:0}.evidence strong{display:block;margin-bottom:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{background:#f4f7f6;border-radius:9px;padding:13px}.field small{display:block;color:var(--muted);margin-bottom:5px}pre{white-space:pre-wrap;word-break:break-word;background:#102521;color:#d9eee7;padding:14px;border-radius:9px;overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-top:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted)}.severity-critical,.severity-high{color:#a32d25;font-weight:800}.severity-medium{color:#9b690e;font-weight:800}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}select{padding:9px;border:1px solid var(--line);border-radius:7px;background:#fff}.count{font-weight:900;color:var(--green)}.raw-panel{border-left:5px solid #3157a4}.extract-panel{border-left:5px solid #087a61}.ai-panel{border-left:5px solid #8655a8}.evidence-label{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.12em;padding:5px 8px;border-radius:5px;margin-bottom:10px}.raw-label{background:#e5ecfa;color:#3157a4}.extract-label{background:#e2f2ed;color:#087a61}.ai-label{background:#f0e8f6;color:#754797}.case-card{border:1px solid var(--line);border-radius:9px;padding:13px;margin-top:9px}@media(max-width:720px){.grid,.controls{grid-template-columns:1fr}}
+</style></head><body><main><div class="crumb"><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a> / <a href="idea-1-evidence-417.html">Evidence</a> / Failure Case #55</div><header class="hero"><small>Model Failure Case #55</small><h1>off_topic</h1><p>PDF财报异常识别与证据引用 · claude-2 · medium</p></header>
+<section class="panel"><h2>Case Detail</h2><div class="grid"><div class="field"><small>Eval Run ID</small></div><div class="field"><small>Failure Case ID</small>financebench::financebench_id_04103::claude-2_inContext</div><div class="field"><small>Task / Prompt</small>What is the FY2019 cash conversion cycle (CCC) for General Mills? CCC is defined as: DIO + DSO - DPO. DIO is defined as: 365 * (average inventory between FY2018 and FY2019) / (FY2019 COGS). DSO is defined as: 365 * (average accounts receivable between FY2018 and FY2019) / (FY2019 Revenue). DPO is defined as: 365 * (average accounts payable between FY2018 and FY2019) / (FY2019 COGS + change in inventory between FY2018 and FY2019). Round your answer to two decimal places. Address the question by using the line items and information shown within the income statement and the balance sheet.</div><div class="field"><small>Input</small>doc=GENERALMILLS_2019_10K evidence_pages=[52, 54] mode=inContext</div><div class="field"><small>Reference Answer</small>-3.7</div><div class="field"><small>Rubric</small>FinanceBench 作者人工判分：Correct Answer / Incorrect Answer / Refusal</div><div class="field"><small>Model</small>claude-2 claude-2_inContext</div><div class="field"><small>Model Response</small>
+
+three major banks in the euro-zone, selected and identified by us, for loans in euros to leading European banks, for a term of three months, commencing on
+the applicable interest reset date and in a principal amount of not less than €1,000,000 that is representative for a single transaction in such market at such
+time; provided, however, that if the banks so selected are not quoting as mentioned above, the then-existing EURIBOR rate will remain in effect for such
+interest period.
+“Reuters Page EURIBOR 01” means the display designated as “EURIBOR 01” on Reuters (or such other page as may replace Reuters Page
+EURIBOR 01 on that service or any successor service for the purpose of displaying euro-zone interbank offered rates for euro-denominated deposits).
+“Bloomberg L.P.’s page “BBAM”” means the display designated as “BBAM” on Bloomberg (or such other page as may replace Bloomberg
+L.P.’s page “BBAM” on that service, or any successor service, for the purpose of displaying euro-zone interbank offered rates for euro-denominated
+deposits).
+All percentages resulting from any calculation of any interest rate for the Floating Rate Notes will be rounded, if necessary, to the nearest one
+hundred thousandth of a percentage point, with five one-millionths of a percentage point rounded upward (e.g., 9.876545% (or .09876545) would be
+rounded to 9.87655% (or .0987655)), and all euro amounts will be rounded to the nearest cent, with one-half cent being rounded upward. All amounts used
+in or resulting from any calculation of EURIBOR shall be rounded, if necessary, to the nearest cent with one half cent or greater being rounded upward.
+The calculation agent for the Floating Rate Notes is Deutsche Bank AG, London Branch. All determinations made by the calculation agent
+shall, in the absence of manifest error, be conclusive for all purposes and binding on us and the holders and beneficial owners of the Floating Rate Notes.
+So long as Floating Rate Notes are outstanding, we will at all times maintain a calculation agent. In the event that any then acting calculation
+agent shall be unable or unwilling to act, or that such calculation agent shall fail to establish EURIBOR for any interest period, or that we propose to
+remove such calculation agent, we shall appoint ourselves or another person which is a bank, trust company, investment banking firm or other financial
+institution to act as the calculation agent.
+Ranking
+The Notes are our senior unsecured obligations and rank equally with all of our other existing and future senior unsecured indebtedness.
+Optional Redemption
+We may redeem the 2020 Notes, the 2023 Notes and the 2027 Notes at our option and at any time, either as a whole or in part, at a redemption
+price equal to the greater of:
+•
+
+100% of the principal amount of the Notes being redeemed; and
+
+•
+
+the sum of the present values of the remaining scheduled payments of principal and interest on the Notes being redeemed (excluding any
+portion of such payments of interest accrued as of the date of redemption), discounted to the date of redemption on an annual basis
+(ACTUAL/ACTUAL (ICMA)) at the applicable Comparable Government Bond Rate (as defined below), plus 15 basis points, in the case of
+the 2020 Notes, 20 basis points, in the case of the 2023 Notes, and 25 basis points, in the case of the 2027 Notes;
+
+plus, in each case, accrued and unpaid interest to the date of redemption.
+We may redeem the Floating Rate Notes at our option and at any time, either as a whole or in part, at a redemption price equal to 100% of the
+principal amount of the Floating Rate Notes being redeemed, plus accrued and unpaid interest to the date of redemption.
+Notwithstanding the foregoing, installments of interest on the Notes that are due and payable on interest payment dates falling on or prior to a
+redemption date will be payable on the interest payment date to the registered holders as of the close of business on the relevant record date according to the
+Notes and the Indenture. The redemption price will be calculated by the Independent Investment Banker (as defined below) based on the Reference Bond (as
+defined below) as described below.
+We will mail notice of any redemption at least 30 days but not more than 60 days before the redemption date to each registered holder of the
+Notes to be redeemed. Once notice of redemption is mailed, the Notes called for redemption will become due and payable on the redemption date and at the
+applicable redemption price, plus accrued and unpaid interest to the redemption date.
+“Comparable Government Bond” means, in relation to any Comparable Government Bond Rate calculation, at the discretion of an
+Independent Investment Banker, a German government bond whose maturity is closest to the maturity of the Notes to be redeemed, or if such Independent
+Investment Banker in its discretion determines that such similar bond is not in issue, such other German government bond as such Independent Investment
+Banker may, with the advice of three brokers of, and/or market makers in, German government bonds selected by us, determine to be appropriate for
+determining the Comparable Government Bond Rate.
+“Comparable Government Bond Rate” means the price, expressed as a percentage (rounded to three decimal places, with 0.0005 being rounded
+upwards), at which the gross redemption yield on the Notes to be redeemed, if they were to be purchased at such price on the third business day prior to the
+date fixed for redemption, would be equal to the gross redemption yield on such business day of the Comparable Government Bond on the basis of the
+middle market price of the Comparable Government Bond prevailing at 11:00 a.m. (London time) on such business day as determined by an Independent
+Investment Banker.
+“Independent Investment Banker” means each of Barclays Bank PLC, Deutsche Bank AG, London Branch, and Morgan Stanley &amp; Co.
+International plc, and their respective successors, or if any such entity is unwilling or unable to select the Comparable Government Bond, an independent
+investment banking institution of international standing appointed by us.
+
+Except as described above and below under “—Redemption for Tax Reasons,” the Notes may not be redeemed prior to maturity.
+We may at any time, and from time to time, purchase the Notes at any price or prices in the open market or otherwise.
+Redemption for Tax Reasons
+If, as a result of any change in, or amendment to, the laws (or any regulations or rulings promulgated under the laws) of the United States (or
+any taxing authority in the United States), or any change in, or amendments to, an official position regarding the application or interpretation of such laws,
+regulations or rulings, which change or amendment is announced or becomes effective on or after the date of the applicable prospectus supplement, we
+become or, based upon a written opinion of independent counsel selected by us, will become obligated to pay additional amounts as described under the
+heading “—Payment of Additional Amounts” with respect to the Notes of any series, then we may at any time at our option redeem, in whole, but not in
+part, the outstanding Notes of such series on not less than 30 nor more than 60 days’ prior notice, at a redemption price equal to 100% of their principal
+amount, together with accrued and unpaid interest on those Notes to, but not including, the date fixed for redemption.
+Payment of Additional Amounts
+All payments of principal and interest in respect of the Notes will be made free and clear of, and without deduction or withholding for or on
+account of, any present or future taxes, duties, assessments or other governmental charges of whatsoever nature required to be deducted or withheld by the
+United States or any political subdivision or taxing authority of or in the United States, unless such withholding or deduction is required by law or the
+official interpretation or administration thereof.
+In the event any withholding or deduction on payments in respect of the Notes for or on account of any present or future tax, assessment or
+other governmental charge is required to be deducted or withheld by the United States or any political subdivision or taxing authority thereof or therein, we
+will pay such additional amounts on the Notes as will result in receipt by each holder of a Note that is not a U.S. Person (as defined below) of such amounts
+(after all such withholding or deduction, including on any additional amounts) as would have been received by such holder had no such withholding or
+deduction been required. We will not be required, however, to make any payment of additional amounts for or on account of:
+(a) any tax, assessment or other governmental charge that would not have been imposed but for (1) the existence of any present or former
+connection (other than a connection arising solely from the ownership of those Notes or the receipt of payments in respect of those Notes) between a holder
+of a Note (or the beneficial owner for whose benefit such holder holds such Note), or between a fiduciary, settlor, beneficiary of, member or shareholder of,
+or possessor of a power over, that holder or beneficial owner (if that holder or beneficial owner is an estate, trust, partnership or corporation) and the United
+States, including that holder or beneficial owner, or that fiduciary, settlor, beneficiary</div><div class="field"><small>Score / Pass-Fail</small>0.0 / FAIL</div><div class="field"><small>Failure Type</small>off_topic</div><div class="field"><small>Severity</small>medium</div><div class="field"><small>Error Analysis</small>[规则归类] 回答开头与问题关键词重合 &lt;20%，疑为读错文档段落（Amcor 证券登记、3M 套期保值等）。同题失败配置数 4/4。</div><div class="field"><small>Judge Result</small>Incorrect Answer（FinanceBench 作者人工标注，未重判）</div><div class="field"><small>Benchmark</small>FinanceBench</div><div class="field"><small>Run Date</small>2023-11-20</div></div><p><span class="muted">未关联可验证 Eval Run</span></p></section>
+<section class="panel"><h2>原始附件 / 数据</h2><p class="muted">无附件</p><details><summary>Raw Case JSON</summary><pre>{
+  &quot;question_type&quot;: &quot;metrics-generated&quot;,
+  &quot;question_reasoning&quot;: &quot;Numerical reasoning&quot;,
+  &quot;evidence_pages&quot;: [
+    52,
+    54
+  ],
+  &quot;fail_configs&quot;: [
+    &quot;gpt-4-1106-preview_oracle&quot;,
+    &quot;gpt-4-1106-preview_singleStore&quot;,
+    &quot;claude-2_inContext&quot;,
+    &quot;llama2_singleStore&quot;
+  ]
+}</pre></details><a href="raw-source-417.html">查看关联 Raw Source →</a></section></main></body></html>

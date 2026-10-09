@@ -1,0 +1,9 @@
+{
+  "wecom_push_enabled": true,
+  "push_pause_reason": "",
+  "mini_eval_mode": "offline_result_import",
+  "active_offline_package": "data/offline_eval_packages/evidence-v1-manual-v2-20260915.zip",
+  "offline_models_required": 3,
+  "offline_tasks_per_model": 20,
+  "medical_eval_status": "awaiting_physician_rubric_calibration"
+}

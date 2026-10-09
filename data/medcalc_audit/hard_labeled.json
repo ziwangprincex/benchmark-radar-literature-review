@@ -1,0 +1,1058 @@
+[
+ {
+  "id": "454",
+  "calculator": "FeverPAIN Score for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "同上",
+  "gold_verified": "2",
+  "gold_v10": "3",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3",
+   "google_gemini-2.5-pro-preview-05-06": "3",
+   "openai_gpt-5-2025-08-07": "3",
+   "openai_gpt-5-mini-2025-08-07": "3",
+   "openai_o3-mini-2025-01-31": "2",
+   "openai_o4-mini-2025-04-16": "3"
+  }
+ },
+ {
+  "id": "316",
+  "calculator": "Centor Score (Modified/McIsaac) for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "病历没写的项目，标准答案一律按“阴性”算；模型会推断或按原版Centor不加年龄分",
+  "gold_verified": "4",
+  "gold_v10": "3",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2",
+   "google_gemini-2.5-pro-preview-05-06": "1",
+   "openai_gpt-5-2025-08-07": "3",
+   "openai_gpt-5-mini-2025-08-07": "1",
+   "openai_o3-mini-2025-01-31": "3",
+   "openai_o4-mini-2025-04-16": "3"
+  }
+ },
+ {
+  "id": "579",
+  "calculator": "PERC Rule for Pulmonary Embolism",
+  "label": "题意歧义",
+  "why": "“满足几条标准”被4/6个强模型理解成“几条阴性条件成立”，答案正好互补",
+  "gold_verified": "1",
+  "gold_v10": "1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "1",
+   "google_gemini-2.5-pro-preview-05-06": "1",
+   "openai_gpt-5-2025-08-07": "7",
+   "openai_gpt-5-mini-2025-08-07": "7",
+   "openai_o3-mini-2025-01-31": "7",
+   "openai_o4-mini-2025-04-16": "7"
+  }
+ },
+ {
+  "id": "448",
+  "calculator": "FeverPAIN Score for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "同上",
+  "gold_verified": "2",
+  "gold_v10": "1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2",
+   "google_gemini-2.5-pro-preview-05-06": "4",
+   "openai_gpt-5-2025-08-07": "4",
+   "openai_gpt-5-mini-2025-08-07": "4",
+   "openai_o3-mini-2025-01-31": "4",
+   "openai_o4-mini-2025-04-16": "4"
+  }
+ },
+ {
+  "id": "955",
+  "calculator": "Steroid Conversion Calculator",
+  "label": "公式口径",
+  "why": "激素等效剂量换算表各来源不同",
+  "gold_verified": "7.83069",
+  "gold_v10": "7.83",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "6.26",
+   "google_gemini-2.5-pro-preview-05-06": "6.263928",
+   "openai_gpt-5-2025-08-07": "6.263928",
+   "openai_gpt-5-mini-2025-08-07": "6.263928",
+   "openai_o3-mini-2025-01-31": "7.83",
+   "openai_o4-mini-2025-04-16": "6.264"
+  }
+ },
+ {
+  "id": "309",
+  "calculator": "Centor Score (Modified/McIsaac) for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "病历没写的项目，标准答案一律按“阴性”算；模型会推断或按原版Centor不加年龄分",
+  "gold_verified": "3",
+  "gold_v10": "2",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "4",
+   "google_gemini-2.5-pro-preview-05-06": "4",
+   "openai_gpt-5-2025-08-07": "4",
+   "openai_gpt-5-mini-2025-08-07": "4",
+   "openai_o3-mini-2025-01-31": "4",
+   "openai_o4-mini-2025-04-16": "4"
+  }
+ },
+ {
+  "id": "733",
+  "calculator": "Delta Gap",
+  "label": "公式口径",
+  "why": "正常阴离子间隙取10还是12、是否计入钾，各家口径不同",
+  "gold_verified": "4.0",
+  "gold_v10": "4",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "22",
+   "google_gemini-2.5-pro-preview-05-06": "-2",
+   "openai_gpt-5-2025-08-07": "-2",
+   "openai_gpt-5-mini-2025-08-07": "-2",
+   "openai_o3-mini-2025-01-31": "4",
+   "openai_o4-mini-2025-04-16": "-2"
+  }
+ },
+ {
+  "id": "947",
+  "calculator": "Estimated Due Date",
+  "label": "公式口径",
+  "why": "标准答案按“末次月经+280天”算，强模型按经典 Naegele 日历法（+1年-3月+7天）算，题目写的就是 Naegele 法",
+  "gold_verified": "04/06/2009",
+  "gold_v10": "04/12/2009",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "04/07/2009",
+   "google_gemini-2.5-pro-preview-05-06": "04/07/2009",
+   "openai_gpt-5-2025-08-07": "04/07/2009",
+   "openai_gpt-5-mini-2025-08-07": "04/07/2009",
+   "openai_o3-mini-2025-01-31": "04/07/2009",
+   "openai_o4-mini-2025-04-16": "04/07/2009"
+  }
+ },
+ {
+  "id": "453",
+  "calculator": "FeverPAIN Score for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "同上",
+  "gold_verified": "3",
+  "gold_v10": "3",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "5",
+   "google_gemini-2.5-pro-preview-05-06": "5",
+   "openai_gpt-5-2025-08-07": "4",
+   "openai_gpt-5-mini-2025-08-07": "4",
+   "openai_o3-mini-2025-01-31": "4",
+   "openai_o4-mini-2025-04-16": "5"
+  }
+ },
+ {
+  "id": "946",
+  "calculator": "Estimated Due Date",
+  "label": "真错",
+  "why": "日期推算：LMP+280天并按周期长度校正，模型普遍多算1到3天",
+  "gold_verified": "01/23/2002",
+  "gold_v10": "02/08/2002",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "01/26/2002",
+   "google_gemini-2.5-pro-preview-05-06": "01/25/2002",
+   "openai_gpt-5-2025-08-07": "01/23/2002",
+   "openai_gpt-5-mini-2025-08-07": "01/25/2002",
+   "openai_o3-mini-2025-01-31": "01/25/2002",
+   "openai_o4-mini-2025-04-16": "01/25/2002"
+  }
+ },
+ {
+  "id": "313",
+  "calculator": "Centor Score (Modified/McIsaac) for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "病历没写的项目，标准答案一律按“阴性”算；模型会推断或按原版Centor不加年龄分",
+  "gold_verified": "1",
+  "gold_v10": "0",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2",
+   "google_gemini-2.5-pro-preview-05-06": "2",
+   "openai_gpt-5-2025-08-07": "1",
+   "openai_gpt-5-mini-2025-08-07": "2",
+   "openai_o3-mini-2025-01-31": "2",
+   "openai_o4-mini-2025-04-16": "2"
+  }
+ },
+ {
+  "id": "231",
+  "calculator": "Wells' Criteria for DVT",
+  "label": "主观项",
+  "why": "“是否有同等可能的其他诊断”需要临床判断",
+  "gold_verified": "-2",
+  "gold_v10": "-2",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "1",
+   "google_gemini-2.5-pro-preview-05-06": "1",
+   "openai_gpt-5-2025-08-07": "1",
+   "openai_gpt-5-mini-2025-08-07": "0",
+   "openai_o3-mini-2025-01-31": "-2",
+   "openai_o4-mini-2025-04-16": "1"
+  }
+ },
+ {
+  "id": "781",
+  "calculator": "Albumin Corrected Anion Gap",
+  "label": "真错",
+  "why": "取数或计算错误",
+  "gold_verified": "8.5",
+  "gold_v10": "6.5",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "9.5",
+   "google_gemini-2.5-pro-preview-05-06": "8.5",
+   "openai_gpt-5-2025-08-07": "8.5",
+   "openai_gpt-5-mini-2025-08-07": "6.5",
+   "openai_o3-mini-2025-01-31": "",
+   "openai_o4-mini-2025-04-16": "13.0"
+  }
+ },
+ {
+  "id": "558",
+  "calculator": "Framingham Risk Score for Hard Coronary Heart Disease",
+  "label": "公式口径",
+  "why": "标准答案用回归方程，模型多用积分表近似",
+  "gold_verified": "6.017",
+  "gold_v10": "0.1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "14",
+   "google_gemini-2.5-pro-preview-05-06": "6",
+   "openai_gpt-5-2025-08-07": "6",
+   "openai_gpt-5-mini-2025-08-07": "12",
+   "openai_o3-mini-2025-01-31": "4",
+   "openai_o4-mini-2025-04-16": "7"
+  }
+ },
+ {
+  "id": "940",
+  "calculator": "Estimated Due Date",
+  "label": "公式口径",
+  "why": "标准答案按“末次月经+280天”算，强模型按经典 Naegele 日历法（+1年-3月+7天）算，题目写的就是 Naegele 法",
+  "gold_verified": "01/11/2022",
+  "gold_v10": "01/17/2022",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "01/13/2022",
+   "google_gemini-2.5-pro-preview-05-06": "01/13/2022",
+   "openai_gpt-5-2025-08-07": "01/13/2022",
+   "openai_gpt-5-mini-2025-08-07": "01/13/2022",
+   "openai_o3-mini-2025-01-31": "01/13/2022",
+   "openai_o4-mini-2025-04-16": "01/13/2022"
+  }
+ },
+ {
+  "id": "41",
+  "calculator": "CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk",
+  "label": "真错",
+  "why": "取数或计算错误",
+  "gold_verified": "4",
+  "gold_v10": "4",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2",
+   "google_gemini-2.5-pro-preview-05-06": "4",
+   "openai_gpt-5-2025-08-07": "2",
+   "openai_gpt-5-mini-2025-08-07": "2",
+   "openai_o3-mini-2025-01-31": "2",
+   "openai_o4-mini-2025-04-16": "2"
+  }
+ },
+ {
+  "id": "39",
+  "calculator": "CKD-EPI Equations for Glomerular Filtration Rate",
+  "label": "真错",
+  "why": "取数或计算错误",
+  "gold_verified": "29.93751",
+  "gold_v10": "29.938",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "",
+   "google_gemini-2.5-pro-preview-05-06": "28",
+   "openai_gpt-5-2025-08-07": "30",
+   "openai_gpt-5-mini-2025-08-07": "137",
+   "openai_o3-mini-2025-01-31": "137",
+   "openai_o4-mini-2025-04-16": "137"
+  }
+ },
+ {
+  "id": "272",
+  "calculator": "HEART Score for Major Cardiac Events",
+  "label": "主观项",
+  "why": "“病史可疑程度”等主观项需要判断，取值不唯一",
+  "gold_verified": "1",
+  "gold_v10": "1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "1",
+   "google_gemini-2.5-pro-preview-05-06": "3",
+   "openai_gpt-5-2025-08-07": "3",
+   "openai_gpt-5-mini-2025-08-07": "2",
+   "openai_o3-mini-2025-01-31": "2",
+   "openai_o4-mini-2025-04-16": "1"
+  }
+ },
+ {
+  "id": "1041",
+  "calculator": "Estimated Gestational Age",
+  "label": "判分问题",
+  "why": "答案格式不同被判错，实际数值正确",
+  "gold_verified": "('4 weeks', '3 days')",
+  "gold_v10": "('4 weeks', '3 days')",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "(4, 3)",
+   "google_gemini-2.5-pro-preview-05-06": "(4, 3)",
+   "openai_gpt-5-2025-08-07": "(4, 3)",
+   "openai_gpt-5-mini-2025-08-07": "(4 weeks, 3 days)",
+   "openai_o3-mini-2025-01-31": "(4, 3)",
+   "openai_o4-mini-2025-04-16": "(4, 3)"
+  }
+ },
+ {
+  "id": "942",
+  "calculator": "Estimated Due Date",
+  "label": "公式口径",
+  "why": "标准答案按“末次月经+280天”算，强模型按经典 Naegele 日历法（+1年-3月+7天）算，题目写的就是 Naegele 法",
+  "gold_verified": "12/31/2017",
+  "gold_v10": "12/31/2017",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "01/02/2018",
+   "google_gemini-2.5-pro-preview-05-06": "01/02/2018",
+   "openai_gpt-5-2025-08-07": "01/02/2018",
+   "openai_gpt-5-mini-2025-08-07": "01/02/2018",
+   "openai_o3-mini-2025-01-31": "",
+   "openai_o4-mini-2025-04-16": "01/02/2018"
+  }
+ },
+ {
+  "id": "800",
+  "calculator": "Albumin Corrected Delta Gap",
+  "label": "公式口径",
+  "why": "同上，叠加白蛋白校正系数口径",
+  "gold_verified": "-4.0",
+  "gold_v10": "-4",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "-6",
+   "google_gemini-2.5-pro-preview-05-06": "-4",
+   "openai_gpt-5-2025-08-07": "-6",
+   "openai_gpt-5-mini-2025-08-07": "-6",
+   "openai_o3-mini-2025-01-31": "-4",
+   "openai_o4-mini-2025-04-16": "-6"
+  }
+ },
+ {
+  "id": "318",
+  "calculator": "Centor Score (Modified/McIsaac) for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "病历没写的项目，标准答案一律按“阴性”算；模型会推断或按原版Centor不加年龄分",
+  "gold_verified": "3",
+  "gold_v10": "3",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3",
+   "google_gemini-2.5-pro-preview-05-06": "2",
+   "openai_gpt-5-2025-08-07": "2",
+   "openai_gpt-5-mini-2025-08-07": "3",
+   "openai_o3-mini-2025-01-31": "2",
+   "openai_o4-mini-2025-04-16": "2"
+  }
+ },
+ {
+  "id": "1046",
+  "calculator": "Estimated Gestational Age",
+  "label": "判分问题",
+  "why": "答案格式不同被判错，实际数值正确",
+  "gold_verified": "('34 weeks', '6 days')",
+  "gold_v10": "('34 weeks', '6 days')",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "(34, 6)",
+   "google_gemini-2.5-pro-preview-05-06": "(34, 6)",
+   "openai_gpt-5-2025-08-07": "(34, 6)",
+   "openai_gpt-5-mini-2025-08-07": "(34 weeks, 6 days)",
+   "openai_o3-mini-2025-01-31": "(34, 6)",
+   "openai_o4-mini-2025-04-16": "(34, 6)"
+  }
+ },
+ {
+  "id": "311",
+  "calculator": "Centor Score (Modified/McIsaac) for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "病历没写的项目，标准答案一律按“阴性”算；模型会推断或按原版Centor不加年龄分",
+  "gold_verified": "3",
+  "gold_v10": "2",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2",
+   "google_gemini-2.5-pro-preview-05-06": "4",
+   "openai_gpt-5-2025-08-07": "4",
+   "openai_gpt-5-mini-2025-08-07": "4",
+   "openai_o3-mini-2025-01-31": "4",
+   "openai_o4-mini-2025-04-16": "4"
+  }
+ },
+ {
+  "id": "305",
+  "calculator": "Centor Score (Modified/McIsaac) for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "病历没写的项目，标准答案一律按“阴性”算；模型会推断或按原版Centor不加年龄分",
+  "gold_verified": "3",
+  "gold_v10": "2",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2",
+   "google_gemini-2.5-pro-preview-05-06": "2",
+   "openai_gpt-5-2025-08-07": "1",
+   "openai_gpt-5-mini-2025-08-07": "2",
+   "openai_o3-mini-2025-01-31": "3",
+   "openai_o4-mini-2025-04-16": "3"
+  }
+ },
+ {
+  "id": "1032",
+  "calculator": "Estimated Gestational Age",
+  "label": "判分问题",
+  "why": "答案格式不同被判错，实际数值正确",
+  "gold_verified": "('35 weeks', '4 days')",
+  "gold_v10": "('35 weeks', '4 days')",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "(35, 4)",
+   "google_gemini-2.5-pro-preview-05-06": "(35, 4)",
+   "openai_gpt-5-2025-08-07": "(35, 4)",
+   "openai_gpt-5-mini-2025-08-07": "(35 weeks, 4 days)",
+   "openai_o3-mini-2025-01-31": "(35, 4)",
+   "openai_o4-mini-2025-04-16": "(35 weeks, 4 days)"
+  }
+ },
+ {
+  "id": "458",
+  "calculator": "FeverPAIN Score for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "同上",
+  "gold_verified": "1",
+  "gold_v10": "1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2",
+   "google_gemini-2.5-pro-preview-05-06": "2",
+   "openai_gpt-5-2025-08-07": "2",
+   "openai_gpt-5-mini-2025-08-07": "2",
+   "openai_o3-mini-2025-01-31": "1",
+   "openai_o4-mini-2025-04-16": "2"
+  }
+ },
+ {
+  "id": "960",
+  "calculator": "Steroid Conversion Calculator",
+  "label": "公式口径",
+  "why": "激素等效剂量换算表各来源不同",
+  "gold_verified": "210.9789",
+  "gold_v10": "210.979",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "197.81",
+   "google_gemini-2.5-pro-preview-05-06": "263.75",
+   "openai_gpt-5-2025-08-07": "211",
+   "openai_gpt-5-mini-2025-08-07": "263.75",
+   "openai_o3-mini-2025-01-31": "211",
+   "openai_o4-mini-2025-04-16": "264"
+  }
+ },
+ {
+  "id": "480",
+  "calculator": "Free Water Deficit",
+  "label": "公式口径",
+  "why": "低钠时自由水缺失取负值还是取绝对值",
+  "gold_verified": "-1.56429",
+  "gold_v10": "-1.56",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "0",
+   "google_gemini-2.5-pro-preview-05-06": "1.6",
+   "openai_gpt-5-2025-08-07": "-1.56",
+   "openai_gpt-5-mini-2025-08-07": "-1.6",
+   "openai_o3-mini-2025-01-31": "1.62",
+   "openai_o4-mini-2025-04-16": "1.56"
+  }
+ },
+ {
+  "id": "739",
+  "calculator": "Delta Gap",
+  "label": "公式口径",
+  "why": "正常阴离子间隙取10还是12、是否计入钾，各家口径不同",
+  "gold_verified": "2.1",
+  "gold_v10": "2.1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2.1",
+   "google_gemini-2.5-pro-preview-05-06": "21",
+   "openai_gpt-5-2025-08-07": "-3.0",
+   "openai_gpt-5-mini-2025-08-07": "-3.0",
+   "openai_o3-mini-2025-01-31": "2.1",
+   "openai_o4-mini-2025-04-16": "5.7"
+  }
+ },
+ {
+  "id": "584",
+  "calculator": "PERC Rule for Pulmonary Embolism",
+  "label": "题意歧义",
+  "why": "“满足几条标准”被4/6个强模型理解成“几条阴性条件成立”，答案正好互补",
+  "gold_verified": "1",
+  "gold_v10": "1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "1",
+   "google_gemini-2.5-pro-preview-05-06": "1",
+   "openai_gpt-5-2025-08-07": "7",
+   "openai_gpt-5-mini-2025-08-07": "7",
+   "openai_o3-mini-2025-01-31": "7",
+   "openai_o4-mini-2025-04-16": "7"
+  }
+ },
+ {
+  "id": "801",
+  "calculator": "Albumin Corrected Delta Gap",
+  "label": "公式口径",
+  "why": "同上，叠加白蛋白校正系数口径",
+  "gold_verified": "15.2",
+  "gold_v10": "15.2",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "16.2",
+   "google_gemini-2.5-pro-preview-05-06": "15.2",
+   "openai_gpt-5-2025-08-07": "8.0",
+   "openai_gpt-5-mini-2025-08-07": "8.0",
+   "openai_o3-mini-2025-01-31": "15.2",
+   "openai_o4-mini-2025-04-16": "19"
+  }
+ },
+ {
+  "id": "741",
+  "calculator": "Delta Gap",
+  "label": "公式口径",
+  "why": "正常阴离子间隙取10还是12、是否计入钾，各家口径不同",
+  "gold_verified": "1.0",
+  "gold_v10": "1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "6",
+   "google_gemini-2.5-pro-preview-05-06": "1",
+   "openai_gpt-5-2025-08-07": "-4",
+   "openai_gpt-5-mini-2025-08-07": "20",
+   "openai_o3-mini-2025-01-31": "1",
+   "openai_o4-mini-2025-04-16": "-4"
+  }
+ },
+ {
+  "id": "791",
+  "calculator": "Albumin Corrected Delta Gap",
+  "label": "公式口径",
+  "why": "同上，叠加白蛋白校正系数口径",
+  "gold_verified": "-5.5",
+  "gold_v10": "-5.5",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "-4.5",
+   "google_gemini-2.5-pro-preview-05-06": "-5.5",
+   "openai_gpt-5-2025-08-07": "-0.5",
+   "openai_gpt-5-mini-2025-08-07": "-0.5",
+   "openai_o3-mini-2025-01-31": "-6",
+   "openai_o4-mini-2025-04-16": ""
+  }
+ },
+ {
+  "id": "746",
+  "calculator": "Delta Gap",
+  "label": "公式口径",
+  "why": "正常阴离子间隙取10还是12、是否计入钾，各家口径不同",
+  "gold_verified": "7.0",
+  "gold_v10": "7",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "1",
+   "google_gemini-2.5-pro-preview-05-06": "1",
+   "openai_gpt-5-2025-08-07": "1",
+   "openai_gpt-5-mini-2025-08-07": "1",
+   "openai_o3-mini-2025-01-31": "7",
+   "openai_o4-mini-2025-04-16": "1"
+  }
+ },
+ {
+  "id": "824",
+  "calculator": "Albumin Corrected Delta Ratio",
+  "label": "公式口径",
+  "why": "同上；标准答案的白蛋白单位写成mg/dL",
+  "gold_verified": "5.49563",
+  "gold_v10": "5.495",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "1.6",
+   "google_gemini-2.5-pro-preview-05-06": "1.125",
+   "openai_gpt-5-2025-08-07": "1.13",
+   "openai_gpt-5-mini-2025-08-07": "1.125",
+   "openai_o3-mini-2025-01-31": "3.7",
+   "openai_o4-mini-2025-04-16": "1.125"
+  }
+ },
+ {
+  "id": "943",
+  "calculator": "Estimated Due Date",
+  "label": "公式口径",
+  "why": "标准答案按“末次月经+280天”算，强模型按经典 Naegele 日历法（+1年-3月+7天）算，题目写的就是 Naegele 法",
+  "gold_verified": "12/13/2014",
+  "gold_v10": "12/23/2014",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "12/15/2014",
+   "google_gemini-2.5-pro-preview-05-06": "12/15/2014",
+   "openai_gpt-5-2025-08-07": "12/15/2014",
+   "openai_gpt-5-mini-2025-08-07": "12/15/2014",
+   "openai_o3-mini-2025-01-31": "12/15/2014",
+   "openai_o4-mini-2025-04-16": "12/15/2014"
+  }
+ },
+ {
+  "id": "929",
+  "calculator": "Estimated Due Date",
+  "label": "公式口径",
+  "why": "标准答案按“末次月经+280天”算，强模型按经典 Naegele 日历法（+1年-3月+7天）算，题目写的就是 Naegele 法",
+  "gold_verified": "01/01/2007",
+  "gold_v10": "01/09/2007",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "01/03/2007",
+   "google_gemini-2.5-pro-preview-05-06": "01/03/2007",
+   "openai_gpt-5-2025-08-07": "01/03/2007",
+   "openai_gpt-5-mini-2025-08-07": "01/03/2007",
+   "openai_o3-mini-2025-01-31": "01/03/2007",
+   "openai_o4-mini-2025-04-16": "01/03/2007"
+  }
+ },
+ {
+  "id": "586",
+  "calculator": "PERC Rule for Pulmonary Embolism",
+  "label": "题意歧义",
+  "why": "“满足几条标准”被4/6个强模型理解成“几条阴性条件成立”，答案正好互补",
+  "gold_verified": "0",
+  "gold_v10": "0",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "0",
+   "google_gemini-2.5-pro-preview-05-06": "0",
+   "openai_gpt-5-2025-08-07": "8",
+   "openai_gpt-5-mini-2025-08-07": "8",
+   "openai_o3-mini-2025-01-31": "8",
+   "openai_o4-mini-2025-04-16": "8"
+  }
+ },
+ {
+  "id": "559",
+  "calculator": "Framingham Risk Score for Hard Coronary Heart Disease",
+  "label": "公式口径",
+  "why": "标准答案用回归方程，模型多用积分表近似",
+  "gold_verified": "61.022",
+  "gold_v10": "1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "20",
+   "google_gemini-2.5-pro-preview-05-06": "I am sorry, but I cannot compute the Framingham Risk Score. The patient's measured HDL-C of 5 mg/dl is noted to be artifactually low due to interference from a monoclonal gammopathy (Waldenstrom macroglobulinemia). Using this incorrect value would lead to a clinically meaningless and inaccurate risk score. While a historical HDL-C of 41 mg/dl is provided, it is three years old and may not reflect the patient's current status. Therefore, a reliable Framingham Risk Score cannot be calculated from the provided data.",
+   "openai_gpt-5-2025-08-07": "",
+   "openai_gpt-5-mini-2025-08-07": "16",
+   "openai_o3-mini-2025-01-31": "",
+   "openai_o4-mini-2025-04-16": "16"
+  }
+ },
+ {
+  "id": "477",
+  "calculator": "Free Water Deficit",
+  "label": "公式口径",
+  "why": "低钠时自由水缺失取负值还是取绝对值",
+  "gold_verified": "-2.46071",
+  "gold_v10": "-2.46",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2.46",
+   "google_gemini-2.5-pro-preview-05-06": "0",
+   "openai_gpt-5-2025-08-07": "-2.46",
+   "openai_gpt-5-mini-2025-08-07": "2.46",
+   "openai_o3-mini-2025-01-31": "2.5",
+   "openai_o4-mini-2025-04-16": "2.46"
+  }
+ },
+ {
+  "id": "1031",
+  "calculator": "Estimated Gestational Age",
+  "label": "判分问题",
+  "why": "答案格式不同被判错，实际数值正确",
+  "gold_verified": "('8 weeks', '6 days')",
+  "gold_v10": "('8 weeks', '6 days')",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "(8 weeks, 6 days)",
+   "google_gemini-2.5-pro-preview-05-06": "(8, 6)",
+   "openai_gpt-5-2025-08-07": "(8, 6)",
+   "openai_gpt-5-mini-2025-08-07": "(8 weeks, 6 days)",
+   "openai_o3-mini-2025-01-31": "(8, 6)",
+   "openai_o4-mini-2025-04-16": "(8, 6)"
+  }
+ },
+ {
+  "id": "934",
+  "calculator": "Estimated Due Date",
+  "label": "公式口径",
+  "why": "标准答案按“末次月经+280天”算，强模型按经典 Naegele 日历法（+1年-3月+7天）算，题目写的就是 Naegele 法",
+  "gold_verified": "02/24/2021",
+  "gold_v10": "02/24/2021",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "02/27/2021",
+   "google_gemini-2.5-pro-preview-05-06": "02/27/2021",
+   "openai_gpt-5-2025-08-07": "02/27/2021",
+   "openai_gpt-5-mini-2025-08-07": "02/27/2021",
+   "openai_o3-mini-2025-01-31": "02/27/2021",
+   "openai_o4-mini-2025-04-16": "02/27/2021"
+  }
+ },
+ {
+  "id": "788",
+  "calculator": "Albumin Corrected Delta Gap",
+  "label": "公式口径",
+  "why": "同上，叠加白蛋白校正系数口径",
+  "gold_verified": "-1.25",
+  "gold_v10": "-1.25",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "-0.25",
+   "google_gemini-2.5-pro-preview-05-06": "26.75",
+   "openai_gpt-5-2025-08-07": "2.75",
+   "openai_gpt-5-mini-2025-08-07": "2.75",
+   "openai_o3-mini-2025-01-31": "-1.25",
+   "openai_o4-mini-2025-04-16": "2.75"
+  }
+ },
+ {
+  "id": "587",
+  "calculator": "PERC Rule for Pulmonary Embolism",
+  "label": "题意歧义",
+  "why": "“满足几条标准”被4/6个强模型理解成“几条阴性条件成立”，答案正好互补",
+  "gold_verified": "2",
+  "gold_v10": "2",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2",
+   "google_gemini-2.5-pro-preview-05-06": "2",
+   "openai_gpt-5-2025-08-07": "6",
+   "openai_gpt-5-mini-2025-08-07": "6",
+   "openai_o3-mini-2025-01-31": "6",
+   "openai_o4-mini-2025-04-16": "6"
+  }
+ },
+ {
+  "id": "594",
+  "calculator": "SIRS Criteria",
+  "label": "阈值边界",
+  "why": "体温恰好38.0，是否算“>38”",
+  "gold_verified": "2",
+  "gold_v10": "2",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3",
+   "google_gemini-2.5-pro-preview-05-06": "3",
+   "openai_gpt-5-2025-08-07": "3",
+   "openai_gpt-5-mini-2025-08-07": "3",
+   "openai_o3-mini-2025-01-31": "3",
+   "openai_o4-mini-2025-04-16": "3"
+  }
+ },
+ {
+  "id": "576",
+  "calculator": "PERC Rule for Pulmonary Embolism",
+  "label": "题意歧义",
+  "why": "“满足几条标准”被4/6个强模型理解成“几条阴性条件成立”，答案正好互补",
+  "gold_verified": "1",
+  "gold_v10": "1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "1",
+   "google_gemini-2.5-pro-preview-05-06": "1",
+   "openai_gpt-5-2025-08-07": "7",
+   "openai_gpt-5-mini-2025-08-07": "7",
+   "openai_o3-mini-2025-01-31": "7",
+   "openai_o4-mini-2025-04-16": "7"
+  }
+ },
+ {
+  "id": "796",
+  "calculator": "Albumin Corrected Delta Gap",
+  "label": "公式口径",
+  "why": "同上，叠加白蛋白校正系数口径",
+  "gold_verified": "27.75",
+  "gold_v10": "27.75",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "29",
+   "google_gemini-2.5-pro-preview-05-06": "10.75",
+   "openai_gpt-5-2025-08-07": "8.75",
+   "openai_gpt-5-mini-2025-08-07": "8.8",
+   "openai_o3-mini-2025-01-31": "28",
+   "openai_o4-mini-2025-04-16": "10"
+  }
+ },
+ {
+  "id": "557",
+  "calculator": "Framingham Risk Score for Hard Coronary Heart Disease",
+  "label": "公式口径",
+  "why": "标准答案用回归方程，模型多用积分表近似",
+  "gold_verified": "24.904",
+  "gold_v10": "1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "21",
+   "google_gemini-2.5-pro-preview-05-06": "31.6",
+   "openai_gpt-5-2025-08-07": "20",
+   "openai_gpt-5-mini-2025-08-07": "20",
+   "openai_o3-mini-2025-01-31": "12",
+   "openai_o4-mini-2025-04-16": "20"
+  }
+ },
+ {
+  "id": "341",
+  "calculator": "MELD Na (UNOS/OPTN)",
+  "label": "真错",
+  "why": "取数或计算错误",
+  "gold_verified": "11.0",
+  "gold_v10": "10",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "26",
+   "google_gemini-2.5-pro-preview-05-06": "22",
+   "openai_gpt-5-2025-08-07": "22",
+   "openai_gpt-5-mini-2025-08-07": "22",
+   "openai_o3-mini-2025-01-31": "27",
+   "openai_o4-mini-2025-04-16": "26"
+  }
+ },
+ {
+  "id": "793",
+  "calculator": "Albumin Corrected Delta Gap",
+  "label": "公式口径",
+  "why": "同上，叠加白蛋白校正系数口径",
+  "gold_verified": "-1.25",
+  "gold_v10": "-1.25",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "-0.25",
+   "google_gemini-2.5-pro-preview-05-06": "-5.25",
+   "openai_gpt-5-2025-08-07": "0.75",
+   "openai_gpt-5-mini-2025-08-07": "-5.25",
+   "openai_o3-mini-2025-01-31": "-1.25",
+   "openai_o4-mini-2025-04-16": "-5.25"
+  }
+ },
+ {
+  "id": "728",
+  "calculator": "Delta Gap",
+  "label": "公式口径",
+  "why": "正常阴离子间隙取10还是12、是否计入钾，各家口径不同",
+  "gold_verified": "14.4",
+  "gold_v10": "14.4",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "19",
+   "google_gemini-2.5-pro-preview-05-06": "14.4",
+   "openai_gpt-5-2025-08-07": "-5.0",
+   "openai_gpt-5-mini-2025-08-07": "-5.0",
+   "openai_o3-mini-2025-01-31": "14.4",
+   "openai_o4-mini-2025-04-16": "-5"
+  }
+ },
+ {
+  "id": "130",
+  "calculator": "Wells' Criteria for Pulmonary Embolism",
+  "label": "主观项",
+  "why": "“PE是否首要诊断”需要临床判断",
+  "gold_verified": "5.5",
+  "gold_v10": "2.5",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2.5",
+   "google_gemini-2.5-pro-preview-05-06": "5.5",
+   "openai_gpt-5-2025-08-07": "2.5",
+   "openai_gpt-5-mini-2025-08-07": "5.5",
+   "openai_o3-mini-2025-01-31": "2.5",
+   "openai_o4-mini-2025-04-16": "2.5"
+  }
+ },
+ {
+  "id": "553",
+  "calculator": "Framingham Risk Score for Hard Coronary Heart Disease",
+  "label": "公式口径",
+  "why": "标准答案用回归方程，模型多用积分表近似",
+  "gold_verified": "6.732",
+  "gold_v10": "0",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3",
+   "google_gemini-2.5-pro-preview-05-06": "11",
+   "openai_gpt-5-2025-08-07": "3",
+   "openai_gpt-5-mini-2025-08-07": "8",
+   "openai_o3-mini-2025-01-31": "5",
+   "openai_o4-mini-2025-04-16": ""
+  }
+ },
+ {
+  "id": "275",
+  "calculator": "HEART Score for Major Cardiac Events",
+  "label": "主观项",
+  "why": "“病史可疑程度”等主观项需要判断，取值不唯一",
+  "gold_verified": "6",
+  "gold_v10": "7",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "5",
+   "google_gemini-2.5-pro-preview-05-06": "7",
+   "openai_gpt-5-2025-08-07": "7",
+   "openai_gpt-5-mini-2025-08-07": "6",
+   "openai_o3-mini-2025-01-31": "5",
+   "openai_o4-mini-2025-04-16": "5"
+  }
+ },
+ {
+  "id": "261",
+  "calculator": "HEART Score for Major Cardiac Events",
+  "label": "主观项",
+  "why": "“病史可疑程度”等主观项需要判断，取值不唯一",
+  "gold_verified": "5",
+  "gold_v10": "5",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "7",
+   "google_gemini-2.5-pro-preview-05-06": "7",
+   "openai_gpt-5-2025-08-07": "4",
+   "openai_gpt-5-mini-2025-08-07": "6",
+   "openai_o3-mini-2025-01-31": "5",
+   "openai_o4-mini-2025-04-16": "5"
+  }
+ },
+ {
+  "id": "928",
+  "calculator": "Estimated Due Date",
+  "label": "公式口径",
+  "why": "标准答案按“末次月经+280天”算，强模型按经典 Naegele 日历法（+1年-3月+7天）算，题目写的就是 Naegele 法",
+  "gold_verified": "09/11/2014",
+  "gold_v10": "09/23/2014",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "09/12/2014",
+   "google_gemini-2.5-pro-preview-05-06": "09/12/2014",
+   "openai_gpt-5-2025-08-07": "09/12/2014",
+   "openai_gpt-5-mini-2025-08-07": "09/12/2014",
+   "openai_o3-mini-2025-01-31": "09/12/2014",
+   "openai_o4-mini-2025-04-16": "9/12/2014"
+  }
+ },
+ {
+  "id": "1035",
+  "calculator": "Estimated Gestational Age",
+  "label": "判分问题",
+  "why": "答案格式不同被判错，实际数值正确",
+  "gold_verified": "('30 weeks', '3 days')",
+  "gold_v10": "('30 weeks', '3 days')",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "(30, 3)",
+   "google_gemini-2.5-pro-preview-05-06": "(30, 3)",
+   "openai_gpt-5-2025-08-07": "(30, 3)",
+   "openai_gpt-5-mini-2025-08-07": "(30 weeks, 3 days)",
+   "openai_o3-mini-2025-01-31": "(30 weeks, 3 days)",
+   "openai_o4-mini-2025-04-16": "(30, 3)"
+  }
+ },
+ {
+  "id": "563",
+  "calculator": "Framingham Risk Score for Hard Coronary Heart Disease",
+  "label": "公式口径",
+  "why": "标准答案用回归方程，模型多用积分表近似",
+  "gold_verified": "25.274",
+  "gold_v10": "0.9",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "30",
+   "google_gemini-2.5-pro-preview-05-06": "37",
+   "openai_gpt-5-2025-08-07": "40",
+   "openai_gpt-5-mini-2025-08-07": "20",
+   "openai_o3-mini-2025-01-31": "30",
+   "openai_o4-mini-2025-04-16": "30"
+  }
+ },
+ {
+  "id": "556",
+  "calculator": "Framingham Risk Score for Hard Coronary Heart Disease",
+  "label": "公式口径",
+  "why": "标准答案用回归方程，模型多用积分表近似",
+  "gold_verified": "10.402",
+  "gold_v10": "0.1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "22",
+   "google_gemini-2.5-pro-preview-05-06": "11",
+   "openai_gpt-5-2025-08-07": "34",
+   "openai_gpt-5-mini-2025-08-07": "20",
+   "openai_o3-mini-2025-01-31": "6",
+   "openai_o4-mini-2025-04-16": "6"
+  }
+ },
+ {
+  "id": "555",
+  "calculator": "Framingham Risk Score for Hard Coronary Heart Disease",
+  "label": "公式口径",
+  "why": "标准答案用回归方程，模型多用积分表近似",
+  "gold_verified": "0.668",
+  "gold_v10": "0",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "2",
+   "google_gemini-2.5-pro-preview-05-06": "6",
+   "openai_gpt-5-2025-08-07": "1",
+   "openai_gpt-5-mini-2025-08-07": "1",
+   "openai_o3-mini-2025-01-31": "5",
+   "openai_o4-mini-2025-04-16": "9"
+  }
+ },
+ {
+  "id": "931",
+  "calculator": "Estimated Due Date",
+  "label": "公式口径",
+  "why": "标准答案按“末次月经+280天”算，强模型按经典 Naegele 日历法（+1年-3月+7天）算，题目写的就是 Naegele 法",
+  "gold_verified": "03/19/2012",
+  "gold_v10": "04/02/2012",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "03/20/2012",
+   "google_gemini-2.5-pro-preview-05-06": "03/20/2012",
+   "openai_gpt-5-2025-08-07": "03/20/2012",
+   "openai_gpt-5-mini-2025-08-07": "03/20/2012",
+   "openai_o3-mini-2025-01-31": "3/20/2012",
+   "openai_o4-mini-2025-04-16": "03/20/2012"
+  }
+ },
+ {
+  "id": "306",
+  "calculator": "Centor Score (Modified/McIsaac) for Strep Pharyngitis",
+  "label": "信息缺失约定",
+  "why": "病历没写的项目，标准答案一律按“阴性”算；模型会推断或按原版Centor不加年龄分",
+  "gold_verified": "-1",
+  "gold_v10": "-1",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "0",
+   "google_gemini-2.5-pro-preview-05-06": "0",
+   "openai_gpt-5-2025-08-07": "0",
+   "openai_gpt-5-mini-2025-08-07": "0",
+   "openai_o3-mini-2025-01-31": "0",
+   "openai_o4-mini-2025-04-16": "0"
+  }
+ },
+ {
+  "id": "120",
+  "calculator": "Wells' Criteria for Pulmonary Embolism",
+  "label": "主观项",
+  "why": "“PE是否首要诊断”需要临床判断",
+  "gold_verified": "1.5",
+  "gold_v10": "1.5",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "3",
+   "google_gemini-2.5-pro-preview-05-06": "3",
+   "openai_gpt-5-2025-08-07": "3",
+   "openai_gpt-5-mini-2025-08-07": "1.5",
+   "openai_o3-mini-2025-01-31": "3.0",
+   "openai_o4-mini-2025-04-16": "1.5"
+  }
+ },
+ {
+  "id": "938",
+  "calculator": "Estimated Due Date",
+  "label": "公式口径",
+  "why": "标准答案按“末次月经+280天”算，强模型按经典 Naegele 日历法（+1年-3月+7天）算，题目写的就是 Naegele 法",
+  "gold_verified": "04/14/2009",
+  "gold_v10": "04/28/2009",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "04/15/2009",
+   "google_gemini-2.5-pro-preview-05-06": "04/15/2009",
+   "openai_gpt-5-2025-08-07": "04/15/2009",
+   "openai_gpt-5-mini-2025-08-07": "04/15/2009",
+   "openai_o3-mini-2025-01-31": "",
+   "openai_o4-mini-2025-04-16": "04/15/2009"
+  }
+ },
+ {
+  "id": "933",
+  "calculator": "Estimated Due Date",
+  "label": "公式口径",
+  "why": "标准答案按“末次月经+280天”算，强模型按经典 Naegele 日历法（+1年-3月+7天）算，题目写的就是 Naegele 法",
+  "gold_verified": "11/09/2012",
+  "gold_v10": "11/09/2012",
+  "strong_preds": {
+   "deepseek-ai_deepseek-r1": "11/10/2012",
+   "google_gemini-2.5-pro-preview-05-06": "11/10/2012",
+   "openai_gpt-5-2025-08-07": "11/10/2012",
+   "openai_gpt-5-mini-2025-08-07": "11/10/2012",
+   "openai_o3-mini-2025-01-31": "11/10/2012",
+   "openai_o4-mini-2025-04-16": "11/10/2012"
+  }
+ }
+]

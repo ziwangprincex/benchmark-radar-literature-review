@@ -1,0 +1,41 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Failure Case · incorrect_other</title><style>
+:root{--ink:#152220;--muted:#687673;--green:#087a61;--line:#dce5e2;--bg:#f4f7f6;--red:#b5483f}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1050px;margin:auto;padding:34px 22px 70px}a{color:var(--green)}.crumb{font-size:12px;color:var(--muted);margin-bottom:18px}.hero{background:#10352d;color:#fff;border-radius:17px;padding:29px;margin-bottom:15px}.hero small{color:#83d8be;text-transform:uppercase;letter-spacing:.12em}.hero h1{margin:9px 0 5px;font-size:30px}.hero p{color:#bdd8d0;line-height:1.6}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:21px;margin-top:13px}.panel h2{font-size:18px;margin-top:0}.panel h3{font-size:14px;margin:12px 0 6px}p,li{line-height:1.7}.muted{color:var(--muted)}.meta{display:flex;gap:7px;flex-wrap:wrap}.tag{padding:5px 8px;background:#e7f2ee;color:#176550;border-radius:6px;font-size:11px}.evidence{border-top:1px solid var(--line);padding:16px 0}.evidence:first-of-type{border-top:0}.evidence strong{display:block;margin-bottom:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{background:#f4f7f6;border-radius:9px;padding:13px}.field small{display:block;color:var(--muted);margin-bottom:5px}pre{white-space:pre-wrap;word-break:break-word;background:#102521;color:#d9eee7;padding:14px;border-radius:9px;overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-top:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted)}.severity-critical,.severity-high{color:#a32d25;font-weight:800}.severity-medium{color:#9b690e;font-weight:800}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}select{padding:9px;border:1px solid var(--line);border-radius:7px;background:#fff}.count{font-weight:900;color:var(--green)}.raw-panel{border-left:5px solid #3157a4}.extract-panel{border-left:5px solid #087a61}.ai-panel{border-left:5px solid #8655a8}.evidence-label{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.12em;padding:5px 8px;border-radius:5px;margin-bottom:10px}.raw-label{background:#e5ecfa;color:#3157a4}.extract-label{background:#e2f2ed;color:#087a61}.ai-label{background:#f0e8f6;color:#754797}.case-card{border:1px solid var(--line);border-radius:9px;padding:13px;margin-top:9px}@media(max-width:720px){.grid,.controls{grid-template-columns:1fr}}
+</style></head><body><main><div class="crumb"><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a> / <a href="idea-1-evidence-417.html">Evidence</a> / Failure Case #158</div><header class="hero"><small>Model Failure Case #158</small><h1>incorrect_other</h1><p>PDF财报异常识别与证据引用 · claude-2 · medium</p></header>
+<section class="panel"><h2>Case Detail</h2><div class="grid"><div class="field"><small>Eval Run ID</small></div><div class="field"><small>Failure Case ID</small>financebench::financebench_id_02416::claude-2_inContext</div><div class="field"><small>Task / Prompt</small>What are three main companies acquired by Pfizer mentioned in this 10K report?</div><div class="field"><small>Input</small>doc=PFIZER_2021_10K evidence_pages=[69, 70] mode=inContext</div><div class="field"><small>Reference Answer</small>Trillium, Array, and Therachon</div><div class="field"><small>Rubric</small>FinanceBench 作者人工判分：Correct Answer / Incorrect Answer / Refusal</div><div class="field"><small>Model</small>claude-2 claude-2_inContext</div><div class="field"><small>Model Response</small> Here are the key points regarding the tax rate reconciliation in Pfizer&#x27;s financial statements:
+
+- The statutory U.S. federal income tax rate is 21% for all years presented. This is the default tax rate set by law that applies to taxable income. 
+
+- Pfizer&#x27;s effective tax rate was 7.6% in 2021, 5.3% in 2020, and 5.2% in 2019. The effective tax rate represents the average rate at which Pfizer&#x27;s pre-tax income from continuing operations was actually taxed.
+
+- The difference between the statutory rate and effective rate is explained by various factors that increase or decrease the tax expense relative to pre-tax income.
+
+- Key factors that decreased the tax expense and effective tax rate versus the statutory rate:
+
+1) Tax benefits related to acquisitions and internal restructuring - These reduced the tax rate by 3.4% in 2021, 13.5% in 2020, and 9.3% in 2019. They relate to reorganizations of legal entities and acquisitions.
+
+2) Tax benefits on dividends and other income earned abroad - These reduced the rate by 2.9% in 2021 and 1.2% in 2020. They relate to income earned in foreign jurisdictions with lower tax rates. 
+
+3) Tax credits and incentives - These reduced the rate by 1.7% in 2021, 2.2% in 2020, and 1.3% in 2019. They include R&amp;D credits and state and local incentives.
+
+4) Resolution of certain tax positions - These reduced the rate by 12.4% in 2019, relating to the favorable settlement of an IRS audit. 
+
+- Key factors that increased the tax expense and effective tax rate versus the statutory rate:
+
+1) Tax on global intangible low-taxed income (GILTI) - This increased the rate by 2.2% in 2021 and 2.0% in 2020. It relates to income earned by foreign subsidiaries.
+
+2) Other net unfavorable adjustments - These increased the rate by 2.3% in 2021, 1.4% in 2020, and 1.2% in 2019. They represent miscellaneous smaller adjusting items.
+
+So in summary, the effective tax rate differed from the statutory rate primarily due to the tax benefits and costs related to Pfizer&#x27;s global operations and transactions.</div><div class="field"><small>Score / Pass-Fail</small>0.0 / FAIL</div><div class="field"><small>Failure Type</small>incorrect_other</div><div class="field"><small>Severity</small>medium</div><div class="field"><small>Error Analysis</small>[规则归类] 作者标为 Incorrect，规则未归入更具体的类型。同题失败配置数 3/4。</div><div class="field"><small>Judge Result</small>Incorrect Answer（FinanceBench 作者人工标注，未重判）</div><div class="field"><small>Benchmark</small>FinanceBench</div><div class="field"><small>Run Date</small>2023-11-20</div></div><p><span class="muted">未关联可验证 Eval Run</span></p></section>
+<section class="panel"><h2>原始附件 / 数据</h2><p class="muted">无附件</p><details><summary>Raw Case JSON</summary><pre>{
+  &quot;question_type&quot;: &quot;novel-generated&quot;,
+  &quot;question_reasoning&quot;: null,
+  &quot;evidence_pages&quot;: [
+    69,
+    70
+  ],
+  &quot;fail_configs&quot;: [
+    &quot;gpt-4-1106-preview_singleStore&quot;,
+    &quot;claude-2_inContext&quot;,
+    &quot;llama2_singleStore&quot;
+  ]
+}</pre></details><a href="raw-source-417.html">查看关联 Raw Source →</a></section></main></body></html>

@@ -1,0 +1,719 @@
+{
+  "generated_at": "2026-09-24T06:56:33+00:00",
+  "top10": [
+    {
+      "id": 1,
+      "idea_key": "879a6084bdfa1b8b25bc2efd",
+      "idea_name": "PDF财报异常识别与证据引用",
+      "domain": "financial",
+      "real_world_task": "分析师需要阅读跨页财报与附注，识别同比异常、口径变化和勾稽错误，引用准确页码并形成可执行结论。新人常犯的错误是引用错年份、漏掉附注口径调整。",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 citation_correctness, cross_document_reasoning, domain_reasoning, hypothesis_generation, judge_reliability, long_context, numerical_grounding, planning, tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "长文档证据定位已有覆盖：XL-DocBench 要求专家标注的多页证据，LEDGER 做年报页面级 KPI 检索，FinanceBench 标注了证据页但只判答案。仍缺的是：以异常识别（跨页数值勾稽、口径不一致）为任务，并对引用是否真正支撑结论判分的金融评测。（依据：上述三篇 arXiv 摘要，全文待核查）",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "external-search；failure-manual；openai-product；workflow-manual",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 2,
+      "total_score": 80.0,
+      "status": "watch",
+      "version": 23,
+      "created_at": "2026-09-14T10:08:06+00:00",
+      "updated_at": "2026-09-24T03:34:48+00:00",
+      "sources": [
+        "benchmark"
+      ],
+      "source_refs": [
+        {
+          "title": "FinanceBench: A New Benchmark for Financial Question Answering",
+          "url": "https://arxiv.org/abs/2311.11944",
+          "published_at": null
+        },
+        {
+          "title": "LEDGER: A Long-Context Benchmark of Corporate Annual Reports for Grounded Financial Retrieval and Extraction",
+          "url": "https://arxiv.org/abs/2606.13100",
+          "published_at": null
+        },
+        {
+          "title": "XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding",
+          "url": "https://arxiv.org/abs/2608.00036",
+          "published_at": null
+        },
+        {
+          "title": "Enhancing Financial Question Answering: A Novel Benchmark Dataset of Banks' financial statements",
+          "url": "https://arxiv.org/abs/2609.03654",
+          "published_at": null
+        },
+        {
+          "title": "Can Open-Weight Models Compete on Financial Text Comprehension?",
+          "url": "https://arxiv.org/abs/2608.08634",
+          "published_at": null
+        }
+      ],
+      "capability": [
+        "citation_correctness",
+        "cross_document_reasoning",
+        "domain_reasoning",
+        "hypothesis_generation",
+        "judge_reliability",
+        "long_context",
+        "numerical_grounding",
+        "planning",
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "citation_correctness",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "FinanceBench",
+        "CNFinBench",
+        "CFBenchmark"
+      ],
+      "scores": {
+        "real_world_value": 13,
+        "model_weakness": 13,
+        "model_differentiation": 15,
+        "novelty": 12,
+        "evaluability": 15,
+        "data_feasibility": 8,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 6,
+      "analysis_input_count": 4,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "verified",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "verified"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "why_now"
+      ],
+      "insight_url": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io/idea-1-pdf.html"
+    },
+    {
+      "id": 2,
+      "idea_key": "2de632a58de6d008874611de",
+      "idea_name": "合同跨条款风险审查",
+      "domain": "legal",
+      "real_world_task": "律师需要结合交易背景识别缺失条款、冲突条款与责任边界，给出修改建议和法律依据。新人容易遗漏交叉引用和适用法冲突。",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 citation_correctness, cross_document_reasoning, domain_reasoning, judge_reliability, safety, version_awareness，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "条款抽取已被 CUAD/ContractEval 覆盖；跨条款矛盾检测已有 CLAUSE（基于 CUAD 注入 10 类矛盾，最佳模型法条引用匹配 <14%）。剩余缺口更窄：矛盾是人工注入而非真实谈判合同，缺少风险分级；法条版本有效性仅有 Sycophants in the Courtroom 部分涉及。（依据：arXiv 摘要，全文待核查）",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "external-search；failure-manual；mini-eval；model-comparison；workflow-manual",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 77.0,
+      "status": "candidate",
+      "version": 17,
+      "created_at": "2026-09-14T10:08:06+00:00",
+      "updated_at": "2026-09-24T03:34:47+00:00",
+      "sources": [
+        "benchmark"
+      ],
+      "source_refs": [
+        {
+          "title": "Better Call CLAUSE: A Discrepancy Benchmark for Auditing LLMs Legal Reasoning Capabilities",
+          "url": "https://arxiv.org/abs/2511.00340",
+          "published_at": null
+        },
+        {
+          "title": "ContractEval: Benchmarking LLMs for Clause-Level Legal Risk Identification in Commercial Contracts",
+          "url": "https://arxiv.org/abs/2508.03080",
+          "published_at": null
+        }
+      ],
+      "capability": [
+        "citation_correctness",
+        "cross_document_reasoning",
+        "domain_reasoning",
+        "judge_reliability",
+        "safety",
+        "version_awareness"
+      ],
+      "expected_failure": [
+        {
+          "type": "citation_correctness",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "LawBench"
+      ],
+      "scores": {
+        "real_world_value": 13,
+        "model_weakness": 12,
+        "model_differentiation": 14,
+        "novelty": 12,
+        "evaluability": 15,
+        "data_feasibility": 8,
+        "expert_cost": 3
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 5,
+      "analysis_input_count": 4,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "verified",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "why_now",
+        "model_failure"
+      ],
+      "insight_url": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io/idea-2-idea.html"
+    },
+    {
+      "id": 27,
+      "idea_key": "03b57e94a45cec99ba300c36",
+      "idea_name": "垂类Deep Research任务完成度",
+      "domain": "agent",
+      "real_world_task": "下一代搜索智能体评测基准！美团开源LoHoSearch，用知识图谱校准AI能力认知",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "BrowseComp 等搜索 Agent 评测已趋饱和（顶尖模型准确率从 30% 区间升至 90% 以上），区分度快速下降；缺少面向垂直领域、长链路检索并对过程与来源判分的 Deep Research 评测。",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "meituan-tech",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 48.0,
+      "status": "rejected",
+      "version": 2,
+      "created_at": "2026-09-24T02:23:35+00:00",
+      "updated_at": "2026-09-24T03:24:44+00:00",
+      "sources": [
+        "product_agent"
+      ],
+      "source_refs": [
+        {
+          "title": "下一代搜索智能体评测基准！美团开源LoHoSearch，用知识图谱校准AI能力认知",
+          "url": "https://tech.meituan.com/2026/07/24/LongCat-LoHoSearch.html",
+          "published_at": null
+        }
+      ],
+      "capability": [
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "tool_use",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GAIA",
+        "BrowseComp",
+        "τ²-bench"
+      ],
+      "scores": {
+        "real_world_value": 9,
+        "model_weakness": 7,
+        "model_differentiation": 5,
+        "novelty": 9,
+        "evaluability": 8,
+        "data_feasibility": 6,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 1,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "unsupported",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ],
+      "insight_url": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io/idea-27-deep-research.html"
+    }
+  ],
+  "changes": {
+    "new": [],
+    "promoted": [],
+    "demoted": [
+      {
+        "id": 1,
+        "idea_key": "879a6084bdfa1b8b25bc2efd",
+        "idea_name": "PDF财报异常识别与证据引用",
+        "domain": "financial",
+        "real_world_task": "分析师需要阅读跨页财报与附注，识别同比异常、口径变化和勾稽错误，引用准确页码并形成可执行结论。新人常犯的错误是引用错年份、漏掉附注口径调整。",
+        "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+        "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+        "why_hard": "组合考察 citation_correctness, cross_document_reasoning, domain_reasoning, hypothesis_generation, judge_reliability, long_context, numerical_grounding, planning, tool_use，需要跨信息源完成多步专业推理。",
+        "evaluation_gap": "长文档证据定位已有覆盖：XL-DocBench 要求专家标注的多页证据，LEDGER 做年报页面级 KPI 检索，FinanceBench 标注了证据页但只判答案。仍缺的是：以异常识别（跨页数值勾稽、口径不一致）为任务，并对引用是否真正支撑结论判分的金融评测。（依据：上述三篇 arXiv 摘要，全文待核查）",
+        "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+        "data_source": "external-search；failure-manual；openai-product；workflow-manual",
+        "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+        "radar_hits": 2,
+        "total_score": 80.0,
+        "status": "watch",
+        "version": 23,
+        "created_at": "2026-09-14T10:08:06+00:00",
+        "updated_at": "2026-09-24T03:34:48+00:00",
+        "sources": [
+          "benchmark"
+        ],
+        "source_refs": [
+          {
+            "title": "FinanceBench: A New Benchmark for Financial Question Answering",
+            "url": "https://arxiv.org/abs/2311.11944",
+            "published_at": null
+          },
+          {
+            "title": "LEDGER: A Long-Context Benchmark of Corporate Annual Reports for Grounded Financial Retrieval and Extraction",
+            "url": "https://arxiv.org/abs/2606.13100",
+            "published_at": null
+          },
+          {
+            "title": "XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding",
+            "url": "https://arxiv.org/abs/2608.00036",
+            "published_at": null
+          },
+          {
+            "title": "Enhancing Financial Question Answering: A Novel Benchmark Dataset of Banks' financial statements",
+            "url": "https://arxiv.org/abs/2609.03654",
+            "published_at": null
+          },
+          {
+            "title": "Can Open-Weight Models Compete on Financial Text Comprehension?",
+            "url": "https://arxiv.org/abs/2608.08634",
+            "published_at": null
+          }
+        ],
+        "capability": [
+          "citation_correctness",
+          "cross_document_reasoning",
+          "domain_reasoning",
+          "hypothesis_generation",
+          "judge_reliability",
+          "long_context",
+          "numerical_grounding",
+          "planning",
+          "tool_use"
+        ],
+        "expected_failure": [
+          {
+            "type": "citation_correctness",
+            "description": "待 Mini Eval 验证"
+          }
+        ],
+        "existing_benchmark": [
+          "FinanceBench",
+          "CNFinBench",
+          "CFBenchmark"
+        ],
+        "scores": {
+          "real_world_value": 13,
+          "model_weakness": 13,
+          "model_differentiation": 15,
+          "novelty": 12,
+          "evaluability": 15,
+          "data_feasibility": 8,
+          "expert_cost": 4
+        },
+        "score_overrides": {},
+        "raw_evidence_count": 6,
+        "analysis_input_count": 4,
+        "provenance_ready": true,
+        "evidence_confidence": "Medium",
+        "needs_verification": true,
+        "radar_status": {
+          "benchmark": "verified",
+          "workflow": "unsupported",
+          "product_agent": "unsupported",
+          "model_failure": "verified"
+        },
+        "missing_evidence": [
+          "core_insight",
+          "why_now"
+        ],
+        "insight_url": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io/idea-1-pdf.html"
+      }
+    ],
+    "eliminated": []
+  },
+  "mini_eval_now": [],
+  "watch": [
+    {
+      "id": 1,
+      "idea_key": "879a6084bdfa1b8b25bc2efd",
+      "idea_name": "PDF财报异常识别与证据引用",
+      "domain": "financial",
+      "real_world_task": "分析师需要阅读跨页财报与附注，识别同比异常、口径变化和勾稽错误，引用准确页码并形成可执行结论。新人常犯的错误是引用错年份、漏掉附注口径调整。",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 citation_correctness, cross_document_reasoning, domain_reasoning, hypothesis_generation, judge_reliability, long_context, numerical_grounding, planning, tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "长文档证据定位已有覆盖：XL-DocBench 要求专家标注的多页证据，LEDGER 做年报页面级 KPI 检索，FinanceBench 标注了证据页但只判答案。仍缺的是：以异常识别（跨页数值勾稽、口径不一致）为任务，并对引用是否真正支撑结论判分的金融评测。（依据：上述三篇 arXiv 摘要，全文待核查）",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "external-search；failure-manual；openai-product；workflow-manual",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 2,
+      "total_score": 80.0,
+      "status": "watch",
+      "version": 23,
+      "created_at": "2026-09-14T10:08:06+00:00",
+      "updated_at": "2026-09-24T03:34:48+00:00",
+      "sources": [
+        "benchmark"
+      ],
+      "source_refs": [
+        {
+          "title": "FinanceBench: A New Benchmark for Financial Question Answering",
+          "url": "https://arxiv.org/abs/2311.11944",
+          "published_at": null
+        },
+        {
+          "title": "LEDGER: A Long-Context Benchmark of Corporate Annual Reports for Grounded Financial Retrieval and Extraction",
+          "url": "https://arxiv.org/abs/2606.13100",
+          "published_at": null
+        },
+        {
+          "title": "XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding",
+          "url": "https://arxiv.org/abs/2608.00036",
+          "published_at": null
+        },
+        {
+          "title": "Enhancing Financial Question Answering: A Novel Benchmark Dataset of Banks' financial statements",
+          "url": "https://arxiv.org/abs/2609.03654",
+          "published_at": null
+        },
+        {
+          "title": "Can Open-Weight Models Compete on Financial Text Comprehension?",
+          "url": "https://arxiv.org/abs/2608.08634",
+          "published_at": null
+        }
+      ],
+      "capability": [
+        "citation_correctness",
+        "cross_document_reasoning",
+        "domain_reasoning",
+        "hypothesis_generation",
+        "judge_reliability",
+        "long_context",
+        "numerical_grounding",
+        "planning",
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "citation_correctness",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "FinanceBench",
+        "CNFinBench",
+        "CFBenchmark"
+      ],
+      "scores": {
+        "real_world_value": 13,
+        "model_weakness": 13,
+        "model_differentiation": 15,
+        "novelty": 12,
+        "evaluability": 15,
+        "data_feasibility": 8,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 6,
+      "analysis_input_count": 4,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "verified",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "verified"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "why_now"
+      ],
+      "insight_url": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io/idea-1-pdf.html"
+    }
+  ],
+  "not_recommended": [
+    {
+      "id": 27,
+      "idea_key": "03b57e94a45cec99ba300c36",
+      "idea_name": "垂类Deep Research任务完成度",
+      "domain": "agent",
+      "real_world_task": "下一代搜索智能体评测基准！美团开源LoHoSearch，用知识图谱校准AI能力认知",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "BrowseComp 等搜索 Agent 评测已趋饱和（顶尖模型准确率从 30% 区间升至 90% 以上），区分度快速下降；缺少面向垂直领域、长链路检索并对过程与来源判分的 Deep Research 评测。",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "meituan-tech",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 48.0,
+      "status": "rejected",
+      "version": 2,
+      "created_at": "2026-09-24T02:23:35+00:00",
+      "updated_at": "2026-09-24T03:24:44+00:00",
+      "sources": [
+        "product_agent"
+      ],
+      "source_refs": [
+        {
+          "title": "下一代搜索智能体评测基准！美团开源LoHoSearch，用知识图谱校准AI能力认知",
+          "url": "https://tech.meituan.com/2026/07/24/LongCat-LoHoSearch.html",
+          "published_at": null
+        }
+      ],
+      "capability": [
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "tool_use",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GAIA",
+        "BrowseComp",
+        "τ²-bench"
+      ],
+      "scores": {
+        "real_world_value": 9,
+        "model_weakness": 7,
+        "model_differentiation": 5,
+        "novelty": 9,
+        "evaluability": 8,
+        "data_feasibility": 6,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 1,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "unsupported",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ],
+      "insight_url": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io/idea-27-deep-research.html"
+    }
+  ],
+  "needs_verification": [
+    {
+      "id": 1,
+      "idea_key": "879a6084bdfa1b8b25bc2efd",
+      "idea_name": "PDF财报异常识别与证据引用",
+      "domain": "financial",
+      "real_world_task": "分析师需要阅读跨页财报与附注，识别同比异常、口径变化和勾稽错误，引用准确页码并形成可执行结论。新人常犯的错误是引用错年份、漏掉附注口径调整。",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 citation_correctness, cross_document_reasoning, domain_reasoning, hypothesis_generation, judge_reliability, long_context, numerical_grounding, planning, tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "长文档证据定位已有覆盖：XL-DocBench 要求专家标注的多页证据，LEDGER 做年报页面级 KPI 检索，FinanceBench 标注了证据页但只判答案。仍缺的是：以异常识别（跨页数值勾稽、口径不一致）为任务，并对引用是否真正支撑结论判分的金融评测。（依据：上述三篇 arXiv 摘要，全文待核查）",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "external-search；failure-manual；openai-product；workflow-manual",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 2,
+      "total_score": 80.0,
+      "status": "watch",
+      "version": 23,
+      "created_at": "2026-09-14T10:08:06+00:00",
+      "updated_at": "2026-09-24T03:34:48+00:00",
+      "sources": [
+        "benchmark"
+      ],
+      "source_refs": [
+        {
+          "title": "FinanceBench: A New Benchmark for Financial Question Answering",
+          "url": "https://arxiv.org/abs/2311.11944",
+          "published_at": null
+        },
+        {
+          "title": "LEDGER: A Long-Context Benchmark of Corporate Annual Reports for Grounded Financial Retrieval and Extraction",
+          "url": "https://arxiv.org/abs/2606.13100",
+          "published_at": null
+        },
+        {
+          "title": "XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding",
+          "url": "https://arxiv.org/abs/2608.00036",
+          "published_at": null
+        },
+        {
+          "title": "Enhancing Financial Question Answering: A Novel Benchmark Dataset of Banks' financial statements",
+          "url": "https://arxiv.org/abs/2609.03654",
+          "published_at": null
+        },
+        {
+          "title": "Can Open-Weight Models Compete on Financial Text Comprehension?",
+          "url": "https://arxiv.org/abs/2608.08634",
+          "published_at": null
+        }
+      ],
+      "capability": [
+        "citation_correctness",
+        "cross_document_reasoning",
+        "domain_reasoning",
+        "hypothesis_generation",
+        "judge_reliability",
+        "long_context",
+        "numerical_grounding",
+        "planning",
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "citation_correctness",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "FinanceBench",
+        "CNFinBench",
+        "CFBenchmark"
+      ],
+      "scores": {
+        "real_world_value": 13,
+        "model_weakness": 13,
+        "model_differentiation": 15,
+        "novelty": 12,
+        "evaluability": 15,
+        "data_feasibility": 8,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 6,
+      "analysis_input_count": 4,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "verified",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "verified"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "why_now"
+      ],
+      "insight_url": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io/idea-1-pdf.html"
+    },
+    {
+      "id": 2,
+      "idea_key": "2de632a58de6d008874611de",
+      "idea_name": "合同跨条款风险审查",
+      "domain": "legal",
+      "real_world_task": "律师需要结合交易背景识别缺失条款、冲突条款与责任边界，给出修改建议和法律依据。新人容易遗漏交叉引用和适用法冲突。",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 citation_correctness, cross_document_reasoning, domain_reasoning, judge_reliability, safety, version_awareness，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "条款抽取已被 CUAD/ContractEval 覆盖；跨条款矛盾检测已有 CLAUSE（基于 CUAD 注入 10 类矛盾，最佳模型法条引用匹配 <14%）。剩余缺口更窄：矛盾是人工注入而非真实谈判合同，缺少风险分级；法条版本有效性仅有 Sycophants in the Courtroom 部分涉及。（依据：arXiv 摘要，全文待核查）",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "external-search；failure-manual；mini-eval；model-comparison；workflow-manual",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 77.0,
+      "status": "candidate",
+      "version": 17,
+      "created_at": "2026-09-14T10:08:06+00:00",
+      "updated_at": "2026-09-24T03:34:47+00:00",
+      "sources": [
+        "benchmark"
+      ],
+      "source_refs": [
+        {
+          "title": "Better Call CLAUSE: A Discrepancy Benchmark for Auditing LLMs Legal Reasoning Capabilities",
+          "url": "https://arxiv.org/abs/2511.00340",
+          "published_at": null
+        },
+        {
+          "title": "ContractEval: Benchmarking LLMs for Clause-Level Legal Risk Identification in Commercial Contracts",
+          "url": "https://arxiv.org/abs/2508.03080",
+          "published_at": null
+        }
+      ],
+      "capability": [
+        "citation_correctness",
+        "cross_document_reasoning",
+        "domain_reasoning",
+        "judge_reliability",
+        "safety",
+        "version_awareness"
+      ],
+      "expected_failure": [
+        {
+          "type": "citation_correctness",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "LawBench"
+      ],
+      "scores": {
+        "real_world_value": 13,
+        "model_weakness": 12,
+        "model_differentiation": 14,
+        "novelty": 12,
+        "evaluability": 15,
+        "data_feasibility": 8,
+        "expert_cost": 3
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 5,
+      "analysis_input_count": 4,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "verified",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "why_now",
+        "model_failure"
+      ],
+      "insight_url": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io/idea-2-idea.html"
+    }
+  ],
+  "summary": {
+    "source_items": 417,
+    "signals": 417,
+    "idea_pool": 9,
+    "provenance_ready_ideas": 3,
+    "withheld_for_provenance": 6,
+    "needs_verification": 2
+  }
+}

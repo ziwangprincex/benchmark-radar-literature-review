@@ -1,0 +1,1880 @@
+{
+  "generated_at": "2026-09-23T08:07:30+00:00",
+  "top10": [
+    {
+      "id": 9,
+      "idea_key": "7d73620c1730822b8b9dcbc6",
+      "idea_name": "Agent Domain Reasoning能力评测",
+      "domain": "agent",
+      "real_world_task": "arXiv:2609.12097v1 Announce Type: new Abstract: In bespoke art commissions, laypeople know what they feel but lack the words to specify it: one participant wanted a laid-off truck driver depicted as \"a ghost in his own machine\" but left the medium, scale, and palette unsaid. We frame this as an articulation bottleneck at an under-served upstream stage: requirement discovery, which precedes any artist or image generator and forces the commissioner to constitute intent in the first place. We present MAIA (Multi-Agent Intent Articulation), a multi-agent system that scaffolds this stage through Socratic inquiry under a \"Verification over Invention\" rule, turning vague affect into a text-only brief of visual terms the user verifies. In a within-subjects study (N = 16), the full configuration produced a large, significant gain in Cognitive Support over a minimal baseline (r = 0.96, p_FDR = 0.015; LMM p_FDR < 0.001). Thematic analysis traces the same mechanism, and a validator gate structurally blocks unratified content. A complementary blind review by three professional concept artists on a sampled set of briefs corroborates this improvement from the artist's side: AI rewriting improved visual completeness and executability in all eight sampled tasks (task-level Wilcoxon p = 0.008; FDR q = 0.010), with directionally larger gains under MAIA than under the baseline (underpowered, d = 1.4-2.6).",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 domain_reasoning, planning, safety, tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12127v1 Announce Type: new Abstract: Prompt-policy editing offers a practical way to improve agents that synthesize executable workflows without updating the underlying model. However, persistent prompt editing has two coupled properties. First, edit locality does not imply effect locality: an edit confined to one policy segment can ripple through downstream execution, altering behavior beyond the edited segment. Second, edit effects are composition-sensitive: edits that work in isolation can interfere after composition, causing one or both to lose their benefit or become harmful. Persistent adaptation must therefore support two distinct decisions: identifying where the policy should change from execution feedback, and determining whether the resulting edit remains safe to persist after composition. To address these challenges, we introduce RIPPLE (Replay-Informed Persistent Policy Localization and Editing), which separates where an edit is made from whether it remains safe after composition. It diagnoses failed trajectories, maps each actionable failure to a predefined policy segment, and restricts the correction to that part of the policy. RIPPLE then evaluates candidates against the same iteration-start policy to compare their isolated gains, before replaying promising edits after previously accepted updates to expose downstream effects and interactions. Only edits that remain safe under composition are retained. We evaluate RIPPLE on Flow-HO, a synthetic held-out benchmark for executable workflow synthesis. RIPPLE improves validation success by up to 23.1% and yields positive gains on two additional frozen language-model backbones, while maintaining edit efficiency and low execution cost. Targeted interaction analysis further demonstrates both properties: a segment-local tool-use edit changes downstream resource resolution and validation, while an edit beneficial in isolation becomes harmful after composition.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；arxiv-professional-workflow；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 66.0,
+      "status": "rejected",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "GPT-6 Astra: The next generation in intelligence for work",
+          "url": "https://openai.com/index/gpt-6-astra-next-generation-work",
+          "published_at": "Wed, 09 Sep 2026 11:00:00 GMT"
+        },
+        {
+          "title": "Local Edits, Global Ripples: Replay-Informed Policy Adaptation for Workflow Synthesis",
+          "url": "https://arxiv.org/abs/2609.12127",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "MAIA: Multi-Agent Intent Articulation for Requirement Discovery in Art Commissions",
+          "url": "https://arxiv.org/abs/2609.12097",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        }
+      ],
+      "capability": [
+        "domain_reasoning",
+        "planning",
+        "safety",
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "domain_reasoning",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GAIA",
+        "BrowseComp",
+        "τ²-bench"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 8,
+        "model_differentiation": 7,
+        "novelty": 15,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 3,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 4,
+      "idea_key": "aadcdb1a317ed0ae90f48601",
+      "idea_name": "General Domain Expertise能力评测",
+      "domain": "general",
+      "real_world_task": "arXiv:2609.12537v1 Announce Type: cross Abstract: AI-assisted writing can flatten meaning in human storytelling, enabling the production of homogeneous outputs without the intentional effort and sense-making writing entails. To address this challenge, we present The House with a Million Windows (HWAMW), an LLM-based interactive fiction system designed to help users explore both the breadth and depth of potential meanings within their personal stories -- drawing on a psychological paradigm called the restorying intervention. In HWAMW, users play through a text-based narrative in which they tell a story, then encounter a set of LLM-generated \"windows\" reframing it according to different literary styles. Empirical evidence shows that HWAMW increases users' sense of narrative identity, while an expert review explores how this effect is achieved. Our findings suggest that HWAMW facilitates restorying and offers a valuable paradigm for AI-assisted writing, wherein LLMs do not tell our stories but rather help us see greater potential in the stories we tell.",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 domain_expertise，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12111v1 Announce Type: new Abstract: Factual hallucination in closed-book question answering is often treated as a coverage problem: a model fails because the relevant fact is absent from its internal memory. This view misses a second source of error. Even when a fact has been observed, finite memory may force it to be stored only approximately. We study this effect through a simple coverage--compression model of factual recall. We consider an unstructured question-answering task with $N$ possible queries and $K$ possible answers. A learner observes $M$ training facts, compresses them into at most $B$ bits, and answers uniformly drawn test queries without retrieval. For a uniformly random ground-truth mapping, we prove $\\mathcal{E} \\geq \\frac{M}{N}\\delta^\\star\\!\\left(\\frac{B}{M}\\right) + \\left(1-\\frac{M}{N}\\right)\\left(1-\\frac{1}{K}\\right)$, where $\\delta^\\star(r)$ is the inverse rate-distortion function of a uniform $K$-ary source under zero-one loss. The two terms separate compression distortion on observed facts from missing coverage on unobserved facts. The bound gives a compact way to reason about selective memory, forced compression, structure, retrieval, abstention, and long-context organization. We study the predicted signatures with theory-implied simulations and controlled fact-injection probes in modern language models that vary fact load and effective trainable memory. The result is not a complete theory of hallucination, but an information-theoretic account of a separable failure mode: lossy recall of observed facts under finite memory. arXiv:2609.12268v1 Announce Type: new Abstract: Retrieval-augmented generation (RAG) can improve knowledge-intensive question answering, but the first design choice is easy to overlook: how should the source corpus be partitioned into retrievable units? Fixed-size chunks often return long passages whose relation to the question is only implicit. We introduce EAR, an Entity-Aware Partitioning approach for multiple-choice question answering (MCQA). EAR extracts normalized surface anchors from the question, answer options, and corpus; retrieves local windows around matching corpus anchors; and can attach a larger parent passage through an extractive summary. We evaluate EAR on a cleaned Massive Multitask Language Understanding (MMLU)-style subset of 153 questions selected by an automatic corpus-support heuristic and using decontaminated public textbook text. Across same-protocol top-k = 3 and top-k = 8 sweeps with Mistral, Gemma, and DeepSeek, EAR entity-window reduces retrieved words by 37.5-40.2% relative to chunks. Observed accuracy changes are +5.2, +1.3, and -3.9 points at top-k = 3, and +5.9, -3.3, and -4.6 points at top-k = 8; none of the entity-window differences is statistically significant. The scoped contribution is methodological: EAR provides a compact and inspectable retrieval unit, while its rule-based anchor extractor remains domain-specific and requires separate validation before transfer. arXiv:2609.12303v1 Announce Type: new Abstract: Small models are made more capable through distillation from a larger one that shares their tokenization scheme. However, do distilled byte and token models behave similarly in terms of scaling trends as compute and data increases? To enable this comparison, we introduce two variants to efficiently convert token logits to Byte Logits: 1) approximate: Marginalize-It, and 2) exact: End-Of-Token. We then present the first large scale study of overtraining decoder-only dense transformer models varying two dimensions simultaneously: the tokenization scheme (Tokens, Bytes, Bytes w/ eot) and the training objective (Distillation vs. Cross-Entropy), sweeping layer-parameter-matched models with roughly 1 billion parameters up to 1 trillion bytes of data. Across eight benchmarks spanning three categories: Multiple Choice QA, Language Generation, and Machine Translation, we find that Token-1B models outperform byte models (End-Of-Token-1B and Bytes-1B) in the low-FLOP regime but eventually plateau; byte models start worse yet surpass Token-1B models with more compute, reaching a higher downstream task performance ceiling. Extrapolating the average top-1 error vs. validation BPB scaling laws predicts that, asymptotically, distilled End-Of-Token-1B outperforms distilled Token-1B by up to 4%. They are also far more data efficient, matching the performance of distilled Token-1B using only one-sixth of the training data. Moreover, by operating over a small vocabulary of 256 bytes instead of on the order of 100K tokens, they circumvent the need for top-k truncation during logit dumping, while also reducing logit storage costs to roughly one-fifth. Finally, our downstream performance scaling laws predict that our distilled End-Of-Token-1B models asymptotically surpass the Llama 3.2-1B, Gemma-3-1B-pt, and Gemma 2B models on averaged downstream tasks by up to 6.5%, 8.1%, and 2.1%, respectively. arXiv:2609.12310v1 Announce Type: new Abstract: We describe six submissions under the team name ESTS to the unconstrained WMT26 Model Compression Shared Task for English--Simplified Chinese and English--Egyptian Arabic. We submit three compression operating points per translation direction, all derived from GPT-OSS-20B. We use task-specific routing mass to rank experts and cross-lingual routing divergence to allocate retained capacity across layers, then physically remove low-importance experts. The resulting specialists are recovery-tuned on GPT-5.1-generated synthetic translation data and further compressed by applying MXFP4 quantization to the retained expert projection weights. We additionally implement a robust inference system for the instruction-conditioned WMT26 setting, including category inference, output validation, retries, segmented fallback, and source-owned JSON reconstruction. Across our six submissions, parameter counts range from 4.186B to 7.770B and packed artifact sizes from 4.55 to 6.33~GiB. Internal xCOMET-XL evaluation using GPT-5.1 pseudo-references provides an internal comparison across the submitted compression operating points. arXiv:2609.12366v1 Announce Type: new Abstract: We present ORQA, a method for testing occupation-level knowledge in large language models. Prior methods either map abstract LLM skills to occupations via task definitions or utilize expert knowledge which is difficult to obtain at scale and expensive. ORQA complements both of these methods by connecting O*NET occupations to trusted occupation-specific websites (such as regulatory agencies, licensing bodies, professional organizations, and government publications) and converting these into source-traceable question-answer pairs. A combination of an automated pipeline and human review produces a set of high quality questions about occupations. The question set created via our method covers 116 occupations from all 21 major groups in the SOC, with 480 questions sourced from 187 different websites. Each question is designed to probe a real-world skill question that is relevant to the occupation in question. We test 15 state-of-the-art frontier and open-weight models via this method. Claude Opus 4.6, GPT-5.4 and Claude Sonnet 4.6 all perform the best at approximately 58-62% while smaller open-weight models achieve approximately 33-41% performance. Performance varies significantly across occupations. Healthcare-related occupations achieve the highest performance (78%) while Office and Administrative Support achieve approximately 40%. Performance on individual occupations (e.g. Sheet Metal Workers and Fish and Game Wardens) is essentially zero. We also find that open-ended questions and weighting by wage bill do not significantly affect the ranking of models on this benchmark. We believe that leveraging existing trusted occupation-specific information to test LLM knowledge in professional domains may be a scalable and useful method for evaluating occupation-level AI performance in the future. Results and data are available at orqabench.org. arXiv:2609.12469v1 Announce Type: new Abstract: False wake-up activations remain a persistent challenge in conversational AI. Speech phonetically similar to a device's wake word can produce a syntactically valid and semantically coherent ASR transcript that the assistant incorrectly executes. Most existing systems make a single intent decision in isolation, without a mechanism to learn from recurring errors over time or adapt to individual users through personalized learning. We introduce the Feedback-Driven Adaptive Self-Correcting Inference Layer (ASCIL), a complementary post-ASR correction framework that re-evaluates wake-up intent before response generation by fusing acoustic embeddings, linguistic cues, device context, and patterns from past misclassifications. ASCIL interprets implicit signals, including hesitation, disengagement, and silence, and explicit signals, including cancellation and repetition, as automatically inferred, noisy behavioral indicators of potential misclassification. These signals drive online pattern updates without manual annotation, whereas the intentional/unintentional reference labels used for offline evaluation are human-annotated. It generalizes from prior errors, applies corrective adjustments at inference time, and continuously updates in parallel with natural-language execution. Evaluated on a proprietary dataset of 3,667 interactions with human-annotated intentional/unintentional reference labels spanning 14 acoustic and contextual conditions, ASCIL achieves 54.27% relative error reduction on a session-disjoint subset constructed from baseline failures, and up to 24.39% relative error reduction at threshold 0.90 on the issue-tagged evaluation slice. These gains are achieved while improving intentional acceptance rates, with a median added latency below 60 ms in the reported benchmark. Code and data for MedQA. Contribute to jind11/MedQA development by creating an account on GitHub.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；arxiv-professional-workflow；coverage-matrix；google-ai-blog；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 65.0,
+      "status": "candidate",
+      "version": 4,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T07:57:13+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "Perplexity trusts GPT-6 Astra with end-to-end systems",
+          "url": "https://openai.com/index/perplexity-improving-accuracy-with-astra",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users",
+          "url": "https://openai.com/index/scaling-storage-one-billion-users-part-one",
+          "published_at": "Fri, 11 Sep 2026 10:00:00 GMT"
+        },
+        {
+          "title": "Cognition helps Devin test its own work with GPT‑6 Astra",
+          "url": "https://openai.com/index/cognition-devin-testing-with-astra",
+          "published_at": "Fri, 11 Sep 2026 16:00:00 GMT"
+        },
+        {
+          "title": "Expanding AI access and cyber defense for federal, state, local, and tribal governments",
+          "url": "https://openai.com/index/expanding-ai-access-us-government",
+          "published_at": "Thu, 10 Sep 2026 07:00:00 GMT"
+        },
+        {
+          "title": "Build more natural voice experiences with GPT‑Live‑1 in the API",
+          "url": "https://openai.com/index/introducing-gpt-live-1-in-the-api",
+          "published_at": "Thu, 10 Sep 2026 00:00:00 GMT"
+        },
+        {
+          "title": "The Work Now Within Reach",
+          "url": "https://openai.com/index/the-work-now-within-reach",
+          "published_at": "Tue, 08 Sep 2026 13:00:00 GMT"
+        },
+        {
+          "title": "Introducing ChatGPT Images 2.5",
+          "url": "https://openai.com/index/introducing-chatgpt-images-2-5",
+          "published_at": "Tue, 08 Sep 2026 11:30:00 GMT"
+        },
+        {
+          "title": "On the Navier–Stokes Millennium Prize Problem",
+          "url": "https://openai.com/index/navier-stokes-solution",
+          "published_at": "Tue, 08 Sep 2026 10:00:00 GMT"
+        },
+        {
+          "title": "Supporting independent journalism in Ukraine",
+          "url": "https://openai.com/index/supporting-independent-journalism-in-ukraine",
+          "published_at": "Mon, 07 Sep 2026 00:00:00 GMT"
+        },
+        {
+          "title": "An Alien Mind",
+          "url": "https://openai.com/index/an-alien-mind",
+          "published_at": "Sun, 06 Sep 2026 09:00:00 GMT"
+        },
+        {
+          "title": "Daybreak for Frontline Defenders: $1B to protect essential services",
+          "url": "https://openai.com/index/daybreak-for-frontline-defenders",
+          "published_at": "Thu, 03 Sep 2026 13:15:00 GMT"
+        },
+        {
+          "title": "Playco cut manual fixes 50% prototyping games with GPT-6 Astra",
+          "url": "https://openai.com/index/playco-game-prototyping-with-astra",
+          "published_at": "Thu, 03 Sep 2026 12:00:00 GMT"
+        },
+        {
+          "title": "The Cost of Compression: A Rate-Distortion Limit on Factual Hallucination",
+          "url": "https://arxiv.org/abs/2609.12111",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "EAR: Entity-Aware Partitioning Approach for Retrieval-Augmented Generation Development",
+          "url": "https://arxiv.org/abs/2609.12268",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Breaking the Token Ceiling: Distilling Smaller, Stronger Byte Models",
+          "url": "https://arxiv.org/abs/2609.12303",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "ESTS at WMT26: Routing-Informed Expert Pruning for Model Compression",
+          "url": "https://arxiv.org/abs/2609.12310",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "ORQA: An Occupation-Realistic Question and Answer Framework for LLM Professional Knowledge",
+          "url": "https://arxiv.org/abs/2609.12366",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Not All Speech Is Intent: Adaptive Self-Correcting Inference Layer for Post-ASR False Wake-Up",
+          "url": "https://arxiv.org/abs/2609.12469",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "The House with a Million Windows: Interactive Fiction for Narrative Restorying",
+          "url": "https://arxiv.org/abs/2609.12537",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "3 ways to prep for your next big race with Search",
+          "url": "https://blog.google/products-and-platforms/products/search/running-race-training-tips/",
+          "published_at": "Thu, 10 Sep 2026 16:00:00 +0000"
+        },
+        {
+          "title": "Get ready for the game with new football features in Search",
+          "url": "https://blog.google/products-and-platforms/products/search/football-features-google-search/",
+          "published_at": "Wed, 09 Sep 2026 16:00:00 +0000"
+        },
+        {
+          "title": "Recreating a 70-year love story frame by frame",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/love-rendered-film/",
+          "published_at": "Wed, 09 Sep 2026 16:00:00 +0000"
+        },
+        {
+          "title": "Proactive cyber defense for governments and enterprises",
+          "url": "https://blog.google/innovation-and-ai/technology/safety-security/fairwind-program/",
+          "published_at": "Wed, 02 Sep 2026 15:40:00 +0000"
+        },
+        {
+          "title": "The latest AI news we announced in August 2026",
+          "url": "https://blog.google/innovation-and-ai/technology/google-ai-updates-august-2026/",
+          "published_at": "Tue, 01 Sep 2026 20:45:00 +0000"
+        },
+        {
+          "title": "Try Google Pics: Easy image creation and editing in Google Workspace",
+          "url": "https://blog.google/products-and-platforms/products/workspace/google-pics/",
+          "published_at": "Tue, 01 Sep 2026 16:00:00 +0000"
+        },
+        {
+          "title": "3 new ways to plan and book travel in Search",
+          "url": "https://blog.google/products-and-platforms/products/search/book-travel-ai-mode/",
+          "published_at": "Thu, 27 Aug 2026 16:00:00 +0000"
+        },
+        {
+          "title": "5 ways to upgrade your home decor with Google Search",
+          "url": "https://blog.google/products-and-platforms/products/search/home-decor-tips/",
+          "published_at": "Tue, 25 Aug 2026 16:00:00 +0000"
+        },
+        {
+          "title": "5 new ways to level up your learning with Search",
+          "url": "https://blog.google/products-and-platforms/products/search/back-to-school-study-tools/",
+          "published_at": "Wed, 19 Aug 2026 19:00:00 +0000"
+        },
+        {
+          "title": "Get closer to the game with Gemini and Pixel",
+          "url": "https://blog.google/products-and-platforms/products/gemini/google-gemini-pixel-football-club-partnerships/",
+          "published_at": "Mon, 17 Aug 2026 08:00:00 +0000"
+        },
+        {
+          "title": "Bring your spreadsheet data to life with Sheets canvas",
+          "url": "https://blog.google/products-and-platforms/products/workspace/sheets-canvas-for-google-sheets-spreadsheets/",
+          "published_at": "Thu, 13 Aug 2026 16:45:00 +0000"
+        },
+        {
+          "title": "The latest AI news we announced in July 2026",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-july-2026/",
+          "published_at": "Tue, 04 Aug 2026 13:00:00 +0000"
+        },
+        {
+          "title": "Inside our 353,000-person vibe coding course",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/ai-agents-intensive-recap-2026/",
+          "published_at": "Mon, 03 Aug 2026 15:00:00 +0000"
+        },
+        {
+          "title": "5 ways to host the ultimate dinner party with Google Search",
+          "url": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
+          "published_at": "Tue, 28 Jul 2026 13:00:00 +0000"
+        },
+        {
+          "title": "5 ways AI Mode in Search helps you enjoy the real world",
+          "url": "https://blog.google/products-and-platforms/products/search/ai-mode-real-world-tips/",
+          "published_at": "Tue, 28 Jul 2026 13:00:00 +0000"
+        },
+        {
+          "title": "3 Google updates from Galaxy Unpacked 2026",
+          "url": "https://blog.google/products-and-platforms/platforms/android/galaxy-unpacked-2026/",
+          "published_at": "Wed, 22 Jul 2026 13:00:00 +0000"
+        },
+        {
+          "title": "Connect more of your apps to Search",
+          "url": "https://blog.google/products-and-platforms/products/search/connected-apps/",
+          "published_at": "Thu, 16 Jul 2026 16:00:00 +0000"
+        },
+        {
+          "title": "GitHub - jind11/MedQA: Code and data for MedQA",
+          "url": "https://github.com/jind11/MedQA",
+          "published_at": null
+        }
+      ],
+      "capability": [
+        "domain_expertise"
+      ],
+      "expected_failure": [
+        {
+          "type": "domain_expertise",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "Humanity's Last Exam"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 8,
+        "model_differentiation": 7,
+        "novelty": 14,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 37,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 6,
+      "idea_key": "49623ff7c9dc587b93e127cb",
+      "idea_name": "Agent Domain Expertise能力评测",
+      "domain": "agent",
+      "real_world_task": "arXiv:2608.02100v2 Announce Type: replace Abstract: As AI increasingly participates in human decision making, understanding how decision-making authority is distributed between humans and AI has become a fundamental behavioural question. We introduce a behavioural measurement framework combining intent and delegated decision authority to quantify what consumers seek from AI and how much decision-making authority they assign to it. Applied to 1.5 million real-world ChatGPT and Gemini interactions from 6,304 users in the United States and India, we find that financial services are already a substantial AI use case. Consumers overwhelmingly use AI to retrieve information and shape financial judgement, while delegation of financial execution remains rare. By shifting attention from conversation topics to delegated decision authority, this work establishes a behavioural baseline for measuring the transition to increasingly agentic AI.",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 domain_expertise，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12191v1 Announce Type: new Abstract: Comparing and selecting task-oriented LLM agents increasingly relies on a low-cost offline evaluation gate: persona-driven LLM user-simulators converse with each candidate, an LLM-as-a-judge scores the transcripts, and the higher-scoring agent is promoted. We introduce GAUGE, a reusable offline protocol that measures whether this gate's ranking matches a grounded verifiable reward across 25 agents from six providers on the $\\tau^2$-bench and SimulatorArena benchmarks, separating two kinds of evaluation validity that release practices conflate: ranking validity and construct validity. First, a satisfaction-success gap: satisfaction carries essentially no information about task success, as conversations rated satisfied by our blind panel are decorrelated from actual success, with 57.5% of them failing the customer's task, a pattern consistent across five rater populations, both benchmarks, and every subjective dimension we rated. Second, while the gate's ranking is robust across the broad capability span, it loses resolution among the near-equal strong agents: this decision-disagreement rate jumps from $<$1% on wide-reward pairs to 31% on close pairs. The gate is thus human-validated yet mis-anchored. As a remedy, we propose a calibrate-then-trust cadence in which a judge-free completion bit is a zero-cost tripwire for truncation regressions. arXiv:2609.12471v1 Announce Type: new Abstract: We introduce AMDKernelVault, an open HIP and Triton kernel corpus and training framework for recent AMD CDNA GPUs. Existing LLM-based kernel agents are largely CUDA/NVIDIA-centric and often depend on repeated frontier-LLM calls for generation, reflection, and optimization. To address this gap, we develop HIPKernelGen and TritonKernelGen, agent-driven pipelines that transform PyTorch references into HIP or Triton kernels, compile and validate candidates under ROCm, and latency-profile them on AMD hardware. The corpus contains 62,153 execution-verified HIP kernel samples, 2,377 production-grounded ROCm Libraries QA entries, and 39,893 Triton kernels. We further train Qwen3-8B with supervised fine-tuning and execution-aware reinforcement learning as a demonstration of the corpus's utility. Under fixed evaluation budgets, it achieves the highest correctness among the compared models on PyTorch-to-HIP (34.0% Pass@1), TritonBench-G (33.2% Corr@3), and ROCmBench (41.94% Corr@3), but does not uniformly lead compilation or speed metrics. The corpus and documentation are available at https://huggingface.co/datasets/amd/AIG-Datasets, and the associated training and kernel-generation code is available at https://github.com/AMD-AGI/hip_kernel_llm_lab.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；arxiv-professional-workflow；google-ai-blog；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 64.0,
+      "status": "rejected",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "Now everyone can put data to work",
+          "url": "https://openai.com/index/put-data-to-work",
+          "published_at": "Thu, 10 Sep 2026 15:00:00 GMT"
+        },
+        {
+          "title": "GAUGE: When Not to Trust LLM-as-a-Judge in User-Simulated Evaluation of Task-Oriented Agents",
+          "url": "https://arxiv.org/abs/2609.12191",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "AMDKernelVault: Large-Scale Datasets and Agentic Training for AMD GPU Kernel Optimization",
+          "url": "https://arxiv.org/abs/2609.12471",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "From Information to Delegation: Mapping Human-AI Financial Decision Making",
+          "url": "https://arxiv.org/abs/2608.02100",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Gemini API Managed Agents: 3.6 Flash, hooks, and more",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
+          "published_at": "Tue, 28 Jul 2026 16:00:00 +0000"
+        }
+      ],
+      "capability": [
+        "domain_expertise"
+      ],
+      "expected_failure": [
+        {
+          "type": "domain_expertise",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GAIA",
+        "BrowseComp",
+        "τ²-bench"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 14,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 5,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 11,
+      "idea_key": "764b6dac8477527497b78344",
+      "idea_name": "General Tool Use能力评测",
+      "domain": "general",
+      "real_world_task": "arXiv:2609.13071v1 Announce Type: cross Abstract: Enterprise Digital Twins (EDTs) promise data-driven decision support at organizational scale, but realizing them requires navigating siloed departments, tacit knowledge, and high-stakes decisions with long-horizon consequences. Existing approaches involve domain experts during model development but focus less on early organizational buy-in in EDTs. We present a vision for trustworthy EDT engineering grounded in an `involving before evolving' paradigm: rapidly involving stakeholders through a working prototype before evolving toward federation and full interoperability. Our three-stage approach combines foundation models for rapid prototyping, an ontological backbone for federated interoperability, and observability tooling for stakeholder trust. We ground our vision in an ongoing collaboration with Michelin, a multinational manufacturer, where an initial prototype has helped support stakeholder buy-in.",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 planning, tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12254v1 Announce Type: new Abstract: The climate literature has grown faster than review teams can read it. That gap matters most for a concept like the environmental social tipping point, the threshold at which a small change triggers rapid, self-reinforcing change in a social system. Evidence of this kind of shift is usually contained in one or two paragraphs within a longer document. As a result, existing text mining tools-which categorize entire documents by topic or highlight isolated claims-leave an expanding set of important evidence without any systematic method for discovery or organization. This paper presents an open and modular transformer-based framework that detects and structures social tipping point evidence at the passage level. The framework joins five components into a single deployable workflow: a DistilBERT boundary splitter for segmentation, an iteratively augmented RoBERTa classifier for detection, a Mistral 7B model that rewrites each detected passage for clarity, a LLaMA 3.2 3B model that rates the passage against five published social tipping point criteria, and a Milvus vector store for semantic retrieval. The system is wrapped in a Streamlit interface backed by MinIO object storage. Evaluated on a 163-passage benchmark labelled by GPT-4.1 and a 51-passage set reviewed by experts, the splitter surpassed three competing methods on a nine-metric composite score (6.137). The tuned RoBERTa model achieved 71.4 percent accuracy with a Cohen's kappa of 0.337 on the full benchmark, and 87.5 percent accuracy with a kappa of 0.742 on passages with labels, outperforming both a climate-focused model and untuned language models.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；arxiv-professional-workflow；google-ai-blog；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 64.0,
+      "status": "rejected",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "OpenAI expands initiatives to support journalism from classrooms to newsrooms",
+          "url": "https://openai.com/index/supporting-journalism-from-classrooms-to-newsrooms",
+          "published_at": "Tue, 08 Sep 2026 00:00:00 GMT"
+        },
+        {
+          "title": "1Password increases engineering productivity 21% with Codex",
+          "url": "https://openai.com/index/1password",
+          "published_at": "Tue, 08 Sep 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Automated Detection and Structuring of Social Tipping Point Evidence in Climate related Documents: A Modular AI Framework",
+          "url": "https://arxiv.org/abs/2609.12254",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Involving before Evolving: A Vision for Trustworthy Enterprise Digital Twin Engineering",
+          "url": "https://arxiv.org/abs/2609.13071",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Evolve your marketing with new AI tools",
+          "url": "https://blog.google/products/ads-commerce/google-ads-analytics-ai-updates/",
+          "published_at": "Mon, 10 Aug 2026 14:30:00 +0000"
+        }
+      ],
+      "capability": [
+        "planning",
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "planning",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "Humanity's Last Exam"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 14,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 5,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 8,
+      "idea_key": "faa89395fc9845d1d2f0b206",
+      "idea_name": "General Safety能力评测",
+      "domain": "general",
+      "real_world_task": "arXiv:2609.12910v1 Announce Type: new Abstract: Neurosurgeons frequently interact with operating room (OR) technologies while sterility and occupied hands constrain control. We introduce earables as a direct, hands-free control platform for neurosurgery using tooth-click input. Formative OR observations and interviews with 10 domain experts grounded the design. Using OpenEarable 2.0 data from 12 participants, we developed a real-time recognition pipeline whose classifier achieved a median macro F1-score of 98.6% under leave-one-subject-out cross-validation. We evaluated the technique with 20 neurosurgeons during a simulated resection task in a neurosurgical OR. Participants reported few focus shifts and rated Earable favorably for workflow integration and perceived safety. Autonomous microscope control was rated significantly higher with Earable than Delegation, whereas Delegation enabled faster task completion under continuous assistant availability. Workload, usability, and task errors showed no significant differences. Preferences depended on training, reliability, context, and assistant availability. Earables thus add a direct, hands-free option for controlling selected functions alongside established workflows.",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 planning, safety，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "现有评测未充分覆盖真实端到端任务、证据接地与可复现判分。",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-professional-workflow；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 59.0,
+      "status": "rejected",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "The AI policy window is open. We need to act.",
+          "url": "https://openai.com/index/ai-policy-window",
+          "published_at": "Wed, 09 Sep 2026 13:00:00 GMT"
+        },
+        {
+          "title": "Paul Christiano joins OpenAI Foundation Board",
+          "url": "https://openai.com/index/paul-christiano-joins-openai-foundation-board",
+          "published_at": "Wed, 09 Sep 2026 17:00:00 GMT"
+        },
+        {
+          "title": "NeuroClick: Preserving Surgeon Autonomy through Hands-Free Earable Tooth-Click Control in Neurosurgery",
+          "url": "https://arxiv.org/abs/2609.12910",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        }
+      ],
+      "capability": [
+        "planning",
+        "safety"
+      ],
+      "expected_failure": [
+        {
+          "type": "planning",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "Humanity's Last Exam"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 9,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 3,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 12,
+      "idea_key": "81b8535f4c6b5d16ff366b9d",
+      "idea_name": "General Planning能力评测",
+      "domain": "general",
+      "real_world_task": "arXiv:2609.12600v1 Announce Type: new Abstract: In human-LLM content co-generation, AI-generated information can enter final artifacts without being adequately processed by users, creating risks when artifacts are shared or acted upon. We study whether recognition-level uptake of atomic information units can be assessed in open-ended co-generation and predicted from low-cost interaction traces. We collected data from 62 participants across three tasks. For each final draft, we extracted atomic information units and generated post-task recognition questions, yielding 1187 unit-level uptake labels. We present TraceMind, which tracks units across Chat and Draft histories, aligns interaction traces with changing on-screen layouts, and models spatial, temporal, and workflow-informed evidence. TraceMind outperformed all learned baselines across AUROC, AUPRC-non, balanced accuracy, and macro-F1. We found that uptake unfolds throughout interaction, with sustained active engagement providing informative evidence beyond isolated signals. Our work shifts human-LLM co-generation from content adoption toward what users actually take up, motivating uptake-aware systems grounded in low-cost interaction traces.",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 planning，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "现有评测未充分覆盖真实端到端任务、证据接地与可复现判分。",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-professional-workflow；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 58.0,
+      "status": "rejected",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "Legora reviewed 41 documents in minutes with GPT-6 Astra",
+          "url": "https://openai.com/index/legora-financial-statement-review-with-astra",
+          "published_at": "Thu, 03 Sep 2026 12:00:00 GMT"
+        },
+        {
+          "title": "TraceMind: Predicting User Information Uptake from Low-Cost Interaction Traces during Human-LLM Content Co-Generation",
+          "url": "https://arxiv.org/abs/2609.12600",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        }
+      ],
+      "capability": [
+        "planning"
+      ],
+      "expected_failure": [
+        {
+          "type": "planning",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "Humanity's Last Exam"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 7,
+        "model_differentiation": 6,
+        "novelty": 9,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 2,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 5,
+      "idea_key": "751227db4888dcd75dbc895b",
+      "idea_name": "Scientific Domain Expertise能力评测",
+      "domain": "scientific",
+      "real_world_task": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 domain_expertise，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12354v1 Announce Type: new Abstract: Long-term conversational agents must answer user queries by recalling information from extended dialogue histories, yet directly using the full history is costly and often unreliable, while compressed memory units may lose fine-grained evidence needed for question answering. Motivated by the reconstructive view of autobiographical memory, we propose CueMem, a cue-guided framework that treats extracted memory records as retrieval cues rather than self-contained evidence and reconstructs query-relevant dialogue context from their source turns. During memory construction, CueMem extracts fine-grained memory cues from dialogue turns and links each cue to its source turn. At query time, it retrieves query-relevant cues, maps them to source-turn anchors, and expands from these anchors over a turn graph that captures temporal proximity and semantic relatedness, reconstructing a compact evidence context from the original dialogue for LLM answer generation. Experiments on LoCoMo and LongMemEval show that CueMem consistently outperforms representative long-term memory baselines. Further analyses show that graph-based context reconstruction helps recover supporting dialogue evidence while reducing query-time input tokens and latency compared with the full-history LLM setting. These results highlight retrieval cues as an effective alternative to self-contained memory evidence for long-term conversational question answering. arXiv:2609.12448v1 Announce Type: new Abstract: Sensitive attributes such as age, income, and occupation can be inferred from user-generated content by aggregating indirect cues across many ordinary posts. LLM-based profilers can perform this aggregation automatically and with high accuracy, which makes large-scale personal attribute inference a major privacy threat. Existing LLM-based profilers, however, offer limited insight into which specific posts, concepts, and relationships made an inference possible, which is key to targeted privacy mitigation, i.e., redacting or rewriting only the few posts that actually leak an attribute, rather than perturbing entire histories. We introduce GraphProfiler, an auditable LLM-based profiler that represents each user's post history as a source-linked personal knowledge graph where nodes and edges trace back to the originating post and resolves attribute predictions to cited graph records and source texts. GraphProfiler reaches 86.7% attack success rate on the eight-attribute SynthPAI benchmark, within two points of strong text-only baselines, and 84.6% on PANDORA, while citing supporting evidence for over 98% of predictions. Our controlled ablation experiments provide evidence that the cited posts contribute to attack success, as removing them reduces the attack success rate substantially more than removing an equal number of random posts. arXiv:2609.12872v1 Announce Type: new Abstract: We present DuplexDrama, the first synthesized spoken dialogue dataset that simultaneously covers four dimensions: (i) complete persona and scenario settings; (ii) three full-duplex behaviors (interruption, backchannel, incomplete); (iii) expressive speech with persona-aligned emotion labels; and (iv) script-aware sound events. DuplexDrama is built via a 4-stage pipeline; quality validation on both scripts and synthesized audio confirms its quality. We have produced more than 2,000 hours audio data with a 64-voice timbre pool spanning 13 personas and 5 age buckets; 3.8% of all turns carry at least one full-duplex behavior. This data has been validated through internal full-duplex model training. We will release a curated subset of 6,400 bilingual dialogues (800 h, Chinese ~500 h + English ~300 h) to advance full-duplex spoken dialogue model research. Data samples are available at our demo page and LLM-judge evaluation prompts will be released with the dataset.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 55.0,
+      "status": "watch",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent"
+      ],
+      "source_refs": [
+        {
+          "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
+          "url": "https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials",
+          "published_at": "Thu, 10 Sep 2026 16:00:00 GMT"
+        },
+        {
+          "title": "Introducing ChatGPT for Financial Services",
+          "url": "https://openai.com/index/introducing-chatgpt-financial-services",
+          "published_at": "Thu, 10 Sep 2026 07:00:00 GMT"
+        },
+        {
+          "title": "How GPT-5.6 Sol helps run quantum computing experiments",
+          "url": "https://openai.com/index/codex-quantum-computing-experiments",
+          "published_at": "Tue, 08 Sep 2026 17:00:00 GMT"
+        },
+        {
+          "title": "Research acceleration: The view inside OpenAI",
+          "url": "https://openai.com/index/research-acceleration-view-inside-openai",
+          "published_at": "Sun, 06 Sep 2026 08:00:00 GMT"
+        },
+        {
+          "title": "CueMem: Cue-Guided Context Reconstruction for Long-Term Conversational Memory",
+          "url": "https://arxiv.org/abs/2609.12354",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "GraphProfiler: Source-Linked Sensitive Attribute Inference via Personal Knowledge Graphs",
+          "url": "https://arxiv.org/abs/2609.12448",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "DuplexDrama: A Synthesized Dialogue Dataset with Scenarios, Full-Duplex Behaviors, Expressive Speech, and Sound Events",
+          "url": "https://arxiv.org/abs/2609.12872",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        }
+      ],
+      "capability": [
+        "domain_expertise"
+      ],
+      "expected_failure": [
+        {
+          "type": "domain_expertise",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GPQA",
+        "ScienceAgentBench"
+      ],
+      "scores": {
+        "real_world_value": 10,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 14,
+        "evaluability": 6,
+        "data_feasibility": 7,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 7,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "unsupported",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 7,
+      "idea_key": "838f28df2379d01cb2efd1c2",
+      "idea_name": "Agent Tool Use能力评测",
+      "domain": "agent",
+      "real_world_task": "Introducing the Agents API",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "现有评测未充分覆盖真实端到端任务、证据接地与可复现判分。",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 45.0,
+      "status": "rejected",
+      "version": 2,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "product_agent"
+      ],
+      "source_refs": [
+        {
+          "title": "Introducing the Agents API",
+          "url": "https://openai.com/index/introducing-the-agents-api",
+          "published_at": "Thu, 10 Sep 2026 00:00:00 GMT"
+        }
+      ],
+      "capability": [
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "tool_use",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GAIA",
+        "BrowseComp",
+        "τ²-bench"
+      ],
+      "scores": {
+        "real_world_value": 9,
+        "model_weakness": 7,
+        "model_differentiation": 5,
+        "novelty": 9,
+        "evaluability": 6,
+        "data_feasibility": 5,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 1,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "unsupported",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 10,
+      "idea_key": "e2c036667434940cbb8bdb0d",
+      "idea_name": "Scientific Safety能力评测",
+      "domain": "scientific",
+      "real_world_task": "Funding grants for new research into AI and teen development",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 safety，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "现有评测未充分覆盖真实端到端任务、证据接地与可复现判分。",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 45.0,
+      "status": "rejected",
+      "version": 2,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "product_agent"
+      ],
+      "source_refs": [
+        {
+          "title": "Funding grants for new research into AI and teen development",
+          "url": "https://openai.com/index/teen-development-research-grants",
+          "published_at": "Tue, 08 Sep 2026 09:00:00 GMT"
+        }
+      ],
+      "capability": [
+        "safety"
+      ],
+      "expected_failure": [
+        {
+          "type": "safety",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GPQA",
+        "ScienceAgentBench"
+      ],
+      "scores": {
+        "real_world_value": 9,
+        "model_weakness": 7,
+        "model_differentiation": 5,
+        "novelty": 9,
+        "evaluability": 6,
+        "data_feasibility": 5,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 1,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "unsupported",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    }
+  ],
+  "changes": {
+    "new": [],
+    "promoted": [],
+    "demoted": [],
+    "eliminated": []
+  },
+  "mini_eval_now": [],
+  "watch": [
+    {
+      "id": 5,
+      "idea_key": "751227db4888dcd75dbc895b",
+      "idea_name": "Scientific Domain Expertise能力评测",
+      "domain": "scientific",
+      "real_world_task": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 domain_expertise，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12354v1 Announce Type: new Abstract: Long-term conversational agents must answer user queries by recalling information from extended dialogue histories, yet directly using the full history is costly and often unreliable, while compressed memory units may lose fine-grained evidence needed for question answering. Motivated by the reconstructive view of autobiographical memory, we propose CueMem, a cue-guided framework that treats extracted memory records as retrieval cues rather than self-contained evidence and reconstructs query-relevant dialogue context from their source turns. During memory construction, CueMem extracts fine-grained memory cues from dialogue turns and links each cue to its source turn. At query time, it retrieves query-relevant cues, maps them to source-turn anchors, and expands from these anchors over a turn graph that captures temporal proximity and semantic relatedness, reconstructing a compact evidence context from the original dialogue for LLM answer generation. Experiments on LoCoMo and LongMemEval show that CueMem consistently outperforms representative long-term memory baselines. Further analyses show that graph-based context reconstruction helps recover supporting dialogue evidence while reducing query-time input tokens and latency compared with the full-history LLM setting. These results highlight retrieval cues as an effective alternative to self-contained memory evidence for long-term conversational question answering. arXiv:2609.12448v1 Announce Type: new Abstract: Sensitive attributes such as age, income, and occupation can be inferred from user-generated content by aggregating indirect cues across many ordinary posts. LLM-based profilers can perform this aggregation automatically and with high accuracy, which makes large-scale personal attribute inference a major privacy threat. Existing LLM-based profilers, however, offer limited insight into which specific posts, concepts, and relationships made an inference possible, which is key to targeted privacy mitigation, i.e., redacting or rewriting only the few posts that actually leak an attribute, rather than perturbing entire histories. We introduce GraphProfiler, an auditable LLM-based profiler that represents each user's post history as a source-linked personal knowledge graph where nodes and edges trace back to the originating post and resolves attribute predictions to cited graph records and source texts. GraphProfiler reaches 86.7% attack success rate on the eight-attribute SynthPAI benchmark, within two points of strong text-only baselines, and 84.6% on PANDORA, while citing supporting evidence for over 98% of predictions. Our controlled ablation experiments provide evidence that the cited posts contribute to attack success, as removing them reduces the attack success rate substantially more than removing an equal number of random posts. arXiv:2609.12872v1 Announce Type: new Abstract: We present DuplexDrama, the first synthesized spoken dialogue dataset that simultaneously covers four dimensions: (i) complete persona and scenario settings; (ii) three full-duplex behaviors (interruption, backchannel, incomplete); (iii) expressive speech with persona-aligned emotion labels; and (iv) script-aware sound events. DuplexDrama is built via a 4-stage pipeline; quality validation on both scripts and synthesized audio confirms its quality. We have produced more than 2,000 hours audio data with a 64-voice timbre pool spanning 13 personas and 5 age buckets; 3.8% of all turns carry at least one full-duplex behavior. This data has been validated through internal full-duplex model training. We will release a curated subset of 6,400 bilingual dialogues (800 h, Chinese ~500 h + English ~300 h) to advance full-duplex spoken dialogue model research. Data samples are available at our demo page and LLM-judge evaluation prompts will be released with the dataset.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 55.0,
+      "status": "watch",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent"
+      ],
+      "source_refs": [
+        {
+          "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
+          "url": "https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials",
+          "published_at": "Thu, 10 Sep 2026 16:00:00 GMT"
+        },
+        {
+          "title": "Introducing ChatGPT for Financial Services",
+          "url": "https://openai.com/index/introducing-chatgpt-financial-services",
+          "published_at": "Thu, 10 Sep 2026 07:00:00 GMT"
+        },
+        {
+          "title": "How GPT-5.6 Sol helps run quantum computing experiments",
+          "url": "https://openai.com/index/codex-quantum-computing-experiments",
+          "published_at": "Tue, 08 Sep 2026 17:00:00 GMT"
+        },
+        {
+          "title": "Research acceleration: The view inside OpenAI",
+          "url": "https://openai.com/index/research-acceleration-view-inside-openai",
+          "published_at": "Sun, 06 Sep 2026 08:00:00 GMT"
+        },
+        {
+          "title": "CueMem: Cue-Guided Context Reconstruction for Long-Term Conversational Memory",
+          "url": "https://arxiv.org/abs/2609.12354",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "GraphProfiler: Source-Linked Sensitive Attribute Inference via Personal Knowledge Graphs",
+          "url": "https://arxiv.org/abs/2609.12448",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "DuplexDrama: A Synthesized Dialogue Dataset with Scenarios, Full-Duplex Behaviors, Expressive Speech, and Sound Events",
+          "url": "https://arxiv.org/abs/2609.12872",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        }
+      ],
+      "capability": [
+        "domain_expertise"
+      ],
+      "expected_failure": [
+        {
+          "type": "domain_expertise",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GPQA",
+        "ScienceAgentBench"
+      ],
+      "scores": {
+        "real_world_value": 10,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 14,
+        "evaluability": 6,
+        "data_feasibility": 7,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 7,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "unsupported",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    }
+  ],
+  "not_recommended": [
+    {
+      "id": 9,
+      "idea_key": "7d73620c1730822b8b9dcbc6",
+      "idea_name": "Agent Domain Reasoning能力评测",
+      "domain": "agent",
+      "real_world_task": "arXiv:2609.12097v1 Announce Type: new Abstract: In bespoke art commissions, laypeople know what they feel but lack the words to specify it: one participant wanted a laid-off truck driver depicted as \"a ghost in his own machine\" but left the medium, scale, and palette unsaid. We frame this as an articulation bottleneck at an under-served upstream stage: requirement discovery, which precedes any artist or image generator and forces the commissioner to constitute intent in the first place. We present MAIA (Multi-Agent Intent Articulation), a multi-agent system that scaffolds this stage through Socratic inquiry under a \"Verification over Invention\" rule, turning vague affect into a text-only brief of visual terms the user verifies. In a within-subjects study (N = 16), the full configuration produced a large, significant gain in Cognitive Support over a minimal baseline (r = 0.96, p_FDR = 0.015; LMM p_FDR < 0.001). Thematic analysis traces the same mechanism, and a validator gate structurally blocks unratified content. A complementary blind review by three professional concept artists on a sampled set of briefs corroborates this improvement from the artist's side: AI rewriting improved visual completeness and executability in all eight sampled tasks (task-level Wilcoxon p = 0.008; FDR q = 0.010), with directionally larger gains under MAIA than under the baseline (underpowered, d = 1.4-2.6).",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 domain_reasoning, planning, safety, tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12127v1 Announce Type: new Abstract: Prompt-policy editing offers a practical way to improve agents that synthesize executable workflows without updating the underlying model. However, persistent prompt editing has two coupled properties. First, edit locality does not imply effect locality: an edit confined to one policy segment can ripple through downstream execution, altering behavior beyond the edited segment. Second, edit effects are composition-sensitive: edits that work in isolation can interfere after composition, causing one or both to lose their benefit or become harmful. Persistent adaptation must therefore support two distinct decisions: identifying where the policy should change from execution feedback, and determining whether the resulting edit remains safe to persist after composition. To address these challenges, we introduce RIPPLE (Replay-Informed Persistent Policy Localization and Editing), which separates where an edit is made from whether it remains safe after composition. It diagnoses failed trajectories, maps each actionable failure to a predefined policy segment, and restricts the correction to that part of the policy. RIPPLE then evaluates candidates against the same iteration-start policy to compare their isolated gains, before replaying promising edits after previously accepted updates to expose downstream effects and interactions. Only edits that remain safe under composition are retained. We evaluate RIPPLE on Flow-HO, a synthetic held-out benchmark for executable workflow synthesis. RIPPLE improves validation success by up to 23.1% and yields positive gains on two additional frozen language-model backbones, while maintaining edit efficiency and low execution cost. Targeted interaction analysis further demonstrates both properties: a segment-local tool-use edit changes downstream resource resolution and validation, while an edit beneficial in isolation becomes harmful after composition.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；arxiv-professional-workflow；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 66.0,
+      "status": "rejected",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "GPT-6 Astra: The next generation in intelligence for work",
+          "url": "https://openai.com/index/gpt-6-astra-next-generation-work",
+          "published_at": "Wed, 09 Sep 2026 11:00:00 GMT"
+        },
+        {
+          "title": "Local Edits, Global Ripples: Replay-Informed Policy Adaptation for Workflow Synthesis",
+          "url": "https://arxiv.org/abs/2609.12127",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "MAIA: Multi-Agent Intent Articulation for Requirement Discovery in Art Commissions",
+          "url": "https://arxiv.org/abs/2609.12097",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        }
+      ],
+      "capability": [
+        "domain_reasoning",
+        "planning",
+        "safety",
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "domain_reasoning",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GAIA",
+        "BrowseComp",
+        "τ²-bench"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 8,
+        "model_differentiation": 7,
+        "novelty": 15,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 3,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 6,
+      "idea_key": "49623ff7c9dc587b93e127cb",
+      "idea_name": "Agent Domain Expertise能力评测",
+      "domain": "agent",
+      "real_world_task": "arXiv:2608.02100v2 Announce Type: replace Abstract: As AI increasingly participates in human decision making, understanding how decision-making authority is distributed between humans and AI has become a fundamental behavioural question. We introduce a behavioural measurement framework combining intent and delegated decision authority to quantify what consumers seek from AI and how much decision-making authority they assign to it. Applied to 1.5 million real-world ChatGPT and Gemini interactions from 6,304 users in the United States and India, we find that financial services are already a substantial AI use case. Consumers overwhelmingly use AI to retrieve information and shape financial judgement, while delegation of financial execution remains rare. By shifting attention from conversation topics to delegated decision authority, this work establishes a behavioural baseline for measuring the transition to increasingly agentic AI.",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 domain_expertise，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12191v1 Announce Type: new Abstract: Comparing and selecting task-oriented LLM agents increasingly relies on a low-cost offline evaluation gate: persona-driven LLM user-simulators converse with each candidate, an LLM-as-a-judge scores the transcripts, and the higher-scoring agent is promoted. We introduce GAUGE, a reusable offline protocol that measures whether this gate's ranking matches a grounded verifiable reward across 25 agents from six providers on the $\\tau^2$-bench and SimulatorArena benchmarks, separating two kinds of evaluation validity that release practices conflate: ranking validity and construct validity. First, a satisfaction-success gap: satisfaction carries essentially no information about task success, as conversations rated satisfied by our blind panel are decorrelated from actual success, with 57.5% of them failing the customer's task, a pattern consistent across five rater populations, both benchmarks, and every subjective dimension we rated. Second, while the gate's ranking is robust across the broad capability span, it loses resolution among the near-equal strong agents: this decision-disagreement rate jumps from $<$1% on wide-reward pairs to 31% on close pairs. The gate is thus human-validated yet mis-anchored. As a remedy, we propose a calibrate-then-trust cadence in which a judge-free completion bit is a zero-cost tripwire for truncation regressions. arXiv:2609.12471v1 Announce Type: new Abstract: We introduce AMDKernelVault, an open HIP and Triton kernel corpus and training framework for recent AMD CDNA GPUs. Existing LLM-based kernel agents are largely CUDA/NVIDIA-centric and often depend on repeated frontier-LLM calls for generation, reflection, and optimization. To address this gap, we develop HIPKernelGen and TritonKernelGen, agent-driven pipelines that transform PyTorch references into HIP or Triton kernels, compile and validate candidates under ROCm, and latency-profile them on AMD hardware. The corpus contains 62,153 execution-verified HIP kernel samples, 2,377 production-grounded ROCm Libraries QA entries, and 39,893 Triton kernels. We further train Qwen3-8B with supervised fine-tuning and execution-aware reinforcement learning as a demonstration of the corpus's utility. Under fixed evaluation budgets, it achieves the highest correctness among the compared models on PyTorch-to-HIP (34.0% Pass@1), TritonBench-G (33.2% Corr@3), and ROCmBench (41.94% Corr@3), but does not uniformly lead compilation or speed metrics. The corpus and documentation are available at https://huggingface.co/datasets/amd/AIG-Datasets, and the associated training and kernel-generation code is available at https://github.com/AMD-AGI/hip_kernel_llm_lab.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；arxiv-professional-workflow；google-ai-blog；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 64.0,
+      "status": "rejected",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "Now everyone can put data to work",
+          "url": "https://openai.com/index/put-data-to-work",
+          "published_at": "Thu, 10 Sep 2026 15:00:00 GMT"
+        },
+        {
+          "title": "GAUGE: When Not to Trust LLM-as-a-Judge in User-Simulated Evaluation of Task-Oriented Agents",
+          "url": "https://arxiv.org/abs/2609.12191",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "AMDKernelVault: Large-Scale Datasets and Agentic Training for AMD GPU Kernel Optimization",
+          "url": "https://arxiv.org/abs/2609.12471",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "From Information to Delegation: Mapping Human-AI Financial Decision Making",
+          "url": "https://arxiv.org/abs/2608.02100",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Gemini API Managed Agents: 3.6 Flash, hooks, and more",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
+          "published_at": "Tue, 28 Jul 2026 16:00:00 +0000"
+        }
+      ],
+      "capability": [
+        "domain_expertise"
+      ],
+      "expected_failure": [
+        {
+          "type": "domain_expertise",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GAIA",
+        "BrowseComp",
+        "τ²-bench"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 14,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 5,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 11,
+      "idea_key": "764b6dac8477527497b78344",
+      "idea_name": "General Tool Use能力评测",
+      "domain": "general",
+      "real_world_task": "arXiv:2609.13071v1 Announce Type: cross Abstract: Enterprise Digital Twins (EDTs) promise data-driven decision support at organizational scale, but realizing them requires navigating siloed departments, tacit knowledge, and high-stakes decisions with long-horizon consequences. Existing approaches involve domain experts during model development but focus less on early organizational buy-in in EDTs. We present a vision for trustworthy EDT engineering grounded in an `involving before evolving' paradigm: rapidly involving stakeholders through a working prototype before evolving toward federation and full interoperability. Our three-stage approach combines foundation models for rapid prototyping, an ontological backbone for federated interoperability, and observability tooling for stakeholder trust. We ground our vision in an ongoing collaboration with Michelin, a multinational manufacturer, where an initial prototype has helped support stakeholder buy-in.",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 planning, tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12254v1 Announce Type: new Abstract: The climate literature has grown faster than review teams can read it. That gap matters most for a concept like the environmental social tipping point, the threshold at which a small change triggers rapid, self-reinforcing change in a social system. Evidence of this kind of shift is usually contained in one or two paragraphs within a longer document. As a result, existing text mining tools-which categorize entire documents by topic or highlight isolated claims-leave an expanding set of important evidence without any systematic method for discovery or organization. This paper presents an open and modular transformer-based framework that detects and structures social tipping point evidence at the passage level. The framework joins five components into a single deployable workflow: a DistilBERT boundary splitter for segmentation, an iteratively augmented RoBERTa classifier for detection, a Mistral 7B model that rewrites each detected passage for clarity, a LLaMA 3.2 3B model that rates the passage against five published social tipping point criteria, and a Milvus vector store for semantic retrieval. The system is wrapped in a Streamlit interface backed by MinIO object storage. Evaluated on a 163-passage benchmark labelled by GPT-4.1 and a 51-passage set reviewed by experts, the splitter surpassed three competing methods on a nine-metric composite score (6.137). The tuned RoBERTa model achieved 71.4 percent accuracy with a Cohen's kappa of 0.337 on the full benchmark, and 87.5 percent accuracy with a kappa of 0.742 on passages with labels, outperforming both a climate-focused model and untuned language models.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；arxiv-professional-workflow；google-ai-blog；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 64.0,
+      "status": "rejected",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "OpenAI expands initiatives to support journalism from classrooms to newsrooms",
+          "url": "https://openai.com/index/supporting-journalism-from-classrooms-to-newsrooms",
+          "published_at": "Tue, 08 Sep 2026 00:00:00 GMT"
+        },
+        {
+          "title": "1Password increases engineering productivity 21% with Codex",
+          "url": "https://openai.com/index/1password",
+          "published_at": "Tue, 08 Sep 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Automated Detection and Structuring of Social Tipping Point Evidence in Climate related Documents: A Modular AI Framework",
+          "url": "https://arxiv.org/abs/2609.12254",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Involving before Evolving: A Vision for Trustworthy Enterprise Digital Twin Engineering",
+          "url": "https://arxiv.org/abs/2609.13071",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Evolve your marketing with new AI tools",
+          "url": "https://blog.google/products/ads-commerce/google-ads-analytics-ai-updates/",
+          "published_at": "Mon, 10 Aug 2026 14:30:00 +0000"
+        }
+      ],
+      "capability": [
+        "planning",
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "planning",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "Humanity's Last Exam"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 14,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 5,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    }
+  ],
+  "needs_verification": [
+    {
+      "id": 1,
+      "idea_key": "879a6084bdfa1b8b25bc2efd",
+      "idea_name": "PDF财报异常识别与证据引用",
+      "domain": "financial",
+      "real_world_task": "分析师需要阅读跨页财报与附注，识别同比异常、口径变化和勾稽错误，引用准确页码并形成可执行结论。新人常犯的错误是引用错年份、漏掉附注口径调整。",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 citation_correctness, cross_document_reasoning, domain_reasoning, long_context, numerical_grounding, planning, tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "现有评测未充分覆盖真实端到端任务、证据接地与可复现判分。",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-evaluation；failure-manual；openai-product；workflow-manual",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 0,
+      "total_score": 75.0,
+      "status": "candidate",
+      "version": 14,
+      "created_at": "2026-09-14T10:08:06+00:00",
+      "updated_at": "2026-09-15T07:33:00+00:00",
+      "sources": [],
+      "source_refs": [],
+      "capability": [
+        "citation_correctness",
+        "cross_document_reasoning",
+        "domain_reasoning",
+        "long_context",
+        "numerical_grounding",
+        "planning",
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "citation_correctness",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "FinanceBench",
+        "CNFinBench",
+        "CFBenchmark"
+      ],
+      "scores": {
+        "real_world_value": 13,
+        "model_weakness": 13,
+        "model_differentiation": 15,
+        "novelty": 7,
+        "evaluability": 15,
+        "data_feasibility": 8,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 0,
+      "analysis_input_count": 4,
+      "provenance_ready": false,
+      "evidence_confidence": "Low",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "why_now",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 2,
+      "idea_key": "2de632a58de6d008874611de",
+      "idea_name": "合同跨条款风险审查",
+      "domain": "legal",
+      "real_world_task": "律师需要结合交易背景识别缺失条款、冲突条款与责任边界，给出修改建议和法律依据。新人容易遗漏交叉引用和适用法冲突。",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 citation_correctness, cross_document_reasoning, domain_reasoning, safety, version_awareness，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "现有评测未充分覆盖真实端到端任务、证据接地与可复现判分。",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "failure-manual；mini-eval；model-comparison；workflow-manual",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 0,
+      "total_score": 72.0,
+      "status": "candidate",
+      "version": 12,
+      "created_at": "2026-09-14T10:08:06+00:00",
+      "updated_at": "2026-09-15T04:34:18+00:00",
+      "sources": [],
+      "source_refs": [],
+      "capability": [
+        "citation_correctness",
+        "cross_document_reasoning",
+        "domain_reasoning",
+        "safety",
+        "version_awareness"
+      ],
+      "expected_failure": [
+        {
+          "type": "citation_correctness",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "LawBench"
+      ],
+      "scores": {
+        "real_world_value": 13,
+        "model_weakness": 12,
+        "model_differentiation": 14,
+        "novelty": 7,
+        "evaluability": 15,
+        "data_feasibility": 8,
+        "expert_cost": 3
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 0,
+      "analysis_input_count": 4,
+      "provenance_ready": false,
+      "evidence_confidence": "Low",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "why_now",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 18,
+      "idea_key": "3c22b0f5a793d592e125b5d6",
+      "idea_name": "临床推理与指南溯源",
+      "domain": "medical",
+      "real_world_task": "arXiv:2609.12364v1 Announce Type: cross Abstract: Latent embeddings have become a central data abstraction in modern machine learning, especially in biomedicine, where foundation models are increasingly used to encode multimodal data like clinical text, medical images, omics, and physiological signals. However, the utility and value of these representations depends on understanding their quality, structure, and the information they encode. Existing analysis workflows for evaluating representations remain fragmented across custom scripts, isolated metrics, and most importantly lack multimodal analysis, limiting accessibility and reproducibility. We present LatentVerse, a representation analysis resource that combines a web-based visual analytics platform for accessible, report-driven exploration with a command-line interface for scalable technical workflows. LatentVerse unifies diagnostics for various representation quality metrics and extends to multimodal settings by decomposing embeddings into shared and modality-specific components. We evaluate LatentVerse through controlled unimodal and multimodal simulations, discovery-oriented analyses on real biomedical embeddings, and a user study across diverse use cases. By supporting thorough and interpretable evaluation of latent spaces, LatentVerse makes foundation model representations more understandable in biomedical and data science applications.",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 domain_expertise, domain_reasoning, planning, tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12353v1 Announce Type: new Abstract: Large language models trained recursively on their own or other models' outputs undergo model collapse, in which distributional tails and factual accuracy deteriorate while fluency survives. Prior work diagnoses collapse after training; the actionable problem is screening a corpus of unknown provenance before training. We introduce SynthSentry, a corpus-level, model-agnostic contamination signal requiring no access to the generating model, no generation history, and no synthetic labels. The score is a distributional divergence over three statistics: lexical diversity collapse, n-gram tail truncation, and perplexity variance across reference models. We evaluate on corpora contaminated by small open-weight generators and an instruction-tuned open-weight model under a leave-one-generator-out protocol. A domain-stratified study measures false positives on naturally repetitive human text (legal, clinical, source code). The score ranks corpora by severity with little loss when whole generator families are held out. Per-domain calibration holds near its nominal false-positive budget once covariance shrinkage and a bootstrap threshold replace a naive quantile, which runs four times over budget. A downstream fine-tuning check showed no contamination-driven accuracy deficit at our scale, so whether pruning recovers one remains open; the same run shows over-pruning risk once pruning exceeds the true contamination fraction. We frame screening as a data-curation defense rather than a post-hoc diagnosis and release the scoring toolkit. All results are small-scale; scope is English-language, batch-mode corpus screening. Contamination sources are single-generation or hand-authored rather than recursively generated, so results speak to synthetic contamination generally and not to recursion depth. arXiv:2609.12544v1 Announce Type: new Abstract: Clinical de-identification relies on accurately identifying personally identifiable information (PII). However, manually annotated datasets are costly to construct, while existing synthetic alternatives often provide limited details about their generation process or rely on relatively simple synthesis strategies. We introduce Meddies-PII-Dataset, a corpus of one million synthetic clinical documents spanning seventeen languages and nine PII labels. The documents are generated using attribute-conditioned prompts and validated through thirteen deterministic gates that enforce structural and annotation consistency. To evaluate the dataset's utility, we train Meddies-PII-Model, a BIOES token classifier, and compare it with existing PII extraction systems using exact-match entity-level F1. Meddies-PII-Model achieves the highest performance among the evaluated systems on all reported benchmarks, with a mean F1 of 0.827 across fifteen external benchmarks, compared with 0.658 for the strongest baseline. Upon acceptance, we will publicly release the dataset, benchmark suite, model, generation framework, and evaluation code to support research on multilingual clinical de-identification. Official ACL Anthology paper page for CliMedBench with expert-guided clinical scenarios. Official repository for a real-world clinical benchmark covering multiple medical scenarios.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；arxiv-professional-workflow；google-ai-blog；microsoft-research-workflow；web-search-acl；web-search-github",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 0,
+      "total_score": 67.0,
+      "status": "candidate",
+      "version": 7,
+      "created_at": "2026-09-14T10:36:11+00:00",
+      "updated_at": "2026-09-15T07:57:13+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "SynthSentry: Detecting Synthetic Data Contamination in Language Model Training Data",
+          "url": "https://arxiv.org/abs/2609.12353",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Meddies-PII: A Multilingual Framework for Personally Identifiable Information Extraction in Clinical De-identification",
+          "url": "https://arxiv.org/abs/2609.12544",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "LatentVerse: A Framework for Understanding Shared and Modality-Specific Information in Multimodal Latent Representations",
+          "url": "https://arxiv.org/abs/2609.12364",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Introducing CARE-X: Towards Clinically Useful Radiology VLMs with Auxiliary Supervision, Reward-Aligned Learning, and Tool-Augmented Measurement",
+          "url": "https://www.microsoft.com/en-us/research/blog/introducing-care-x-towards-clinically-useful-radiology-vlms-with-auxiliary-supervision-reward-aligned-learning-and-tool-augmented-measurement/",
+          "published_at": "Tue, 11 Aug 2026 16:00:00 +0000"
+        },
+        {
+          "title": "AMIE, our research medical AI system, demonstrates real-time clinical video consultation capabilities in a first-of-its-kind study.",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-video-consultations/",
+          "published_at": "Tue, 11 Aug 2026 17:00:00 +0000"
+        },
+        {
+          "title": "CliMedBench: A Large-Scale Chinese Benchmark for Evaluating Medical LLMs",
+          "url": "https://aclanthology.org/2024.emnlp-main.480/",
+          "published_at": "2024/11"
+        },
+        {
+          "title": "LLMEval-Med GitHub",
+          "url": "https://github.com/llmeval/LLMEval-Med",
+          "published_at": null
+        }
+      ],
+      "capability": [
+        "domain_expertise",
+        "domain_reasoning",
+        "planning",
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "domain_expertise",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "MedBench",
+        "CMB",
+        "MedQA"
+      ],
+      "scores": {
+        "real_world_value": 20,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 15,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 3
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 10,
+      "analysis_input_count": 3,
+      "provenance_ready": true,
+      "evidence_confidence": "Low",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "partial",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "why_now",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 9,
+      "idea_key": "7d73620c1730822b8b9dcbc6",
+      "idea_name": "Agent Domain Reasoning能力评测",
+      "domain": "agent",
+      "real_world_task": "arXiv:2609.12097v1 Announce Type: new Abstract: In bespoke art commissions, laypeople know what they feel but lack the words to specify it: one participant wanted a laid-off truck driver depicted as \"a ghost in his own machine\" but left the medium, scale, and palette unsaid. We frame this as an articulation bottleneck at an under-served upstream stage: requirement discovery, which precedes any artist or image generator and forces the commissioner to constitute intent in the first place. We present MAIA (Multi-Agent Intent Articulation), a multi-agent system that scaffolds this stage through Socratic inquiry under a \"Verification over Invention\" rule, turning vague affect into a text-only brief of visual terms the user verifies. In a within-subjects study (N = 16), the full configuration produced a large, significant gain in Cognitive Support over a minimal baseline (r = 0.96, p_FDR = 0.015; LMM p_FDR < 0.001). Thematic analysis traces the same mechanism, and a validator gate structurally blocks unratified content. A complementary blind review by three professional concept artists on a sampled set of briefs corroborates this improvement from the artist's side: AI rewriting improved visual completeness and executability in all eight sampled tasks (task-level Wilcoxon p = 0.008; FDR q = 0.010), with directionally larger gains under MAIA than under the baseline (underpowered, d = 1.4-2.6).",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 domain_reasoning, planning, safety, tool_use，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12127v1 Announce Type: new Abstract: Prompt-policy editing offers a practical way to improve agents that synthesize executable workflows without updating the underlying model. However, persistent prompt editing has two coupled properties. First, edit locality does not imply effect locality: an edit confined to one policy segment can ripple through downstream execution, altering behavior beyond the edited segment. Second, edit effects are composition-sensitive: edits that work in isolation can interfere after composition, causing one or both to lose their benefit or become harmful. Persistent adaptation must therefore support two distinct decisions: identifying where the policy should change from execution feedback, and determining whether the resulting edit remains safe to persist after composition. To address these challenges, we introduce RIPPLE (Replay-Informed Persistent Policy Localization and Editing), which separates where an edit is made from whether it remains safe after composition. It diagnoses failed trajectories, maps each actionable failure to a predefined policy segment, and restricts the correction to that part of the policy. RIPPLE then evaluates candidates against the same iteration-start policy to compare their isolated gains, before replaying promising edits after previously accepted updates to expose downstream effects and interactions. Only edits that remain safe under composition are retained. We evaluate RIPPLE on Flow-HO, a synthetic held-out benchmark for executable workflow synthesis. RIPPLE improves validation success by up to 23.1% and yields positive gains on two additional frozen language-model backbones, while maintaining edit efficiency and low execution cost. Targeted interaction analysis further demonstrates both properties: a segment-local tool-use edit changes downstream resource resolution and validation, while an edit beneficial in isolation becomes harmful after composition.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；arxiv-professional-workflow；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 66.0,
+      "status": "rejected",
+      "version": 3,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T02:35:41+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "GPT-6 Astra: The next generation in intelligence for work",
+          "url": "https://openai.com/index/gpt-6-astra-next-generation-work",
+          "published_at": "Wed, 09 Sep 2026 11:00:00 GMT"
+        },
+        {
+          "title": "Local Edits, Global Ripples: Replay-Informed Policy Adaptation for Workflow Synthesis",
+          "url": "https://arxiv.org/abs/2609.12127",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "MAIA: Multi-Agent Intent Articulation for Requirement Discovery in Art Commissions",
+          "url": "https://arxiv.org/abs/2609.12097",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        }
+      ],
+      "capability": [
+        "domain_reasoning",
+        "planning",
+        "safety",
+        "tool_use"
+      ],
+      "expected_failure": [
+        {
+          "type": "domain_reasoning",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "GAIA",
+        "BrowseComp",
+        "τ²-bench"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 8,
+        "model_differentiation": 7,
+        "novelty": 15,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 3,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    },
+    {
+      "id": 4,
+      "idea_key": "aadcdb1a317ed0ae90f48601",
+      "idea_name": "General Domain Expertise能力评测",
+      "domain": "general",
+      "real_world_task": "arXiv:2609.12537v1 Announce Type: cross Abstract: AI-assisted writing can flatten meaning in human storytelling, enabling the production of homogeneous outputs without the intentional effort and sense-making writing entails. To address this challenge, we present The House with a Million Windows (HWAMW), an LLM-based interactive fiction system designed to help users explore both the breadth and depth of potential meanings within their personal stories -- drawing on a psychological paradigm called the restorying intervention. In HWAMW, users play through a text-based narrative in which they tell a story, then encounter a set of LLM-generated \"windows\" reframing it according to different literary styles. Empirical evidence shows that HWAMW increases users' sense of narrative identity, while an expert review explores how this effect is achieved. Our findings suggest that HWAMW facilitates restorying and offers a valuable paradigm for AI-assisted writing, wherein LLMs do not tell our stories but rather help us see greater potential in the stories we tell.",
+      "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+      "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+      "why_hard": "组合考察 domain_expertise，需要跨信息源完成多步专业推理。",
+      "evaluation_gap": "arXiv:2609.12111v1 Announce Type: new Abstract: Factual hallucination in closed-book question answering is often treated as a coverage problem: a model fails because the relevant fact is absent from its internal memory. This view misses a second source of error. Even when a fact has been observed, finite memory may force it to be stored only approximately. We study this effect through a simple coverage--compression model of factual recall. We consider an unstructured question-answering task with $N$ possible queries and $K$ possible answers. A learner observes $M$ training facts, compresses them into at most $B$ bits, and answers uniformly drawn test queries without retrieval. For a uniformly random ground-truth mapping, we prove $\\mathcal{E} \\geq \\frac{M}{N}\\delta^\\star\\!\\left(\\frac{B}{M}\\right) + \\left(1-\\frac{M}{N}\\right)\\left(1-\\frac{1}{K}\\right)$, where $\\delta^\\star(r)$ is the inverse rate-distortion function of a uniform $K$-ary source under zero-one loss. The two terms separate compression distortion on observed facts from missing coverage on unobserved facts. The bound gives a compact way to reason about selective memory, forced compression, structure, retrieval, abstention, and long-context organization. We study the predicted signatures with theory-implied simulations and controlled fact-injection probes in modern language models that vary fact load and effective trainable memory. The result is not a complete theory of hallucination, but an information-theoretic account of a separable failure mode: lossy recall of observed facts under finite memory. arXiv:2609.12268v1 Announce Type: new Abstract: Retrieval-augmented generation (RAG) can improve knowledge-intensive question answering, but the first design choice is easy to overlook: how should the source corpus be partitioned into retrievable units? Fixed-size chunks often return long passages whose relation to the question is only implicit. We introduce EAR, an Entity-Aware Partitioning approach for multiple-choice question answering (MCQA). EAR extracts normalized surface anchors from the question, answer options, and corpus; retrieves local windows around matching corpus anchors; and can attach a larger parent passage through an extractive summary. We evaluate EAR on a cleaned Massive Multitask Language Understanding (MMLU)-style subset of 153 questions selected by an automatic corpus-support heuristic and using decontaminated public textbook text. Across same-protocol top-k = 3 and top-k = 8 sweeps with Mistral, Gemma, and DeepSeek, EAR entity-window reduces retrieved words by 37.5-40.2% relative to chunks. Observed accuracy changes are +5.2, +1.3, and -3.9 points at top-k = 3, and +5.9, -3.3, and -4.6 points at top-k = 8; none of the entity-window differences is statistically significant. The scoped contribution is methodological: EAR provides a compact and inspectable retrieval unit, while its rule-based anchor extractor remains domain-specific and requires separate validation before transfer. arXiv:2609.12303v1 Announce Type: new Abstract: Small models are made more capable through distillation from a larger one that shares their tokenization scheme. However, do distilled byte and token models behave similarly in terms of scaling trends as compute and data increases? To enable this comparison, we introduce two variants to efficiently convert token logits to Byte Logits: 1) approximate: Marginalize-It, and 2) exact: End-Of-Token. We then present the first large scale study of overtraining decoder-only dense transformer models varying two dimensions simultaneously: the tokenization scheme (Tokens, Bytes, Bytes w/ eot) and the training objective (Distillation vs. Cross-Entropy), sweeping layer-parameter-matched models with roughly 1 billion parameters up to 1 trillion bytes of data. Across eight benchmarks spanning three categories: Multiple Choice QA, Language Generation, and Machine Translation, we find that Token-1B models outperform byte models (End-Of-Token-1B and Bytes-1B) in the low-FLOP regime but eventually plateau; byte models start worse yet surpass Token-1B models with more compute, reaching a higher downstream task performance ceiling. Extrapolating the average top-1 error vs. validation BPB scaling laws predicts that, asymptotically, distilled End-Of-Token-1B outperforms distilled Token-1B by up to 4%. They are also far more data efficient, matching the performance of distilled Token-1B using only one-sixth of the training data. Moreover, by operating over a small vocabulary of 256 bytes instead of on the order of 100K tokens, they circumvent the need for top-k truncation during logit dumping, while also reducing logit storage costs to roughly one-fifth. Finally, our downstream performance scaling laws predict that our distilled End-Of-Token-1B models asymptotically surpass the Llama 3.2-1B, Gemma-3-1B-pt, and Gemma 2B models on averaged downstream tasks by up to 6.5%, 8.1%, and 2.1%, respectively. arXiv:2609.12310v1 Announce Type: new Abstract: We describe six submissions under the team name ESTS to the unconstrained WMT26 Model Compression Shared Task for English--Simplified Chinese and English--Egyptian Arabic. We submit three compression operating points per translation direction, all derived from GPT-OSS-20B. We use task-specific routing mass to rank experts and cross-lingual routing divergence to allocate retained capacity across layers, then physically remove low-importance experts. The resulting specialists are recovery-tuned on GPT-5.1-generated synthetic translation data and further compressed by applying MXFP4 quantization to the retained expert projection weights. We additionally implement a robust inference system for the instruction-conditioned WMT26 setting, including category inference, output validation, retries, segmented fallback, and source-owned JSON reconstruction. Across our six submissions, parameter counts range from 4.186B to 7.770B and packed artifact sizes from 4.55 to 6.33~GiB. Internal xCOMET-XL evaluation using GPT-5.1 pseudo-references provides an internal comparison across the submitted compression operating points. arXiv:2609.12366v1 Announce Type: new Abstract: We present ORQA, a method for testing occupation-level knowledge in large language models. Prior methods either map abstract LLM skills to occupations via task definitions or utilize expert knowledge which is difficult to obtain at scale and expensive. ORQA complements both of these methods by connecting O*NET occupations to trusted occupation-specific websites (such as regulatory agencies, licensing bodies, professional organizations, and government publications) and converting these into source-traceable question-answer pairs. A combination of an automated pipeline and human review produces a set of high quality questions about occupations. The question set created via our method covers 116 occupations from all 21 major groups in the SOC, with 480 questions sourced from 187 different websites. Each question is designed to probe a real-world skill question that is relevant to the occupation in question. We test 15 state-of-the-art frontier and open-weight models via this method. Claude Opus 4.6, GPT-5.4 and Claude Sonnet 4.6 all perform the best at approximately 58-62% while smaller open-weight models achieve approximately 33-41% performance. Performance varies significantly across occupations. Healthcare-related occupations achieve the highest performance (78%) while Office and Administrative Support achieve approximately 40%. Performance on individual occupations (e.g. Sheet Metal Workers and Fish and Game Wardens) is essentially zero. We also find that open-ended questions and weighting by wage bill do not significantly affect the ranking of models on this benchmark. We believe that leveraging existing trusted occupation-specific information to test LLM knowledge in professional domains may be a scalable and useful method for evaluating occupation-level AI performance in the future. Results and data are available at orqabench.org. arXiv:2609.12469v1 Announce Type: new Abstract: False wake-up activations remain a persistent challenge in conversational AI. Speech phonetically similar to a device's wake word can produce a syntactically valid and semantically coherent ASR transcript that the assistant incorrectly executes. Most existing systems make a single intent decision in isolation, without a mechanism to learn from recurring errors over time or adapt to individual users through personalized learning. We introduce the Feedback-Driven Adaptive Self-Correcting Inference Layer (ASCIL), a complementary post-ASR correction framework that re-evaluates wake-up intent before response generation by fusing acoustic embeddings, linguistic cues, device context, and patterns from past misclassifications. ASCIL interprets implicit signals, including hesitation, disengagement, and silence, and explicit signals, including cancellation and repetition, as automatically inferred, noisy behavioral indicators of potential misclassification. These signals drive online pattern updates without manual annotation, whereas the intentional/unintentional reference labels used for offline evaluation are human-annotated. It generalizes from prior errors, applies corrective adjustments at inference time, and continuously updates in parallel with natural-language execution. Evaluated on a proprietary dataset of 3,667 interactions with human-annotated intentional/unintentional reference labels spanning 14 acoustic and contextual conditions, ASCIL achieves 54.27% relative error reduction on a session-disjoint subset constructed from baseline failures, and up to 24.39% relative error reduction at threshold 0.90 on the issue-tagged evaluation slice. These gains are achieved while improving intentional acceptance rates, with a median added latency below 60 ms in the reported benchmark. Code and data for MedQA. Contribute to jind11/MedQA development by creating an account on GitHub.",
+      "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+      "data_source": "arxiv-nlp-evaluation；arxiv-professional-workflow；coverage-matrix；google-ai-blog；openai-product",
+      "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+      "radar_hits": 1,
+      "total_score": 65.0,
+      "status": "candidate",
+      "version": 4,
+      "created_at": "2026-09-14T10:33:59+00:00",
+      "updated_at": "2026-09-15T07:57:13+00:00",
+      "sources": [
+        "benchmark",
+        "product_agent",
+        "workflow"
+      ],
+      "source_refs": [
+        {
+          "title": "Perplexity trusts GPT-6 Astra with end-to-end systems",
+          "url": "https://openai.com/index/perplexity-improving-accuracy-with-astra",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users",
+          "url": "https://openai.com/index/scaling-storage-one-billion-users-part-one",
+          "published_at": "Fri, 11 Sep 2026 10:00:00 GMT"
+        },
+        {
+          "title": "Cognition helps Devin test its own work with GPT‑6 Astra",
+          "url": "https://openai.com/index/cognition-devin-testing-with-astra",
+          "published_at": "Fri, 11 Sep 2026 16:00:00 GMT"
+        },
+        {
+          "title": "Expanding AI access and cyber defense for federal, state, local, and tribal governments",
+          "url": "https://openai.com/index/expanding-ai-access-us-government",
+          "published_at": "Thu, 10 Sep 2026 07:00:00 GMT"
+        },
+        {
+          "title": "Build more natural voice experiences with GPT‑Live‑1 in the API",
+          "url": "https://openai.com/index/introducing-gpt-live-1-in-the-api",
+          "published_at": "Thu, 10 Sep 2026 00:00:00 GMT"
+        },
+        {
+          "title": "The Work Now Within Reach",
+          "url": "https://openai.com/index/the-work-now-within-reach",
+          "published_at": "Tue, 08 Sep 2026 13:00:00 GMT"
+        },
+        {
+          "title": "Introducing ChatGPT Images 2.5",
+          "url": "https://openai.com/index/introducing-chatgpt-images-2-5",
+          "published_at": "Tue, 08 Sep 2026 11:30:00 GMT"
+        },
+        {
+          "title": "On the Navier–Stokes Millennium Prize Problem",
+          "url": "https://openai.com/index/navier-stokes-solution",
+          "published_at": "Tue, 08 Sep 2026 10:00:00 GMT"
+        },
+        {
+          "title": "Supporting independent journalism in Ukraine",
+          "url": "https://openai.com/index/supporting-independent-journalism-in-ukraine",
+          "published_at": "Mon, 07 Sep 2026 00:00:00 GMT"
+        },
+        {
+          "title": "An Alien Mind",
+          "url": "https://openai.com/index/an-alien-mind",
+          "published_at": "Sun, 06 Sep 2026 09:00:00 GMT"
+        },
+        {
+          "title": "Daybreak for Frontline Defenders: $1B to protect essential services",
+          "url": "https://openai.com/index/daybreak-for-frontline-defenders",
+          "published_at": "Thu, 03 Sep 2026 13:15:00 GMT"
+        },
+        {
+          "title": "Playco cut manual fixes 50% prototyping games with GPT-6 Astra",
+          "url": "https://openai.com/index/playco-game-prototyping-with-astra",
+          "published_at": "Thu, 03 Sep 2026 12:00:00 GMT"
+        },
+        {
+          "title": "The Cost of Compression: A Rate-Distortion Limit on Factual Hallucination",
+          "url": "https://arxiv.org/abs/2609.12111",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "EAR: Entity-Aware Partitioning Approach for Retrieval-Augmented Generation Development",
+          "url": "https://arxiv.org/abs/2609.12268",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Breaking the Token Ceiling: Distilling Smaller, Stronger Byte Models",
+          "url": "https://arxiv.org/abs/2609.12303",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "ESTS at WMT26: Routing-Informed Expert Pruning for Model Compression",
+          "url": "https://arxiv.org/abs/2609.12310",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "ORQA: An Occupation-Realistic Question and Answer Framework for LLM Professional Knowledge",
+          "url": "https://arxiv.org/abs/2609.12366",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "Not All Speech Is Intent: Adaptive Self-Correcting Inference Layer for Post-ASR False Wake-Up",
+          "url": "https://arxiv.org/abs/2609.12469",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "The House with a Million Windows: Interactive Fiction for Narrative Restorying",
+          "url": "https://arxiv.org/abs/2609.12537",
+          "published_at": "Mon, 14 Sep 2026 00:00:00 -0400"
+        },
+        {
+          "title": "3 ways to prep for your next big race with Search",
+          "url": "https://blog.google/products-and-platforms/products/search/running-race-training-tips/",
+          "published_at": "Thu, 10 Sep 2026 16:00:00 +0000"
+        },
+        {
+          "title": "Get ready for the game with new football features in Search",
+          "url": "https://blog.google/products-and-platforms/products/search/football-features-google-search/",
+          "published_at": "Wed, 09 Sep 2026 16:00:00 +0000"
+        },
+        {
+          "title": "Recreating a 70-year love story frame by frame",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/love-rendered-film/",
+          "published_at": "Wed, 09 Sep 2026 16:00:00 +0000"
+        },
+        {
+          "title": "Proactive cyber defense for governments and enterprises",
+          "url": "https://blog.google/innovation-and-ai/technology/safety-security/fairwind-program/",
+          "published_at": "Wed, 02 Sep 2026 15:40:00 +0000"
+        },
+        {
+          "title": "The latest AI news we announced in August 2026",
+          "url": "https://blog.google/innovation-and-ai/technology/google-ai-updates-august-2026/",
+          "published_at": "Tue, 01 Sep 2026 20:45:00 +0000"
+        },
+        {
+          "title": "Try Google Pics: Easy image creation and editing in Google Workspace",
+          "url": "https://blog.google/products-and-platforms/products/workspace/google-pics/",
+          "published_at": "Tue, 01 Sep 2026 16:00:00 +0000"
+        },
+        {
+          "title": "3 new ways to plan and book travel in Search",
+          "url": "https://blog.google/products-and-platforms/products/search/book-travel-ai-mode/",
+          "published_at": "Thu, 27 Aug 2026 16:00:00 +0000"
+        },
+        {
+          "title": "5 ways to upgrade your home decor with Google Search",
+          "url": "https://blog.google/products-and-platforms/products/search/home-decor-tips/",
+          "published_at": "Tue, 25 Aug 2026 16:00:00 +0000"
+        },
+        {
+          "title": "5 new ways to level up your learning with Search",
+          "url": "https://blog.google/products-and-platforms/products/search/back-to-school-study-tools/",
+          "published_at": "Wed, 19 Aug 2026 19:00:00 +0000"
+        },
+        {
+          "title": "Get closer to the game with Gemini and Pixel",
+          "url": "https://blog.google/products-and-platforms/products/gemini/google-gemini-pixel-football-club-partnerships/",
+          "published_at": "Mon, 17 Aug 2026 08:00:00 +0000"
+        },
+        {
+          "title": "Bring your spreadsheet data to life with Sheets canvas",
+          "url": "https://blog.google/products-and-platforms/products/workspace/sheets-canvas-for-google-sheets-spreadsheets/",
+          "published_at": "Thu, 13 Aug 2026 16:45:00 +0000"
+        },
+        {
+          "title": "The latest AI news we announced in July 2026",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-july-2026/",
+          "published_at": "Tue, 04 Aug 2026 13:00:00 +0000"
+        },
+        {
+          "title": "Inside our 353,000-person vibe coding course",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/ai-agents-intensive-recap-2026/",
+          "published_at": "Mon, 03 Aug 2026 15:00:00 +0000"
+        },
+        {
+          "title": "5 ways to host the ultimate dinner party with Google Search",
+          "url": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
+          "published_at": "Tue, 28 Jul 2026 13:00:00 +0000"
+        },
+        {
+          "title": "5 ways AI Mode in Search helps you enjoy the real world",
+          "url": "https://blog.google/products-and-platforms/products/search/ai-mode-real-world-tips/",
+          "published_at": "Tue, 28 Jul 2026 13:00:00 +0000"
+        },
+        {
+          "title": "3 Google updates from Galaxy Unpacked 2026",
+          "url": "https://blog.google/products-and-platforms/platforms/android/galaxy-unpacked-2026/",
+          "published_at": "Wed, 22 Jul 2026 13:00:00 +0000"
+        },
+        {
+          "title": "Connect more of your apps to Search",
+          "url": "https://blog.google/products-and-platforms/products/search/connected-apps/",
+          "published_at": "Thu, 16 Jul 2026 16:00:00 +0000"
+        },
+        {
+          "title": "GitHub - jind11/MedQA: Code and data for MedQA",
+          "url": "https://github.com/jind11/MedQA",
+          "published_at": null
+        }
+      ],
+      "capability": [
+        "domain_expertise"
+      ],
+      "expected_failure": [
+        {
+          "type": "domain_expertise",
+          "description": "待 Mini Eval 验证"
+        }
+      ],
+      "existing_benchmark": [
+        "Humanity's Last Exam"
+      ],
+      "scores": {
+        "real_world_value": 17,
+        "model_weakness": 8,
+        "model_differentiation": 7,
+        "novelty": 14,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "score_overrides": {},
+      "raw_evidence_count": 37,
+      "analysis_input_count": 0,
+      "provenance_ready": true,
+      "evidence_confidence": "Medium",
+      "needs_verification": true,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "missing_evidence": [
+        "core_insight",
+        "evaluation_gap",
+        "model_failure"
+      ]
+    }
+  ],
+  "summary": {
+    "source_items": 103,
+    "signals": 103,
+    "idea_pool": 23,
+    "provenance_ready_ideas": 9,
+    "withheld_for_provenance": 14,
+    "needs_verification": 5
+  }
+}

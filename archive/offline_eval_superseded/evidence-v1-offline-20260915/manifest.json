@@ -1,0 +1,35 @@
+{
+  "package_id": "evidence-v1-offline-20260915",
+  "created_at": "2026-09-15T08:13:50+00:00",
+  "mode": "offline_result_import",
+  "execution_scope": "FinanceBench + BFCL only; CMB-Clin deferred pending physician rubric calibration",
+  "required_distinct_models": 3,
+  "total_tasks": 20,
+  "expected_response_records": 60,
+  "packs": [
+    {
+      "pack": "financebench",
+      "idea_id": 1,
+      "benchmark_name": "FinanceBench",
+      "task_count": 10,
+      "task_file": "tasks\\financebench_tasks.jsonl",
+      "task_file_sha256": "ce24f7ea4baf363c3f5fb90089d2d6d1a0f9309cb8292b942a483833d256357d",
+      "private_answer_key": "data\\mini_eval_cases\\idea-1-financebench.jsonl",
+      "private_answer_key_sha256": "e95a613c089433b60213e4bcfe11d634b2d55d3ac9805c913a41ea4ff5e7a30f"
+    },
+    {
+      "pack": "bfcl",
+      "idea_id": 11,
+      "benchmark_name": "BFCL v3",
+      "task_count": 10,
+      "task_file": "tasks\\bfcl_tasks.jsonl",
+      "task_file_sha256": "987a8b593920acec268a5c64919803a912b6c49a7b508a677d6756ba67158130",
+      "private_answer_key": "data\\mini_eval_cases\\idea-11-bfcl.jsonl",
+      "private_answer_key_sha256": "528204b150995b402581d8c0d0b81c2507ce6bf1d0c49be0a08398c2bec4160b"
+    }
+  ],
+  "response_template": "responses_template.jsonl",
+  "response_template_sha256": "20bab7cf9cb1782a8e34563fbae75e6ee299395f3e7af7f3b6b435ca43596b61",
+  "status": "awaiting_external_model_results",
+  "integrity_statement": "Task prompts come from official benchmark data. Answer keys are not included in exported task files. No synthetic model response is allowed."
+}

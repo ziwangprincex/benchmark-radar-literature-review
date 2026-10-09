@@ -1,0 +1,19 @@
+{
+ "package_id": "med-overcall-v0-20261008",
+ "direction": "med-overcall",
+ "source": "https://huggingface.co/datasets/zacharielegault/PatchCamelyon",
+ "split": "test",
+ "seed": 20261008,
+ "images": 100,
+ "tasks": 200,
+ "arms": [
+  "neutral",
+  "history"
+ ],
+ "per_class": {
+  "无转移": 50,
+  "有转移": 50
+ },
+ "answer_format": "{\"task_id\": ..., \"model\": ..., \"answer\": \"原始回答\"}，每行一条",
+ "note": "答案文件不在包里（在 data/mini_eval_cases/med-overcall-key.jsonl），发给别人跑时只发这个目录。"
+}

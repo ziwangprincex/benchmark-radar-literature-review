@@ -1,0 +1,51 @@
+{
+  "eval_run_id": "RUN-2026-001",
+  "benchmark_id": "Your Benchmark Name",
+  "dataset_version": "dataset-v1",
+  "dataset_hash": "sha256:replace-with-real-hash",
+  "prompt_version": "prompt-v1",
+  "rubric_version": "rubric-v1",
+  "judge_type": "expert|llm|hybrid",
+  "judge_name": "Judge Name",
+  "judge_version": "judge-v1",
+  "artifact_url": "https://example.com/eval-run-artifacts/",
+  "run_date": "2026-09-15T10:00:00+08:00",
+  "protocol": {
+    "temperature": 0,
+    "seed": 42,
+    "notes": "完整评测协议"
+  },
+  "cases": [
+    {
+      "failure_case_id": "CASE-001",
+      "benchmark_name": "Your Benchmark Name",
+      "task_prompt": "完整 Task / Prompt",
+      "input": "模型收到的完整输入，可为文本或结构化 JSON 字符串",
+      "reference_answer": "Reference Answer / 标准答案",
+      "rubric": "逐项评分 Rubric 及权重",
+      "model_name": "Model Name",
+      "model_version": "Model Version",
+      "model_response": "模型完整回答",
+      "score": 0.0,
+      "passed": false,
+      "failure_type": "citation_error",
+      "severity": "high",
+      "error_analysis": "错误发生在哪里、为什么属于可泛化 Failure、可能根因",
+      "judge_result": "Judge 评分、Rubric 命中情况及理由",
+      "run_date": "2026-09-15T10:00:00+08:00",
+      "attachments": [
+        {
+          "name": "原始输入 PDF",
+          "url": "https://example.com/source.pdf"
+        },
+        {
+          "name": "本地运行日志",
+          "path": "data/attachments/run-log.json"
+        }
+      ],
+      "raw_data": {
+        "case_hash": "sha256:replace-with-real-hash"
+      }
+    }
+  ]
+}

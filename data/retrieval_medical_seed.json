@@ -1,0 +1,73 @@
+[
+  {
+    "radar": "benchmark",
+    "source_id": "web-search-acl",
+    "title": "CMB: A Comprehensive Medical Benchmark in Chinese",
+    "url": "https://aclanthology.org/2024.naacl-long.343/",
+    "content": "Official ACL Anthology paper page for CMB, a localized comprehensive Chinese medical benchmark.",
+    "source_type": "paper",
+    "source_quality": "primary",
+    "organization": "ACL Anthology",
+    "selected": true,
+    "rejection_reason": null
+  },
+  {
+    "radar": "benchmark",
+    "source_id": "web-search-opencompass",
+    "title": "MedBench",
+    "url": "https://medbench.opencompass.org.cn/",
+    "content": "Official MedBench benchmark site covering medical QA, language understanding, generation, complex reasoning, safety and ethics.",
+    "source_type": "benchmark_site",
+    "source_quality": "primary",
+    "organization": "OpenCompass",
+    "selected": true,
+    "rejection_reason": null
+  },
+  {
+    "radar": "benchmark",
+    "source_id": "web-search-acl",
+    "title": "CliMedBench: A Large-Scale Chinese Benchmark for Evaluating Medical LLMs",
+    "url": "https://aclanthology.org/2024.emnlp-main.480/",
+    "content": "Official ACL Anthology paper page for CliMedBench with expert-guided clinical scenarios.",
+    "source_type": "paper",
+    "source_quality": "primary",
+    "organization": "ACL Anthology",
+    "selected": true,
+    "rejection_reason": null
+  },
+  {
+    "radar": "benchmark",
+    "source_id": "web-search-r2med",
+    "title": "R2MED: A Benchmark for Reasoning-Driven Medical Retrieval",
+    "url": "https://r2med.github.io/",
+    "content": "Official project page for reasoning-driven medical retrieval benchmark.",
+    "source_type": "benchmark_site",
+    "source_quality": "primary",
+    "organization": "R2MED project",
+    "selected": true,
+    "rejection_reason": null
+  },
+  {
+    "radar": "benchmark",
+    "source_id": "web-search-github",
+    "title": "LLMEval-Med GitHub",
+    "url": "https://github.com/llmeval/LLMEval-Med",
+    "content": "Official repository for a real-world clinical benchmark covering multiple medical scenarios.",
+    "source_type": "github",
+    "source_quality": "primary",
+    "organization": "LLMEval-Med authors",
+    "selected": true,
+    "rejection_reason": null
+  },
+  {
+    "radar": "benchmark",
+    "source_id": "web-search-third-party",
+    "title": "医疗知识图谱问答系统博客",
+    "url": "https://blog.csdn.net/weixin_30952479/article/details/165010450",
+    "content": "Third-party technical blog discussing traceable medical QA.",
+    "source_type": "technical_article",
+    "source_quality": "secondary",
+    "selected": false,
+    "rejection_reason": "Secondary source; not preferred over official paper, repository or benchmark site"
+  }
+]

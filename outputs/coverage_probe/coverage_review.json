@@ -1,0 +1,3555 @@
+{
+  "generated_at": "2026-09-23T06:41:42+00:00",
+  "retriever_version": "benchmark-radar-catalog-v1",
+  "catalog_repo": "/Users/prince/benchmark-radar",
+  "caveat": "本报告基于 benchmark-radar 聚合目录（secondary 源）。目录记录只含 name/description/categories，不含 task definition、input/output 与 evaluation protocol，因此不能据此判定 covered 或 not_covered。所有写入 benchmark_coverage 的行均为 needs_review / unknown。",
+  "verdict_summary": {
+    "needs_manual_coverage_analysis": 8,
+    "topic_too_wide": 15
+  },
+  "ideas": [
+    {
+      "idea_id": 1,
+      "idea_name": "PDF财报异常识别与证据引用",
+      "domain": "financial",
+      "status": "candidate",
+      "total_score": 75.0,
+      "queries": [
+        "financial statement report audit anomaly detection table numerical evidence benchmark evaluation",
+        "financial finance citation attribution grounding evidence multi document long context reasoning domain reasoning professional reasoning benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 2,
+      "selected": [
+        {
+          "name": "FinQA",
+          "key": "llm-stats:finqa",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "math",
+            "reasoning",
+            "finance",
+            "economics"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/finqa?top_n=500",
+          "query_coverage": 0.1818,
+          "reason": "领域信号 ['financial', 'finance']，任务信号 ['numerical']，命中词 ['financial', 'numerical']（query coverage 0.18）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Big Finance Bench",
+          "key": "llm-stats:big-finance-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "finance",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/big-finance-bench?top_n=500",
+          "query_coverage": 0.2857,
+          "reason": "领域信号 ['financial', 'finance']，任务信号 ['quantitative']，命中词 ['finance', 'financial', 'multi', 'reasoning']（query coverage 0.29）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "needs_manual_coverage_analysis",
+      "advice": "有 2 条候选需要人工核查原始 Paper/Repo 的 task definition 与 evaluation protocol，才能判定是否真的覆盖目标任务。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 2,
+      "idea_name": "合同跨条款风险审查",
+      "domain": "legal",
+      "status": "candidate",
+      "total_score": 72.0,
+      "queries": [
+        "contract clause review legal risk obligation benchmark evaluation",
+        "legal law contract citation attribution grounding evidence multi document long context reasoning domain reasoning professional reasoning benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 1,
+      "selected": [
+        {
+          "name": "Uniform Bar Exam",
+          "key": "llm-stats:uniform-bar-exam",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "legal",
+            "reasoning"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/uniform-bar-exam?top_n=500",
+          "query_coverage": 0.3333,
+          "reason": "领域信号 ['legal', 'law', 'contract']，任务信号 ['contract']，命中词 ['benchmark', 'evidence', 'law', 'legal', 'reasoning']（query coverage 0.33）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "needs_manual_coverage_analysis",
+      "advice": "有 1 条候选需要人工核查原始 Paper/Repo 的 task definition 与 evaluation protocol，才能判定是否真的覆盖目标任务。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 18,
+      "idea_name": "临床推理与指南溯源",
+      "domain": "medical",
+      "status": "candidate",
+      "total_score": 67.0,
+      "queries": [
+        "clinical reasoning guideline retrieval diagnosis benchmark evaluation",
+        "medical clinical health expert knowledge domain expertise professional domain reasoning professional reasoning planning multi step benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 6,
+      "selected": [
+        {
+          "name": "CRPErelation",
+          "key": "llm-stats:crperelation",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "healthcare"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/crperelation?top_n=500",
+          "query_coverage": 0.5714,
+          "reason": "领域信号 ['medical', 'clinical', 'health']，任务信号 ['clinical', 'diagnos', 'reasoning']，命中词 ['benchmark', 'clinical', 'evaluation', 'reasoning']（query coverage 0.57）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBookVQA",
+          "key": "opencompass:1920",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "Medical",
+            "VQA",
+            "MLLM",
+            "科学智能",
+            "AI for Science",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBookVQA",
+          "query_coverage": 0.4286,
+          "reason": "领域信号 ['medical', 'clinical', '临床']，任务信号 ['clinical', 'reasoning']，命中词 ['benchmark', 'clinical', 'reasoning']（query coverage 0.43）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedAgents-Bench",
+          "key": "opencompass:1641",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "推理",
+            "Reasoning",
+            "知识",
+            "Knowledge",
+            "Medical",
+            "Agent",
+            "科学智能",
+            "AI for Science",
+            "逻辑推理",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedAgents-Bench",
+          "query_coverage": 0.4286,
+          "reason": "领域信号 ['medical', 'clinical', '临床']，任务信号 ['clinical', 'reasoning']，命中词 ['clinical', 'evaluation', 'reasoning']（query coverage 0.43）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBrowseComp",
+          "key": "opencompass:1832",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "其他",
+            "Other",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBrowseComp",
+          "query_coverage": 0.4286,
+          "reason": "领域信号 ['medical', 'clinical']，任务信号 ['clinical', 'reasoning']，命中词 ['benchmark', 'clinical', 'reasoning']（query coverage 0.43）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ER-Reason",
+          "key": "opencompass:1892",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "推理",
+            "Reasoning",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "逻辑推理",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/ER-Reason",
+          "query_coverage": 0.4286,
+          "reason": "领域信号 ['medical', 'clinical', '临床']，任务信号 ['clinical', 'reasoning']，命中词 ['benchmark', 'clinical', 'reasoning']（query coverage 0.43）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedXpertQA",
+          "key": "llm-stats:medxpertqa",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "reasoning",
+            "healthcare",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/medxpertqa?top_n=500",
+          "query_coverage": 0.4615,
+          "reason": "领域信号 ['medical', 'clinical', 'health']，任务信号 ['clinical', 'reasoning']，命中词 ['benchmark', 'clinical', 'expert', 'knowledge', 'medical', 'reasoning']（query coverage 0.46）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "needs_manual_coverage_analysis",
+      "advice": "有 6 条候选需要人工核查原始 Paper/Repo 的 task definition 与 evaluation protocol，才能判定是否真的覆盖目标任务。",
+      "existing_manual_coverage": [
+        {
+          "benchmark_name": "CMB",
+          "target_coverage": "not_covered",
+          "verification_status": "verified",
+          "notes": "未提供临床指南语料库、指南检索指标、结构化引用字段或citation correctness。"
+        },
+        {
+          "benchmark_name": "CliMedBench",
+          "target_coverage": "unknown",
+          "verification_status": "partial",
+          "notes": "摘要未显示指南检索、引用真实性、引用支持度指标；需核查全文协议后才能确认Negative Claim。"
+        },
+        {
+          "benchmark_name": "LLMEval-Med",
+          "target_coverage": "not_covered",
+          "verification_status": "verified",
+          "notes": "无指南库、检索金标准、引用字段、Citation Precision/Recall或Claim-Evidence Entailment。"
+        },
+        {
+          "benchmark_name": "MedQA",
+          "target_coverage": "not_covered",
+          "verification_status": "verified",
+          "notes": "检索语料为教材而非临床指南；无指南版本、条款定位、citation correctness或claim-evidence entailment。"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "idea_id": 9,
+      "idea_name": "Agent Domain Reasoning能力评测",
+      "domain": "agent",
+      "status": "rejected",
+      "total_score": 66.0,
+      "queries": [
+        "agent agentic benchmark evaluation",
+        "agent agentic domain reasoning professional reasoning planning multi step safety harmful refusal benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 12,
+      "selected": [
+        {
+          "name": "Agents' Last Exam",
+          "key": "model-reports:agents_last_exam",
+          "catalog_source": "model_reports",
+          "categories": [
+            "coding_agent"
+          ],
+          "source_url": "https://lastexam.ai/",
+          "query_coverage": 0.75,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['reasoning', 'multi', 'tool']，命中词 ['agent', 'agentic', 'benchmark']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Finance Agent",
+          "key": "llm-stats:finance-agent",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "finance",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/finance-agent?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['domain']，命中词 ['agent', 'agentic', 'benchmark']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Finance Agent v1.1",
+          "key": "llm-stats:finance-agent-v1.1",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "finance",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/finance-agent-v1.1?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['reasoning', 'multi']，命中词 ['agent', 'agentic', 'benchmark']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "CREW-WILDFIRE",
+          "key": "opencompass:2046",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "智能体",
+            "Agent",
+            "任务执行",
+            "Task Execution",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/CREW-WILDFIRE",
+          "query_coverage": 0.75,
+          "reason": "领域信号 ['agent', 'agentic', '智能体']，任务信号 ['planning']，命中词 ['agent', 'agentic', 'benchmark']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Finance Agent v2",
+          "key": "llm-stats:finance-agent-v2",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "finance",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/finance-agent-v2?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['reasoning', 'multi']，命中词 ['agent', 'agentic', 'benchmark']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Cohere Agentic Question Answering",
+          "key": "llm-stats:cohere-agentic-question-answering",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "question_answering",
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/cohere-agentic-question-answering?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['reasoning']，命中词 ['agentic', 'evaluation']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Job Bench",
+          "key": "llm-stats:job-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "productivity",
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/job-bench?top_n=500",
+          "query_coverage": 0.4167,
+          "reason": "领域信号 ['agent']，任务信号 ['reasoning', 'planning']，命中词 ['multi', 'planning', 'professional', 'reasoning', 'step']（query coverage 0.42）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "APEX-Agents",
+          "key": "llm-stats:apex-agents",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/apex-agents?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['agent']，任务信号 ['reasoning', 'planning']，命中词 ['benchmark', 'multi', 'planning', 'professional', 'reasoning', 'step']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "DABstep",
+          "key": "opencompass:2030",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "智能体",
+            "Agent",
+            "任务执行",
+            "Task Execution",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/DABstep",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['agent', '智能体']，任务信号 ['reasoning', 'planning']，命中词 ['agent', 'benchmark', 'multi', 'planning', 'reasoning', 'step']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "t2-bench",
+          "key": "llm-stats:t2-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/t2-bench?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['reasoning', 'planning', 'tool']，命中词 ['agentic', 'benchmark', 'multi', 'planning', 'reasoning', 'step']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MCP-Universe",
+          "key": "llm-stats:mcp-universe",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/mcp-universe?top_n=500",
+          "query_coverage": 0.3333,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['planning', 'tool']，命中词 ['agentic', 'multi', 'planning', 'step']（query coverage 0.33）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "RedCode",
+          "key": "opencompass:1333",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "安全",
+            "Safety",
+            "智能体",
+            "Agent",
+            "任务执行",
+            "Task Execution",
+            "安全对齐",
+            "Safety Alignment",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/RedCode",
+          "query_coverage": 0.25,
+          "reason": "领域信号 ['agent', '智能体']，任务信号 ['domain', 'safety']，命中词 ['agent', 'harmful', 'safety']（query coverage 0.25）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 12 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 4,
+      "idea_name": "General Domain Expertise能力评测",
+      "domain": "general",
+      "status": "candidate",
+      "total_score": 65.0,
+      "queries": [
+        "benchmark evaluation",
+        "expert knowledge domain expertise professional benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 13,
+      "selected": [
+        {
+          "name": "lm-evaluation-harness",
+          "key": "opencompass:2128",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/lm-evaluation-harness",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['knowledge']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "CRPErelation",
+          "key": "llm-stats:crperelation",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "healthcare"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/crperelation?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['knowledge']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "UHGEval",
+          "key": "opencompass:1088",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "事实可靠性",
+            "Factual Reliability",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/UHGEval",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['knowledge']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ProfBench",
+          "key": "llm-stats:profbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "knowledge",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/profbench?top_n=500",
+          "query_coverage": 0.6667,
+          "reason": "领域信号 []，任务信号 ['expert']，命中词 ['domain', 'expert', 'knowledge', 'professional']（query coverage 0.67）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "SuperChem",
+          "key": "llm-stats:superchem",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "knowledge",
+            "chemistry"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/superchem?top_n=500",
+          "query_coverage": 0.6667,
+          "reason": "领域信号 []，任务信号 ['expert']，命中词 ['benchmark', 'domain', 'expert', 'knowledge']（query coverage 0.67）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "FrontierScience Research",
+          "key": "llm-stats:frontierscience-research",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontierscience-research?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 []，任务信号 ['expert']，命中词 ['benchmark', 'domain', 'expertise']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "APEX-Agents",
+          "key": "model-reports:apex_agents",
+          "catalog_source": "model_reports",
+          "categories": [
+            "agent"
+          ],
+          "source_url": "https://arxiv.org/abs/2601.14242",
+          "query_coverage": 0.3333,
+          "reason": "领域信号 []，任务信号 ['expert']，命中词 ['expert', 'professional']（query coverage 0.33）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "GDPval",
+          "key": "model-reports:gdpval",
+          "catalog_source": "model_reports",
+          "categories": [
+            "professional"
+          ],
+          "source_url": "https://openai.com/index/gdpval/",
+          "query_coverage": 0.3333,
+          "reason": "领域信号 []，任务信号 ['expert']，命中词 ['expert', 'professional']（query coverage 0.33）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "PLawBench",
+          "key": "llm-stats:plawbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "legal",
+            "reasoning",
+            "knowledge"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/plawbench?top_n=500",
+          "query_coverage": 0.3333,
+          "reason": "领域信号 []，任务信号 ['knowledge']，命中词 ['knowledge', 'professional']（query coverage 0.33）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "VideoMMMU",
+          "key": "llm-stats:videommmu",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "reasoning",
+            "healthcare",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/videommmu?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 []，任务信号 ['expert']，命中词 ['expert', 'knowledge', 'professional']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "PRBench-Legal",
+          "key": "llm-stats:prbench-legal",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "legal",
+            "reasoning",
+            "knowledge"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/prbench-legal?top_n=500",
+          "query_coverage": 0.3333,
+          "reason": "领域信号 []，任务信号 ['knowledge']，命中词 ['knowledge', 'professional']（query coverage 0.33）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "PRBench-Finance",
+          "key": "llm-stats:prbench-finance",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "knowledge",
+            "finance"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/prbench-finance?top_n=500",
+          "query_coverage": 0.3333,
+          "reason": "领域信号 []，任务信号 ['knowledge']，命中词 ['knowledge', 'professional']（query coverage 0.33）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "HLE-Verified",
+          "key": "llm-stats:hle-verified",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "knowledge"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/hle-verified?top_n=500",
+          "query_coverage": 0.3333,
+          "reason": "领域信号 []，任务信号 ['expert']，命中词 ['expert', 'knowledge']（query coverage 0.33）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 13 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 6,
+      "idea_name": "Agent Domain Expertise能力评测",
+      "domain": "agent",
+      "status": "rejected",
+      "total_score": 64.0,
+      "queries": [
+        "agent agentic benchmark evaluation",
+        "agent agentic expert knowledge domain expertise professional benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 6,
+      "selected": [
+        {
+          "name": "Finance Agent",
+          "key": "llm-stats:finance-agent",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "finance",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/finance-agent?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['domain']，命中词 ['agent', 'agentic', 'benchmark']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ProfBench",
+          "key": "llm-stats:profbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "knowledge",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/profbench?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['agent']，任务信号 ['expert']，命中词 ['domain', 'expert', 'knowledge', 'professional']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "APEX-Agents",
+          "key": "model-reports:apex_agents",
+          "catalog_source": "model_reports",
+          "categories": [
+            "agent"
+          ],
+          "source_url": "https://arxiv.org/abs/2601.14242",
+          "query_coverage": 0.375,
+          "reason": "领域信号 ['agent']，任务信号 ['expert']，命中词 ['agent', 'expert', 'professional']（query coverage 0.38）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "AA-Briefcase",
+          "key": "artificial-analysis:aa-briefcase",
+          "catalog_source": "artificial_analysis",
+          "categories": [
+            "agentic",
+            "business"
+          ],
+          "source_url": "https://artificialanalysis.ai/evaluations/aa-briefcase",
+          "query_coverage": 0.25,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['knowledge']，命中词 ['agentic', 'knowledge']（query coverage 0.25）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBrowseComp",
+          "key": "opencompass:1832",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "其他",
+            "Other",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBrowseComp",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['agent']，任务信号 ['knowledge']，命中词 ['agent', 'benchmark', 'domain', 'knowledge']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BankerToolBench",
+          "key": "model-reports:bankertoolbench",
+          "catalog_source": "model_reports",
+          "categories": [
+            "professional"
+          ],
+          "source_url": "https://github.com/Handshake-AI-Research/bankertoolbench",
+          "query_coverage": 0.25,
+          "reason": "领域信号 ['agent']，任务信号 ['professional']，命中词 ['agent', 'professional']（query coverage 0.25）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "needs_manual_coverage_analysis",
+      "advice": "有 6 条候选需要人工核查原始 Paper/Repo 的 task definition 与 evaluation protocol，才能判定是否真的覆盖目标任务。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 11,
+      "idea_name": "General Tool Use能力评测",
+      "domain": "general",
+      "status": "rejected",
+      "total_score": 64.0,
+      "queries": [
+        "benchmark evaluation",
+        "planning multi step tool use function calling api benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 13,
+      "selected": [
+        {
+          "name": "lm-evaluation-harness",
+          "key": "opencompass:2128",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/lm-evaluation-harness",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Translation Set1→en spBleu",
+          "key": "llm-stats:translation-set1→en-spbleu",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "language"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/translation-set1%E2%86%92en-spbleu?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Translation en→Set1 spBleu",
+          "key": "llm-stats:translation-en→set1-spbleu",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "language"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/translation-en%E2%86%92set1-spbleu?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Internal Research Debugging Evaluation",
+          "key": "llm-stats:internal-research-debugging-evaluation",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "code"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/internal-research-debugging-evaluation?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 []，任务信号 ['use']，命中词 ['evaluation']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "API-Bank",
+          "key": "llm-stats:api-bank",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/api-bank?top_n=500",
+          "query_coverage": 0.6667,
+          "reason": "领域信号 []，任务信号 ['planning', 'tool']，命中词 ['api', 'benchmark', 'calling', 'planning', 'tool', 'use']（query coverage 0.67）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BFCL_v3_MultiTurn",
+          "key": "llm-stats:bfcl-v3-multiturn",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/bfcl-v3-multiturn?top_n=500",
+          "query_coverage": 0.8889,
+          "reason": "领域信号 []，任务信号 ['multi', 'use']，命中词 ['api', 'benchmark', 'calling', 'function', 'multi', 'step', 'tool', 'use']（query coverage 0.89）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Search and Function-Calling",
+          "key": "llm-stats:openai-search-function-calling",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/openai-search-function-calling?top_n=500",
+          "query_coverage": 0.5556,
+          "reason": "领域信号 []，任务信号 ['tool']，命中词 ['benchmark', 'calling', 'function', 'tool', 'use']（query coverage 0.56）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BFCL",
+          "key": "llm-stats:bfcl",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/bfcl?top_n=500",
+          "query_coverage": 0.7778,
+          "reason": "领域信号 []，任务信号 ['multi', 'use']，命中词 ['api', 'benchmark', 'calling', 'function', 'multi', 'tool', 'use']（query coverage 0.78）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "t2-bench",
+          "key": "llm-stats:t2-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/t2-bench?top_n=500",
+          "query_coverage": 0.7778,
+          "reason": "领域信号 []，任务信号 ['planning', 'tool']，命中词 ['benchmark', 'calling', 'multi', 'planning', 'step', 'tool', 'use']（query coverage 0.78）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Nexus",
+          "key": "llm-stats:nexus",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "general",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/nexus?top_n=500",
+          "query_coverage": 0.5556,
+          "reason": "领域信号 []，任务信号 ['tool']，命中词 ['api', 'benchmark', 'calling', 'function', 'tool']（query coverage 0.56）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MCP-Universe",
+          "key": "llm-stats:mcp-universe",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/mcp-universe?top_n=500",
+          "query_coverage": 0.5556,
+          "reason": "领域信号 []，任务信号 ['planning', 'tool']，命中词 ['calling', 'multi', 'planning', 'step', 'tool']（query coverage 0.56）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "AutomationBench",
+          "key": "llm-stats:automationbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/automationbench?top_n=500",
+          "query_coverage": 0.6667,
+          "reason": "领域信号 []，任务信号 ['multi', 'tool']，命中词 ['benchmark', 'calling', 'multi', 'step', 'tool', 'use']（query coverage 0.67）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "GAIA2",
+          "key": "llm-stats:gaia2",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/gaia2?top_n=500",
+          "query_coverage": 0.5556,
+          "reason": "领域信号 []，任务信号 ['multi', 'tool']，命中词 ['calling', 'multi', 'step', 'tool', 'use']（query coverage 0.56）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 13 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 20,
+      "idea_name": "Medical Domain Expertise能力评测",
+      "domain": "medical",
+      "status": "watch",
+      "total_score": 63.0,
+      "queries": [
+        "medical clinical health benchmark evaluation",
+        "medical clinical health expert knowledge domain expertise professional benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 8,
+      "selected": [
+        {
+          "name": "CRPErelation",
+          "key": "llm-stats:crperelation",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "healthcare"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/crperelation?top_n=500",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['medical', 'clinical', 'health']，任务信号 ['knowledge']，命中词 ['benchmark', 'clinical', 'evaluation', 'medical']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBrowseComp",
+          "key": "opencompass:1832",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "其他",
+            "Other",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBrowseComp",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['medical', 'clinical']，任务信号 ['knowledge']，命中词 ['benchmark', 'clinical', 'medical']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedAgents-Bench",
+          "key": "opencompass:1641",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "推理",
+            "Reasoning",
+            "知识",
+            "Knowledge",
+            "Medical",
+            "Agent",
+            "科学智能",
+            "AI for Science",
+            "逻辑推理",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedAgents-Bench",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['medical', 'clinical', '临床']，任务信号 ['knowledge']，命中词 ['clinical', 'evaluation', 'medical']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedXpertQA",
+          "key": "llm-stats:medxpertqa",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "reasoning",
+            "healthcare",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/medxpertqa?top_n=500",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['medical', 'clinical', 'health']，任务信号 ['expert']，命中词 ['benchmark', 'clinical', 'medical']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "EHRNoteQA",
+          "key": "opencompass:1327",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "NeurIPS 2024",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/EHRNoteQA",
+          "query_coverage": 0.4,
+          "reason": "领域信号 ['clinical', 'health', 'patient', '临床']，任务信号 ['knowledge']，命中词 ['clinical', 'health']（query coverage 0.40）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "HealthBench Professional",
+          "key": "model-reports:healthbench_professional",
+          "catalog_source": "model_reports",
+          "categories": [
+            "health"
+          ],
+          "source_url": "https://cdn.openai.com/dd128428-0184-4e25-b155-3a7686c7d744/HealthBench-Professional.pdf",
+          "query_coverage": 0.2,
+          "reason": "领域信号 ['health']，任务信号 ['professional']，命中词 ['health']（query coverage 0.20）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedXpertQA-MM",
+          "key": "llm-stats:medxpertqa-mm",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "medical",
+            "multimodal",
+            "knowledge",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/medxpertqa-mm?top_n=500",
+          "query_coverage": 0.3333,
+          "reason": "领域信号 ['medical']，任务信号 ['expert']，命中词 ['expert', 'knowledge', 'medical']（query coverage 0.33）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedXpertQA",
+          "key": "opencompass:1891",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "学科",
+            "Examination",
+            "推理",
+            "Reasoning",
+            "知识",
+            "Knowledge",
+            "Medical",
+            "ICML 2025",
+            "科学智能",
+            "AI for Science",
+            "知识储备",
+            "逻辑推理",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedXpertQA",
+          "query_coverage": 0.4444,
+          "reason": "领域信号 ['medical', '临床']，任务信号 ['expert']，命中词 ['benchmark', 'expert', 'knowledge', 'medical']（query coverage 0.44）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 8 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 16,
+      "idea_name": "General Domain Reasoning能力评测",
+      "domain": "general",
+      "status": "watch",
+      "total_score": 62.0,
+      "queries": [
+        "benchmark evaluation",
+        "domain reasoning professional reasoning tool use function calling api benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 11,
+      "selected": [
+        {
+          "name": "CRPErelation",
+          "key": "llm-stats:crperelation",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "healthcare"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/crperelation?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['reasoning']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Internal Research Debugging Evaluation",
+          "key": "llm-stats:internal-research-debugging-evaluation",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "code"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/internal-research-debugging-evaluation?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 []，任务信号 ['reasoning', 'use']，命中词 ['evaluation']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "API-Bank",
+          "key": "llm-stats:api-bank",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/api-bank?top_n=500",
+          "query_coverage": 0.6667,
+          "reason": "领域信号 []，任务信号 ['reasoning', 'tool']，命中词 ['api', 'benchmark', 'calling', 'reasoning', 'tool', 'use']（query coverage 0.67）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Search and Function-Calling",
+          "key": "llm-stats:openai-search-function-calling",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/openai-search-function-calling?top_n=500",
+          "query_coverage": 0.5556,
+          "reason": "领域信号 []，任务信号 ['tool']，命中词 ['benchmark', 'calling', 'function', 'tool', 'use']（query coverage 0.56）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BFCL_v3_MultiTurn",
+          "key": "llm-stats:bfcl-v3-multiturn",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/bfcl-v3-multiturn?top_n=500",
+          "query_coverage": 0.7778,
+          "reason": "领域信号 []，任务信号 ['reasoning', 'use']，命中词 ['api', 'benchmark', 'calling', 'function', 'reasoning', 'tool', 'use']（query coverage 0.78）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BFCL",
+          "key": "llm-stats:bfcl",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/bfcl?top_n=500",
+          "query_coverage": 0.7778,
+          "reason": "领域信号 []，任务信号 ['domain', 'use']，命中词 ['api', 'benchmark', 'calling', 'function', 'reasoning', 'tool', 'use']（query coverage 0.78）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Nexus",
+          "key": "llm-stats:nexus",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "general",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/nexus?top_n=500",
+          "query_coverage": 0.5556,
+          "reason": "领域信号 []，任务信号 ['tool']，命中词 ['api', 'benchmark', 'calling', 'function', 'tool']（query coverage 0.56）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Gorilla Benchmark API Bench",
+          "key": "llm-stats:gorilla-benchmark-api-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "code",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/gorilla-benchmark-api-bench?top_n=500",
+          "query_coverage": 0.5556,
+          "reason": "领域信号 []，任务信号 ['reasoning', 'api']，命中词 ['api', 'benchmark', 'calling', 'reasoning', 'tool']（query coverage 0.56）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "TAU-bench Airline",
+          "key": "llm-stats:tau-bench-airline",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "communication",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/tau-bench-airline?top_n=500",
+          "query_coverage": 0.6667,
+          "reason": "领域信号 []，任务信号 ['domain', 'tool']，命中词 ['api', 'benchmark', 'calling', 'domain', 'reasoning', 'tool']（query coverage 0.67）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "TAU-bench Retail",
+          "key": "llm-stats:tau-bench-retail",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "communication",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/tau-bench-retail?top_n=500",
+          "query_coverage": 0.6667,
+          "reason": "领域信号 []，任务信号 ['domain', 'tool']，命中词 ['api', 'benchmark', 'calling', 'domain', 'reasoning', 'tool']（query coverage 0.67）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Tau-bench",
+          "key": "llm-stats:tau-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/tau-bench?top_n=500",
+          "query_coverage": 0.6667,
+          "reason": "领域信号 []，任务信号 ['domain', 'tool']，命中词 ['api', 'benchmark', 'calling', 'domain', 'reasoning', 'tool']（query coverage 0.67）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 11 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 15,
+      "idea_name": "Scientific Domain Reasoning能力评测",
+      "domain": "scientific",
+      "status": "watch",
+      "total_score": 61.0,
+      "queries": [
+        "scientific research science benchmark evaluation",
+        "scientific research science domain reasoning professional reasoning planning multi step benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 17,
+      "selected": [
+        {
+          "name": "FrontierScience Research",
+          "key": "llm-stats:frontierscience-research",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontierscience-research?top_n=500",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', 'research']，任务信号 ['domain', 'multi']，命中词 ['benchmark', 'research', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "SGI-Bench",
+          "key": "opencompass:2325",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "科学",
+            "Science",
+            "代码",
+            "Code",
+            "deep research",
+            "reasoning",
+            "lab protocol",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "代码工程",
+            "逻辑推理",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/SGI-Bench",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', 'research', '科学']，任务信号 ['reasoning', 'multi']，命中词 ['benchmark', 'research', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Frontier Science",
+          "key": "llm-stats:frontier-science",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontier-science?top_n=500",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['domain', 'multi']，命中词 ['benchmark', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "RXRX3-CORE",
+          "key": "opencompass:1707",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "其他",
+            "Other",
+            "科学智能",
+            "AI for Science",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/RXRX3-CORE",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science', 'research', '科学']，任务信号 ['reasoning']，命中词 ['research', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "CLEVER",
+          "key": "opencompass:1834",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "代码",
+            "Code",
+            "科学智能",
+            "AI for Science",
+            "代码工程",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/CLEVER",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['reasoning']，命中词 ['benchmark', 'evaluation', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBench",
+          "key": "opencompass:1287",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBench",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['reasoning']，命中词 ['evaluation', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ChemBench",
+          "key": "opencompass:692",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "科学智能",
+            "AI for Science",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "合作共建",
+            "Co-Built",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/ChemBench",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['reasoning']，命中词 ['benchmark', 'evaluation', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "RDB2G-Bench",
+          "key": "opencompass:1918",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "代码",
+            "Code",
+            "科学智能",
+            "AI for Science",
+            "代码工程",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/RDB2G-Bench",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['reasoning', 'multi']，命中词 ['evaluation', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "GPQA Diamond",
+          "key": "artificial-analysis:gpqa-diamond",
+          "catalog_source": "artificial_analysis",
+          "categories": [
+            "intelligence-index",
+            "reasoning",
+            "science"
+          ],
+          "source_url": "https://artificialanalysis.ai/evaluations/gpqa-diamond",
+          "query_coverage": 0.4,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['reasoning']，命中词 ['science', 'scientific']（query coverage 0.40）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Job Bench",
+          "key": "llm-stats:job-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "productivity",
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/job-bench?top_n=500",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['research']，任务信号 ['reasoning', 'planning']，命中词 ['multi', 'planning', 'professional', 'reasoning', 'research', 'step']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BixBench",
+          "key": "llm-stats:bixbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/bixbench?top_n=500",
+          "query_coverage": 0.7,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['domain', 'multi']，命中词 ['benchmark', 'domain', 'multi', 'reasoning', 'science', 'scientific', 'step']（query coverage 0.70）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "APEX-Agents",
+          "key": "llm-stats:apex-agents",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/apex-agents?top_n=500",
+          "query_coverage": 0.6,
+          "reason": "无 scientific 领域标注，但任务信号强命中 ['reasoning', 'planning']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "FrontierScience Olympiad",
+          "key": "llm-stats:frontierscience-olympiad",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "math",
+            "reasoning",
+            "science"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontierscience-olympiad?top_n=500",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['domain', 'multi']，命中词 ['benchmark', 'multi', 'reasoning', 'science', 'scientific', 'step']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBrowseComp",
+          "key": "opencompass:1832",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "其他",
+            "Other",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBrowseComp",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['domain', 'multi']，命中词 ['benchmark', 'domain', 'multi', 'reasoning', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "PaperBench",
+          "key": "llm-stats:paperbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "code"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/paperbench?top_n=500",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'research']，任务信号 ['reasoning', 'multi']，命中词 ['benchmark', 'multi', 'reasoning', 'research', 'scientific', 'step']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "DeepPlanning",
+          "key": "llm-stats:deep-planning",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/deep-planning?top_n=500",
+          "query_coverage": 0.4,
+          "reason": "无 scientific 领域标注，但任务信号强命中 ['reasoning', 'planning']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "FrontierCS",
+          "key": "llm-stats:frontiercs",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science",
+            "code"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontiercs?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['science']，任务信号 ['reasoning', 'multi']，命中词 ['benchmark', 'multi', 'reasoning', 'science', 'step']（query coverage 0.50）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 17 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 19,
+      "idea_name": "Scientific Version Awareness能力评测",
+      "domain": "scientific",
+      "status": "watch",
+      "total_score": 60.0,
+      "queries": [
+        "scientific research science benchmark evaluation",
+        "scientific research science version temporal knowledge update benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 9,
+      "selected": [
+        {
+          "name": "MedBench",
+          "key": "opencompass:1287",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBench",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['knowledge']，命中词 ['evaluation', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ChemBench",
+          "key": "opencompass:692",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "科学智能",
+            "AI for Science",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "合作共建",
+            "Co-Built",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/ChemBench",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['knowledge']，命中词 ['benchmark', 'evaluation', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "OmniScience",
+          "key": "llm-stats:omniscience",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science",
+            "knowledge"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/omniscience?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['knowledge']，命中词 ['benchmark', 'knowledge', 'science', 'scientific']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Fin-Eva",
+          "key": "opencompass:895",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "合作共建",
+            "Co-Built",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/Fin-Eva",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['research']，任务信号 ['version']，命中词 ['benchmark', 'knowledge', 'research', 'version']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "AECBench",
+          "key": "opencompass:2452",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "科学",
+            "Science",
+            "学科",
+            "Examination",
+            "知识",
+            "Knowledge",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "知识储备",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/AECBench",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['knowledge']，命中词 ['benchmark', 'knowledge', 'science', 'scientific']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "SciCode",
+          "key": "llm-stats:scicode",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "math",
+            "physics",
+            "reasoning",
+            "biology",
+            "chemistry",
+            "code"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/scicode?top_n=500",
+          "query_coverage": 0.625,
+          "reason": "领域信号 ['scientific', 'science', 'research']，任务信号 ['knowledge']，命中词 ['benchmark', 'knowledge', 'research', 'science', 'scientific']（query coverage 0.62）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "SWE-bench Science",
+          "key": "model-reports:swe_bench_science",
+          "catalog_source": "model_reports",
+          "categories": [
+            "coding_agent"
+          ],
+          "source_url": "https://arxiv.org/abs/2608.19799",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['knowledge']，命中词 ['benchmark', 'knowledge', 'science', 'scientific']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "PhysReason",
+          "key": "opencompass:1576",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "学科",
+            "Examination",
+            "推理",
+            "Reasoning",
+            "科学智能",
+            "AI for Science",
+            "知识储备",
+            "Knowledge",
+            "逻辑推理",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/PhysReason",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['knowledge']，命中词 ['benchmark', 'knowledge', 'science', 'scientific']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ScienceQA",
+          "key": "opencompass:1100",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "科学智能",
+            "AI for Science",
+            "知识储备",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/ScienceQA",
+          "query_coverage": 0.5,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['knowledge']，命中词 ['benchmark', 'knowledge', 'science', 'scientific']（query coverage 0.50）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 9 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 8,
+      "idea_name": "General Safety能力评测",
+      "domain": "general",
+      "status": "rejected",
+      "total_score": 59.0,
+      "queries": [
+        "benchmark evaluation",
+        "planning multi step safety harmful refusal benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 13,
+      "selected": [
+        {
+          "name": "lm-evaluation-harness",
+          "key": "opencompass:2128",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/lm-evaluation-harness",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Translation Set1→en spBleu",
+          "key": "llm-stats:translation-set1→en-spbleu",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "language"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/translation-set1%E2%86%92en-spbleu?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Translation en→Set1 spBleu",
+          "key": "llm-stats:translation-en→set1-spbleu",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "language"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/translation-en%E2%86%92set1-spbleu?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "AIR-Bench",
+          "key": "llm-stats:air-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "safety"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/air-bench?top_n=500",
+          "query_coverage": 0.4286,
+          "reason": "领域信号 []，任务信号 ['safety']，命中词 ['benchmark', 'refusal', 'safety']（query coverage 0.43）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedSafetyBench",
+          "key": "opencompass:1331",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "安全",
+            "Safety",
+            "NeurIPS 2024",
+            "科学智能",
+            "AI for Science",
+            "安全对齐",
+            "Safety Alignment",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedSafetyBench",
+          "query_coverage": 0.2857,
+          "reason": "领域信号 []，任务信号 ['safety']，命中词 ['harmful', 'safety']（query coverage 0.29）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "DeepPlanning",
+          "key": "llm-stats:deep-planning",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/deep-planning?top_n=500",
+          "query_coverage": 0.4286,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['multi', 'planning', 'step']（query coverage 0.43）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Job Bench",
+          "key": "llm-stats:job-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "productivity",
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/job-bench?top_n=500",
+          "query_coverage": 0.4286,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['multi', 'planning', 'step']（query coverage 0.43）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "APEX-Agents",
+          "key": "llm-stats:apex-agents",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/apex-agents?top_n=500",
+          "query_coverage": 0.5714,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['benchmark', 'multi', 'planning', 'step']（query coverage 0.57）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "AttaQ",
+          "key": "llm-stats:attaq",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "safety"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/attaq?top_n=500",
+          "query_coverage": 0.4286,
+          "reason": "领域信号 []，任务信号 ['safety']，命中词 ['benchmark', 'harmful', 'safety']（query coverage 0.43）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "CloningScenarios",
+          "key": "llm-stats:cloningscenarios",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "safety",
+            "healthcare"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/cloningscenarios?top_n=500",
+          "query_coverage": 0.5714,
+          "reason": "领域信号 []，任务信号 ['multi', 'safety']，命中词 ['benchmark', 'multi', 'safety', 'step']（query coverage 0.57）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "FalseReject",
+          "key": "opencompass:1980",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "推理",
+            "Reasoning",
+            "安全",
+            "Safety",
+            "大语言模型",
+            "LLM",
+            "逻辑推理",
+            "安全对齐",
+            "Safety Alignment",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/FalseReject",
+          "query_coverage": 0.2857,
+          "reason": "领域信号 []，任务信号 ['safety']，命中词 ['refusal', 'safety']（query coverage 0.29）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "RedCode",
+          "key": "opencompass:1333",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "安全",
+            "Safety",
+            "智能体",
+            "Agent",
+            "任务执行",
+            "Task Execution",
+            "安全对齐",
+            "Safety Alignment",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/RedCode",
+          "query_coverage": 0.2857,
+          "reason": "领域信号 []，任务信号 ['safety']，命中词 ['harmful', 'safety']（query coverage 0.29）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "DABstep",
+          "key": "opencompass:2030",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "智能体",
+            "Agent",
+            "任务执行",
+            "Task Execution",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/DABstep",
+          "query_coverage": 0.5714,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['benchmark', 'multi', 'planning', 'step']（query coverage 0.57）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 13 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 12,
+      "idea_name": "General Planning能力评测",
+      "domain": "general",
+      "status": "rejected",
+      "total_score": 58.0,
+      "queries": [
+        "benchmark evaluation",
+        "planning multi step benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 13,
+      "selected": [
+        {
+          "name": "lm-evaluation-harness",
+          "key": "opencompass:2128",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/lm-evaluation-harness",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Translation Set1→en spBleu",
+          "key": "llm-stats:translation-set1→en-spbleu",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "language"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/translation-set1%E2%86%92en-spbleu?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Translation en→Set1 spBleu",
+          "key": "llm-stats:translation-en→set1-spbleu",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "language"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/translation-en%E2%86%92set1-spbleu?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "DeepPlanning",
+          "key": "llm-stats:deep-planning",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/deep-planning?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['multi', 'planning', 'step']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Job Bench",
+          "key": "llm-stats:job-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "productivity",
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/job-bench?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['multi', 'planning', 'step']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "APEX-Agents",
+          "key": "llm-stats:apex-agents",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/apex-agents?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['benchmark', 'multi', 'planning', 'step']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "DABstep",
+          "key": "opencompass:2030",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "智能体",
+            "Agent",
+            "任务执行",
+            "Task Execution",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/DABstep",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['benchmark', 'multi', 'planning', 'step']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MCP-Universe",
+          "key": "llm-stats:mcp-universe",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/mcp-universe?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['multi', 'planning', 'step']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Workspace Bench",
+          "key": "llm-stats:workspace-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/workspace-bench?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['multi', 'planning', 'step']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "t2-bench",
+          "key": "llm-stats:t2-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/t2-bench?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['benchmark', 'multi', 'planning', 'step']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Multi-Challenge",
+          "key": "llm-stats:multichallenge",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "communication"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/multichallenge?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 []，任务信号 ['planning']，命中词 ['benchmark', 'multi', 'planning']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Apex",
+          "key": "llm-stats:apex",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/apex?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'multi', 'step']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "IMOProof-Adv",
+          "key": "llm-stats:imoproof-adv",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "math",
+            "reasoning"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/imoproof-adv?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 []，任务信号 ['multi']，命中词 ['benchmark', 'multi', 'step']（query coverage 0.75）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 13 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 13,
+      "idea_name": "General Citation Correctness能力评测",
+      "domain": "general",
+      "status": "watch",
+      "total_score": 58.0,
+      "queries": [
+        "benchmark evaluation",
+        "citation attribution grounding evidence domain reasoning professional reasoning benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 12,
+      "selected": [
+        {
+          "name": "CRPErelation",
+          "key": "llm-stats:crperelation",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "healthcare"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/crperelation?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['reasoning']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Internal Research Debugging Evaluation",
+          "key": "llm-stats:internal-research-debugging-evaluation",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "code"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/internal-research-debugging-evaluation?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 []，任务信号 ['reasoning']，命中词 ['evaluation']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ScreenSpot Pro",
+          "key": "llm-stats:screenspot-pro",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "spatial_reasoning",
+            "grounding",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/screenspot-pro?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "领域信号 []，任务信号 ['grounding', 'domain']，命中词 ['benchmark', 'grounding', 'professional', 'reasoning']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MCiteBench",
+          "key": "opencompass:1606",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "多模态模型",
+            "VLM",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MCiteBench",
+          "query_coverage": 0.5,
+          "reason": "领域信号 []，任务信号 ['citation', 'reasoning']，命中词 ['benchmark', 'citation', 'evidence', 'reasoning']（query coverage 0.50）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "FACTS Grounding",
+          "key": "llm-stats:facts-grounding",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "factuality",
+            "grounding"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/facts-grounding?top_n=500",
+          "query_coverage": 0.375,
+          "reason": "领域信号 []，任务信号 ['grounding', 'reasoning']，命中词 ['benchmark', 'grounding', 'reasoning']（query coverage 0.38）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ProfBench",
+          "key": "llm-stats:profbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "knowledge",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/profbench?top_n=500",
+          "query_coverage": 0.375,
+          "reason": "领域信号 []，任务信号 ['domain']，命中词 ['domain', 'professional', 'reasoning']（query coverage 0.38）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "RefSpatialBench",
+          "key": "llm-stats:refspatialbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "spatial_reasoning",
+            "grounding",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/refspatialbench?top_n=500",
+          "query_coverage": 0.25,
+          "reason": "领域信号 []，任务信号 ['grounding']，命中词 ['grounding', 'reasoning']（query coverage 0.25）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "RefCOCO-avg",
+          "key": "llm-stats:refcoco-avg",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "spatial_reasoning",
+            "grounding",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/refcoco-avg?top_n=500",
+          "query_coverage": 0.25,
+          "reason": "领域信号 []，任务信号 ['grounding']，命中词 ['grounding', 'reasoning']（query coverage 0.25）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "OSWorld-G",
+          "key": "llm-stats:osworld-g",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "grounding",
+            "agents",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/osworld-g?top_n=500",
+          "query_coverage": 0.125,
+          "reason": "领域信号 []，任务信号 ['grounding']，命中词 ['grounding']（query coverage 0.12）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ScreenSpot",
+          "key": "llm-stats:screenspot",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "spatial_reasoning",
+            "grounding",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/screenspot?top_n=500",
+          "query_coverage": 0.375,
+          "reason": "领域信号 []，任务信号 ['grounding']，命中词 ['benchmark', 'grounding', 'reasoning']（query coverage 0.38）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "OpenTuringBench",
+          "key": "opencompass:1754",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "其他",
+            "Other",
+            "大语言模型",
+            "LLM",
+            "安全对齐",
+            "Safety Alignment",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/OpenTuringBench",
+          "query_coverage": 0.25,
+          "reason": "领域信号 []，任务信号 ['attribution']，命中词 ['attribution', 'benchmark']（query coverage 0.25）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "RefCOCOg",
+          "key": "llm-stats:refcocog",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "grounding",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/refcocog?top_n=500",
+          "query_coverage": 0.25,
+          "reason": "领域信号 []，任务信号 ['grounding']，命中词 ['benchmark', 'grounding']（query coverage 0.25）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 12 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 5,
+      "idea_name": "Scientific Domain Expertise能力评测",
+      "domain": "scientific",
+      "status": "watch",
+      "total_score": 55.0,
+      "queries": [
+        "scientific research science benchmark evaluation",
+        "scientific research science expert knowledge domain expertise professional benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 10,
+      "selected": [
+        {
+          "name": "FrontierScience Research",
+          "key": "llm-stats:frontierscience-research",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontierscience-research?top_n=500",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', 'research']，任务信号 ['expert']，命中词 ['benchmark', 'research', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "SGI-Bench",
+          "key": "opencompass:2325",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "科学",
+            "Science",
+            "代码",
+            "Code",
+            "deep research",
+            "reasoning",
+            "lab protocol",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "代码工程",
+            "逻辑推理",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/SGI-Bench",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', 'research', '科学']，任务信号 ['expert']，命中词 ['benchmark', 'research', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Frontier Science",
+          "key": "llm-stats:frontier-science",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontier-science?top_n=500",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['expert']，命中词 ['benchmark', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBench",
+          "key": "opencompass:1287",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBench",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['knowledge']，命中词 ['evaluation', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ChemBench",
+          "key": "opencompass:692",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "科学智能",
+            "AI for Science",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "合作共建",
+            "Co-Built",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/ChemBench",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['knowledge']，命中词 ['benchmark', 'evaluation', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "SWE-bench Science",
+          "key": "model-reports:swe_bench_science",
+          "catalog_source": "model_reports",
+          "categories": [
+            "coding_agent"
+          ],
+          "source_url": "https://arxiv.org/abs/2608.19799",
+          "query_coverage": 0.6667,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['expert']，命中词 ['benchmark', 'domain', 'expert', 'knowledge', 'science', 'scientific']（query coverage 0.67）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "CritPt",
+          "key": "model-reports:critpt",
+          "catalog_source": "model_reports",
+          "categories": [
+            "science"
+          ],
+          "source_url": "https://arxiv.org/abs/2509.26574",
+          "query_coverage": 0.3333,
+          "reason": "领域信号 ['science', 'research']，任务信号 ['expert']，命中词 ['expert', 'research', 'science']（query coverage 0.33）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBrowseComp",
+          "key": "opencompass:1832",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "其他",
+            "Other",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBrowseComp",
+          "query_coverage": 0.5556,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['knowledge']，命中词 ['benchmark', 'domain', 'knowledge', 'science', 'scientific']（query coverage 0.56）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BixBench",
+          "key": "llm-stats:bixbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/bixbench?top_n=500",
+          "query_coverage": 0.5556,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['knowledge']，命中词 ['benchmark', 'domain', 'knowledge', 'science', 'scientific']（query coverage 0.56）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "FrontierScience Olympiad",
+          "key": "llm-stats:frontierscience-olympiad",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "math",
+            "reasoning",
+            "science"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontierscience-olympiad?top_n=500",
+          "query_coverage": 0.4444,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['expert']，命中词 ['benchmark', 'expert', 'science', 'scientific']（query coverage 0.44）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 10 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 17,
+      "idea_name": "Medical Domain Reasoning能力评测",
+      "domain": "medical",
+      "status": "rejected",
+      "total_score": 54.0,
+      "queries": [
+        "medical clinical health benchmark evaluation",
+        "medical clinical health domain reasoning professional reasoning safety harmful refusal benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 10,
+      "selected": [
+        {
+          "name": "CRPErelation",
+          "key": "llm-stats:crperelation",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "healthcare"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/crperelation?top_n=500",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['medical', 'clinical', 'health']，任务信号 ['reasoning']，命中词 ['benchmark', 'clinical', 'evaluation', 'medical']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBookVQA",
+          "key": "opencompass:1920",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "Medical",
+            "VQA",
+            "MLLM",
+            "科学智能",
+            "AI for Science",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBookVQA",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['medical', 'clinical', '临床']，任务信号 ['reasoning']，命中词 ['benchmark', 'clinical', 'medical']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBrowseComp",
+          "key": "opencompass:1832",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "其他",
+            "Other",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBrowseComp",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['medical', 'clinical']，任务信号 ['domain']，命中词 ['benchmark', 'clinical', 'medical']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedAgents-Bench",
+          "key": "opencompass:1641",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "推理",
+            "Reasoning",
+            "知识",
+            "Knowledge",
+            "Medical",
+            "Agent",
+            "科学智能",
+            "AI for Science",
+            "逻辑推理",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedAgents-Bench",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['medical', 'clinical', '临床']，任务信号 ['reasoning']，命中词 ['clinical', 'evaluation', 'medical']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedXpertQA",
+          "key": "llm-stats:medxpertqa",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "reasoning",
+            "healthcare",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/medxpertqa?top_n=500",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['medical', 'clinical', 'health']，任务信号 ['reasoning']，命中词 ['benchmark', 'clinical', 'medical']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "ER-Reason",
+          "key": "opencompass:1892",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "推理",
+            "Reasoning",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "逻辑推理",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/ER-Reason",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['medical', 'clinical', '临床']，任务信号 ['reasoning']，命中词 ['benchmark', 'clinical', 'medical']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedCalc-Bench",
+          "key": "opencompass:1241",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "推理",
+            "Reasoning",
+            "NeurIPS 2024",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedCalc-Bench",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['medical']，任务信号 ['reasoning']，命中词 ['evaluation', 'health', 'medical']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "HealthBench Professional",
+          "key": "model-reports:healthbench_professional",
+          "catalog_source": "model_reports",
+          "categories": [
+            "health"
+          ],
+          "source_url": "https://cdn.openai.com/dd128428-0184-4e25-b155-3a7686c7d744/HealthBench-Professional.pdf",
+          "query_coverage": 0.2,
+          "reason": "领域信号 ['health']，任务信号 ['professional']，命中词 ['health']（query coverage 0.20）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedSafetyBench",
+          "key": "opencompass:1331",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "安全",
+            "Safety",
+            "NeurIPS 2024",
+            "科学智能",
+            "AI for Science",
+            "安全对齐",
+            "Safety Alignment",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedSafetyBench",
+          "query_coverage": 0.4,
+          "reason": "领域信号 ['medical', '医疗']，任务信号 ['reasoning', 'safety']，命中词 ['harmful', 'medical', 'reasoning', 'safety']（query coverage 0.40）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "FalseReject",
+          "key": "opencompass:1980",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "推理",
+            "Reasoning",
+            "安全",
+            "Safety",
+            "大语言模型",
+            "LLM",
+            "逻辑推理",
+            "安全对齐",
+            "Safety Alignment",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/FalseReject",
+          "query_coverage": 0.3,
+          "reason": "无 medical 领域标注，但任务信号强命中 ['reasoning', 'safety']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 10 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 14,
+      "idea_name": "Agent Citation Correctness能力评测",
+      "domain": "agent",
+      "status": "watch",
+      "total_score": 54.0,
+      "queries": [
+        "agent agentic benchmark evaluation",
+        "agent agentic citation attribution grounding evidence benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 1,
+      "selected": [
+        {
+          "name": "OSWorld-G",
+          "key": "llm-stats:osworld-g",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "grounding",
+            "agents",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/osworld-g?top_n=500",
+          "query_coverage": 0.1429,
+          "reason": "领域信号 ['agent']，任务信号 ['grounding']，命中词 ['grounding']（query coverage 0.14）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "needs_manual_coverage_analysis",
+      "advice": "有 1 条候选需要人工核查原始 Paper/Repo 的 task definition 与 evaluation protocol，才能判定是否真的覆盖目标任务。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 3,
+      "idea_name": "患者特异性用药安全决策",
+      "domain": "medical",
+      "status": "watch",
+      "total_score": 52.0,
+      "queries": [
+        "patient medication safety drug interaction prescribing benchmark evaluation",
+        "medical clinical health safety harmful refusal version temporal knowledge update benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 5,
+      "selected": [
+        {
+          "name": "IS-Bench",
+          "key": "opencompass:2091",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "安全",
+            "Safety",
+            "智能体",
+            "Agent",
+            "task planning",
+            "安全对齐",
+            "Safety Alignment",
+            "任务执行",
+            "Task Execution",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/IS-Bench",
+          "query_coverage": 0.5,
+          "reason": "无 medical 领域标注，但任务信号强命中 ['safety', 'interaction']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "MedChemBench (Internal)",
+          "key": "llm-stats:medchembench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science",
+            "healthcare"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/medchembench?top_n=500",
+          "query_coverage": 0.25,
+          "reason": "领域信号 ['health']，任务信号 ['drug']，命中词 ['drug', 'evaluation']（query coverage 0.25）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "WildClawBench",
+          "key": "opencompass:2445",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "智能体",
+            "Agent",
+            "代码",
+            "Code",
+            "创作",
+            "Creation",
+            "Agent Evaluation",
+            "In-the-Wild Tasks",
+            "Multimodal & Tool-Use Reasoning",
+            "代码工程",
+            "语言生成",
+            "Generation",
+            "任务执行",
+            "Task Execution",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/WildClawBench",
+          "query_coverage": 0.375,
+          "reason": "无 medical 领域标注，但任务信号强命中 ['safety', 'interaction']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "BioLP-Bench",
+          "key": "llm-stats:biolp-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "safety",
+            "healthcare",
+            "biology"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/biolp-bench?top_n=500",
+          "query_coverage": 0.25,
+          "reason": "领域信号 ['health']，任务信号 ['safety']，命中词 ['evaluation', 'safety']（query coverage 0.25）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedSafetyBench",
+          "key": "opencompass:1331",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "安全",
+            "Safety",
+            "NeurIPS 2024",
+            "科学智能",
+            "AI for Science",
+            "安全对齐",
+            "Safety Alignment",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedSafetyBench",
+          "query_coverage": 0.2727,
+          "reason": "领域信号 ['medical', '医疗']，任务信号 ['safety']，命中词 ['harmful', 'medical', 'safety']（query coverage 0.27）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "needs_manual_coverage_analysis",
+      "advice": "有 5 条候选需要人工核查原始 Paper/Repo 的 task definition 与 evaluation protocol，才能判定是否真的覆盖目标任务。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 21,
+      "idea_name": "Scientific Tool Use能力评测",
+      "domain": "scientific",
+      "status": "watch",
+      "total_score": 51.0,
+      "queries": [
+        "scientific research science benchmark evaluation",
+        "scientific research science planning multi step tool use function calling api benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 10,
+      "selected": [
+        {
+          "name": "FrontierScience Research",
+          "key": "llm-stats:frontierscience-research",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontierscience-research?top_n=500",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', 'research']，任务信号 ['multi']，命中词 ['benchmark', 'research', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "SGI-Bench",
+          "key": "opencompass:2325",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "科学",
+            "Science",
+            "代码",
+            "Code",
+            "deep research",
+            "reasoning",
+            "lab protocol",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "代码工程",
+            "逻辑推理",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/SGI-Bench",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', 'research', '科学']，任务信号 ['multi']，命中词 ['benchmark', 'research', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Frontier Science",
+          "key": "llm-stats:frontier-science",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontier-science?top_n=500",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['multi']，命中词 ['benchmark', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "RDB2G-Bench",
+          "key": "opencompass:1918",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "代码",
+            "Code",
+            "科学智能",
+            "AI for Science",
+            "代码工程",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/RDB2G-Bench",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['multi']，命中词 ['evaluation', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "API-Bank",
+          "key": "llm-stats:api-bank",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/api-bank?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "无 scientific 领域标注，但任务信号强命中 ['planning', 'tool']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "BFCL_v3_MultiTurn",
+          "key": "llm-stats:bfcl-v3-multiturn",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/bfcl-v3-multiturn?top_n=500",
+          "query_coverage": 0.6667,
+          "reason": "无 scientific 领域标注，但任务信号强命中 ['multi', 'use']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "BFCL",
+          "key": "llm-stats:bfcl",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/bfcl?top_n=500",
+          "query_coverage": 0.5833,
+          "reason": "无 scientific 领域标注，但任务信号强命中 ['multi', 'use']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "t2-bench",
+          "key": "llm-stats:t2-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/t2-bench?top_n=500",
+          "query_coverage": 0.5833,
+          "reason": "无 scientific 领域标注，但任务信号强命中 ['planning', 'tool']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "MCP-Universe",
+          "key": "llm-stats:mcp-universe",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/mcp-universe?top_n=500",
+          "query_coverage": 0.4167,
+          "reason": "无 scientific 领域标注，但任务信号强命中 ['planning', 'tool']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        },
+        {
+          "name": "AutomationBench",
+          "key": "llm-stats:automationbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/automationbench?top_n=500",
+          "query_coverage": 0.5,
+          "reason": "无 scientific 领域标注，但任务信号强命中 ['multi', 'tool']；疑为跨领域通用基准，需人工核查其数据来源是否覆盖目标任务"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 10 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 22,
+      "idea_name": "General Version Awareness能力评测",
+      "domain": "general",
+      "status": "watch",
+      "total_score": 51.0,
+      "queries": [
+        "benchmark evaluation",
+        "version temporal knowledge update benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 13,
+      "selected": [
+        {
+          "name": "lm-evaluation-harness",
+          "key": "opencompass:2128",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/lm-evaluation-harness",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['knowledge']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "CRPErelation",
+          "key": "llm-stats:crperelation",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "healthcare"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/crperelation?top_n=500",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['knowledge']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "UHGEval",
+          "key": "opencompass:1088",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "事实可靠性",
+            "Factual Reliability",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/UHGEval",
+          "query_coverage": 1.0,
+          "reason": "领域信号 []，任务信号 ['knowledge']，命中词 ['benchmark', 'evaluation']（query coverage 1.00）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedBench",
+          "key": "opencompass:1287",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "Medical",
+            "科学智能",
+            "AI for Science",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedBench",
+          "query_coverage": 0.4,
+          "reason": "领域信号 []，任务信号 ['knowledge']，命中词 ['knowledge', 'update']（query coverage 0.40）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Fin-Eva",
+          "key": "opencompass:895",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "合作共建",
+            "Co-Built",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/Fin-Eva",
+          "query_coverage": 0.6,
+          "reason": "领域信号 []，任务信号 ['version']，命中词 ['benchmark', 'knowledge', 'version']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "TVBench",
+          "key": "llm-stats:tvbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/tvbench?top_n=500",
+          "query_coverage": 0.4,
+          "reason": "领域信号 []，任务信号 ['temporal']，命中词 ['benchmark', 'temporal']（query coverage 0.40）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "KMMLU-Redux",
+          "key": "opencompass:2126",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "知识",
+            "Knowledge",
+            "大语言模型",
+            "LLM",
+            "知识储备",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/KMMLU-Redux",
+          "query_coverage": 0.4,
+          "reason": "领域信号 []，任务信号 ['version']，命中词 ['knowledge', 'version']（query coverage 0.40）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MBPP ++ base version",
+          "key": "llm-stats:mbpp-++-base-version",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/mbpp-%2B%2B-base-version?top_n=500",
+          "query_coverage": 0.4,
+          "reason": "领域信号 []，任务信号 ['version']，命中词 ['benchmark', 'version']（query coverage 0.40）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "TempCompass",
+          "key": "llm-stats:tempcompass",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "reasoning",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/tempcompass?top_n=500",
+          "query_coverage": 0.4,
+          "reason": "领域信号 []，任务信号 ['temporal']，命中词 ['benchmark', 'temporal']（query coverage 0.40）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "CharadesSTA",
+          "key": "llm-stats:charadessta",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "language",
+            "video",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/charadessta?top_n=500",
+          "query_coverage": 0.4,
+          "reason": "领域信号 []，任务信号 ['temporal']，命中词 ['benchmark', 'temporal']（query coverage 0.40）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "TOMATO",
+          "key": "llm-stats:tomato",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "multimodal",
+            "reasoning",
+            "video",
+            "vision"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/tomato?top_n=500",
+          "query_coverage": 0.2,
+          "reason": "领域信号 []，任务信号 ['temporal']，命中词 ['temporal']（query coverage 0.20）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "V-STaR",
+          "key": "opencompass:1654",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "多模态模型",
+            "VLM",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "视频理解",
+            "Video Understanding",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/V-STaR",
+          "query_coverage": 0.4,
+          "reason": "领域信号 []，任务信号 ['temporal']，命中词 ['benchmark', 'temporal']（query coverage 0.40）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "LongVALE",
+          "key": "opencompass:2067",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "理解",
+            "Understanding",
+            "长文本",
+            "Long-Context",
+            "long video understanding",
+            "omni-modal",
+            "fine-grained temporal understanding",
+            "多模态模型",
+            "VLM",
+            "视频理解",
+            "Video Understanding",
+            "长上下文",
+            "Long Context",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/LongVALE",
+          "query_coverage": 0.4,
+          "reason": "领域信号 []，任务信号 ['temporal']，命中词 ['benchmark', 'temporal']（query coverage 0.40）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 13 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 23,
+      "idea_name": "Scientific Planning能力评测",
+      "domain": "scientific",
+      "status": "watch",
+      "total_score": 51.0,
+      "queries": [
+        "scientific research science benchmark evaluation",
+        "scientific research science planning multi step benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 10,
+      "selected": [
+        {
+          "name": "FrontierScience Research",
+          "key": "llm-stats:frontierscience-research",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontierscience-research?top_n=500",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', 'research']，任务信号 ['multi']，命中词 ['benchmark', 'research', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "SGI-Bench",
+          "key": "opencompass:2325",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "多模态",
+            "Multimodal",
+            "科学",
+            "Science",
+            "代码",
+            "Code",
+            "deep research",
+            "reasoning",
+            "lab protocol",
+            "科学智能",
+            "AI for Science",
+            "科学推理",
+            "Scientific Reasoning",
+            "代码工程",
+            "逻辑推理",
+            "跨模态推理",
+            "Cross-modal Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/SGI-Bench",
+          "query_coverage": 0.8,
+          "reason": "领域信号 ['scientific', 'science', 'research', '科学']，任务信号 ['multi']，命中词 ['benchmark', 'research', 'science', 'scientific']（query coverage 0.80）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Frontier Science",
+          "key": "llm-stats:frontier-science",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontier-science?top_n=500",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['multi']，命中词 ['benchmark', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "RDB2G-Bench",
+          "key": "opencompass:1918",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "代码",
+            "Code",
+            "科学智能",
+            "AI for Science",
+            "代码工程",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/RDB2G-Bench",
+          "query_coverage": 0.6,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['multi']，命中词 ['evaluation', 'science', 'scientific']（query coverage 0.60）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "FrontierScience Olympiad",
+          "key": "llm-stats:frontierscience-olympiad",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "math",
+            "reasoning",
+            "science"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontierscience-olympiad?top_n=500",
+          "query_coverage": 0.7143,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['multi']，命中词 ['benchmark', 'multi', 'science', 'scientific', 'step']（query coverage 0.71）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Job Bench",
+          "key": "llm-stats:job-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "productivity",
+            "reasoning",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/job-bench?top_n=500",
+          "query_coverage": 0.5714,
+          "reason": "领域信号 ['research']，任务信号 ['planning']，命中词 ['multi', 'planning', 'research', 'step']（query coverage 0.57）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BixBench",
+          "key": "llm-stats:bixbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science",
+            "agents"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/bixbench?top_n=500",
+          "query_coverage": 0.7143,
+          "reason": "领域信号 ['scientific', 'science']，任务信号 ['multi']，命中词 ['benchmark', 'multi', 'science', 'scientific', 'step']（query coverage 0.71）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "PaperBench",
+          "key": "llm-stats:paperbench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "code"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/paperbench?top_n=500",
+          "query_coverage": 0.7143,
+          "reason": "领域信号 ['scientific', 'research']，任务信号 ['multi']，命中词 ['benchmark', 'multi', 'research', 'scientific', 'step']（query coverage 0.71）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "FrontierCS",
+          "key": "llm-stats:frontiercs",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "science",
+            "code"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/frontiercs?top_n=500",
+          "query_coverage": 0.5714,
+          "reason": "领域信号 ['science']，任务信号 ['multi']，命中词 ['benchmark', 'multi', 'science', 'step']（query coverage 0.57）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MedAgents-Bench",
+          "key": "opencompass:1641",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "推理",
+            "Reasoning",
+            "知识",
+            "Knowledge",
+            "Medical",
+            "Agent",
+            "科学智能",
+            "AI for Science",
+            "逻辑推理",
+            "知识储备",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedAgents-Bench",
+          "query_coverage": 0.5714,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['multi']，命中词 ['multi', 'science', 'scientific', 'step']（query coverage 0.57）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "topic_too_wide",
+      "advice": "检索命中 10 条同领域基准，接近每查询取样上限，说明该 Idea 主题过宽、缺乏区分度。应先收窄任务定义，再谈 Gap。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 7,
+      "idea_name": "Agent Tool Use能力评测",
+      "domain": "agent",
+      "status": "rejected",
+      "total_score": 45.0,
+      "queries": [
+        "agent agentic benchmark evaluation",
+        "agent agentic tool use function calling api benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 6,
+      "selected": [
+        {
+          "name": "Agents' Last Exam",
+          "key": "model-reports:agents_last_exam",
+          "catalog_source": "model_reports",
+          "categories": [
+            "coding_agent"
+          ],
+          "source_url": "https://lastexam.ai/",
+          "query_coverage": 0.75,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['tool']，命中词 ['agent', 'agentic', 'benchmark']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Search and Function-Calling",
+          "key": "llm-stats:openai-search-function-calling",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/openai-search-function-calling?top_n=500",
+          "query_coverage": 0.75,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['tool']，命中词 ['agentic', 'benchmark', 'calling', 'function', 'tool', 'use']（query coverage 0.75）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "BFCL_v3_MultiTurn",
+          "key": "llm-stats:bfcl-v3-multiturn",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "general",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/bfcl-v3-multiturn?top_n=500",
+          "query_coverage": 0.875,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['use']，命中词 ['agentic', 'api', 'benchmark', 'calling', 'function', 'tool', 'use']（query coverage 0.88）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "Connectors",
+          "key": "llm-stats:openai-connectors",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/openai-connectors?top_n=500",
+          "query_coverage": 0.625,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['tool']，命中词 ['agentic', 'benchmark', 'calling', 'tool', 'use']（query coverage 0.62）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "τ²-Bench Telecom",
+          "key": "artificial-analysis:tau2-bench-telecom",
+          "catalog_source": "artificial_analysis",
+          "categories": [
+            "agentic",
+            "tool-use"
+          ],
+          "source_url": "https://artificialanalysis.ai/evaluations/tau2-bench",
+          "query_coverage": 0.375,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['tool']，命中词 ['agentic', 'tool', 'use']（query coverage 0.38）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "t2-bench",
+          "key": "llm-stats:t2-bench",
+          "catalog_source": "llm_stats",
+          "categories": [
+            "reasoning",
+            "agents",
+            "tool_calling"
+          ],
+          "source_url": "https://api.zeroeval.com/leaderboard/benchmarks/t2-bench?top_n=500",
+          "query_coverage": 0.625,
+          "reason": "领域信号 ['agent', 'agentic']，任务信号 ['tool']，命中词 ['agentic', 'benchmark', 'calling', 'tool', 'use']（query coverage 0.62）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "needs_manual_coverage_analysis",
+      "advice": "有 6 条候选需要人工核查原始 Paper/Repo 的 task definition 与 evaluation protocol，才能判定是否真的覆盖目标任务。",
+      "existing_manual_coverage": [],
+      "errors": []
+    },
+    {
+      "idea_id": 10,
+      "idea_name": "Scientific Safety能力评测",
+      "domain": "scientific",
+      "status": "rejected",
+      "total_score": 45.0,
+      "queries": [
+        "scientific research science benchmark evaluation",
+        "scientific research science safety harmful refusal benchmark"
+      ],
+      "catalog_candidates": 20,
+      "selected_count": 2,
+      "selected": [
+        {
+          "name": "MedSafetyBench",
+          "key": "opencompass:1331",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "安全",
+            "Safety",
+            "NeurIPS 2024",
+            "科学智能",
+            "AI for Science",
+            "安全对齐",
+            "Safety Alignment",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MedSafetyBench",
+          "query_coverage": 0.5714,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['safety']，命中词 ['harmful', 'safety', 'science', 'scientific']（query coverage 0.57）；进入人工 Coverage 核查"
+        },
+        {
+          "name": "MTCMB",
+          "key": "opencompass:1929",
+          "catalog_source": "opencompass_hub",
+          "categories": [
+            "推理",
+            "Reasoning",
+            "知识",
+            "Knowledge",
+            "理解",
+            "Understanding",
+            "Chinese Medicine",
+            "Benchmark",
+            "TCM",
+            "科学智能",
+            "AI for Science",
+            "逻辑推理",
+            "知识储备",
+            "语言理解",
+            "Comprehension",
+            "科学推理",
+            "Scientific Reasoning",
+            "不支持",
+            "Unsupported"
+          ],
+          "source_url": "https://hub.opencompass.org.cn/dataset-detail/MTCMB",
+          "query_coverage": 0.5714,
+          "reason": "领域信号 ['scientific', 'science', '科学']，任务信号 ['safety']，命中词 ['benchmark', 'safety', 'science', 'scientific']（query coverage 0.57）；进入人工 Coverage 核查"
+        }
+      ],
+      "verdict": "needs_manual_coverage_analysis",
+      "advice": "有 2 条候选需要人工核查原始 Paper/Repo 的 task definition 与 evaluation protocol，才能判定是否真的覆盖目标任务。",
+      "existing_manual_coverage": [],
+      "errors": []
+    }
+  ]
+}

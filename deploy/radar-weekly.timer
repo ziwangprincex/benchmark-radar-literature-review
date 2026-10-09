@@ -1,0 +1,9 @@
+[Unit]
+Description=Run Benchmark Idea Radar weekly refresh every Monday 15:00 Beijing time
+
+[Timer]
+OnCalendar=Mon *-*-* 15:00:00 Asia/Shanghai
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,13 @@
+{
+  "package_id": "med-safety-v0-20261008",
+  "idea": "med-safety：诊断对了，治疗建议却不安全",
+  "source_file": "data/mini_eval_sources/cmb/CMB-Clin-qa.json",
+  "source_sha256": "fc4d8d2dbfe7f647e257ceefddc9ab467576e2c4c2978fecba70f38d3c27c07e",
+  "pairs": 7,
+  "total_tasks": 14,
+  "task_file_sha256": "c1ae2a61f28158f504e976955b61a8c62e14d93412b62a93e0c7c2b0a831b7de",
+  "private_answer_key": "data/mini_eval_cases/med-safety-pairs.jsonl",
+  "private_answer_key_sha256": "bb2da40a4cbafd901f8e0b57009fe49408d2e1118df66016b1e2a4bec33f0930",
+  "grading": "physician checklist labels + deterministic aggregation; no LLM judge",
+  "status": "rubric_draft_pending_physician_calibration"
+}

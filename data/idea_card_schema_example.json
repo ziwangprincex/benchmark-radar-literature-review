@@ -1,0 +1,49 @@
+{
+  "idea_name": "string",
+  "domain": "financial|legal|medical|scientific|general|agent",
+  "sources": [
+    "benchmark",
+    "workflow",
+    "product_agent",
+    "model_failure"
+  ],
+  "source_refs": [
+    {
+      "title": "string",
+      "url": "string",
+      "published_at": "datetime|null"
+    }
+  ],
+  "real_world_task": "string",
+  "capability": [
+    "string"
+  ],
+  "input": "string",
+  "expected_output": "string",
+  "why_hard": "string",
+  "expected_failure": [
+    {
+      "type": "string",
+      "description": "string"
+    }
+  ],
+  "existing_benchmark": [
+    "string"
+  ],
+  "evaluation_gap": "string",
+  "evaluation_method": "string",
+  "data_source": "string",
+  "mvp_plan": "string",
+  "radar_hits": 1,
+  "scores": {
+    "real_world_value": 0,
+    "model_weakness": 0,
+    "model_differentiation": 0,
+    "novelty": 0,
+    "evaluability": 0,
+    "data_feasibility": 0,
+    "expert_cost": 0,
+    "total": 0
+  },
+  "status": "watch|candidate|mini_eval|approved|rejected"
+}

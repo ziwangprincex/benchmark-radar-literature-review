@@ -1,0 +1,38 @@
+Evidence V1 Offline Mini Eval Package
+
+Scope
+- 10 FinanceBench tasks for Idea #1: PDF财报异常识别与证据引用
+- 10 BFCL v3 tasks for Idea #11: General Tool Use能力评测
+- Run every task on exactly 3 distinct real models.
+- CMB-Clin is intentionally excluded until physician rubric calibration is complete.
+
+Execution rules
+1. Use the exact messages, tools, temperature and response contract in tasks/*.jsonl.
+2. Do not expose or reconstruct private answer keys during model execution.
+3. For BFCL, response_text must be canonical JSON: [{"name":"function_name","arguments":{...}}].
+4. For FinanceBench, response_text must include the answer and an explicit [Document ..., Page N] citation.
+5. Preserve the complete, unmodified provider/local runtime output in raw_response.
+6. Preserve exact model name/version, provider, start/end timestamps, latency and request metadata.
+7. Do not insert synthetic, manually rewritten or summary-only responses.
+
+Result file
+- Start from responses_template.jsonl.
+- Replace all REPLACE_* values.
+- Fill all 60 records: 20 tasks × 3 models.
+- Save as completed_responses.jsonl in this directory.
+
+Local validation
+python offline_eval.py validate --package-dir data/offline_eval_packages/evidence-v1-offline-20260915 --responses data/offline_eval_packages/evidence-v1-offline-20260915/completed_responses.jsonl
+
+Dry-run grading (does not write Evidence)
+python offline_eval.py import --package-dir data/offline_eval_packages/evidence-v1-offline-20260915 --responses data/offline_eval_packages/evidence-v1-offline-20260915/completed_responses.jsonl
+
+Formal ingestion after review
+python offline_eval.py import --package-dir data/offline_eval_packages/evidence-v1-offline-20260915 --responses data/offline_eval_packages/evidence-v1-offline-20260915/completed_responses.jsonl --ingest
+
+Import gates
+- Exactly 3 distinct real model identities.
+- Every model answers all 20 tasks exactly once.
+- Empty responses, placeholders, duplicates and missing raw outputs are rejected.
+- Objective deterministic grading only; no LLM-generated judge result is used for these two packs.
+- Formal ingestion creates separate FinanceBench and BFCL Eval Runs and Case-level Evidence.

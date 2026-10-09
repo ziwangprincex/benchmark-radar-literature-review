@@ -1,0 +1,61 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Raw Source · ContractEval: Benchmarking LLMs for Clause-Level Legal Risk Identification in Commercial Contracts</title><style>
+:root{--ink:#152220;--muted:#687673;--green:#087a61;--line:#dce5e2;--bg:#f4f7f6;--red:#b5483f}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1050px;margin:auto;padding:34px 22px 70px}a{color:var(--green)}.crumb{font-size:12px;color:var(--muted);margin-bottom:18px}.hero{background:#10352d;color:#fff;border-radius:17px;padding:29px;margin-bottom:15px}.hero small{color:#83d8be;text-transform:uppercase;letter-spacing:.12em}.hero h1{margin:9px 0 5px;font-size:30px}.hero p{color:#bdd8d0;line-height:1.6}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:21px;margin-top:13px}.panel h2{font-size:18px;margin-top:0}.panel h3{font-size:14px;margin:12px 0 6px}p,li{line-height:1.7}.muted{color:var(--muted)}.meta{display:flex;gap:7px;flex-wrap:wrap}.tag{padding:5px 8px;background:#e7f2ee;color:#176550;border-radius:6px;font-size:11px}.evidence{border-top:1px solid var(--line);padding:16px 0}.evidence:first-of-type{border-top:0}.evidence strong{display:block;margin-bottom:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{background:#f4f7f6;border-radius:9px;padding:13px}.field small{display:block;color:var(--muted);margin-bottom:5px}pre{white-space:pre-wrap;word-break:break-word;background:#102521;color:#d9eee7;padding:14px;border-radius:9px;overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-top:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted)}.severity-critical,.severity-high{color:#a32d25;font-weight:800}.severity-medium{color:#9b690e;font-weight:800}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}select{padding:9px;border:1px solid var(--line);border-radius:7px;background:#fff}.count{font-weight:900;color:var(--green)}.raw-panel{border-left:5px solid #3157a4}.extract-panel{border-left:5px solid #087a61}.ai-panel{border-left:5px solid #8655a8}.evidence-label{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.12em;padding:5px 8px;border-radius:5px;margin-bottom:10px}.raw-label{background:#e5ecfa;color:#3157a4}.extract-label{background:#e2f2ed;color:#087a61}.ai-label{background:#f0e8f6;color:#754797}.case-card{border:1px solid var(--line);border-radius:9px;padding:13px;margin-top:9px}@media(max-width:720px){.grid,.controls{grid-template-columns:1fr}}
+</style></head><body><main><div class="crumb"><a href="idea-2-idea.html">合同跨条款风险审查</a> / <a href="idea-2-evidence-413.html">Evidence Extraction</a> / Raw Source</div><header class="hero"><small>RAW SOURCE · SourceItem #413</small><h1>ContractEval: Benchmarking LLMs for Clause-Level Legal Risk Identification in Commercial Contracts</h1><p>未经系统二次总结的原始来源入口与采集快照。</p></header>
+<section class="panel raw-panel"><span class="evidence-label raw-label">RAW SOURCE</span><h2>原始材料</h2><div class="grid"><div class="field"><small>Source Type</small>paper</div><div class="field"><small>Evidence Role</small>raw_source</div><div class="field"><small>Title</small>ContractEval: Benchmarking LLMs for Clause-Level Legal Risk Identification in Commercial Contracts</div><div class="field"><small>Published At</small></div><div class="field"><small>Section / Page / Case / Run</small>{&quot;section&quot;: &quot;page metadata / abstract&quot;, &quot;pdf_url&quot;: &quot;https://arxiv.org/pdf/2508.03080&quot;}</div><div class="field"><small>Original URL</small>https://arxiv.org/abs/2508.03080</div></div><p>The potential of large language models (LLMs) in specialized domains such as legal risk analysis remains underexplored. In response to growing interest in locally deploying open-source LLMs for legal tasks while preserving data confidentiality, this paper introduces ContractEval, the first benchmark to thoroughly evaluate whether open-source LLMs could match proprietary LLMs in identifying clause-level legal risks in commercial contracts. Using the Contract Understanding Atticus Dataset (CUAD), we assess 4 proprietary and 15 open-source LLMs. Our results highlight five key findings: (1) Proprietary models outperform open-source models in both correctness and output effectiveness, though some open-source models are competitive in certain specific dimensions. (2) Larger open-source models generally perform better, though the improvement slows down as models get bigger. (3) Reasoning (&quot;thinking&quot;) mode improves output effectiveness but reduces correctness, likely due to over-complicating simpler tasks. (4) Open-source models generate &quot;no related clause&quot; responses more frequently even when relevant clauses are present. This suggests &quot;laziness&quot; in thinking or low confidence in extracting relevant content. (5) Model quantization speeds up inference but at the cost of performance drop, showing the tradeoff between efficiency and accuracy. These findings suggest that while most LLMs perform at a level comparable to junior legal assistants, open-source models require targeted fine-tuning to ensure correctness and effectiveness in high-stakes legal settings. ContractEval offers a solid benchmark to guide future development of legal-domain LLMs.</p><a href="https://arxiv.org/abs/2508.03080" target="_blank" rel="noopener">打开真实原始材料 ↗</a></section>
+<section class="panel"><h2>Raw Payload</h2><pre>{
+  &quot;radar&quot;: &quot;benchmark&quot;,
+  &quot;source_id&quot;: &quot;external-search&quot;,
+  &quot;title&quot;: &quot;ContractEval: Benchmarking LLMs for Clause-Level Legal Risk Identification in Commercial Contracts&quot;,
+  &quot;content&quot;: &quot;The potential of large language models (LLMs) in specialized domains such as legal risk analysis remains underexplored. In response to growing interest in locally deploying open-source LLMs for legal tasks while preserving data confidentiality, this paper introduces ContractEval, the first benchmark to thoroughly evaluate whether open-source LLMs could match proprietary LLMs in identifying clause-level legal risks in commercial contracts. Using the Contract Understanding Atticus Dataset (CUAD), we assess 4 proprietary and 15 open-source LLMs. Our results highlight five key findings: (1) Proprietary models outperform open-source models in both correctness and output effectiveness, though some open-source models are competitive in certain specific dimensions. (2) Larger open-source models generally perform better, though the improvement slows down as models get bigger. (3) Reasoning (\&quot;thinking\&quot;) mode improves output effectiveness but reduces correctness, likely due to over-complicating simpler tasks. (4) Open-source models generate \&quot;no related clause\&quot; responses more frequently even when relevant clauses are present. This suggests \&quot;laziness\&quot; in thinking or low confidence in extracting relevant content. (5) Model quantization speeds up inference but at the cost of performance drop, showing the tradeoff between efficiency and accuracy. These findings suggest that while most LLMs perform at a level comparable to junior legal assistants, open-source models require targeted fine-tuning to ensure correctness and effectiveness in high-stakes legal settings. ContractEval offers a solid benchmark to guide future development of legal-domain LLMs.&quot;,
+  &quot;url&quot;: &quot;https://arxiv.org/abs/2508.03080&quot;,
+  &quot;published_at&quot;: null,
+  &quot;source_type&quot;: &quot;paper&quot;,
+  &quot;source_quality&quot;: &quot;primary&quot;,
+  &quot;organization&quot;: &quot;arXiv&quot;,
+  &quot;authors&quot;: [
+    &quot;Liu, Shuang&quot;,
+    &quot;Li, Zelong&quot;,
+    &quot;Ma, Ruoyun&quot;,
+    &quot;Zhao, Haiyan&quot;,
+    &quot;Du, Mengnan&quot;
+  ],
+  &quot;source_version&quot;: null,
+  &quot;locator&quot;: {
+    &quot;section&quot;: &quot;page metadata / abstract&quot;,
+    &quot;pdf_url&quot;: &quot;https://arxiv.org/pdf/2508.03080&quot;
+  },
+  &quot;retrieved_at&quot;: &quot;2026-09-24T03:32:05+00:00&quot;,
+  &quot;last_verified_at&quot;: &quot;2026-09-24T03:32:05+00:00&quot;,
+  &quot;http_status&quot;: 200,
+  &quot;validation_status&quot;: &quot;verified_source&quot;,
+  &quot;provenance&quot;: {
+    &quot;retrieval_run_id&quot;: 92,
+    &quot;retrieval_query&quot;: &quot;manual web search 2026-09-24: contract review clause conflict legal benchmark&quot;,
+    &quot;verification_error&quot;: null
+  }
+}</pre></section>
+<section class="panel"><h2>完整 Provenance</h2><pre>{
+  &quot;retrieval_run_id&quot;: 92,
+  &quot;retrieval_query&quot;: &quot;manual web search 2026-09-24: contract review clause conflict legal benchmark&quot;,
+  &quot;verification_error&quot;: null,
+  &quot;title&quot;: &quot;ContractEval: Benchmarking LLMs for Clause-Level Legal Risk Identification in Commercial Contracts&quot;,
+  &quot;url&quot;: &quot;https://arxiv.org/abs/2508.03080&quot;,
+  &quot;published_at&quot;: null,
+  &quot;authors&quot;: [
+    &quot;Liu, Shuang&quot;,
+    &quot;Li, Zelong&quot;,
+    &quot;Ma, Ruoyun&quot;,
+    &quot;Zhao, Haiyan&quot;,
+    &quot;Du, Mengnan&quot;
+  ],
+  &quot;organization&quot;: &quot;arXiv&quot;,
+  &quot;source_type&quot;: &quot;paper&quot;,
+  &quot;source_quality&quot;: &quot;primary&quot;,
+  &quot;evidence_role&quot;: &quot;raw_source&quot;,
+  &quot;source_version&quot;: null,
+  &quot;locator&quot;: {
+    &quot;section&quot;: &quot;page metadata / abstract&quot;,
+    &quot;pdf_url&quot;: &quot;https://arxiv.org/pdf/2508.03080&quot;
+  }
+}</pre></section>
+<section class="panel"><h2>Reverse Trace · Raw Source → Claim → Idea</h2><div style="overflow:auto"><table><thead><tr><th>Idea</th><th>Claim Type</th><th>Claim</th><th>Extraction</th><th>Relation</th><th>Status</th></tr></thead><tbody><tr><td><a href="idea-2-idea.html">合同跨条款风险审查</a></td><td>core_insight</td><td>合同跨条款风险审查 对应真实任务，值得作为独立 Benchmark 方向验证。</td><td>benchmark_scope</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-2-idea.html">合同跨条款风险审查</a></td><td>why_now</td><td>相关模型或产品能力正在进入应用阶段，当前应验证其真实表现与边界。</td><td>benchmark_scope</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-2-idea.html">合同跨条款风险审查</a></td><td>evaluation_gap</td><td>条款抽取已被 CUAD/ContractEval 覆盖；跨条款矛盾检测已有 CLAUSE（基于 CUAD 注入 10 类矛盾，最佳模型法条引用匹配 &lt;14%）。剩余缺口更窄：矛盾是人工注入而非真实谈判合同，缺少风险分级；法条版本有效性仅有 Sycophants in the Courtroom 部分涉及。（依据：arXiv 摘要，全文待核查）</td><td>benchmark_scope</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-2-idea.html">合同跨条款风险审查</a></td><td>model_failure</td><td>当前模型在目标任务上存在可复现、可定位的失败模式。</td><td>benchmark_scope</td><td>irrelevant</td><td>unsupported</td></tr></tbody></table></div></section></main></body></html>

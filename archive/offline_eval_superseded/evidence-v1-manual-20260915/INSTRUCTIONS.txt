@@ -1,0 +1,41 @@
+Offline Mini Eval 人工执行包：evidence-v1-manual-20260915
+
+最快使用方式
+1. 双击「打开人工执行台.bat」。
+2. 在模型 Slot 1 填写 Provider、精确 Model Name 和 Model Version。
+3. 逐题点击“复制完整 Prompt”，到外部模型产品中执行，再把回答原样粘回。
+4. 每题点击“保存并下一题”。工作台会自动记录时间并保存在浏览器本地。
+5. 20题全部完成后，点击“导出当前模型 JSONL”。
+6. 对另外两个真实模型重复以上步骤。
+7. 将三个 model-slot-*.jsonl 放回本目录，双击「合并并校验结果.bat」。
+8. 校验通过后得到 completed_responses.jsonl 和 validation_report.json。
+
+执行范围
+- FinanceBench 10题：Idea #1，PDF财报分析与证据引用。
+- BFCL v3 10题：Idea #11，单轮函数调用。
+- 每题由3个不同的真实模型执行，共60条结果。
+- CMB-Clin 暂不执行，等待医生校准Rubric。
+
+人工执行纪律
+- 每个模型使用独立Slot；填写官方界面显示的精确版本，不使用“GPT/Claude”等泛称。
+- 建议每题开启新会话，不带入前题上下文；关闭非必要联网、记忆和个性化。
+- 不向模型提供Reference Answer、Rubric或私有答案文件。
+- 模型输出必须原样保存，不得根据参考答案人工修正。
+- BFCL输出整理为JSON数组仅允许做格式转写，不得更改函数名或参数语义；任何整理必须写入操作员备注。
+- FinanceBench回答必须包含答案及明确的[Document ..., Page N]引用。
+- 若外部产品不能导出Provider Raw JSON，可将Raw Response留空；工作台会明确记录manual_external_ui和verbatim_response，不冒充API原始响应。
+- 建议每完成5题导出一次“工作台备份 JSON”，防止浏览器数据丢失。
+
+文件说明
+- workbench.html：无需安装、无需API的人工执行台。
+- tasks/：只含任务与来源，不含答案。
+- responses_template.jsonl：高级用户可直接填写的60行模板。
+- response_schema.json：结果字段与约束。
+- completed_responses.jsonl：三个模型合并后的正式待评分文件。
+- validation_report.json：合并与完整性检查结果。
+
+命令行备用方式
+python offline_eval.py combine --package-dir data/offline_eval_packages/evidence-v1-manual-20260915 --input-dir data/offline_eval_packages/evidence-v1-manual-20260915 --output data/offline_eval_packages/evidence-v1-manual-20260915/completed_responses.jsonl
+python offline_eval.py import --package-dir data/offline_eval_packages/evidence-v1-manual-20260915 --responses data/offline_eval_packages/evidence-v1-manual-20260915/completed_responses.jsonl
+
+正式回流前必须先人工审阅Dry-run评分结果；确认后才可加 --ingest。企业微信推送当前保持暂停。

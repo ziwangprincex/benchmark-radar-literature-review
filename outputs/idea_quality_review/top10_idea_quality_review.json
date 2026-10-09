@@ -1,0 +1,1295 @@
+{
+  "generated_at": "2026-09-15T16:53:28",
+  "purpose": "Idea Quality human acceptance review; not a proof of project viability",
+  "method": "Current Idea/Signal/Evidence audit + primary-source Existing Benchmark desk research + conservative gap assessment",
+  "wechat_push": "paused",
+  "items": [
+    {
+      "rank": 1,
+      "id": 1,
+      "title": "可审计的财报异常识别与证据引用",
+      "recommendation": "Consider",
+      "what": "评测模型能否跨财务报表、附注和期间识别异常或口径变化，完成数值勾稽，并以准确页码支撑结论。",
+      "trigger_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "why_now": "金融长文档分析是高价值专业任务；但当前库中的Workflow、产品和Failure均只是内部分析种子，没有可验证Raw Source，因此Why Now只能判为Partial。",
+      "gap": "在本次核查的FinanceBench、FinQA、TAT-QA和AD-LLM中，金融问答、数值推理、表格/文本推理和通用异常检测已被覆盖；尚未确认它们系统联合评测“跨期异常识别＋会计口径一致性＋附注勾稽＋页码级证据＋可执行结论”。这是限定于已核查集合的Partial Gap，不是“行业无人覆盖”的结论。",
+      "workflow": "当前任务描述符合分析师工作流，但证据仅为internal://分析记录，缺少访谈原文、SOP或真实任务样本；状态：Unsupported。",
+      "product": "当前Deep Research产品信号也是内部摘要，缺少官方Release Raw Source；状态：Unsupported。",
+      "failure": "没有真实模型Response、Case或公开论文结果被接入当前Idea；状态：Unsupported。",
+      "risks": [
+        "FinanceBenchmark.ai已出现forensic financial analysis条目，但协议尚未完成核查，可能直接重合。",
+        "FinanceBench本身已提供答案与evidence strings，不能把“证据引用”单独当成空白。",
+        "真实财报版权/分发、跨期口径标注和专家审核成本高。"
+      ],
+      "benchmarks": [
+        [
+          "FinanceBench",
+          "2023-11-20",
+          "https://arxiv.org/abs/2311.11944",
+          "开放书本财务QA；10,231题；答案与evidence strings。",
+          "Partial",
+          "未直接验证端到端异常审计与跨期口径。"
+        ],
+        [
+          "FinQA",
+          "2021-09-01",
+          "https://arxiv.org/abs/2109.00122",
+          "财报文本＋表格上的多步数值推理；带可执行程序监督。",
+          "Partial",
+          "覆盖计算推理，不等同于异常识别和审计结论。"
+        ],
+        [
+          "TAT-QA",
+          "2021",
+          "https://aclanthology.org/2021.acl-long.254/",
+          "半结构化财务表格与文本联合问答。",
+          "Partial",
+          "覆盖混合证据QA，未证明覆盖跨期异常与页码审计链。"
+        ],
+        [
+          "AD-LLM",
+          "2024-12-15",
+          "https://arxiv.org/abs/2412.11142",
+          "通用异常检测中的LLM能力。",
+          "Adjacent",
+          "非财报/会计专业异常审查。"
+        ],
+        [
+          "FinanceBenchmark.ai forensic tasks",
+          "2026（待核）",
+          "https://financebenchmark.ai/benchmarks",
+          "搜索结果显示存在forensic financial analysis类别。",
+          "Unknown",
+          "协议未完成核查；立项前必须优先补齐。"
+        ]
+      ],
+      "reason": "任务价值高且可客观拆分，但当前系统证据不足、Coverage仍有高重合风险；进入概念验证前应先补真实分析师Workflow和完整Coverage。",
+      "current_system_name": "PDF财报异常识别与证据引用",
+      "idea_score": 75.0,
+      "score_breakdown": {
+        "real_world_value": 13,
+        "model_weakness": 13,
+        "model_differentiation": 15,
+        "novelty": 7,
+        "evaluability": 15,
+        "data_feasibility": 8,
+        "expert_cost": 4
+      },
+      "evidence_confidence": "Low",
+      "radar_hits": 0,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "claim_status": {
+        "core_insight": "unsupported",
+        "why_now": "unsupported",
+        "evaluation_gap": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "coverage_matrix_status": {
+        "benchmarks_reviewed": 0,
+        "verified_entries": 0,
+        "covered": 0,
+        "partial": 0,
+        "not_covered": 0,
+        "unknown_or_pending": 0,
+        "status": "missing"
+      },
+      "traces": [
+        {
+          "source_item_id": 1,
+          "signal_id": 1,
+          "radar": "workflow",
+          "title": "金融分析师：财报异常识别与证据引用",
+          "url": "internal://interview/finance-001",
+          "evidence_role": "analysis",
+          "source_type": "internal_analysis",
+          "source_quality": "ai_generated",
+          "validation_status": "analysis_only",
+          "extraction_ids": [
+            67,
+            68
+          ],
+          "evidence_detail": null,
+          "raw_detail": null
+        },
+        {
+          "source_item_id": 2,
+          "signal_id": 2,
+          "radar": "model_failure",
+          "title": "多个模型在长 PDF 财务分析中引用错误",
+          "url": "internal://failure/finance-pdf-001",
+          "evidence_role": "analysis",
+          "source_type": "internal_analysis",
+          "source_quality": "ai_generated",
+          "validation_status": "analysis_only",
+          "extraction_ids": [
+            65
+          ],
+          "evidence_detail": null,
+          "raw_detail": null
+        },
+        {
+          "source_item_id": 3,
+          "signal_id": 3,
+          "radar": "benchmark",
+          "title": "FinanceBench 与 CNFinBench 覆盖缺口分析",
+          "url": "internal://benchmark-gap/finance-001",
+          "evidence_role": "analysis",
+          "source_type": "paper",
+          "source_quality": "ai_generated",
+          "validation_status": "analysis_only",
+          "extraction_ids": [
+            63,
+            64
+          ],
+          "evidence_detail": null,
+          "raw_detail": null
+        },
+        {
+          "source_item_id": 4,
+          "signal_id": 4,
+          "radar": "product_agent",
+          "title": "Deep Research 支持财务长文档检索与引用",
+          "url": "internal://product/deep-research-001",
+          "evidence_role": "analysis",
+          "source_type": "internal_analysis",
+          "source_quality": "ai_generated",
+          "validation_status": "analysis_only",
+          "extraction_ids": [
+            66
+          ],
+          "evidence_detail": null,
+          "raw_detail": null
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "id": 21,
+      "title": "Agent执行轨迹的人工审查、理解与复用",
+      "recommendation": "Consider",
+      "what": "评测Agent执行轨迹被转换为工作流后，是否能提高用户对过程的理解、错误发现和后续任务复用。",
+      "trigger_ids": [
+        66
+      ],
+      "why_now": "2026-09的Trace2Flow用户研究直接显示post-task workflow可改善理解与错误发现；Agent已广泛执行多步工具任务，结果正确已不足以代表可控性。状态：Partial（单篇预印本，N=20）。",
+      "gap": "WebArena、OSWorld和TRAJECT-Bench分别覆盖网页/桌面任务成功与工具轨迹正确性；本次核查未发现它们把“人类理解、审计表现、编辑与复用效果”作为正式评价对象。该负向Claim由3个协议范围对比支持，但检索并非穷尽，故为Partial。",
+      "workflow": "Raw Source为Trace2Flow研究：用户审查含错误的执行记录并复用工作流完成后续任务；直接相关，但样本量有限。状态：Partial。",
+      "product": "当前Idea无直接官方产品Release证据；状态：Unsupported。",
+      "failure": "研究显示prompt-only条件下理解和错误检测较弱，但不是模型Case级Failure；状态：Partial，不能计为Model Failure Radar Hit。",
+      "risks": [
+        "评价对象更接近Agent产品/交互设计，而非基础模型单体。",
+        "需要真人实验，成本与复现难度高。",
+        "TRAJECT-Bench已提供轨迹诊断，必须把“人类结果”定义为核心差异。"
+      ],
+      "benchmarks": [
+        [
+          "WebArena",
+          "2023-07",
+          "https://arxiv.org/abs/2307.13854",
+          "真实网站环境中的自主网页任务完成。",
+          "Partial",
+          "评任务成功，不评人类对轨迹的理解或复用。"
+        ],
+        [
+          "OSWorld",
+          "2024-04",
+          "https://arxiv.org/abs/2404.07972",
+          "真实计算机环境中的开放式桌面任务。",
+          "Partial",
+          "评Agent执行结果，不评post-task人工审查。"
+        ],
+        [
+          "TRAJECT-Bench",
+          "2025-10-06",
+          "https://arxiv.org/abs/2510.04550",
+          "工具、参数、依赖和顺序的轨迹级正确性。",
+          "Partial",
+          "可辅助审计，但未评人类理解、编辑和复用。"
+        ],
+        [
+          "Trace2Flow研究设置",
+          "2026-09-11",
+          "https://arxiv.org/abs/2609.13136",
+          "N=20的执行审查与工作流复用研究。",
+          "Direct signal",
+          "当前未发现标准化公开Benchmark。"
+        ]
+      ],
+      "reason": "Gap相对清楚且有直接Workflow研究支撑，值得进入Benchmark概念设计；但需要先确认是否愿意承担真人实验型评测。",
+      "current_system_name": "Scientific Tool Use能力评测",
+      "idea_score": 51.0,
+      "score_breakdown": {
+        "real_world_value": 16,
+        "model_weakness": 7,
+        "model_differentiation": 5,
+        "novelty": 6,
+        "evaluability": 6,
+        "data_feasibility": 7,
+        "expert_cost": 4
+      },
+      "evidence_confidence": "Low",
+      "radar_hits": 0,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "partial",
+        "product_agent": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "claim_status": {
+        "core_insight": "partial",
+        "why_now": "partial",
+        "evaluation_gap": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "coverage_matrix_status": {
+        "benchmarks_reviewed": 0,
+        "verified_entries": 0,
+        "covered": 0,
+        "partial": 0,
+        "not_covered": 0,
+        "unknown_or_pending": 0,
+        "status": "missing"
+      },
+      "traces": [
+        {
+          "source_item_id": 66,
+          "signal_id": 66,
+          "radar": "workflow",
+          "title": "From Review to Reuse: How Post-Task Workflow Can Support Human-AI Agent Interaction",
+          "url": "https://arxiv.org/abs/2609.13136",
+          "evidence_role": "raw_source",
+          "source_type": "paper",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            75,
+            76
+          ],
+          "evidence_detail": "../insights/idea-21-evidence-66.html",
+          "raw_detail": "../insights/raw-source-66.html"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "id": 12,
+      "title": "AI共创中的用户信息吸收度",
+      "recommendation": "Consider",
+      "what": "评测AI共创系统是否让用户真正识别、理解和掌握写入最终内容的信息，而不只是机械采纳文本。",
+      "trigger_ids": [
+        62
+      ],
+      "why_now": "TraceMind指出AI信息可进入最终产物却未被用户充分处理；随着共写工具进入知识工作，这一人因风险具备现实意义。状态：Partial（预印本、62名参与者）。",
+      "gap": "CoAuthor记录人机共写过程，OpAI-Bench评文本中的人/AI来源痕迹；TraceMind提出原子信息单元uptake预测，但当前未确认其公开为标准化模型榜单。已核查工作没有把“用户理解/识别结果”稳定地作为AI系统Benchmark主指标。Gap：Partial。",
+      "workflow": "TraceMind包含真实参与者、3类共创任务和1,187个信息单元uptake标签；直接相关。状态：Partial。",
+      "product": "当前库中Legora产品信号与information uptake并不直接匹配，已从支持证据中排除；状态：Unsupported。",
+      "failure": "TraceMind证明“进入最终稿≠被用户吸收”，属于产品/人机协作失败证据，不是模型回答Case；状态：Partial。",
+      "risks": [
+        "这是人机系统Benchmark，不是纯模型能力Benchmark。",
+        "识别题可能只测短期记忆，未必等于理解或迁移。",
+        "需要真人参与、伦理说明和跨任务复现。"
+      ],
+      "benchmarks": [
+        [
+          "CoAuthor",
+          "2022-01",
+          "https://arxiv.org/abs/2201.06796",
+          "人类与GPT-3协作写作交互数据集。",
+          "Partial",
+          "记录交互与写作行为，不直接测信息吸收。"
+        ],
+        [
+          "OpAI-Bench",
+          "2026-06-04",
+          "https://arxiv.org/abs/2606.06481",
+          "九阶段人类文本到AI文本转换；评文档/句子/token/span来源检测。",
+          "Partial",
+          "测文本来源痕迹，不测用户认知吸收。"
+        ],
+        [
+          "TraceMind",
+          "2026-09-11",
+          "https://arxiv.org/abs/2609.12600",
+          "用交互轨迹预测原子信息单元的识别层uptake。",
+          "Direct signal",
+          "研究性设置；是否发布公共Benchmark尚不明确。"
+        ]
+      ],
+      "reason": "方向新、任务定义清楚且有真实用户数据触发，适合进入小规模设计评审；是否采纳取决于团队是否接受人因实验成本。",
+      "current_system_name": "General Planning能力评测",
+      "idea_score": 58.0,
+      "score_breakdown": {
+        "real_world_value": 17,
+        "model_weakness": 7,
+        "model_differentiation": 6,
+        "novelty": 9,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "evidence_confidence": "Medium",
+      "radar_hits": 1,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "claim_status": {
+        "core_insight": "partial",
+        "why_now": "verified",
+        "evaluation_gap": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "coverage_matrix_status": {
+        "benchmarks_reviewed": 0,
+        "verified_entries": 0,
+        "covered": 0,
+        "partial": 0,
+        "not_covered": 0,
+        "unknown_or_pending": 0,
+        "status": "missing"
+      },
+      "traces": [
+        {
+          "source_item_id": 62,
+          "signal_id": 62,
+          "radar": "workflow",
+          "title": "TraceMind: Predicting User Information Uptake from Low-Cost Interaction Traces during Human-LLM Content Co-Generation",
+          "url": "https://arxiv.org/abs/2609.12600",
+          "evidence_role": "raw_source",
+          "source_type": "paper",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            60,
+            61
+          ],
+          "evidence_detail": "../insights/idea-12-evidence-62.html",
+          "raw_detail": "../insights/raw-source-62.html"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "id": 2,
+      "title": "交易语境下的整份合同风险审查与修订",
+      "recommendation": "Watch",
+      "what": "评测模型能否结合交易背景，在整份合同中识别跨条款冲突、法律冲突和缺失义务，并提出可追溯修订建议。",
+      "trigger_ids": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "why_now": "合同审查是高价值专业任务，但当前触发信号全部是内部分析记录，无原访谈、原Prompt或真实模型输出。状态：Unsupported。",
+      "gap": "CUAD覆盖条款抽取，ContractNLI覆盖文档级蕴含/矛盾，ContractEval覆盖条款级风险；CLAUSE已直接覆盖跨条款/跨章节内部冲突、法律冲突、定位、解释及法律引用。原Idea“跨条款风险审查”已高度重合；只剩交易背景、整包文件和可执行redline可能构成残余Gap，当前未获证据。",
+      "workflow": "仅有internal://律师工作流摘要，无法追溯访谈原文；状态：Unsupported。",
+      "product": "无相关官方产品证据；状态：Unsupported。",
+      "failure": "所谓Mini Eval和模型差异只有分析摘要，无Case级Prompt/Reference/Response/Judge；状态：Unsupported。",
+      "risks": [
+        "CLAUSE 2026已直接覆盖跨条款矛盾，是重大重复风险。",
+        "若改成redline/谈判建议，评分主观性和法域差异显著上升。",
+        "合同数据版权、保密和律师标注成本高。"
+      ],
+      "benchmarks": [
+        [
+          "CUAD",
+          "2021-03",
+          "https://arxiv.org/abs/2103.06268",
+          "510份合同、41类条款的专家标注与跨度抽取。",
+          "Partial",
+          "主要是条款定位/抽取。"
+        ],
+        [
+          "ContractNLI",
+          "2021-10",
+          "https://arxiv.org/abs/2110.01799",
+          "整份合同针对固定假设的蕴含、矛盾或未知判断。",
+          "Partial",
+          "覆盖文档级NLI，但不等于完整审查与修订。"
+        ],
+        [
+          "ContractEval",
+          "2025-08-05",
+          "https://arxiv.org/abs/2508.03080",
+          "商业合同条款级法律风险识别。",
+          "Partial",
+          "未明确覆盖交易背景与修订建议。"
+        ],
+        [
+          "CLAUSE",
+          "2026 / EACL 2026",
+          "https://clause-legal.github.io/",
+          "跨条款内部矛盾、外部法律冲突、定位、解释和法律引用。",
+          "Covered",
+          "直接覆盖原Idea核心能力。"
+        ]
+      ],
+      "reason": "当前表述不应立项；仅在重构为“交易背景＋多文件合同包＋redline质量”并获得律师Workflow证据后再评估。",
+      "current_system_name": "合同跨条款风险审查",
+      "idea_score": 72.0,
+      "score_breakdown": {
+        "real_world_value": 13,
+        "model_weakness": 12,
+        "model_differentiation": 14,
+        "novelty": 7,
+        "evaluability": 15,
+        "data_feasibility": 8,
+        "expert_cost": 3
+      },
+      "evidence_confidence": "Low",
+      "radar_hits": 0,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "claim_status": {
+        "core_insight": "unsupported",
+        "why_now": "unsupported",
+        "evaluation_gap": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "coverage_matrix_status": {
+        "benchmarks_reviewed": 0,
+        "verified_entries": 0,
+        "covered": 0,
+        "partial": 0,
+        "not_covered": 0,
+        "unknown_or_pending": 0,
+        "status": "missing"
+      },
+      "traces": [
+        {
+          "source_item_id": 5,
+          "signal_id": 5,
+          "radar": "workflow",
+          "title": "律师合同审查真实工作流",
+          "url": "internal://interview/legal-001",
+          "evidence_role": "analysis",
+          "source_type": "internal_analysis",
+          "source_quality": "ai_generated",
+          "validation_status": "analysis_only",
+          "extraction_ids": [
+            4,
+            5
+          ],
+          "evidence_detail": null,
+          "raw_detail": null
+        },
+        {
+          "source_item_id": 6,
+          "signal_id": 6,
+          "radar": "model_failure",
+          "title": "合同审查模型遗漏跨条款冲突",
+          "url": "internal://failure/legal-001",
+          "evidence_role": "analysis",
+          "source_type": "internal_analysis",
+          "source_quality": "ai_generated",
+          "validation_status": "analysis_only",
+          "extraction_ids": [
+            2
+          ],
+          "evidence_detail": null,
+          "raw_detail": null
+        },
+        {
+          "source_item_id": 9,
+          "signal_id": 9,
+          "radar": "model_failure",
+          "title": "Mini Eval结果：合同跨条款风险审查",
+          "url": "internal://mini-eval/2/2026-09-14T10:31:50+00:00",
+          "evidence_role": "analysis",
+          "source_type": "internal_analysis",
+          "source_quality": "ai_generated",
+          "validation_status": "analysis_only",
+          "extraction_ids": [
+            1
+          ],
+          "evidence_detail": null,
+          "raw_detail": null
+        },
+        {
+          "source_item_id": 10,
+          "signal_id": 10,
+          "radar": "model_failure",
+          "title": "合同审查模型对比：跨条款冲突识别差距",
+          "url": "internal://model-comparison/legal-contract-2026-09",
+          "evidence_role": "analysis",
+          "source_type": "internal_analysis",
+          "source_quality": "ai_generated",
+          "validation_status": "analysis_only",
+          "extraction_ids": [
+            3
+          ],
+          "evidence_detail": null,
+          "raw_detail": null
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "id": 18,
+      "title": "版本化指南约束的临床推理与可核验引用",
+      "recommendation": "Watch",
+      "what": "评测模型能否基于患者病例和指定版本临床指南完成决策路径推理，并对关键结论提供可核验指南条目引用。",
+      "trigger_ids": [
+        98,
+        101,
+        102,
+        97,
+        87
+      ],
+      "why_now": "CliMedBench、HealthBench和MedGUIDE显示评测已从考试题走向临床场景、开放对话和指南决策；AMIE官方更新显示医疗交互能力继续产品化。状态：Partial。",
+      "gap": "临床场景、case-specific rubric和指南决策树已分别被CliMedBench、HealthBench、MedGUIDE覆盖；MedProbeBench还可能直接覆盖循证深度研究。当前只可谨慎主张：已核查材料未证明同时覆盖“指定指南版本＋路径决策＋条目级引用＋本土化中文病例”。Coverage Matrix尚未完整，Gap为Partial。",
+      "workflow": "当前被聚到该Idea的Workflow来源包含CARE-X和LatentVerse，不能直接证明通用临床指南工作流；状态：Partial/有污染。",
+      "product": "AMIE官方临床视频会诊是相关产品化信号，但并不直接证明指南引用需求；状态：Partial。",
+      "failure": "当前没有Case级Model Failure。CliMedBench和HealthBench公开结果表明临床推理仍难，但尚未接入本Idea的可审计Failure Case；状态：Unsupported。",
+      "risks": [
+        "当前Idea聚类混入合成数据污染、临床去标识等不相关论文。",
+        "HealthBench、MedGUIDE与MedProbeBench显著压缩新颖空间。",
+        "指南版本、版权、医学专家校准和地域适用性成本高。"
+      ],
+      "benchmarks": [
+        [
+          "CMB",
+          "2023；NAACL 2024",
+          "https://aclanthology.org/2024.naacl-long.343/",
+          "中文医学考试题与少量临床案例。",
+          "Partial",
+          "偏知识与案例问答，不等于指南条目引用。"
+        ],
+        [
+          "CliMedBench",
+          "2024-11",
+          "https://aclanthology.org/2024.emnlp-main.480/",
+          "33,735题、14个专家指导临床场景；临床知识、推理与事实一致性。",
+          "Partial",
+          "摘要未要求指南引用。"
+        ],
+        [
+          "HealthBench",
+          "2025-05-13",
+          "https://arxiv.org/abs/2505.08775",
+          "5,000条多轮医疗对话；262名医生提供48,562条case-specific rubric。",
+          "Partial",
+          "开放式Rubric已覆盖，指南引用是否覆盖未确认。"
+        ],
+        [
+          "MedGUIDE",
+          "2025-05-16",
+          "https://arxiv.org/abs/2505.11613",
+          "55棵NCCN决策树、17种癌症、7,747道指南一致性选择题。",
+          "Partial",
+          "覆盖指南决策，不要求生成指南引用。"
+        ],
+        [
+          "MedProbeBench",
+          "2026-04（待完整核验）",
+          "https://arxiv.org/abs/2604.18418",
+          "检索结果显示评Evidence-grounded medical deep research。",
+          "Unknown",
+          "协议抓取不足；正式立项前必须优先核查。"
+        ]
+      ],
+      "reason": "价值高，但当前Coverage和Workflow证据不足且重合风险上升；先完成MedProbeBench等覆盖矩阵及医生校准，再决定是否立项。",
+      "current_system_name": "临床推理与指南溯源",
+      "idea_score": 67.0,
+      "score_breakdown": {
+        "real_world_value": 20,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 15,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 3
+      },
+      "evidence_confidence": "Low",
+      "radar_hits": 0,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "partial",
+        "model_failure": "unsupported"
+      },
+      "claim_status": {
+        "core_insight": "partial",
+        "why_now": "partial",
+        "evaluation_gap": "partial",
+        "model_failure": "unsupported"
+      },
+      "coverage_matrix_status": {
+        "benchmarks_reviewed": 5,
+        "verified_entries": 3,
+        "covered": 0,
+        "partial": 0,
+        "not_covered": 3,
+        "unknown_or_pending": 2,
+        "status": "partial"
+      },
+      "traces": [
+        {
+          "source_item_id": 98,
+          "signal_id": 98,
+          "radar": "benchmark",
+          "title": "CliMedBench: A Large-Scale Chinese Benchmark for Evaluating Medical LLMs",
+          "url": "https://aclanthology.org/2024.emnlp-main.480/",
+          "evidence_role": "raw_source",
+          "source_type": "paper",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            478,
+            479,
+            1118
+          ],
+          "evidence_detail": "../insights/idea-18-evidence-98.html",
+          "raw_detail": "../insights/raw-source-98.html"
+        },
+        {
+          "source_item_id": 101,
+          "signal_id": 101,
+          "radar": "benchmark",
+          "title": "GitHub - FreedomIntelligence/CMB: CMB, A Comprehensive Medical Benchmark in Chinese",
+          "url": "https://github.com/FreedomIntelligence/CMB",
+          "evidence_role": "raw_source",
+          "source_type": "official_github",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            1612
+          ],
+          "evidence_detail": "../insights/idea-18-evidence-101.html",
+          "raw_detail": "../insights/raw-source-101.html"
+        },
+        {
+          "source_item_id": 102,
+          "signal_id": 102,
+          "radar": "benchmark",
+          "title": "GitHub - jind11/MedQA: Code and data for MedQA",
+          "url": "https://github.com/jind11/MedQA",
+          "evidence_role": "raw_source",
+          "source_type": "official_github",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            1611
+          ],
+          "evidence_detail": "../insights/idea-18-evidence-102.html",
+          "raw_detail": "../insights/raw-source-102.html"
+        },
+        {
+          "source_item_id": 97,
+          "signal_id": 97,
+          "radar": "benchmark",
+          "title": "MedBench",
+          "url": "https://medbench.opencompass.org.cn/",
+          "evidence_role": "raw_source",
+          "source_type": "benchmark_site",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            561,
+            562
+          ],
+          "evidence_detail": "../insights/idea-18-evidence-97.html",
+          "raw_detail": "../insights/raw-source-97.html"
+        },
+        {
+          "source_item_id": 87,
+          "signal_id": 87,
+          "radar": "product_agent",
+          "title": "AMIE, our research medical AI system, demonstrates real-time clinical video consultation capabilities in a first-of-its-kind study.",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-video-consultations/",
+          "evidence_role": "raw_source",
+          "source_type": "official_release",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            22
+          ],
+          "evidence_detail": "../insights/idea-18-evidence-87.html",
+          "raw_detail": "../insights/raw-source-87.html"
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "id": 5,
+      "title": "带来源与可复现实验产物的科学研究Agent",
+      "recommendation": "Watch",
+      "what": "评测研究Agent能否完成文献证据检索、科学分析/代码执行和产物复现，并保持来源与实验链路可审计。",
+      "trigger_ids": [
+        14,
+        23,
+        32
+      ],
+      "why_now": "当前库包含抗菌分子搜索、量子实验和研究加速的官方产品案例，说明科研Agent能力正在进入真实使用；状态：Verified（产品侧），但案例来自厂商宣传。",
+      "gap": "ScienceAgentBench已覆盖102个真实科学工作流单项任务，DiscoveryBench覆盖多步数据驱动发现，PaperBench覆盖AI研究复现，LAB-Bench覆盖生物研究技能。宽泛的“科学Agent”已高度覆盖；只有跨步骤来源链、真实实验环境与可审计产物的特定组合可能仍有空间，当前Coverage不足。",
+      "workflow": "当前Idea缺少独立科研人员SOP/访谈；产品案例不能替代Workflow Evidence。状态：Unsupported。",
+      "product": "OpenAI官方案例显示模型参与抗菌分子搜索、量子实验和内部研究加速；状态：Verified，但需注意供应商选择性披露。",
+      "failure": "ScienceAgentBench公开结果显示最佳Agent仅完成32.4%，有专家知识为34.3%，o1-preview为42.2%；这是公开Benchmark结果，不是当前系统Case级证据。状态：Partial。",
+      "risks": [
+        "现有Benchmark密集，泛化Idea几乎没有差异化。",
+        "当前聚类还混入长期记忆、隐私画像、语音数据等无关Signal。",
+        "实验环境、依赖和许可证导致复现成本高。"
+      ],
+      "benchmarks": [
+        [
+          "ScienceAgentBench",
+          "2024-10；ICLR 2025",
+          "https://arxiv.org/abs/2410.05080",
+          "44篇论文提取102个真实科研任务；评程序、执行结果与成本。",
+          "Covered",
+          "直接覆盖科研工作流单项任务。"
+        ],
+        [
+          "LAB-Bench",
+          "2024-07-14",
+          "https://arxiv.org/abs/2407.10362",
+          "2,400+生物研究相关任务。",
+          "Partial",
+          "覆盖生物研究能力，任务以知识/技能为主。"
+        ],
+        [
+          "DiscoveryBench",
+          "2024-07-02",
+          "https://arxiv.org/abs/2407.01725",
+          "形式化多步数据驱动发现过程。",
+          "Covered",
+          "覆盖多步科学发现。"
+        ],
+        [
+          "PaperBench",
+          "2025-04-02",
+          "https://arxiv.org/abs/2504.01848",
+          "评Agent复现20篇近期AI研究工作。",
+          "Covered",
+          "直接覆盖研究复现与产物。"
+        ]
+      ],
+      "reason": "当前宽泛定义重复度过高；只有先限定一个尚未覆盖且具真实Workflow的窄任务，才值得重新进入Consider。",
+      "current_system_name": "Scientific Domain Expertise能力评测",
+      "idea_score": 55.0,
+      "score_breakdown": {
+        "real_world_value": 10,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 14,
+        "evaluability": 6,
+        "data_feasibility": 7,
+        "expert_cost": 4
+      },
+      "evidence_confidence": "Medium",
+      "radar_hits": 1,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "unsupported",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "claim_status": {
+        "core_insight": "partial",
+        "why_now": "verified",
+        "evaluation_gap": "partial",
+        "model_failure": "unsupported"
+      },
+      "coverage_matrix_status": {
+        "benchmarks_reviewed": 0,
+        "verified_entries": 0,
+        "covered": 0,
+        "partial": 0,
+        "not_covered": 0,
+        "unknown_or_pending": 0,
+        "status": "missing"
+      },
+      "traces": [
+        {
+          "source_item_id": 14,
+          "signal_id": 14,
+          "radar": "product_agent",
+          "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
+          "url": "https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials",
+          "evidence_role": "raw_source",
+          "source_type": "official_release",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            44
+          ],
+          "evidence_detail": "../insights/idea-5-evidence-14.html",
+          "raw_detail": "../insights/raw-source-14.html"
+        },
+        {
+          "source_item_id": 23,
+          "signal_id": 23,
+          "radar": "product_agent",
+          "title": "How GPT-5.6 Sol helps run quantum computing experiments",
+          "url": "https://openai.com/index/codex-quantum-computing-experiments",
+          "evidence_role": "raw_source",
+          "source_type": "official_release",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            43
+          ],
+          "evidence_detail": "../insights/idea-5-evidence-23.html",
+          "raw_detail": "../insights/raw-source-23.html"
+        },
+        {
+          "source_item_id": 32,
+          "signal_id": 32,
+          "radar": "product_agent",
+          "title": "Research acceleration: The view inside OpenAI",
+          "url": "https://openai.com/index/research-acceleration-view-inside-openai",
+          "evidence_role": "raw_source",
+          "source_type": "official_release",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            46
+          ],
+          "evidence_detail": "../insights/idea-5-evidence-32.html",
+          "raw_detail": "../insights/raw-source-32.html"
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "id": 3,
+      "title": "患者特异性用药安全与剂量调整",
+      "recommendation": "Watch",
+      "what": "评测模型能否综合年龄、肝肾功能、合并用药、禁忌证及指南版本，给出安全的患者级用药/剂量调整建议。",
+      "trigger_ids": [
+        7,
+        8
+      ],
+      "why_now": "任务风险高、临床价值明确，但当前所有触发记录均为internal://分析摘要，无真实药师访谈和原始Failure Case；状态：Unsupported。",
+      "gap": "MedSafetyBench覆盖有害医疗请求的安全应答；RxSafeBench已覆盖2,443个模拟咨询中的禁忌证与药物相互作用。当前只能提出患者级剂量调整、肝肾功能和指南版本可能是残余维度；尚未完成对RxSafeBench样本和其他药理Benchmark的全量Coverage Analysis。",
+      "workflow": "缺少可核验的药师处方审核SOP、用药规则和病例数据；状态：Unsupported。",
+      "product": "无相关官方产品能力信号；状态：Unsupported。",
+      "failure": "内部记录声称模型忽略肾功能，但没有原Prompt、Reference、Response或Judge；不可作为证据。公开RxSafeBench结果仅作为外部Failure Evidence。",
+      "risks": [
+        "RxSafeBench已直接覆盖禁忌和相互作用，原Idea部分重复。",
+        "医疗高风险，必须由临床药师定义Rubric并完成病例合规。",
+        "剂量建议依赖药品、地区说明书与动态指南版本。"
+      ],
+      "benchmarks": [
+        [
+          "MedSafetyBench",
+          "2024 / NeurIPS 2024",
+          "https://github.com/AI4LIFE-GROUP/med-safety-bench",
+          "1,800组有害医疗请求与安全回答；评安全拒答/纠正。",
+          "Partial",
+          "未系统覆盖患者级剂量计算。"
+        ],
+        [
+          "RxSafeBench",
+          "2025-10 / BIBM 2025",
+          "https://github.com/CAS-SIAT-XinHai/RxSafeBench",
+          "2,443个模拟咨询；禁忌证与药物相互作用，覆盖12科室。",
+          "Partial-to-Covered",
+          "直接覆盖大量药物安全，但复杂剂量个体化仍需核查。"
+        ],
+        [
+          "MedGUIDE",
+          "2025-05-16",
+          "https://arxiv.org/abs/2505.11613",
+          "指南决策树一致性。",
+          "Adjacent",
+          "指南遵循相关，但非通用患者级给药。"
+        ]
+      ],
+      "reason": "高价值但当前证据最薄弱；先完成RxSafeBench覆盖审查并取得药师SOP/病例，再决定是否进入正式设计。",
+      "current_system_name": "患者特异性用药安全决策",
+      "idea_score": 52.0,
+      "score_breakdown": {
+        "real_world_value": 13,
+        "model_weakness": 8,
+        "model_differentiation": 6,
+        "novelty": 6,
+        "evaluability": 8,
+        "data_feasibility": 8,
+        "expert_cost": 3
+      },
+      "evidence_confidence": "Low",
+      "radar_hits": 0,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "claim_status": {
+        "core_insight": "unsupported",
+        "why_now": "unsupported",
+        "evaluation_gap": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "coverage_matrix_status": {
+        "benchmarks_reviewed": 0,
+        "verified_entries": 0,
+        "covered": 0,
+        "partial": 0,
+        "not_covered": 0,
+        "unknown_or_pending": 0,
+        "status": "missing"
+      },
+      "traces": [
+        {
+          "source_item_id": 7,
+          "signal_id": 7,
+          "radar": "workflow",
+          "title": "临床药师用药安全复核",
+          "url": "internal://interview/medical-001",
+          "evidence_role": "analysis",
+          "source_type": "internal_analysis",
+          "source_quality": "ai_generated",
+          "validation_status": "analysis_only",
+          "extraction_ids": [
+            131,
+            132
+          ],
+          "evidence_detail": null,
+          "raw_detail": null
+        },
+        {
+          "source_item_id": 8,
+          "signal_id": 8,
+          "radar": "model_failure",
+          "title": "模型忽略肾功能导致剂量建议错误",
+          "url": "internal://failure/medical-001",
+          "evidence_role": "analysis",
+          "source_type": "internal_analysis",
+          "source_quality": "ai_generated",
+          "validation_status": "analysis_only",
+          "extraction_ids": [
+            130
+          ],
+          "evidence_detail": null,
+          "raw_detail": null
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "id": 6,
+      "title": "Agent选型评估门槛的有效性",
+      "recommendation": "Reject",
+      "what": "评测基于模拟用户和LLM Judge的Agent选型排序，是否与可验证任务成功和真实质量排序一致。",
+      "trigger_ids": [
+        41,
+        91
+      ],
+      "why_now": "Managed Agents等官方产品更新说明Agent平台化加速；GAUGE直接指出离线选型门槛可能错误。状态：Verified/Partial。",
+      "gap": "GAUGE已经把该问题定义为可复用协议，并在τ²-bench与SimulatorArena上评估排序有效性与构念有效性。当前Idea与GAUGE高度同义，不构成独立新Benchmark。",
+      "workflow": "当前金融决策委托论文与该评估协议只间接相关；状态：Partial。",
+      "product": "Gemini Managed Agents是直接的产品化信号，但只支持Why Now。状态：Verified。",
+      "failure": "GAUGE报告满意对话中57.5%任务失败、强Agent近邻对比决策分歧达31%；公开证据可靠，但它同时说明已有Benchmark已覆盖。",
+      "risks": [
+        "核心Idea已被GAUGE直接实现。",
+        "当前系统名称“Agent Domain Expertise”与真实Signal不一致，聚类需人工拆分。",
+        "除非聚焦特定垂类选型或新的ground-truth reward，否则没有差异化。"
+      ],
+      "benchmarks": [
+        [
+          "τ²-bench",
+          "2024-06-17",
+          "https://arxiv.org/abs/2406.12045",
+          "零售/航空的用户—工具—Agent交互；用目标数据库状态评task success和pass^k。",
+          "Foundation",
+          "为评估有效性提供客观奖励。"
+        ],
+        [
+          "GAUGE",
+          "2026-09-10",
+          "https://arxiv.org/abs/2609.12191",
+          "检验LLM用户模拟＋LLM Judge选型门槛的ranking/construct validity。",
+          "Covered",
+          "与候选Idea几乎完全重合。"
+        ]
+      ],
+      "reason": "公开Benchmark已直接覆盖核心问题；不建议重复立项，可把GAUGE作为Radar评估方法论输入。",
+      "current_system_name": "Agent Domain Expertise能力评测",
+      "idea_score": 64.0,
+      "score_breakdown": {
+        "real_world_value": 17,
+        "model_weakness": 7,
+        "model_differentiation": 7,
+        "novelty": 14,
+        "evaluability": 6,
+        "data_feasibility": 9,
+        "expert_cost": 4
+      },
+      "evidence_confidence": "Medium",
+      "radar_hits": 1,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "partial",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "claim_status": {
+        "core_insight": "partial",
+        "why_now": "verified",
+        "evaluation_gap": "partial",
+        "model_failure": "unsupported"
+      },
+      "coverage_matrix_status": {
+        "benchmarks_reviewed": 0,
+        "verified_entries": 0,
+        "covered": 0,
+        "partial": 0,
+        "not_covered": 0,
+        "unknown_or_pending": 0,
+        "status": "missing"
+      },
+      "traces": [
+        {
+          "source_item_id": 41,
+          "signal_id": 41,
+          "radar": "benchmark",
+          "title": "GAUGE: When Not to Trust LLM-as-a-Judge in User-Simulated Evaluation of Task-Oriented Agents",
+          "url": "https://arxiv.org/abs/2609.12191",
+          "evidence_role": "raw_source",
+          "source_type": "paper",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            31,
+            32
+          ],
+          "evidence_detail": "../insights/idea-6-evidence-41.html",
+          "raw_detail": "../insights/raw-source-41.html"
+        },
+        {
+          "source_item_id": 91,
+          "signal_id": 91,
+          "radar": "product_agent",
+          "title": "Gemini API Managed Agents: 3.6 Flash, hooks, and more",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
+          "evidence_role": "raw_source",
+          "source_type": "official_release",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            33
+          ],
+          "evidence_detail": "../insights/idea-6-evidence-91.html",
+          "raw_detail": "../insights/raw-source-91.html"
+        }
+      ]
+    },
+    {
+      "rank": 9,
+      "id": 13,
+      "title": "带引用与置信度校准的证据核查",
+      "recommendation": "Reject",
+      "what": "评测系统能否检索证据、生成事实判断、提供正确且完整的引用，并在证据不足时校准置信度或弃答。",
+      "trigger_ids": [
+        36
+      ],
+      "why_now": "R2VC直接展示检索、验证、校准和弃答组合；这是相关研究信号，但不是新的空白。状态：Partial。",
+      "gap": "ALCE已自动评引用正确性和完整性，R2VC进一步覆盖检索、NLI验证、Brier校准与弃答。当前泛化Idea已被现有工作实质覆盖；只有特定垂类、长文档或监管证据链才可能形成新Gap。",
+      "workflow": "当前无真实专业Workflow来源；状态：Unsupported。",
+      "product": "当前无直接官方产品证据；状态：Unsupported。",
+      "failure": "ALCE报告ELI5上最佳模型仍约有50%回答缺少完整引用支持；R2VC人工分析显示错误实体检索是主要瓶颈。公开Failure有据，但已被对应Benchmark评测。",
+      "risks": [
+        "与ALCE、R2VC高度重合。",
+        "当前Idea还错误聚入文本匿名化论文，说明聚类不纯。",
+        "若不限定垂类与证据格式，难形成独特价值。"
+      ],
+      "benchmarks": [
+        [
+          "ALCE",
+          "2023-05；EMNLP 2023",
+          "https://aclanthology.org/2023.emnlp-main.398/",
+          "ASQA/QAMPARI/ELI5上的答案正确性、引用正确性与引用完整性。",
+          "Covered",
+          "直接覆盖通用引用质量。"
+        ],
+        [
+          "R2VC",
+          "2026-08-06",
+          "https://arxiv.org/abs/2609.11955",
+          "FEVER上的混合检索、候选验证、引用、Brier校准和选择性弃答。",
+          "Covered",
+          "直接覆盖候选Idea的组合能力。"
+        ]
+      ],
+      "reason": "当前通用表述没有新增覆盖；应Reject，未来仅在明确垂类证据源与独特工作流后重新立项。",
+      "current_system_name": "General Citation Correctness能力评测",
+      "idea_score": 58.0,
+      "score_breakdown": {
+        "real_world_value": 10,
+        "model_weakness": 8,
+        "model_differentiation": 6,
+        "novelty": 11,
+        "evaluability": 11,
+        "data_feasibility": 8,
+        "expert_cost": 4
+      },
+      "evidence_confidence": "Low",
+      "radar_hits": 0,
+      "radar_status": {
+        "benchmark": "partial",
+        "workflow": "unsupported",
+        "product_agent": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "claim_status": {
+        "core_insight": "partial",
+        "why_now": "partial",
+        "evaluation_gap": "partial",
+        "model_failure": "unsupported"
+      },
+      "coverage_matrix_status": {
+        "benchmarks_reviewed": 0,
+        "verified_entries": 0,
+        "covered": 0,
+        "partial": 0,
+        "not_covered": 0,
+        "unknown_or_pending": 0,
+        "status": "missing"
+      },
+      "traces": [
+        {
+          "source_item_id": 36,
+          "signal_id": 36,
+          "radar": "benchmark",
+          "title": "R2VC: Modular Fact-Checking with Retrieval, Verification, and Confidence Calibration",
+          "url": "https://arxiv.org/abs/2609.11955",
+          "evidence_role": "raw_source",
+          "source_type": "paper",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            16,
+            17
+          ],
+          "evidence_detail": "../insights/idea-13-evidence-36.html",
+          "raw_detail": "../insights/raw-source-36.html"
+        }
+      ]
+    },
+    {
+      "rank": 10,
+      "id": 7,
+      "title": "通用函数/工具调用可靠性",
+      "recommendation": "Reject",
+      "what": "评测模型能否选择正确工具、生成正确参数，并完成并行、多轮及Agent式工具交互。",
+      "trigger_ids": [
+        18
+      ],
+      "why_now": "Agents API官方发布证明工具调用已产品化；状态：Verified。",
+      "gap": "BFCL V4已从函数选择和AST参数检查扩展到多轮、企业函数、Web搜索与整体Agent评估；ToolBench、API-Bank、TRAJECT-Bench和τ²-bench进一步覆盖大规模API、多轮对话、轨迹和业务规则。泛化Tool Use没有可辩护Gap。",
+      "workflow": "当前无真实专业工作流证据；状态：Unsupported。",
+      "product": "OpenAI Agents API为官方产品信号；状态：Verified。",
+      "failure": "τ²-bench公开结果显示先进Agent成功率仍低于50%、零售pass^8低于25%；但这是已存在Benchmark的Failure，不支持新建同类Benchmark。",
+      "risks": [
+        "领域已高度拥挤且BFCL持续更新。",
+        "当前仅有产品Release，没有真实使用者任务。",
+        "任何新Idea必须限定特定垂类工具、权限或不可逆风险。"
+      ],
+      "benchmarks": [
+        [
+          "ToolBench",
+          "2023-07",
+          "https://arxiv.org/abs/2307.16789",
+          "大规模真实API使用与工具学习。",
+          "Covered",
+          "覆盖工具选择与调用。"
+        ],
+        [
+          "API-Bank",
+          "2023-04",
+          "https://arxiv.org/abs/2304.08244",
+          "工具增强LLM的多轮API交互。",
+          "Covered",
+          "覆盖多轮工具使用。"
+        ],
+        [
+          "BFCL V4",
+          "ICML 2025；页面更新2026-04-12",
+          "https://gorilla.cs.berkeley.edu/leaderboard.html",
+          "函数选择、AST参数、多轮、企业/开源函数及Web搜索Agent。",
+          "Covered",
+          "直接覆盖通用Tool Use。"
+        ],
+        [
+          "TRAJECT-Bench",
+          "2025-10-06",
+          "https://arxiv.org/abs/2510.04550",
+          "工具、参数、依赖和顺序的轨迹级评测。",
+          "Covered",
+          "覆盖复杂工具链。"
+        ]
+      ],
+      "reason": "泛化工具调用已被成熟Benchmark充分覆盖，不建议立项。",
+      "current_system_name": "Agent Tool Use能力评测",
+      "idea_score": 45.0,
+      "score_breakdown": {
+        "real_world_value": 9,
+        "model_weakness": 7,
+        "model_differentiation": 5,
+        "novelty": 9,
+        "evaluability": 6,
+        "data_feasibility": 5,
+        "expert_cost": 4
+      },
+      "evidence_confidence": "Medium",
+      "radar_hits": 1,
+      "radar_status": {
+        "benchmark": "unsupported",
+        "workflow": "unsupported",
+        "product_agent": "verified",
+        "model_failure": "unsupported"
+      },
+      "claim_status": {
+        "core_insight": "partial",
+        "why_now": "verified",
+        "evaluation_gap": "unsupported",
+        "model_failure": "unsupported"
+      },
+      "coverage_matrix_status": {
+        "benchmarks_reviewed": 0,
+        "verified_entries": 0,
+        "covered": 0,
+        "partial": 0,
+        "not_covered": 0,
+        "unknown_or_pending": 0,
+        "status": "missing"
+      },
+      "traces": [
+        {
+          "source_item_id": 18,
+          "signal_id": 18,
+          "radar": "product_agent",
+          "title": "Introducing the Agents API",
+          "url": "https://openai.com/index/introducing-the-agents-api",
+          "evidence_role": "raw_source",
+          "source_type": "official_release",
+          "source_quality": "primary",
+          "validation_status": "verified_source",
+          "extraction_ids": [
+            62
+          ],
+          "evidence_detail": "../insights/idea-7-evidence-18.html",
+          "raw_detail": "../insights/raw-source-18.html"
+        }
+      ]
+    }
+  ]
+}

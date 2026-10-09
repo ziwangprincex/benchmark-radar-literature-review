@@ -1,0 +1,382 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Failure Case · off_topic</title><style>
+:root{--ink:#152220;--muted:#687673;--green:#087a61;--line:#dce5e2;--bg:#f4f7f6;--red:#b5483f}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1050px;margin:auto;padding:34px 22px 70px}a{color:var(--green)}.crumb{font-size:12px;color:var(--muted);margin-bottom:18px}.hero{background:#10352d;color:#fff;border-radius:17px;padding:29px;margin-bottom:15px}.hero small{color:#83d8be;text-transform:uppercase;letter-spacing:.12em}.hero h1{margin:9px 0 5px;font-size:30px}.hero p{color:#bdd8d0;line-height:1.6}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:21px;margin-top:13px}.panel h2{font-size:18px;margin-top:0}.panel h3{font-size:14px;margin:12px 0 6px}p,li{line-height:1.7}.muted{color:var(--muted)}.meta{display:flex;gap:7px;flex-wrap:wrap}.tag{padding:5px 8px;background:#e7f2ee;color:#176550;border-radius:6px;font-size:11px}.evidence{border-top:1px solid var(--line);padding:16px 0}.evidence:first-of-type{border-top:0}.evidence strong{display:block;margin-bottom:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{background:#f4f7f6;border-radius:9px;padding:13px}.field small{display:block;color:var(--muted);margin-bottom:5px}pre{white-space:pre-wrap;word-break:break-word;background:#102521;color:#d9eee7;padding:14px;border-radius:9px;overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-top:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted)}.severity-critical,.severity-high{color:#a32d25;font-weight:800}.severity-medium{color:#9b690e;font-weight:800}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}select{padding:9px;border:1px solid var(--line);border-radius:7px;background:#fff}.count{font-weight:900;color:var(--green)}.raw-panel{border-left:5px solid #3157a4}.extract-panel{border-left:5px solid #087a61}.ai-panel{border-left:5px solid #8655a8}.evidence-label{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.12em;padding:5px 8px;border-radius:5px;margin-bottom:10px}.raw-label{background:#e5ecfa;color:#3157a4}.extract-label{background:#e2f2ed;color:#087a61}.ai-label{background:#f0e8f6;color:#754797}.case-card{border:1px solid var(--line);border-radius:9px;padding:13px;margin-top:9px}@media(max-width:720px){.grid,.controls{grid-template-columns:1fr}}
+</style></head><body><main><div class="crumb"><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a> / <a href="idea-1-evidence-417.html">Evidence</a> / Failure Case #92</div><header class="hero"><small>Model Failure Case #92</small><h1>off_topic</h1><p>PDF财报异常识别与证据引用 · claude-2 · medium</p></header>
+<section class="panel"><h2>Case Detail</h2><div class="grid"><div class="field"><small>Eval Run ID</small></div><div class="field"><small>Failure Case ID</small>financebench::financebench_id_04735::claude-2_inContext</div><div class="field"><small>Task / Prompt</small>You are an investment banker and your only resource(s) to answer the following question is (are): the statement of financial position and the cash flow statement. Here&#x27;s the question: what is the FY2015 operating cash flow ratio for Adobe? Operating cash flow ratio is defined as: cash from operations / total current liabilities. Round your answer to two decimal places.</div><div class="field"><small>Input</small>doc=ADOBE_2015_10K evidence_pages=[58, 62] mode=inContext</div><div class="field"><small>Reference Answer</small>0.66</div><div class="field"><small>Rubric</small>FinanceBench 作者人工判分：Correct Answer / Incorrect Answer / Refusal</div><div class="field"><small>Model</small>claude-2 claude-2_inContext</div><div class="field"><small>Model Response</small> /s/ JENNIFER STRINGER
+Jennifer Stringer
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/s/ ROBERT K. BURGESS
+ 
+ 
+ 
+January 19, 2016
+Robert K. Burgess
+ 
+Director
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/s/ FRANK A. CALDERONI
+ 
+ 
+ 
+January 19, 2016
+Frank A. Calderoni
+ 
+Director
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/s/ MICHAEL R. CANNON
+ 
+ 
+ 
+January 19, 2016
+Michael R. Cannon
+ 
+Director
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/s/ JAMES E. DALEY
+ 
+ 
+ 
+January 19, 2016
+James E. Daley
+ 
+Director
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/s/ LAURA B. DESMOND
+ 
+ 
+ 
+January 19, 2016
+Laura B. Desmond
+ 
+Director
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/s/ DANIEL L. ROSENSWEIG
+ 
+ 
+ 
+January 19, 2016
+Daniel L. Rosensweig
+ 
+Director
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/s/ ROBERT SEDGEWICK
+ 
+ 
+ 
+January 19, 2016
+Robert Sedgewick
+ 
+Director
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/s/ ROBERT K. STEEL
+ 
+ 
+ 
+January 19, 2016
+Robert K. Steel
+ 
+Director
+ 109
+SUMMARY OF TRADEMARKS
+The following trademarks of Adobe Systems Incorporated or its subsidiaries, which may be registered in the United States 
+and/or other countries, are referenced in this Form 10-K:
+Adobe
+Acrobat
+ActionScript
+Adobe Premiere
+After Effects
+Authorware
+Behance
+Creative Cloud
+Creative Suite
+Director
+Dreamweaver
+Flash
+Flex
+Illustrator
+InDesign
+Lightroom
+LiveCycle
+Omniture
+Photoshop
+PostScript
+Reader
+Shockwave
+Typekit
+All other trademarks are the property of their respective owners.
+ 110
+INDEX TO EXHIBITS
+Incorporated by Reference**
+Exhibit 
+Number
+Exhibit Description
+Form
+Date
+Number
+3.1 Restated Certificate of Incorporation of Adobe Systems 
+Incorporated
+8-K
+4/26/11
+3.3
+3.2 Amended and Restated Bylaws
+8-K
+10/7/13
+3.2
+4.1 Form of Indenture dated as of February 16, 2010 by and 
+between Adobe Systems Incorporated and Wells Fargo Bank, 
+National Association as trustee
+8-K
+2/22/10
+4.1
+4.2 Form of Global Note for Adobe Systems Incorporated’s 
+4.75% Notes due 2020, together with Form of Officer’s 
+Certificate setting forth the terms of the Note
+8-K
+1/26/10
+4.1
+4.3 Form of Global Note for Adobe Systems Incorporated’s 
+3.25% Notes due 2015, together with Form of Officer’s 
+Certificate setting forth the terms of the Note
+8-K
+1/26/10
+4.2
+4.4 Officers Certificate setting forth the terms of the 4.75% 
+Notes due 2020
+8-K
+2/1/10
+4.1
+4.5 Officers Certificate setting forth the terms of the 3.25% 
+Notes due 2015
+8-K
+2/1/10
+4.2
+4.6 Form of Global Note for Adobe Systems Incorporated’s 
+3.25% Notes due 2025, together with Form of Officer’s 
+Certificate setting forth the terms of the Note
+8-K
+1/26/15
+4.1
+4.7 Officers Certificate setting forth the terms of the 3.25% 
+Notes due 2025
+8-K
+1/29/15
+4.1
+10.1A Amended 1994 Performance and Restricted Stock Plan*
+10-Q
+4/9/10
+10.1
+10.1B Forms of Stock Option Agreements under the Amended 1994 
+Performance and Restricted Stock Plan*
+10-K
+1/23/09
+10.3
+10.1C Forms of Restricted Stock Agreements under the Amended 
+1994 Performance and Restricted Stock Plan*
+10-K
+1/23/09
+10.4
+10.2A 1997 Employee Stock Purchase Plan, as amended*
+8-K
+4/9/10
+10.2
+10.2B Form of Indemnity Agreement*
+10-Q
+6/26/09
+10.12
+10.3A 2003 Equity Incentive Plan, as amended and restated*
+8-K
+4/13/12
+10.1
+10.3B Forms of Stock Option Agreements under the 2003 Equity 
+Incentive Plan*
+10-K
+1/26/06
+10.8
+10.3C Forms of Restricted Stock Unit Agreements under the 2003 
+Equity Incentive Plan*
+10-K
+1/26/06
+10.9
+10.3D Forms of Performance Share Agreements under the 2003 
+Equity Incentive Plan*
+8-K
+1/28/11
+10.3
+10.3E Form of Restricted Stock Agreement under the 2003 Equity 
+Incentive Plan*
+8-K
+1/28/11
+10.4
+10.3F 2013 Performance Share Program pursuant to the terms of 
+the 2003 Equity Incentive Plan*
+8-K
+1/28/13
+10.3
+10.3G 2014 Performance Share Program pursuant to the terms of 
+the 2003 Equity Incentive Plan*
+8-K
+1/29/14
+10.3
+10.3H 2015 Performance Share Program pursuant to the terms of 
+the 2003 Equity Incentive Plan*
+8-K
+1/29/15
+10.3
+10.4A 2005 Equity Incentive Assumption Plan, as amended and 
+restated*
+8-K
+4/13/12
+10.2
+10.4B Forms of Stock Option Agreements under the 2005 Equity 
+Incentive Assumption Plan*
+10-K
+1/26/06
+10.11
+10.4C Forms of Restricted Stock Unit Agreements under the 2005 
+Equity Incentive Assumption Plan*
+10-K
+1/26/06
+10.12
+10.4D Forms of Performance Share Agreements under the 2005 
+Equity Incentive Assumption Plan*
+8-K
+1/28/11
+10.5
+10.4E Form of Restricted Stock Agreement under the 2005 Equity 
+Incentive Assumption Plan*
+8-K
+1/28/11
+10.6
+10.5A 2007 Equity Incentive Plan, as amended and restated*
+8-K
+4/13/12
+10.3
+10.5B Forms of Stock Option Agreements under the 2007 Equity 
+Incentive Plan*
+10-K
+1/29/10
+10.12
+10.5C Forms of Restricted Stock Unit Agreements under the 2007 
+Equity Incentive Plan*
+10-K
+1/29/10
+10.13
+10.5D Forms of Performance Share Agreements under the 2007 
+Equity Incentive Plan*
+8-K
+1/28/11
+10.7
+10.5E Form of Restricted Stock Agreement under the 2007 Equity 
+Incentive Plan*
+8-K
+1/28/11
+10.8
+10.6A 2009 Equity Incentive Plan, as amended and restated*
+8-K
+4/11/14
+10.1
+10.6B Forms of Stock Option Agreements under the 2009 Equity 
+Incentive Plan*
+10-K
+1/26/10
+10.15
+10.6C Forms of Restricted Stock Unit Agreements under the 2009 
+Equity Incentive Plan*
+10-K
+1/26/10
+10.16
+10.6D Forms of Performance Share Agreements under the 2009 
+Equity Incentive Plan*
+8-K
+1/28/11
+10.9
+10.6E Form of Restricted Stock Agreement under the 2009 Equity 
+Incentive Plan*
+8-K
+1/28/11
+10.10
+10.7A 2014 Equity Incentive Plan, as amended and restated*
+8-K
+4/9/15
+10.1
+10.7B Forms of Stock Option Agreements under the 2014 Equity 
+Incentive Plan*
+10-Q
+4/4/14
+10.1
+10.7C Forms of Restricted Stock Unit Agreements under the 2014 
+Equity Incentive Plan*
+10-Q
+4/4/14
+10.2
+10.7D Forms of Performance Share Agreements under the 2014 
+Equity Incentive Plan*
+10-Q
+4/4/14
+10.3
+10.7E Form of Restricted Stock Agreement under the 2014 Equity 
+Incentive Plan*
+10-Q
+4/4/14
+10.4
+10.8A 1996 Outside</div><div class="field"><small>Score / Pass-Fail</small>0.0 / FAIL</div><div class="field"><small>Failure Type</small>off_topic</div><div class="field"><small>Severity</small>medium</div><div class="field"><small>Error Analysis</small>[规则归类] 回答开头与问题关键词重合 &lt;20%，疑为读错文档段落（Amcor 证券登记、3M 套期保值等）。同题失败配置数 3/4。</div><div class="field"><small>Judge Result</small>Incorrect Answer（FinanceBench 作者人工标注，未重判）</div><div class="field"><small>Benchmark</small>FinanceBench</div><div class="field"><small>Run Date</small>2023-11-20</div></div><p><span class="muted">未关联可验证 Eval Run</span></p></section>
+<section class="panel"><h2>原始附件 / 数据</h2><p class="muted">无附件</p><details><summary>Raw Case JSON</summary><pre>{
+  &quot;question_type&quot;: &quot;metrics-generated&quot;,
+  &quot;question_reasoning&quot;: &quot;Numerical reasoning&quot;,
+  &quot;evidence_pages&quot;: [
+    58,
+    62
+  ],
+  &quot;fail_configs&quot;: [
+    &quot;gpt-4-1106-preview_singleStore&quot;,
+    &quot;claude-2_inContext&quot;,
+    &quot;llama2_singleStore&quot;
+  ]
+}</pre></details><a href="raw-source-417.html">查看关联 Raw Source →</a></section></main></body></html>

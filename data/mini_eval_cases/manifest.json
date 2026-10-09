@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-09-15",
+  "total_cases": 30,
+  "case_packs": [
+    {
+      "file": "idea-18-cmb-clin.jsonl",
+      "count": 10,
+      "idea_id": 18,
+      "benchmark": "CMB-Clin"
+    },
+    {
+      "file": "idea-1-financebench.jsonl",
+      "count": 10,
+      "idea_id": 1,
+      "benchmark": "FinanceBench"
+    },
+    {
+      "file": "idea-11-bfcl.jsonl",
+      "count": 10,
+      "idea_id": 11,
+      "benchmark": "BFCL v3"
+    }
+  ],
+  "integrity": "All cases retain source record IDs and source-file SHA256. No synthetic cases included.",
+  "execution_status": "financebench_and_bfcl_exported_for_offline_3-model_run; cmb-clin_deferred_for_physician_rubric_calibration",
+  "offline_package": "data/offline_eval_packages/evidence-v1-manual-v2-20260915.zip",
+  "human_workbench": "data/offline_eval_packages/evidence-v1-manual-v2-20260915/workbench.html",
+  "expected_offline_results": 60
+}

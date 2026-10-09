@@ -1,0 +1,15 @@
+# 仓库内统一用 LF 存储。
+#
+# 本项目在 Windows、macOS 和 CI（Linux）三种环境生成 outputs/insights/ 的
+# 333 个 HTML；不统一换行符时，换平台跑一次就会产生整套文件的假 diff
+# （内容相同，仅 CRLF 与 LF 之别），CI 每日任务会把它当成真实变更提交。
+* text=auto eol=lf
+
+# 二进制，不做换行转换
+*.db binary
+*.xlsx binary
+*.docx binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.gif binary

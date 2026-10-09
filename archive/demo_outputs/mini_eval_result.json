@@ -1,0 +1,92 @@
+﻿{
+  "id": 1,
+  "idea_key": "879a6084bdfa1b8b25bc2efd",
+  "idea_name": "PDF财报异常识别与证据引用",
+  "domain": "financial",
+  "real_world_task": "分析师需要阅读跨页财报与附注，识别同比异常、口径变化和勾稽错误，引用准确页码并形成可执行结论。新人常犯的错误是引用错年份、漏掉附注口径调整。",
+  "input_desc": "真实业务材料（文档、记录、专业上下文及必要工具）",
+  "expected_output": "可验证的专业结论、逐项证据引用及结构化推理结果",
+  "why_hard": "组合考察 citation_correctness, cross_document_reasoning, domain_reasoning, long_context, numerical_grounding, planning, tool_use，需要跨信息源完成多步专业推理。",
+  "evaluation_gap": "现有金融评测偏单轮问答，较少把长文档检索、跨页数值推理、引用正确性和专业结论组合为端到端真实任务。",
+  "evaluation_method": "30-50题 Mini Eval；reference精确匹配 + case-specific rubric + 专家抽检。",
+  "data_source": "arxiv-evaluation；failure-manual；openai-product；workflow-manual",
+  "mvp_plan": "先制作30题，覆盖2-3个子能力；运行5个代表模型；验证Failure、区分度和评判一致性。",
+  "radar_hits": 4,
+  "total_score": 92.0,
+  "status": "approved",
+  "version": 2,
+  "created_at": "2026-09-14T10:08:06+00:00",
+  "updated_at": "2026-09-14T10:11:11+00:00",
+  "sources": [
+    "benchmark",
+    "model_failure",
+    "product_agent",
+    "workflow"
+  ],
+  "source_refs": [
+    {
+      "title": "金融分析师：财报异常识别与证据引用",
+      "url": "internal://interview/finance-001",
+      "published_at": "2026-09-01T09:00:00"
+    },
+    {
+      "title": "多个模型在长 PDF 财务分析中引用错误",
+      "url": "internal://failure/finance-pdf-001",
+      "published_at": "2026-09-03T09:00:00"
+    },
+    {
+      "title": "FinanceBench 与 CNFinBench 覆盖缺口分析",
+      "url": "internal://benchmark-gap/finance-001",
+      "published_at": "2026-09-04T09:00:00"
+    },
+    {
+      "title": "Deep Research 支持财务长文档检索与引用",
+      "url": "internal://product/deep-research-001",
+      "published_at": "2026-09-05T09:00:00"
+    }
+  ],
+  "capability": [
+    "citation_correctness",
+    "cross_document_reasoning",
+    "domain_reasoning",
+    "long_context",
+    "numerical_grounding",
+    "planning",
+    "tool_use"
+  ],
+  "expected_failure": [
+    {
+      "type": "long_context",
+      "description": "GPT、Claude、Gemini、DeepSeek 在20份年报测试中出现跨页数字引用错误、单位换算错误、去年数当今年数、引用不存在页码。模型之间准确率极差超过30个百分点。"
+    }
+  ],
+  "existing_benchmark": [
+    "FinanceBench",
+    "CNFinBench",
+    "CFBenchmark"
+  ],
+  "scores": {
+    "real_world_value": 20,
+    "model_weakness": 13,
+    "model_differentiation": 15,
+    "novelty": 15,
+    "evaluability": 15,
+    "data_feasibility": 10,
+    "expert_cost": 4
+  },
+  "score_overrides": {},
+  "mini_evals": [
+    {
+      "id": 1,
+      "idea_id": 1,
+      "sample_size": 40,
+      "model_count": 5,
+      "sota_score": 55.0,
+      "score_range": 32.0,
+      "reproducible_failure": 0.65,
+      "judge_agreement": 0.82,
+      "notes": "V1回流验收样例",
+      "created_at": "2026-09-14T10:11:11+00:00"
+    }
+  ]
+}

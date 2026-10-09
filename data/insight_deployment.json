@@ -1,0 +1,19 @@
+{
+  "provider": "Cloud Studio",
+  "deployment_scope": "outputs/insights：Idea Detail + Evidence Group + Evidence Item + Failure Case + Raw Source + Failure Explorer",
+  "public_base_url": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io",
+  "detail_url_pattern": "{public_base_url}/idea-{idea_id}-{slug}.html",
+  "evidence_group_pattern": "{public_base_url}/idea-{idea_id}-evidence-{radar}.html",
+  "evidence_item_pattern": "{public_base_url}/idea-{idea_id}-evidence-{source_item_id}.html",
+  "failure_case_pattern": "{public_base_url}/failure-case-{case_id}.html",
+  "raw_source_pattern": "{public_base_url}/raw-source-{source_item_id}.html",
+  "failure_explorer": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io/failure-evidence.html",
+  "idea_pages": 20,
+  "withheld_for_provenance": 3,
+  "hierarchy_pages_checked": 304,
+  "evidence_ui_policy": "Raw Source, Evidence Extraction and AI Analysis are separate; each Claim carries support relation and evidence status",
+  "evidence_gate": "Only verified real Raw Sources may support Claims; AI-generated evidence is forbidden; only Verified counts as Radar Hit",
+  "retrieval_policy": "All queries, candidates, selections, rejections and reasons are retained",
+  "deep_link_policy": "Only provenance-ready ideas with Medium/High Evidence Confidence are eligible for Weekly Top10; all pages must return HTTP 200",
+  "updated_at": "2026-09-15T15:27:45"
+}

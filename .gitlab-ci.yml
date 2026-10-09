@@ -1,0 +1,99 @@
+# Benchmark Idea Radar 定时任务（已停用）
+#
+# 已停用：现由 GitHub Actions（.github/workflows/weekly.yml）每周一 15:00（北京时间）
+# 运行 scripts/weekly_refresh.py。下面的 CI 定义仅留作参考，不要再建 Schedule。
+#
+# 两个 job，都由 Pipeline Schedules 触发（Settings → CI/CD → Schedules）：
+#   daily-collect  变量 JOB=daily   每日 09:00  采集 → 抽 Signal → 重算 Idea → 生成页面
+#   weekly-push    变量 JOB=weekly  周五 17:30  生成周报 → 校验深链接 → 推企业微信
+#
+# 需要在 Settings → CI/CD → Variables 配置：
+#   WECOM_WEBHOOK_URL  企业微信群机器人地址，勾选 Masked
+#   GIT_PUSH_TOKEN     写回仓库用的 Project Access Token（scope: write_repository），勾选 Masked
+#
+# 采集和推送都会改 data/radar.db 与 outputs/，跑完 commit 回仓库，
+# 否则下次 CI 从干净仓库启动会丢掉本次结果。
+
+image: python:3.12-slim
+
+variables:
+  GIT_DEPTH: "1"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+.base:
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq git >/dev/null
+    - pip install -q -r requirements.txt
+    - git config user.email "ci@benchmark-idea-radar"
+    - git config user.name "benchmark-idea-radar-ci"
+  after_script:
+    # 无论成功失败都留下日志产物，便于排查“静默不推送”
+    - echo "job=$JOB exit=$CI_JOB_STATUS"
+
+# 把本次运行改动的数据写回仓库。CI 每次从干净仓库启动，不写回就等于没跑。
+.commit_back: &commit_back
+  - |
+    git add data/radar.db outputs/ data/scheduler_state.json data/weekly_push_state.json 2>/dev/null || true
+    if git diff --cached --quiet; then
+      echo "无数据变化，跳过 commit"
+    else
+      git commit -m "ci($JOB): $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+      git push "https://oauth2:${GIT_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" \
+        "HEAD:${CI_COMMIT_REF_NAME}"
+    fi
+
+daily-collect:
+  extends: .base
+  rules:
+    - if: '$JOB == "daily"'
+  script:
+    # --once 跑单轮就退出；CI 里不能用 scheduler 的 while True 常驻循环
+    - python -m radar.publish.scheduler --once
+    - *commit_back
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - data/scheduler_state.json
+      - outputs/latest_top10.json
+
+weekly-push:
+  extends: .base
+  rules:
+    - if: '$JOB == "weekly"'
+  script:
+    # weekly_job 自带 5 道闸门（推送开关、公网地址、深链接 200、webhook、本周未推过），
+    # 任一不过就只归档不发送，退出码仍为 0。用 artifacts 里的日志确认是否真的推出去了。
+    - python -m radar.publish.weekly_job
+    - *commit_back
+  artifacts:
+    when: always
+    expire_in: 90 days
+    paths:
+      - outputs/weekly/
+      - outputs/wecom_push_log.jsonl
+
+# 一次性连通性检查：确认 Runner 能访问采集源和企业微信 API。
+# 手动触发（Pipelines → Run pipeline → 变量 JOB=check），不参与定时。
+connectivity-check:
+  extends: .base
+  rules:
+    - if: '$JOB == "check"'
+  script:
+    - |
+      python - <<'PY'
+      import urllib.request
+      targets = [
+          "https://export.arxiv.org/rss/cs.AI",
+          "https://openai.com/news/rss.xml",
+          "https://blog.google/technology/ai/rss/",
+          "https://www.microsoft.com/en-us/research/feed/",
+          "https://qyapi.weixin.qq.com/cgi-bin/webhook/send",
+      ]
+      for url in targets:
+          try:
+              code = urllib.request.urlopen(url, timeout=20).status
+              print(f"{code}  {url}")
+          except Exception as exc:
+              print(f"FAIL {type(exc).__name__}  {url}  {exc}")
+      PY

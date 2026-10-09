@@ -1,0 +1,35 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Failure Case · off_topic</title><style>
+:root{--ink:#152220;--muted:#687673;--green:#087a61;--line:#dce5e2;--bg:#f4f7f6;--red:#b5483f}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1050px;margin:auto;padding:34px 22px 70px}a{color:var(--green)}.crumb{font-size:12px;color:var(--muted);margin-bottom:18px}.hero{background:#10352d;color:#fff;border-radius:17px;padding:29px;margin-bottom:15px}.hero small{color:#83d8be;text-transform:uppercase;letter-spacing:.12em}.hero h1{margin:9px 0 5px;font-size:30px}.hero p{color:#bdd8d0;line-height:1.6}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:21px;margin-top:13px}.panel h2{font-size:18px;margin-top:0}.panel h3{font-size:14px;margin:12px 0 6px}p,li{line-height:1.7}.muted{color:var(--muted)}.meta{display:flex;gap:7px;flex-wrap:wrap}.tag{padding:5px 8px;background:#e7f2ee;color:#176550;border-radius:6px;font-size:11px}.evidence{border-top:1px solid var(--line);padding:16px 0}.evidence:first-of-type{border-top:0}.evidence strong{display:block;margin-bottom:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{background:#f4f7f6;border-radius:9px;padding:13px}.field small{display:block;color:var(--muted);margin-bottom:5px}pre{white-space:pre-wrap;word-break:break-word;background:#102521;color:#d9eee7;padding:14px;border-radius:9px;overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-top:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted)}.severity-critical,.severity-high{color:#a32d25;font-weight:800}.severity-medium{color:#9b690e;font-weight:800}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}select{padding:9px;border:1px solid var(--line);border-radius:7px;background:#fff}.count{font-weight:900;color:var(--green)}.raw-panel{border-left:5px solid #3157a4}.extract-panel{border-left:5px solid #087a61}.ai-panel{border-left:5px solid #8655a8}.evidence-label{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.12em;padding:5px 8px;border-radius:5px;margin-bottom:10px}.raw-label{background:#e5ecfa;color:#3157a4}.extract-label{background:#e2f2ed;color:#087a61}.ai-label{background:#f0e8f6;color:#754797}.case-card{border:1px solid var(--line);border-radius:9px;padding:13px;margin-top:9px}@media(max-width:720px){.grid,.controls{grid-template-columns:1fr}}
+</style></head><body><main><div class="crumb"><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a> / <a href="idea-1-evidence-417.html">Evidence</a> / Failure Case #140</div><header class="hero"><small>Model Failure Case #140</small><h1>off_topic</h1><p>PDF财报异常识别与证据引用 · claude-2 · medium</p></header>
+<section class="panel"><h2>Case Detail</h2><div class="grid"><div class="field"><small>Eval Run ID</small></div><div class="field"><small>Failure Case ID</small>financebench::financebench_id_04412::claude-2_inContext</div><div class="field"><small>Task / Prompt</small>We need to calculate a reasonable approximation (or exact number if possible) of a financial metric. Basing your judgment by information plainly provided in the balance sheet and the P&amp;L statement, what is Lockheed Martin&#x27;s FY2020 asset turnover ratio? Asset turnover ratio is defined as: FY2020 revenue / (average total assets between FY2019 and FY2020). Round your answer to two decimal places.</div><div class="field"><small>Input</small>doc=LOCKHEEDMARTIN_2020_10K evidence_pages=[66, 68] mode=inContext</div><div class="field"><small>Reference Answer</small>1.33</div><div class="field"><small>Rubric</small>FinanceBench 作者人工判分：Correct Answer / Incorrect Answer / Refusal</div><div class="field"><small>Model</small>claude-2 claude-2_inContext</div><div class="field"><small>Model Response</small> Here are the key points about Lockheed Martin&#x27;s consolidated financial statements and notes:
+
+- Lockheed Martin is a global security and aerospace company that primarily serves U.S. and international government customers, especially agencies of the U.S. government. In 2020, 74% of net sales were from the U.S. government. 
+
+- Net sales in 2020 were $65.4 billion, up from $59.8 billion in 2019. The increase was driven by higher sales in all four business segments (Aeronautics, Missiles and Fire Control, Rotary and Mission Systems, and Space).
+
+- Net earnings from continuing operations in 2020 were $6.9 billion ($24.50 per share), compared to $6.2 billion ($21.95 per share) in 2019.
+
+- Total assets were $50.7 billion at December 31, 2020 versus $47.5 billion at December 31, 2019.
+
+- At December 31, 2020, Lockheed Martin had long-term debt of $11.7 billion, compared to $11.4 billion at December 31, 2019. 
+
+- The company has qualified defined benefit pension plans and provides certain health care and life insurance benefits to retirees. At December 31, 2020, the unfunded status of the pension plans was $12.9 billion.
+
+- During 2020, Lockheed Martin repurchased 3 million shares of common stock for $1.1 billion and paid dividends of $2.8 billion. 
+
+- On December 20, 2020, Lockheed Martin announced an agreement to acquire Aerojet Rocketdyne Holdings for approximately $4.4 billion. The transaction is expected to close in 2021.
+
+- The financial statements include details about the company&#x27;s four business segments, pension plans, debt, income taxes, equity, cash flows, and more. The notes provide important context for interpreting the financial statements.</div><div class="field"><small>Score / Pass-Fail</small>0.0 / FAIL</div><div class="field"><small>Failure Type</small>off_topic</div><div class="field"><small>Severity</small>medium</div><div class="field"><small>Error Analysis</small>[规则归类] 回答开头与问题关键词重合 &lt;20%，疑为读错文档段落（Amcor 证券登记、3M 套期保值等）。同题失败配置数 3/4。</div><div class="field"><small>Judge Result</small>Incorrect Answer（FinanceBench 作者人工标注，未重判）</div><div class="field"><small>Benchmark</small>FinanceBench</div><div class="field"><small>Run Date</small>2023-11-20</div></div><p><span class="muted">未关联可验证 Eval Run</span></p></section>
+<section class="panel"><h2>原始附件 / 数据</h2><p class="muted">无附件</p><details><summary>Raw Case JSON</summary><pre>{
+  &quot;question_type&quot;: &quot;metrics-generated&quot;,
+  &quot;question_reasoning&quot;: &quot;Numerical reasoning&quot;,
+  &quot;evidence_pages&quot;: [
+    66,
+    68
+  ],
+  &quot;fail_configs&quot;: [
+    &quot;gpt-4-1106-preview_singleStore&quot;,
+    &quot;claude-2_inContext&quot;,
+    &quot;llama2_singleStore&quot;
+  ]
+}</pre></details><a href="raw-source-417.html">查看关联 Raw Source →</a></section></main></body></html>

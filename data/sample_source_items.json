@@ -1,0 +1,66 @@
+[
+  {
+    "radar": "workflow",
+    "source_id": "workflow-manual",
+    "title": "金融分析师：财报异常识别与证据引用",
+    "content": "分析师需要阅读跨页财报与附注，识别同比异常、口径变化和勾稽错误，引用准确页码并形成可执行结论。新人常犯的错误是引用错年份、漏掉附注口径调整。",
+    "url": "internal://interview/finance-001",
+    "published_at": "2026-09-01T09:00:00"
+  },
+  {
+    "radar": "model_failure",
+    "source_id": "bad-case",
+    "title": "多个模型在长 PDF 财务分析中引用错误",
+    "content": "GPT、Claude、Gemini、DeepSeek 在20份年报测试中出现跨页数字引用错误、单位换算错误、去年数当今年数、引用不存在页码。模型之间准确率极差超过30个百分点。",
+    "url": "internal://failure/finance-pdf-001",
+    "published_at": "2026-09-03T09:00:00"
+  },
+  {
+    "radar": "benchmark",
+    "source_id": "arxiv-evaluation",
+    "title": "FinanceBench 与 CNFinBench 覆盖缺口分析",
+    "content": "现有金融评测偏单轮问答，较少把长文档检索、跨页数值推理、引用正确性和专业结论组合为端到端真实任务。",
+    "url": "internal://benchmark-gap/finance-001",
+    "published_at": "2026-09-04T09:00:00"
+  },
+  {
+    "radar": "product_agent",
+    "source_id": "openai-product",
+    "title": "Deep Research 支持财务长文档检索与引用",
+    "content": "新型 Deep Research Agent 可以浏览和分析财报等长文档，使用工具完成多步金融研究并输出带引用的报告，但引用准确性和数值接地仍需要专项评估。",
+    "url": "internal://product/deep-research-001",
+    "published_at": "2026-09-05T09:00:00"
+  },
+  {
+    "radar": "workflow",
+    "source_id": "workflow-manual",
+    "title": "律师合同审查真实工作流",
+    "content": "律师需要结合交易背景识别缺失条款、冲突条款与责任边界，给出修改建议和法律依据。新人容易遗漏交叉引用和适用法冲突。",
+    "url": "internal://interview/legal-001",
+    "published_at": "2026-09-02T09:00:00"
+  },
+  {
+    "radar": "model_failure",
+    "source_id": "bad-case",
+    "title": "合同审查模型遗漏跨条款冲突",
+    "content": "模型能够发现显式风险，但经常遗漏定义条款与责任限制条款之间的跨章节冲突，且引用法条版本过时。",
+    "url": "internal://failure/legal-001",
+    "published_at": "2026-09-06T09:00:00"
+  },
+  {
+    "radar": "workflow",
+    "source_id": "workflow-manual",
+    "title": "临床药师用药安全复核",
+    "content": "临床药师需要结合肾功能、年龄、合并用药和禁忌证审核处方，并依据最新版说明书和指南给出调整建议。",
+    "url": "internal://interview/medical-001",
+    "published_at": "2026-09-02T10:00:00"
+  },
+  {
+    "radar": "model_failure",
+    "source_id": "bad-case",
+    "title": "模型忽略肾功能导致剂量建议错误",
+    "content": "在多药联用病例中，模型常忽略eGFR分层、药物相互作用和年龄因素，生成看似合理但高风险的剂量建议。",
+    "url": "internal://failure/medical-001",
+    "published_at": "2026-09-07T09:00:00"
+  }
+]

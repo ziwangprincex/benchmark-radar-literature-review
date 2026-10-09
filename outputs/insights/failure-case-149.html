@@ -1,0 +1,132 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Failure Case · off_topic</title><style>
+:root{--ink:#152220;--muted:#687673;--green:#087a61;--line:#dce5e2;--bg:#f4f7f6;--red:#b5483f}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1050px;margin:auto;padding:34px 22px 70px}a{color:var(--green)}.crumb{font-size:12px;color:var(--muted);margin-bottom:18px}.hero{background:#10352d;color:#fff;border-radius:17px;padding:29px;margin-bottom:15px}.hero small{color:#83d8be;text-transform:uppercase;letter-spacing:.12em}.hero h1{margin:9px 0 5px;font-size:30px}.hero p{color:#bdd8d0;line-height:1.6}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:21px;margin-top:13px}.panel h2{font-size:18px;margin-top:0}.panel h3{font-size:14px;margin:12px 0 6px}p,li{line-height:1.7}.muted{color:var(--muted)}.meta{display:flex;gap:7px;flex-wrap:wrap}.tag{padding:5px 8px;background:#e7f2ee;color:#176550;border-radius:6px;font-size:11px}.evidence{border-top:1px solid var(--line);padding:16px 0}.evidence:first-of-type{border-top:0}.evidence strong{display:block;margin-bottom:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{background:#f4f7f6;border-radius:9px;padding:13px}.field small{display:block;color:var(--muted);margin-bottom:5px}pre{white-space:pre-wrap;word-break:break-word;background:#102521;color:#d9eee7;padding:14px;border-radius:9px;overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-top:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted)}.severity-critical,.severity-high{color:#a32d25;font-weight:800}.severity-medium{color:#9b690e;font-weight:800}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}select{padding:9px;border:1px solid var(--line);border-radius:7px;background:#fff}.count{font-weight:900;color:var(--green)}.raw-panel{border-left:5px solid #3157a4}.extract-panel{border-left:5px solid #087a61}.ai-panel{border-left:5px solid #8655a8}.evidence-label{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.12em;padding:5px 8px;border-radius:5px;margin-bottom:10px}.raw-label{background:#e5ecfa;color:#3157a4}.extract-label{background:#e2f2ed;color:#087a61}.ai-label{background:#f0e8f6;color:#754797}.case-card{border:1px solid var(--line);border-radius:9px;padding:13px;margin-top:9px}@media(max-width:720px){.grid,.controls{grid-template-columns:1fr}}
+</style></head><body><main><div class="crumb"><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a> / <a href="idea-1-evidence-417.html">Evidence</a> / Failure Case #149</div><header class="hero"><small>Model Failure Case #149</small><h1>off_topic</h1><p>PDF财报异常识别与证据引用 · claude-2 · medium</p></header>
+<section class="panel"><h2>Case Detail</h2><div class="grid"><div class="field"><small>Eval Run ID</small></div><div class="field"><small>Failure Case ID</small>financebench::financebench_id_04980::claude-2_inContext</div><div class="field"><small>Task / Prompt</small>What is the FY2021 capital expenditure amount (in USD billions) for PepsiCo? Respond to the question by assuming the perspective of an investment analyst who can only use the details shown within the statement of cash flows.</div><div class="field"><small>Input</small>doc=PEPSICO_2021_10K evidence_pages=[62] mode=inContext</div><div class="field"><small>Reference Answer</small>$4.60</div><div class="field"><small>Rubric</small>FinanceBench 作者人工判分：Correct Answer / Incorrect Answer / Refusal</div><div class="field"><small>Model</small>claude-2 claude-2_inContext</div><div class="field"><small>Model Response</small>
+
+April 15, 2020 (“By-Laws”), applicable provisions of law, including the North Carolina Business Corporation Act (the
+“NCBCA”), and other matters. The following description is a summary and does not purport to be complete. We encourage you
+to read our Articles of Incorporation and our By-Laws, which we have filed with the Securities and Exchange Commission, as
+well as the applicable provisions of the NCBCA.
+General
+Our Articles of Incorporation authorize us to issue 3,600,000,000 shares of common stock, par value one and two-thirds
+cents (1-2/3 cents) per share. As of February 3, 2022 there were 1,383,451,400 shares of common stock outstanding which were
+held of record by approximately 101,778 shareholders.
+Voting Rights. Each holder of a share of our common stock is entitled to one vote per share on all matters submitted to a
+vote of shareholders. Except as otherwise required by law, holders of common stock vote together as a single class on all matters
+submitted to a vote of shareholders. Directors are elected by a majority vote in an uncontested election and by a plurality vote in
+a contested election. A majority of the votes cast means the number of shares voted “for” a director exceeds the number of votes
+cast “against” that director.
+Dividend Rights. Holders of our common stock are entitled to receive dividends as may be declared from time to time by
+our Board of Directors out of funds legally available for the payment of dividends, subject to any preferential dividend rights
+granted to the holders of any outstanding shares of preferred stock.
+Liquidation Rights. Upon any voluntary or involuntary liquidation, dissolution or winding up of our affairs, holders of
+our common stock are entitled to share ratably in all assets remaining after payment of creditors and subject to prior distribution
+rights of preferred stock then outstanding.
+Preemptive and Other Rights. Holders of our common stock have no preemptive, conversion or redemption rights. Shares
+of our common stock are not subject to further calls or assessments by us. The rights of holders of our common stock are subject
+to the powers of our Board of Directors to declare and pay dividends as described above. Except as described under “AntiTakeover Provisions” below, there are no restrictions on the repurchase or redemption of shares by us while there is any arrearage
+in the payment of dividends or sinking fund installments. All shares of our common stock presently outstanding are fully paid
+and non-assessable.
+Listing. Our common stock is listed and traded on The Nasdaq Global Select Market under the symbol “PEP.” Our
+common stock is also listed on the SIX Swiss Exchange.
+Transfer Agent and Registrar
+The transfer agent and registrar for our common stock is Computershare Trust Company, N.A.
+Anti-Takeover Provisions
+Our Articles of Incorporation and By-Laws, as well as the NCBCA, contain certain provisions that could have an antitakeover effect. These provisions are intended to enhance the likelihood of continuity and stability in the composition of our
+Board of Directors and in the policies formulated by our Board of Directors and to discourage certain types of transactions which
+may involve an actual or threatened change of control of us. The provisions are designed to reduce our vulnerability to an
+unsolicited proposal for a takeover of us that does not contemplate the acquisition of all of our outstanding shares or an
+unsolicited proposal for the restructuring or sale of all or part of us.
+2
+
+Set forth below is a description of the relevant provisions of our Articles of Incorporation and By-Laws and the NCBCA.
+The description is intended as a summary only and is qualified in its entirety by reference to our Articles of Incorporation and By-
+Laws, copies of which are filed or incorporated by reference as exhibits to the Annual Report on Form 10-K of which this
+Exhibit 4.72 is a part, and to the provisions of the NCBCA.
+Number of Directors; Removal; Filling Vacancies. The NCBCA provides that the number of directors may be
+established by the by-laws, but the number may not be less than three. Our Articles of Incorporation provide that the number of
+directors shall not be less than three nor more than 20 directors, with the exact number to be fixed from time to time by a
+resolution adopted by a majority of the entire Board of Directors. Our Articles of Incorporation previously provided for three
+classes of directors, but this provision was eliminated by an amendment to our Articles of Incorporation that became effective on
+May 1, 2019.
+Under the NCBCA, unless otherwise provided in the articles of incorporation, directors may be removed with or without
+cause, by a vote of the holders of a majority of the shares entitled to vote at an election of directors. Our Articles of Incorporation
+do not change the provisions of the NCBCA.
+Our Articles of Incorporation provide that any vacancy occurring on the Board of Directors, including a vacancy resulting
+from the removal of a director or an increase in the number of directors, may be filled by the affirmative vote of the majority of
+the remaining directors even if less than a quorum of the Board of Directors. The By-Laws permit a vacancy to be filled by the
+shareholders, if the directors remaining in office constitute fewer than a quorum of the Board of Directors.
+These provisions could have the effect of discouraging a third party from making a tender offer or otherwise attempting to
+obtain control of us, because the incumbency of directors could not be changed at a single annual meeting.
+No Shareholder Action by Written Consent; Special Meetings. The NCBCA provides that, unless provided otherwise in
+the articles of incorporation, action required or permitted to be taken at a shareholders’ meeting may be taken without a meeting
+only by unanimous written consent signed by all shareholders entitled to vote on the action. Our Articles of Incorporation
+expressly deny this right of action by written consent. The NCBCA also provides that special meetings of the shareholders shall
+be held when directed by the board of directors, the chairman of the board, the chief executive officer or the president, or when
+requested in writing by the holders of not less than 10% of all the shares entitled to vote on any issue proposed to be considered at
+the meeting. A special meeting may not be called by any other person. Our Articles of Incorporation expressly deny the ability of
+shareholders to call a special meeting.
+These provisions could have the effect of delaying until the next annual shareholders’ meeting shareholder actions which
+are favored by the holders of less than a majority of our outstanding shares, because a shareholder could not force shareholder
+consideration of such acts between annual meetings.
+Advance Notice Requirements for Shareholder Proposals and Director Nominations. Our By-Laws establish an advance
+notice procedure for shareholders to make nominations of candidates for election as directors or to bring other business before an
+annual meeting of our shareholders.
+The By-Laws provide that any shareholder wishing to nominate persons for election as directors at, or bring other business
+before, an annual meeting must deliver to our secretary a written notice of the shareholder’s intention to do so. To be timely, the
+shareholder’s notice must be delivered to us not later than the 90th day nor earlier than the 120th day prior to the first anniversary
+of the preceding year’s annual meeting. If the date of the annual meeting is more than 30 days before or more than 60 days after
+such anniversary date, notice by the shareholder must be delivered not earlier than the 120th day prior to such annual meeting and
+not later than the later of the 90th day prior to such annual meeting or the 10th day following the day on which public
+announcement of the date of such meeting is first made by us. The notice must set forth:
+3
+
+•
+
+the name and address of the shareholder who intends to make the nomination and the beneficial owner, if any, on
+whose behalf the nomination is made;
+
+•
+
+the name, age, business address and, if known, residence address of each person so proposed;
+
+•
+
+the principal occupation or employment of each person so proposed for the past five years;
+
+•
+
+the number of shares of capital stock of PepsiCo beneficially owned within the meaning of SEC Rule 13d-1 by each
+person so proposed;
+
+•
+
+any other information relating to such person that is required to be disclosed in solicitations for proxies for election of
+directors pursuant to Regulation 14A under the Securities Exchange Act of 1934, as amended (the “Exchange Act”);
+
+•
+
+as to the shareholder giving the notice, (i) the name and address, as they appear on our books, of such shareholder and
+any other shareholders known by such shareholder to be supporting such nominees and (ii) the class and number of
+shares of our capital stock which are beneficially owned by such shareholder and any other shareholders known by
+such shareholder to be supporting such nominees on the date of such shareholder notice; and
+
+•
+
+a representation that the shareholder is a holder of record of our stock entitled to vote at such meeting and that the
+shareholder intends to appear in person or by proxy at the meeting to nominate the person or persons specified in the
+notice.
+
+To be in proper form, a shareholder’s notice relating to an item of business</div><div class="field"><small>Score / Pass-Fail</small>0.0 / FAIL</div><div class="field"><small>Failure Type</small>off_topic</div><div class="field"><small>Severity</small>medium</div><div class="field"><small>Error Analysis</small>[规则归类] 回答开头与问题关键词重合 &lt;20%，疑为读错文档段落（Amcor 证券登记、3M 套期保值等）。同题失败配置数 3/4。</div><div class="field"><small>Judge Result</small>Incorrect Answer（FinanceBench 作者人工标注，未重判）</div><div class="field"><small>Benchmark</small>FinanceBench</div><div class="field"><small>Run Date</small>2023-11-20</div></div><p><span class="muted">未关联可验证 Eval Run</span></p></section>
+<section class="panel"><h2>原始附件 / 数据</h2><p class="muted">无附件</p><details><summary>Raw Case JSON</summary><pre>{
+  &quot;question_type&quot;: &quot;metrics-generated&quot;,
+  &quot;question_reasoning&quot;: &quot;Information extraction&quot;,
+  &quot;evidence_pages&quot;: [
+    62
+  ],
+  &quot;fail_configs&quot;: [
+    &quot;gpt-4-1106-preview_singleStore&quot;,
+    &quot;claude-2_inContext&quot;,
+    &quot;llama2_singleStore&quot;
+  ]
+}</pre></details><a href="raw-source-417.html">查看关联 Raw Source →</a></section></main></body></html>

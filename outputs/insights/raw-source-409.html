@@ -1,0 +1,84 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Raw Source · XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding</title><style>
+:root{--ink:#152220;--muted:#687673;--green:#087a61;--line:#dce5e2;--bg:#f4f7f6;--red:#b5483f}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1050px;margin:auto;padding:34px 22px 70px}a{color:var(--green)}.crumb{font-size:12px;color:var(--muted);margin-bottom:18px}.hero{background:#10352d;color:#fff;border-radius:17px;padding:29px;margin-bottom:15px}.hero small{color:#83d8be;text-transform:uppercase;letter-spacing:.12em}.hero h1{margin:9px 0 5px;font-size:30px}.hero p{color:#bdd8d0;line-height:1.6}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:21px;margin-top:13px}.panel h2{font-size:18px;margin-top:0}.panel h3{font-size:14px;margin:12px 0 6px}p,li{line-height:1.7}.muted{color:var(--muted)}.meta{display:flex;gap:7px;flex-wrap:wrap}.tag{padding:5px 8px;background:#e7f2ee;color:#176550;border-radius:6px;font-size:11px}.evidence{border-top:1px solid var(--line);padding:16px 0}.evidence:first-of-type{border-top:0}.evidence strong{display:block;margin-bottom:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{background:#f4f7f6;border-radius:9px;padding:13px}.field small{display:block;color:var(--muted);margin-bottom:5px}pre{white-space:pre-wrap;word-break:break-word;background:#102521;color:#d9eee7;padding:14px;border-radius:9px;overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-top:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted)}.severity-critical,.severity-high{color:#a32d25;font-weight:800}.severity-medium{color:#9b690e;font-weight:800}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}select{padding:9px;border:1px solid var(--line);border-radius:7px;background:#fff}.count{font-weight:900;color:var(--green)}.raw-panel{border-left:5px solid #3157a4}.extract-panel{border-left:5px solid #087a61}.ai-panel{border-left:5px solid #8655a8}.evidence-label{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.12em;padding:5px 8px;border-radius:5px;margin-bottom:10px}.raw-label{background:#e5ecfa;color:#3157a4}.extract-label{background:#e2f2ed;color:#087a61}.ai-label{background:#f0e8f6;color:#754797}.case-card{border:1px solid var(--line);border-radius:9px;padding:13px;margin-top:9px}@media(max-width:720px){.grid,.controls{grid-template-columns:1fr}}
+</style></head><body><main><div class="crumb"><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a> / <a href="idea-1-evidence-409.html">Evidence Extraction</a> / Raw Source</div><header class="hero"><small>RAW SOURCE · SourceItem #409</small><h1>XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding</h1><p>未经系统二次总结的原始来源入口与采集快照。</p></header>
+<section class="panel raw-panel"><span class="evidence-label raw-label">RAW SOURCE</span><h2>原始材料</h2><div class="grid"><div class="field"><small>Source Type</small>paper</div><div class="field"><small>Evidence Role</small>raw_source</div><div class="field"><small>Title</small>XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding</div><div class="field"><small>Published At</small></div><div class="field"><small>Section / Page / Case / Run</small>{&quot;section&quot;: &quot;page metadata / abstract&quot;, &quot;pdf_url&quot;: &quot;https://arxiv.org/pdf/2608.00036&quot;}</div><div class="field"><small>Original URL</small>https://arxiv.org/abs/2608.00036</div></div><p>Real-world document tasks often ask professionals to answer questions from annual reports, regulations, clinical guidelines, and technical manuals that span hundreds or thousands of pages. Some questions also require comparing related reports. Reliable long-document understanding is therefore a prerequisite for using LLMs in compliance, clinical, financial, and engineering workflows, where decisions must be traceable to specific evidence pages and the cost of an unsupported answer is high -- yet most existing benchmarks still measure short-context or single-page QA. We introduce XL-DocBench, a fully human-verified benchmark for extra-long document understanding, with 1,519 retained questions from six professional domains and contexts up to 2,303 pages. XL-DocBench goes beyond page-level lookup. 1,103 examples (72.6\%) use multiple evidence pages. The final set also includes 556 questions (36.6\%) that use tables, charts, or figures, and 165 questions (10.9\%) that require evidence from multiple documents. Each question has one of twelve reasoning labels, expert-annotated evidence pages, a typed verification rule, and an answer format, including 218 None-answer cases. We build the benchmark with a tree-guided synthesis pipeline followed by artifact filters and full verification by 194 human experts. By coupling extra-long professional contexts with page-level evidence and typed rules, XL-DocBench fills a gap left by prior single-page, short multi-page, or text-only long-context benchmarks, and lets future work attribute system failures to retrieval, evidence use, or rule following rather than to a single leaderboard score. The results show that current systems still struggle with long contexts, multi-page evidence, and structured reasoning over professional documents.</p><a href="https://arxiv.org/abs/2608.00036" target="_blank" rel="noopener">打开真实原始材料 ↗</a></section>
+<section class="panel"><h2>Raw Payload</h2><pre>{
+  &quot;radar&quot;: &quot;benchmark&quot;,
+  &quot;source_id&quot;: &quot;external-search&quot;,
+  &quot;title&quot;: &quot;XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding&quot;,
+  &quot;content&quot;: &quot;Real-world document tasks often ask professionals to answer questions from annual reports, regulations, clinical guidelines, and technical manuals that span hundreds or thousands of pages. Some questions also require comparing related reports. Reliable long-document understanding is therefore a prerequisite for using LLMs in compliance, clinical, financial, and engineering workflows, where decisions must be traceable to specific evidence pages and the cost of an unsupported answer is high -- yet most existing benchmarks still measure short-context or single-page QA. We introduce XL-DocBench, a fully human-verified benchmark for extra-long document understanding, with 1,519 retained questions from six professional domains and contexts up to 2,303 pages. XL-DocBench goes beyond page-level lookup. 1,103 examples (72.6\\%) use multiple evidence pages. The final set also includes 556 questions (36.6\\%) that use tables, charts, or figures, and 165 questions (10.9\\%) that require evidence from multiple documents. Each question has one of twelve reasoning labels, expert-annotated evidence pages, a typed verification rule, and an answer format, including 218 None-answer cases. We build the benchmark with a tree-guided synthesis pipeline followed by artifact filters and full verification by 194 human experts. By coupling extra-long professional contexts with page-level evidence and typed rules, XL-DocBench fills a gap left by prior single-page, short multi-page, or text-only long-context benchmarks, and lets future work attribute system failures to retrieval, evidence use, or rule following rather than to a single leaderboard score. The results show that current systems still struggle with long contexts, multi-page evidence, and structured reasoning over professional documents.&quot;,
+  &quot;url&quot;: &quot;https://arxiv.org/abs/2608.00036&quot;,
+  &quot;published_at&quot;: null,
+  &quot;source_type&quot;: &quot;paper&quot;,
+  &quot;source_quality&quot;: &quot;primary&quot;,
+  &quot;organization&quot;: &quot;arXiv&quot;,
+  &quot;authors&quot;: [
+    &quot;Wei, Hongchen&quot;,
+    &quot;Wang, Yuanzhe&quot;,
+    &quot;Liu, Bei&quot;,
+    &quot;Yang, Yifan&quot;,
+    &quot;Dai, Qi&quot;,
+    &quot;Ma, Ruichun&quot;,
+    &quot;Qiu, Kai&quot;,
+    &quot;Li, Yunsheng&quot;,
+    &quot;Chen, Dongdong&quot;,
+    &quot;Luo, Chong&quot;,
+    &quot;Chen, Zhenzhong&quot;,
+    &quot;Guo, Baining&quot;
+  ],
+  &quot;source_version&quot;: null,
+  &quot;locator&quot;: {
+    &quot;section&quot;: &quot;page metadata / abstract&quot;,
+    &quot;pdf_url&quot;: &quot;https://arxiv.org/pdf/2608.00036&quot;
+  },
+  &quot;retrieved_at&quot;: &quot;2026-09-24T03:32:03+00:00&quot;,
+  &quot;last_verified_at&quot;: &quot;2026-09-24T03:32:03+00:00&quot;,
+  &quot;http_status&quot;: 200,
+  &quot;validation_status&quot;: &quot;metadata_mismatch&quot;,
+  &quot;provenance&quot;: {
+    &quot;retrieval_run_id&quot;: 91,
+    &quot;retrieval_query&quot;: &quot;manual web search 2026-09-24: long financial report PDF benchmark evidence citation&quot;,
+    &quot;verification_error&quot;: &quot;Expected title &#x27;XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding&#x27;, fetched &#x27;XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding&#x27;&quot;
+  },
+  &quot;task_definition&quot;: &quot;超长专业文档问答：1,519 道人工核验题，六个领域（legal/finance/technical/medical/scientific/narrative），文档最长 2,303 页；72.6% 需多页证据，10.9% 需跨文档。&quot;,
+  &quot;dataset&quot;: &quot;3,550 条合成候选 -&gt; 2,104 条人工核验 -&gt; 1,519 条最终集；194 名专家标注证据页、推理类型（12 类）、类型化校验规则与答案格式，含 218 个 None 答案。&quot;,
+  &quot;evaluation_protocol&quot;: &quot;模型输入整篇页面图像（Img）或逐页 OCR（上限为上下文 80%），不提供证据页，只返回最终答案。主指标为按类型化规则的 rule-based accuracy，辅以 token F1 与 ANLS；失败或不可解析计为错误。不对模型给出的引用/证据页判分，论文 Failure Case 2 自己也建议补充 evidence-use 检查。&quot;,
+  &quot;fulltext_checked_at&quot;: &quot;2026-09-24T11:37:20&quot;,
+  &quot;fulltext_locator&quot;: {
+    &quot;page&quot;: &quot;arXiv HTML full text&quot;,
+    &quot;section&quot;: &quot;3.2 Dataset Composition; 4.1 Evaluation Protocol; Appendix G Failure Case 2&quot;,
+    &quot;url&quot;: &quot;https://arxiv.org/html/2608.00036&quot;
+  }
+}</pre></section>
+<section class="panel"><h2>完整 Provenance</h2><pre>{
+  &quot;retrieval_run_id&quot;: 91,
+  &quot;retrieval_query&quot;: &quot;manual web search 2026-09-24: long financial report PDF benchmark evidence citation&quot;,
+  &quot;verification_error&quot;: &quot;Expected title &#x27;XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding&#x27;, fetched &#x27;XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding&#x27;&quot;,
+  &quot;title&quot;: &quot;XL-DocBench: Benchmarking Evidence-Grounded Extra-Long Document Understanding&quot;,
+  &quot;url&quot;: &quot;https://arxiv.org/abs/2608.00036&quot;,
+  &quot;published_at&quot;: null,
+  &quot;authors&quot;: [
+    &quot;Wei, Hongchen&quot;,
+    &quot;Wang, Yuanzhe&quot;,
+    &quot;Liu, Bei&quot;,
+    &quot;Yang, Yifan&quot;,
+    &quot;Dai, Qi&quot;,
+    &quot;Ma, Ruichun&quot;,
+    &quot;Qiu, Kai&quot;,
+    &quot;Li, Yunsheng&quot;,
+    &quot;Chen, Dongdong&quot;,
+    &quot;Luo, Chong&quot;,
+    &quot;Chen, Zhenzhong&quot;,
+    &quot;Guo, Baining&quot;
+  ],
+  &quot;organization&quot;: &quot;arXiv&quot;,
+  &quot;source_type&quot;: &quot;paper&quot;,
+  &quot;source_quality&quot;: &quot;primary&quot;,
+  &quot;evidence_role&quot;: &quot;raw_source&quot;,
+  &quot;source_version&quot;: null,
+  &quot;locator&quot;: {
+    &quot;section&quot;: &quot;page metadata / abstract&quot;,
+    &quot;pdf_url&quot;: &quot;https://arxiv.org/pdf/2608.00036&quot;
+  }
+}</pre></section>
+<section class="panel"><h2>Reverse Trace · Raw Source → Claim → Idea</h2><div style="overflow:auto"><table><thead><tr><th>Idea</th><th>Claim Type</th><th>Claim</th><th>Extraction</th><th>Relation</th><th>Status</th></tr></thead><tbody><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>core_insight</td><td>PDF财报异常识别与证据引用 对应真实任务，值得作为独立 Benchmark 方向验证。</td><td>benchmark_scope</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>core_insight</td><td>PDF财报异常识别与证据引用 对应真实任务，值得作为独立 Benchmark 方向验证。</td><td>task_definition</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>core_insight</td><td>PDF财报异常识别与证据引用 对应真实任务，值得作为独立 Benchmark 方向验证。</td><td>dataset</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>core_insight</td><td>PDF财报异常识别与证据引用 对应真实任务，值得作为独立 Benchmark 方向验证。</td><td>evaluation_protocol</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>why_now</td><td>相关模型或产品能力正在进入应用阶段，当前应验证其真实表现与边界。</td><td>benchmark_scope</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>why_now</td><td>相关模型或产品能力正在进入应用阶段，当前应验证其真实表现与边界。</td><td>task_definition</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>why_now</td><td>相关模型或产品能力正在进入应用阶段，当前应验证其真实表现与边界。</td><td>dataset</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>why_now</td><td>相关模型或产品能力正在进入应用阶段，当前应验证其真实表现与边界。</td><td>evaluation_protocol</td><td>partially_supports</td><td>partial</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>evaluation_gap</td><td>长文档证据定位已有覆盖：XL-DocBench 要求专家标注的多页证据，LEDGER 做年报页面级 KPI 检索，FinanceBench 标注了证据页但只判答案。仍缺的是：以异常识别（跨页数值勾稽、口径不一致）为任务，并对引用是否真正支撑结论判分的金融评测。（依据：上述三篇 arXiv 摘要，全文待核查）</td><td>benchmark_scope</td><td>supports</td><td>verified</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>evaluation_gap</td><td>长文档证据定位已有覆盖：XL-DocBench 要求专家标注的多页证据，LEDGER 做年报页面级 KPI 检索，FinanceBench 标注了证据页但只判答案。仍缺的是：以异常识别（跨页数值勾稽、口径不一致）为任务，并对引用是否真正支撑结论判分的金融评测。（依据：上述三篇 arXiv 摘要，全文待核查）</td><td>task_definition</td><td>supports</td><td>verified</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>evaluation_gap</td><td>长文档证据定位已有覆盖：XL-DocBench 要求专家标注的多页证据，LEDGER 做年报页面级 KPI 检索，FinanceBench 标注了证据页但只判答案。仍缺的是：以异常识别（跨页数值勾稽、口径不一致）为任务，并对引用是否真正支撑结论判分的金融评测。（依据：上述三篇 arXiv 摘要，全文待核查）</td><td>dataset</td><td>supports</td><td>verified</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>evaluation_gap</td><td>长文档证据定位已有覆盖：XL-DocBench 要求专家标注的多页证据，LEDGER 做年报页面级 KPI 检索，FinanceBench 标注了证据页但只判答案。仍缺的是：以异常识别（跨页数值勾稽、口径不一致）为任务，并对引用是否真正支撑结论判分的金融评测。（依据：上述三篇 arXiv 摘要，全文待核查）</td><td>evaluation_protocol</td><td>supports</td><td>verified</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>model_failure</td><td>当前模型在目标任务上存在可复现、可定位的失败模式。</td><td>benchmark_scope</td><td>irrelevant</td><td>unsupported</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>model_failure</td><td>当前模型在目标任务上存在可复现、可定位的失败模式。</td><td>task_definition</td><td>irrelevant</td><td>unsupported</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>model_failure</td><td>当前模型在目标任务上存在可复现、可定位的失败模式。</td><td>dataset</td><td>irrelevant</td><td>unsupported</td></tr><tr><td><a href="idea-1-pdf.html">PDF财报异常识别与证据引用</a></td><td>model_failure</td><td>当前模型在目标任务上存在可复现、可定位的失败模式。</td><td>evaluation_protocol</td><td>irrelevant</td><td>unsupported</td></tr></tbody></table></div></section></main></body></html>

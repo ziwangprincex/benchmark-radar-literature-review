@@ -1,0 +1,22 @@
+{
+  "required_fields": [
+    "package_id",
+    "task_id",
+    "model_name",
+    "model_version",
+    "provider",
+    "started_at",
+    "completed_at",
+    "latency_seconds",
+    "response_text",
+    "raw_response",
+    "request_metadata"
+  ],
+  "constraints": {
+    "models": "exactly 3 distinct real models; placeholders forbidden",
+    "coverage": "each model must answer every exported task exactly once",
+    "raw_response": "must contain the unmodified provider response or local runtime output",
+    "bfcl_response_text": "canonical JSON array [{name, arguments}]",
+    "finance_response_text": "answer plus explicit document/page citation"
+  }
+}

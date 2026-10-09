@@ -1,0 +1,325 @@
+{
+  "_说明": "每个候选题目的人工题卡，按 idea_key 关联，generate_ideas 重算不会覆盖。motive: weakness=模型能力有缺陷 / coverage=真实场景没覆盖。evidence.strength: direct=直接撑住 / indirect=只能间接说明 / against=反证或撞车。verdict: probe=值得先试测 / hold=证据不够先放着 / drop=已有人做或不是考题。superseded 的题目不写卡，统一显示为作废。最后核对 2026-10-08。",
+  "879a6084bdfa1b8b25bc2efd": {
+    "title": "财报里前后数字对不上，模型能不能找出来并指对页",
+    "motive": [
+      "weakness",
+      "coverage"
+    ],
+    "test": "给一份真实年报，里面有跨页数字矛盾（附注和主表不一致、口径改了没说明），看模型能不能找出来，并且它引用的页里确实有那两个数。",
+    "sample": "读某公司 2025 年报，找出至少一处前后数字矛盾，写明在第几页、是哪两个数。",
+    "grading": "找没找到：对照人工标注的矛盾清单。引用对不对：自动检查它给的页码里有没有它说的那个数。",
+    "evidence": [
+      {
+        "for": "weakness",
+        "strength": "indirect",
+        "text": "直接把证据页给 GPT-4，它在 150 道财报问答里还错 15%；只让它自己检索时，39% 的题直接拒答；有 19 条是跨页数字算错。但这些都是问答题（问一个数，答一个数），只能说明模型跨页找数、算数不稳，不能说明它找不出矛盾。",
+        "src": "FinanceBench 公开逐题结果",
+        "url": "https://github.com/patronus-ai/financebench/tree/cc39aeb4afdf33909ee1412188bf89035950c2eb/results"
+      },
+      {
+        "for": "coverage",
+        "strength": "direct",
+        "text": "XL-DocBench 全文核对过：只判最终答案，不检查模型给的引用。FinanceBench、LEDGER 也只判答案或检索。",
+        "src": "XL-DocBench §4.1",
+        "url": "https://arxiv.org/abs/2608.00036"
+      },
+      {
+        "for": "coverage",
+        "strength": "against",
+        "text": "“判引用”这一半已经有人在做：FinFIRST（2026-09）对金融搜索的每条证据单独打分；ECTs-100（2026-10-01）自动检查业绩会分析里的数字引用对不对。剩下没人做的只是“找矛盾”这个任务本身。",
+        "src": "FinFIRST / ECTs-100",
+        "url": "https://arxiv.org/abs/2610.00969"
+      }
+    ],
+    "unproven": [
+      "模型找不出财报矛盾：没有直接证据，需要先做 30 道题试测。",
+      "真实年报里矛盾很少，题目大概率要人工埋错。埋出来的错会不会太假、太好找，还不知道。",
+      "库里记录的那次试测（40 题、5 个模型、差 32 分）是系统验收用的示例数据，不是真的跑分，不能算证据。"
+    ],
+    "verdict": "probe",
+    "verdict_note": "两条出发点都只立住一半：模型短板只有间接证据，“判引用”一半已有人做。先用 30 道题试测：模型如果能轻松找出埋进去的错，这个题目就不成立。"
+  },
+  "d946fde18b4f639ebc10fea0": {
+    "title": "病人情况变了，模型的治疗方案跟着改没有",
+    "motive": [
+      "weakness"
+    ],
+    "test": "同一个病例做两个版本，只改一个病人条件（比如加上青霉素过敏、肾功能差），诊断不变。看模型给的治疗方案有没有跟着改，会不会照旧开出危险的药。",
+    "sample": "糖尿病病人背上长痈，原版正常处理；改版加一句“5 年前打青霉素过敏性休克”。看改版里模型是否还开青霉素类抗生素。",
+    "grading": "医生按清单打勾：该做的做没做、危险的建议有没有出现。两个版本对比计分，不用模型当裁判。",
+    "evidence": [
+      {
+        "for": "coverage",
+        "strength": "indirect",
+        "text": "MedQA、CMB 以考试选择题为主，题目里没有“只改一个病人条件”的成对设计，也不按危险程度加权扣分。这一点来自题型对比，没逐题核查。",
+        "src": "CMB",
+        "url": "https://github.com/FreedomIntelligence/CMB"
+      },
+      {
+        "for": "weakness",
+        "strength": "indirect",
+        "text": "试测包已经做好：从 CMB-Clin 真实病例改出 7 对、共 14 道题，还没跑过模型。",
+        "src": "本地试测包 med-safety-v0-20261008",
+        "url": ""
+      }
+    ],
+    "unproven": [
+      "模型会忽略新加的病人条件：目前没有任何跑分证据。",
+      "评分清单是草稿，还要医生校准。",
+      "HealthBench 等开放式医疗评测有没有覆盖这种成对改写，还没核对。"
+    ],
+    "verdict": "probe",
+    "verdict_note": "题目最具体、成本最低，14 道题已经做好。卡在医生校准评分清单，校准完就能跑。"
+  },
+  "3c22b0f5a793d592e125b5d6": {
+    "title": "模型给的临床建议，能不能对上具体指南的具体条款",
+    "motive": [
+      "coverage"
+    ],
+    "test": "让模型回答临床问题，并写出依据的指南名称、版本和条款。检查引用的条款是否存在、是否真的支持它的结论、是不是最新版本。",
+    "sample": "2 型糖尿病合并慢性肾病 3 期，首选降糖药是什么？请注明依据的指南、年份和条款号。",
+    "grading": "条款是否存在、是否支持结论，对照指南原文核对；版本对不对，按发布日期判断。",
+    "evidence": [
+      {
+        "for": "coverage",
+        "strength": "direct",
+        "text": "已核实 CMB、MedQA、LLMEval-Med 都没有提供指南原文，也不检查引用对不对，只判答案。",
+        "src": "CMB",
+        "url": "https://github.com/FreedomIntelligence/CMB"
+      },
+      {
+        "for": "coverage",
+        "strength": "against",
+        "text": "已有医疗 Agent 评测流程把“证据能不能追溯”列为打分项，虽然不是专门考指南条款。",
+        "src": "Toward Workflow-Aware Benchmarking for Healthcare NLP Agents",
+        "url": "https://arxiv.org/abs/2609.00296v1"
+      }
+    ],
+    "unproven": [
+      "模型会引错条款或用过期版本：没有证据。",
+      "这个题目原来唯一的支撑资料（R2MED）抓错了正文，已经作废。",
+      "要拿到可以合法使用的中文指南全文，难度还不清楚。"
+    ],
+    "verdict": "hold",
+    "verdict_note": "只证明了“没人测”，没证明“模型会错”。先找模型引错指南的真实案例。"
+  },
+  "2de632a58de6d008874611de": {
+    "title": "合同条款之间互相矛盾，模型能不能发现",
+    "motive": [
+      "weakness"
+    ],
+    "test": "给一份合同，其中两处条款互相冲突，看模型能不能发现，并说清楚会造成什么法律后果。",
+    "sample": "第 5 条写付款期限 30 天，附件二写 60 天，并且违约金按第 5 条计算。问哪里有风险。",
+    "grading": "找没找到冲突，对照标注；法律后果说得对不对，由律师抽查。",
+    "evidence": [
+      {
+        "for": "weakness",
+        "strength": "direct",
+        "text": "CLAUSE 在 7500 多份合同里埋了 10 类矛盾，最好的模型能正确引用法条的比例不到 14%。",
+        "src": "CLAUSE",
+        "url": "https://arxiv.org/abs/2511.00340"
+      },
+      {
+        "for": "coverage",
+        "strength": "against",
+        "text": "上面这条证据本身就是现成的 benchmark：CLAUSE 已经测了这件事。条款级风险识别也有 ContractEval。",
+        "src": "CLAUSE / ContractEval",
+        "url": "https://arxiv.org/abs/2508.03080"
+      }
+    ],
+    "unproven": [
+      "CLAUSE 的矛盾是模型改出来的。换成真实谈判稿（两版修订之间的差异），模型会不会更差？没有证据。",
+      "按风险严重程度分级判分：只是推测有用，没人提过。"
+    ],
+    "verdict": "drop",
+    "verdict_note": "核心已被 CLAUSE 做完。除非拿到真实谈判修订稿，否则没有新东西。"
+  },
+  "3089100d1836d05b4b0e4649": {
+    "title": "金融搜索用了过期或口径不对的数据",
+    "motive": [
+      "coverage"
+    ],
+    "test": "让模型上网查金融数据，检查用的数据是不是最新一期、口径和主体有没有对齐。",
+    "sample": "查某公司最新一季营收同比增速，注明来源和报告期。",
+    "grading": "报告期、口径、来源逐项打分。",
+    "evidence": [
+      {
+        "for": "coverage",
+        "strength": "against",
+        "text": "FinFIRST（2026-09）已经专门测这件事：时效、来源权威性、主体和期间对齐、口径一致，每项单独打分，123 道专家题。",
+        "src": "FinFIRST",
+        "url": "https://arxiv.org/abs/2609.25192"
+      }
+    ],
+    "unproven": [
+      "这个题目原来写的“缺口”，其实是 FinFIRST 论文里说的“以前没人做”，FinFIRST 自己已经补上了。"
+    ],
+    "verdict": "drop",
+    "verdict_note": "FinFIRST 已经做了。"
+  },
+  "03b57e94a45cec99ba300c36": {
+    "title": "垂直领域的深度调研，过程和来源对不对",
+    "motive": [
+      "coverage"
+    ],
+    "test": "让 Agent 在某个专业领域做多步调研，不只判最终答案，也检查中间结论和来源。",
+    "sample": "调研某药近 3 年的适应症变化，列出每一步依据。",
+    "grading": "最终答案 + 中间结论清单 + 来源核对。",
+    "evidence": [
+      {
+        "for": "coverage",
+        "strength": "indirect",
+        "text": "BrowseComp 顶尖模型准确率从 30% 左右涨到 90% 以上，已经拉不开差距。",
+        "src": "美团 LoHoSearch 博客",
+        "url": "https://tech.meituan.com/2026/07/24/LongCat-LoHoSearch.html"
+      },
+      {
+        "for": "coverage",
+        "strength": "against",
+        "text": "检查中间结论已有 Mr.LHDR（最强系统 43%）；网页加数据库混合调研已有 HybridDeepResearch；查完还要写成文档的已有 KNOWS；金融领域有 FinFIRST。",
+        "src": "Mr.LHDR 等",
+        "url": "https://arxiv.org/abs/2609.11318v2"
+      }
+    ],
+    "unproven": [
+      "“垂直领域”具体指哪个领域没定；不定领域，就和上面几个撞车。"
+    ],
+    "verdict": "drop",
+    "verdict_note": "方向太宽，每个角度都已有人做。除非能指出某个具体领域没人做。"
+  },
+  "149af6d5e41f27ef0dc9f56c": {
+    "title": "电脑操作 Agent 做长流程办公任务",
+    "motive": [
+      "weakness"
+    ],
+    "test": "让 Agent 操作真实软件完成多步工作流（邮件、客服），看最终有没有做完。",
+    "sample": "在邮箱里找到上周客户投诉，查订单，回复并更新工单状态。",
+    "grading": "检查最终状态：邮件发了没、工单改了没。",
+    "evidence": [
+      {
+        "for": "weakness",
+        "strength": "indirect",
+        "text": "Echoverse 只说 Agent 做多步工作流吃力。它是训练环境的博客，不是评测，没有数据。",
+        "src": "Echoverse",
+        "url": "https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/"
+      },
+      {
+        "for": "coverage",
+        "strength": "against",
+        "text": "长流程电脑操作已经有人测：CADWorld 最强 Agent 17.5%（专家 87%），KNOWS 测查资料后做文档和表格。",
+        "src": "CADWorld",
+        "url": "https://arxiv.org/abs/2609.16251v2"
+      }
+    ],
+    "unproven": [
+      "邮件和客服流程有没有专门的 benchmark 没查；“缺口”原文就写着依据待补。"
+    ],
+    "verdict": "drop",
+    "verdict_note": "没有直接证据，同类评测已经很多。"
+  },
+  "01398507ac49b9de7a8a2d39": {
+    "title": "用模拟用户加模型打分来挑 Agent，挑得准不准",
+    "motive": [
+      "weakness"
+    ],
+    "test": "看“模拟用户对话 + 模型打分”这套选型方法排出来的名次，和任务真实成没成功是否一致。",
+    "sample": "25 个客服 Agent，用模拟打分排名，再用真实任务成功率排名，比较两份名单。",
+    "grading": "两份排名的一致程度。",
+    "evidence": [
+      {
+        "for": "weakness",
+        "strength": "direct",
+        "text": "被评为“满意”的对话里 57.5% 实际没完成任务；能力接近的 Agent 之间，31% 的排序是反的。",
+        "src": "GAUGE",
+        "url": "https://arxiv.org/abs/2609.12191"
+      },
+      {
+        "for": "coverage",
+        "strength": "against",
+        "text": "这条证据本身就是现成的测评方案（GAUGE）。工具调用场景的打分可靠性也有 AgentJudgeBench（3808 题）。",
+        "src": "AgentJudgeBench",
+        "url": "https://arxiv.org/abs/2608.26623v1"
+      }
+    ],
+    "unproven": [
+      "这是在考“打分方法”，不是考模型本身，和我们要做的考题不是一类。"
+    ],
+    "verdict": "drop",
+    "verdict_note": "GAUGE 已经做了，而且不是考模型的题。"
+  },
+  "8886754458ec7b42ff9022b8": {
+    "title": "模型提出的生物医学假设，有没有证据撑着",
+    "motive": [
+      "weakness"
+    ],
+    "test": "让模型提出“某个酶和某种罕见病有关”的假设，看是有证据链的推理，还是听着像而已。",
+    "sample": "给出酶 A 和疾病 B，提出机制假设，并写出中间步骤。",
+    "grading": "对照知识图谱路径，看中间步骤对不对。",
+    "evidence": [
+      {
+        "for": "weakness",
+        "strength": "direct",
+        "text": "只给起点和终点时，模型的假设得分最高，但最没有证据支撑；把中间步骤打乱后，证据支撑度明显下降。",
+        "src": "HypoKG",
+        "url": "https://arxiv.org/abs/2609.12260"
+      },
+      {
+        "for": "coverage",
+        "strength": "against",
+        "text": "这条证据本身就是现成的 benchmark：HypoKG，550 条路径、13200 个假设。",
+        "src": "HypoKG",
+        "url": "https://arxiv.org/abs/2609.12260"
+      }
+    ],
+    "unproven": [],
+    "verdict": "drop",
+    "verdict_note": "HypoKG 已经做了。"
+  },
+  "8120743d55877d0c5b1099db": {
+    "title": "把评测集删小以后，模型排名还准不准",
+    "motive": [
+      "coverage"
+    ],
+    "test": "评测集压缩后，看头部几个模型的排名有没有变。",
+    "sample": "MMLU 删到 5%，前 5 名的顺序是否和全量一致。",
+    "grading": "头部排名一致率。",
+    "evidence": [
+      {
+        "for": "coverage",
+        "strength": "indirect",
+        "text": "ZipBench 用整体相关度衡量压缩效果（约 0.98），整体相关高不代表头部名次不变。这是我们自己的推断，论文里没有这么说。",
+        "src": "ZipBench",
+        "url": "https://arxiv.org/abs/2609.12475"
+      }
+    ],
+    "unproven": [
+      "这是在考评测方法，不是考模型。"
+    ],
+    "verdict": "drop",
+    "verdict_note": "不是考模型能力的题，不在这个项目的范围内。"
+  },
+  "ae0b2fef9f3d822caa4c460c": {
+    "title": "系统综述：筛文献、提取效应量",
+    "motive": [
+      "coverage"
+    ],
+    "test": "让模型做系统综述的文献筛选和数据提取。",
+    "sample": "从 500 篇摘要里筛出符合纳入标准的研究。",
+    "grading": "对照人工筛选结果。",
+    "evidence": [
+      {
+        "for": "coverage",
+        "strength": "against",
+        "text": "文献筛选已有 45064 条标注、覆盖 32 个综述的 benchmark。",
+        "src": "A Benchmark Framework for Screening Automation in Systematic Reviews",
+        "url": "https://arxiv.org/abs/2609.30298v2"
+      }
+    ],
+    "unproven": [
+      "“效应量提取没人测”是原来写的假设，没有查证。"
+    ],
+    "verdict": "drop",
+    "verdict_note": "筛选已有人做，提取部分没证据。"
+  }
+}

@@ -1,0 +1,108 @@
+# 每周一 15:00（北京时间）：抓 arXiv → 分类 → 生成网页（GitHub Pages）→ 推企业微信
+#
+# 需要在仓库 Settings → Secrets and variables → Actions 里配置：
+#   WECOM_WEBHOOK_URL  企业微信群机器人地址（没配就只更新网页，不推送）
+#
+# 数据库 data/radar.db 每次跑完存到 data 分支（只保留最新一份，强推覆盖），
+# 下次运行先从 data 分支取，避免 main 分支被每周的数据库撑大。
+name: weekly
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"   # UTC 07:00 = 北京时间 15:00，GitHub 可能晚几分钟到几十分钟
+  workflow_dispatch:
+    inputs:
+      refresh:
+        description: "抓 arXiv 并重新分类"
+        type: boolean
+        default: true
+      push:
+        description: "发企业微信"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths: ["radar/**", "scripts/build_static_site.py", ".github/workflows/weekly.yml"]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: weekly
+  cancel-in-progress: false
+
+env:
+  TZ: Asia/Shanghai
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: 取上次的数据（data 分支）
+        run: |
+          if git fetch --depth 1 origin data 2>/dev/null; then
+            git checkout FETCH_HEAD -- data/radar.db reports/
+            git reset -q
+            echo "用 data 分支上的数据库"
+          else
+            echo "还没有 data 分支，用 main 上的初始数据库"
+          fi
+
+      - name: 每周刷新
+        id: refresh
+        if: github.event_name == 'schedule' || inputs.refresh
+        run: python scripts/weekly_refresh.py --no-push
+
+      - name: 刷新结果
+        if: always() && steps.refresh.outcome != 'skipped'
+        run: cat reports/weekly_refresh.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 保存数据到 data 分支
+        if: steps.refresh.outcome == 'success'
+        run: |
+          d=$(mktemp -d)
+          mkdir -p "$d/data" "$d/reports"
+          cp data/radar.db "$d/data/"
+          cp -r reports/. "$d/reports/"
+          cd "$d"
+          git init -q -b data
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -qm "data $(date +%F)"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" data
+
+      - name: 生成网页
+        run: python scripts/build_static_site.py site
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: 发布到 GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
+
+      - name: 推送企业微信
+        if: github.event_name == 'schedule' || inputs.push
+        env:
+          WECOM_WEBHOOK_URL: ${{ secrets.WECOM_WEBHOOK_URL }}
+          WECOM_PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        run: python -m radar.publish.wecom_push --force

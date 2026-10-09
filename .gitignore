@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+data/backups/
+data/retrieval_cache/
+data/*.bak*
+data/llm_config.json
+data/wecom_config.json
+data/wecom_push_state.json
+data/incoming.jsonl
+site/

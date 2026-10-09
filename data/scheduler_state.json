@@ -1,0 +1,41 @@
+{
+  "pipeline": {
+    "extract": {
+      "extracted": 0,
+      "analysis_backfilled": 0
+    },
+    "ideas": {
+      "created": 0,
+      "updated": 0,
+      "clusters": 23
+    },
+    "evidence_quality": {
+      "ideas_synced": 23
+    },
+    "source_freshness": {
+      "checked": 0
+    },
+    "quality_after_freshness": {
+      "ideas_synced": 23
+    },
+    "evidence_retrieval": {
+      "candidates": 5,
+      "processed": 1,
+      "results": [
+        {
+          "idea_id": 1,
+          "result": {
+            "queries": 5,
+            "retrieved": 0,
+            "selected": 0,
+            "rejected": 0,
+            "errors": []
+          }
+        }
+      ]
+    }
+  },
+  "latest_output": "/Users/prince/Benchmark-Idea-Radar/outputs/latest_top10.json",
+  "insight_pages": 20,
+  "insight_base_url": "https://841a88bd19dc4d24aef378021d3607b7.ap-singapore.myide.io"
+}

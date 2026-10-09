@@ -1,0 +1,12 @@
+[Unit]
+Description=Benchmark Idea Radar weekly refresh (arXiv fetch, classify, WeCom push)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/data/benchmark-idea-radar
+ExecStart=/data/benchmark-idea-radar/.venv/bin/python scripts/weekly_refresh.py
+ExecStartPost=/bin/systemctl restart radar-web
+TimeoutStartSec=3600
+Environment=PYTHONUNBUFFERED=1

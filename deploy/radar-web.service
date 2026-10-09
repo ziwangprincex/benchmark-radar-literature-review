@@ -1,0 +1,13 @@
+[Unit]
+Description=Benchmark Idea Radar web
+After=network.target
+
+[Service]
+WorkingDirectory=/data/benchmark-idea-radar
+ExecStart=/data/benchmark-idea-radar/.venv/bin/gunicorn -w 1 --threads 8 -b 0.0.0.0:8080 --timeout 600 radar.web.app:app
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
