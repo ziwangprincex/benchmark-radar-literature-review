@@ -35,7 +35,7 @@ def main():
     failure.add_argument("--title", required=True)
     failure.add_argument("--content", required=True)
     failure.add_argument("--url", default="")
-    sub.add_parser("lit", help="综述式缺口候选：建索引→聚类→候选卡（纯正则，不调 API）")
+    sub.add_parser("lit", help="重建 Benchmark 索引（判 Benchmark、分领域），输出覆盖表（纯正则，不调 API）")
     args = parser.parse_args()
     init_db()
     if args.command == "lit":

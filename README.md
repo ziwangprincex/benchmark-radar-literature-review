@@ -2,7 +2,7 @@
 
 帮做 Benchmark 选题的人写文献综述。Radar 负责把论文收齐、提醒有哪些新的要读；需要的话，接上模型帮你起草综述。结论由人来下。
 
-它想回答三件事：
+它想回答三件事，都写在文献综述里：
 
 1. 大家在研究什么（已有的 Benchmark）
 2. 大家还没研究什么（缺口）
@@ -54,7 +54,7 @@ python3 -m radar.web.app
 | 内网开发机（`deploy/radar-weekly.timer`） | 抓 arXiv、分类，更新内网网页 | 推，同一周只推一次 |
 | GitHub Actions（`.github/workflows/weekly.yml`） | 抓 arXiv、分类，更新上面的网页版 | 不推 |
 
-推送内容：本周新收多少篇、各领域未读几篇、前几篇标题和链接，有疑似撞车的也列出来。
+推送内容：本周新收多少篇、各领域未读几篇、前几篇标题和链接。
 
 GitHub 这边不用开电脑，定时任务偶尔会晚几分钟到几十分钟，运行结果在仓库 Actions 页面看。数据库跑完存到 `data` 分支，下次接着用。想马上更新网页：Actions → weekly → Run workflow，或者：
 
@@ -84,10 +84,11 @@ python3 -m radar.publish.wecom_push --set-webhook "https://qyapi.weixin.qq.com/c
 | `data/radar.db` | 所有论文和阅读状态（最新的一份在 `data` 分支） |
 | `reports/lit_review/<领域>/` | 生成的综述、卡片、分类 |
 | `reports/lit_coverage.md` | 各领域"任务 × 输入"覆盖表，看哪里没收全 |
-| `archive/` | 旧版本资料（早期的 Idea 打分、Mini Eval 等），已不再使用 |
+| `archive/` | 旧版本资料（早期的 Idea 打分、Mini Eval、2026-10-09 停用的研究地图和撞车提醒），已不再使用 |
 
 ## 测试
 
 ```bash
-python3 -m unittest discover -s tests
+pip install pytest
+python3 -m pytest tests/ -q
 ```

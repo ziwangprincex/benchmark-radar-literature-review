@@ -6,10 +6,10 @@ from radar.publish import wecom_push
 
 class WecomPushTest(unittest.TestCase):
     def test_message_fits_wecom_limit(self):
-        text = wecom_push.build_message(alerts=[f"- 法律 · 方向{i}：[x](https://a)" for i in range(20)])
+        text = wecom_push.build_message()
         self.assertLessEqual(len(text.encode("utf-8")), wecom_push.MAX_BYTES)
-        self.assertIn("疑似撞车", text)
-        self.assertIn("还有 15 条", text)
+        self.assertIn("待读提醒", text)
+        self.assertNotIn("撞车", text)
 
     def test_no_webhook_does_not_send(self):
         with mock.patch.object(wecom_push, "load_config", return_value={}), \

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Benchmark 选题雷达</title>
+  <link rel="stylesheet" href="/static/styles.css?v={{ asset_v }}">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6.5-6.5"/></svg></span><div><strong>Benchmark</strong><small>选题雷达</small></div></div>
+    <p class="nav-label">工作台</p>
+    <nav>
+      <button class="nav-item active" data-view="reading"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg>待读清单</button>
+      <button class="nav-item" data-view="review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>文献综述</button>
+      <button class="nav-item" data-view="overview" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>总览</button>
+      <button class="nav-item" data-view="ideas" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8v.3h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/></svg>候选题目</button>
+      <button class="nav-item" data-view="gaps" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>研究地图</button>
+      <button class="nav-item" data-view="weekly" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>本周结论</button>
+      <button class="nav-item" data-view="sources" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>资料来源</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="health"><i></i><span>本地运行中</span></div>
+      <small id="foot-llm">待读清单只用本地规则；文献综述要接模型接口</small>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <div><p class="eyebrow">选题雷达</p><h1 id="page-title">待读清单</h1></div>
+      <div class="actions">
+        <button class="btn ghost" id="load-demo" hidden>载入示例</button>
+        <button class="btn ghost" id="add-signal" hidden>+ 手动添加资料</button>
+        <button class="btn primary" id="run-pipeline" hidden>运行分析</button>
+      </div>
+    </header>
+
+    <section id="reading" class="view active">
+      <div class="rd-tabs" id="rd-tabs"></div>
+      <div class="rd-subs" id="rd-subs" hidden></div>
+      <div class="rd-bar">
+        <div class="seg" id="rd-seg"></div>
+        <input id="rd-search" placeholder="搜标题 / 摘要">
+      </div>
+      <div id="rd-list" class="rd-list"></div>
+      <div class="rd-more" id="rd-more"></div>
+    </section>
+
+    <section id="review" class="view">
+      <div class="rv-conn" id="rv-conn"></div>
+      <div class="rv-tabs" id="rv-tabs"></div>
+      <div class="rv-run" id="rv-run"></div>
+      <div class="rv-progress" id="rv-progress"></div>
+      <div class="rv-body" id="rv-body"></div>
+    </section>
+
+    <section id="overview" class="view">
+      <div class="stat-grid" id="stat-grid"></div>
+      <div class="grid two">
+        <article class="panel">
+          <div class="panel-head"><div><p class="eyebrow">资料来源</p><h3>四类资料各有多少</h3></div><span class="tag">条数</span></div>
+          <div id="radar-bars" class="bars"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><p class="eyebrow">进度</p><h3>候选题目的结论</h3></div><span class="tag">点开看题卡</span></div>
+          <div id="status-funnel" class="bars"></div>
+        </article>
+      </div>
+      <article class="panel focus-panel">
+        <div class="panel-head"><div><p class="eyebrow">下一步</p><h3>值得先试测</h3></div><button class="text-btn" data-goto="ideas">看全部题卡 →</button></div>
+        <div id="focus-ideas" class="focus-list empty">还没有候选题目，先载入示例或手动添加资料。</div>
+      </article>
+    </section>
+
+    <section id="ideas" class="view">
+      <div class="ic-filters"><div class="seg" id="verdict-seg"></div><div class="seg seg-sm" id="domain-seg"></div><input id="idea-search" placeholder="搜索题目 / 测什么"></div>
+      <p class="ic-legend">每个题目回答五件事：出发点是哪类、测什么、样题、证据（能不能直接撑住）、还没证实的。证据旁的标记：<i class="ev direct">直接</i>能撑住结论，<i class="ev indirect">间接</i>只能侧面说明，<i class="ev against">撞车</i>说明已有人做或是反证。</p>
+      <div id="idea-cards" class="ic-list"></div>
+    </section>
+
+    <section id="gaps" class="view">
+      <div class="rm-tabs" id="rm-tabs"></div>
+      <div class="rm-brief" id="rm-brief"></div>
+      <div class="rm-board">
+        <div class="rm-stack">
+          <article class="rm-col c1"><div class="rm-col-head"><span class="rm-step">01</span><div><h3>大家在研究什么</h3><small id="rm-c1"></small></div></div><div class="rm-body" id="rm-researched"></div></article>
+          <article class="rm-col c0"><div class="rm-col-head"><span class="rm-step">+</span><div><h3>其他领域 Benchmark</h3><small id="rm-other-count"></small></div></div><div class="rm-obar"><select class="rm-osel" id="rm-ofilter"></select></div><div class="rm-body" id="rm-other"></div></article>
+        </div>
+        <article class="rm-col c2"><div class="rm-col-head"><span class="rm-step">02</span><div><h3>大家还没研究什么</h3><small id="rm-c2"></small></div></div><div class="rm-body" id="rm-notyet"></div></article>
+        <article class="rm-col c3"><div class="rm-col-head"><span class="rm-step">03</span><div><h3>我们能研究什么</h3><small id="rm-c3"></small></div></div><div class="rm-body" id="rm-cando"></div></article>
+      </div>
+      <div class="rm-foot"><span>数据来自已收集的 Benchmark 论文摘要，按固定规则提取</span><button class="text-btn" id="gap-rebuild">↻ 重新生成</button></div>
+    </section>
+
+    <section id="weekly" class="view">
+      <div class="weekly-hero"><div><p class="eyebrow" id="weekly-date"></p><h2 id="weekly-head"></h2><p class="weekly-sub" id="weekly-sub"></p><p class="muted" id="weekly-summary" style="margin-top:4px;font-size:12px"></p></div></div>
+      <div class="weekly-grid">
+        <article class="panel accent-green"><div class="panel-head"><h3>可以试测</h3><span id="n-mini"></span></div><div id="weekly-mini" class="weekly-list"></div></article>
+        <article class="panel accent-amber"><div class="panel-head"><h3>证据还不够</h3><span id="n-watch"></span></div><div id="weekly-watch" class="weekly-list"></div></article>
+        <article class="panel accent-red"><div class="panel-head"><h3>不建议做</h3><span id="n-no"></span></div><div id="weekly-no" class="weekly-list"></div></article>
+      </div>
+    </section>
+
+    <section id="sources" class="view">
+      <article class="panel">
+        <div class="panel-head"><div><p class="eyebrow">来源设置</p><h3>四类资料从哪来</h3></div><button class="btn ghost" id="collect-online">从网上收集</button></div>
+        <div id="source-groups" class="source-groups"></div>
+      </article>
+      <div class="source-note"><strong>收集原则</strong><p>找别人做的考题，看它们漏了什么；找专家平时干的活；找 AI 产品新出的本事；找 AI 犯过、能复现的错。四类资料放在一起整理。一个题目被几类资料同时提到，只用来排先后，不代替 100 分制打分。</p></div>
+      <article class="panel" style="margin-top:14px">
+        <div class="panel-head"><div><p class="eyebrow">全部资料</p><h3>最近整理好的资料</h3></div><span id="signal-count" class="tag"></span></div>
+        <div id="signal-pool" class="weekly-list"></div>
+      </article>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="signal-modal">
+    <form class="modal" id="signal-form">
+      <div class="modal-head"><div><p class="eyebrow">新资料</p><h3>手动添加资料</h3></div><button type="button" class="icon-btn close-modal">×</button></div>
+      <label>资料类型<select name="radar" required><option value="benchmark">别人做的考题</option><option value="workflow">专家平时干的活</option><option value="product_agent">AI 产品能做什么</option><option value="model_failure">AI 犯过的错</option></select></label>
+      <label>标题<input name="title" required placeholder="这条资料讲了什么？"></label>
+      <label>内容<textarea name="content" required rows="6" placeholder="写清楚：真实任务是什么、考什么本事、AI 错在哪、现有考题漏了什么"></textarea></label>
+      <label>来源链接<input name="url" placeholder="https://... 或 internal://..."></label>
+      <div class="modal-actions"><button type="button" class="btn ghost close-modal">取消</button><button class="btn primary">保存并分析</button></div>
+    </form>
+  </div>
+
+  <div class="drawer" id="idea-drawer"><button class="drawer-close">×</button><div id="idea-detail"></div></div>
+  <div class="toast" id="toast"></div>
+  <script src="/static/app.js?v={{ asset_v }}"></script>
+  <script src="/static/review.js?v={{ asset_v }}"></script>
+</body>
+</html>

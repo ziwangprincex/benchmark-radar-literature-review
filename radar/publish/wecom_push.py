@@ -4,7 +4,6 @@
 1. 环境变量 WECOM_WEBHOOK_URL
 2. data/wecom_config.json 里的 {"webhook": "..."}（已在 .gitignore，不进仓库）
 消息末尾的网页链接：环境变量 WECOM_PAGE_URL > 配置里的 page_url（开发机上配的是内网网页）> GitHub Pages 地址。
-撞车提醒默认读 scripts/weekly_refresh.py 当天写的 reports/weekly_alerts.json。
 
 用法:
     python3 -m radar.publish.wecom_push --dry-run   # 只打印消息，不发
@@ -28,7 +27,6 @@ import requests
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG_PATH = ROOT / "data" / "wecom_config.json"
 STATE_PATH = ROOT / "data" / "wecom_push_state.json"
-ALERTS_PATH = ROOT / "reports" / "weekly_alerts.json"
 LOG_PATH = ROOT / "outputs" / "wecom_push_log.jsonl"
 MAX_BYTES = 4000  # 企业微信 markdown 上限 4096 字节，留点余量
 TITLES_PER_DOMAIN = 3
@@ -45,15 +43,6 @@ def load_config() -> dict[str, Any]:
     return cfg
 
 
-def load_alerts() -> list[str]:
-    """读当天每周刷新写下的撞车提醒；不是今天的就不用。"""
-    try:
-        data = json.loads(ALERTS_PATH.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return []
-    return data.get("alerts", []) if data.get("date") == f"{datetime.now():%Y-%m-%d}" else []
-
-
 def save_webhook(url: str) -> None:
     url = url.strip()
     if not url.startswith("https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key="):
@@ -68,7 +57,7 @@ def _short(title: str, limit: int = 60) -> str:
     return title if len(title) <= limit else title[:limit].rstrip() + "…"
 
 
-def build_message(alerts: list[str] | None = None, page_url: str | None = None) -> str:
+def build_message(page_url: str | None = None) -> str:
     from radar.core.reading import DOMAIN_CN, reading_list
 
     data = reading_list()
@@ -82,13 +71,6 @@ def build_message(alerts: list[str] | None = None, page_url: str | None = None) 
              f"> 本周新收 <font color=\"info\">{len(new_week)}</font> 篇，"
              f"其中未读 <font color=\"warning\">{len(new_unread)}</font> 篇；"
              f"累计未读 {len(unread)} 篇", ""]
-
-    if alerts:
-        lines.append(f"**疑似撞车，需要核对（{len(alerts)}）**")
-        lines += [a if a.startswith("- ") else f"- {a}" for a in alerts[:5]]
-        if len(alerts) > 5:
-            lines.append(f"- 还有 {len(alerts) - 5} 条，见 reports/weekly_refresh.md")
-        lines.append("")
 
     by_dom = Counter(x["domain"] for x in new_unread)
     if new_unread:
@@ -111,7 +93,7 @@ def build_message(alerts: list[str] | None = None, page_url: str | None = None) 
 
     text = "\n".join(lines)
     while len(text.encode("utf-8")) > MAX_BYTES and len(lines) > 4:
-        # 超长时从后往前删论文标题行，保留统计和撞车提醒
+        # 超长时从后往前删论文标题行，保留统计
         for i in range(len(lines) - 1, -1, -1):
             if lines[i].startswith("- [") and "](" in lines[i]:
                 del lines[i]
@@ -139,11 +121,9 @@ def send(content: str, webhook: str) -> dict[str, Any]:
     return {"ok": False, "error": last}
 
 
-def push(alerts: list[str] | None = None, force: bool = False, dry_run: bool = False) -> dict[str, Any]:
+def push(force: bool = False, dry_run: bool = False) -> dict[str, Any]:
     cfg = load_config()
-    if alerts is None:
-        alerts = load_alerts()
-    text = build_message(alerts, cfg.get("page_url"))
+    text = build_message(cfg.get("page_url"))
     key = "{}-W{:02d}".format(*datetime.now().isocalendar()[:2])
     state = json.loads(STATE_PATH.read_text(encoding="utf-8")) if STATE_PATH.exists() else {}
 

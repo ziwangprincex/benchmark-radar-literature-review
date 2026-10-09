@@ -256,30 +256,6 @@ def api_weekly():
     return jsonify(weekly_report())
 
 
-@app.get("/api/gap-candidates")
-def api_gap_candidates():
-    from radar.core import lit_index
-    from radar.core.radar_core import db
-    with db() as conn:
-        exists = conn.execute(
-            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='gap_candidates'").fetchone()
-        meta = conn.execute("SELECT MAX(built_at) FROM gap_candidates").fetchone()[0] if exists else None
-    cards = lit_index.load_cards() if exists else []
-    return jsonify({"version": lit_index.LIT_VERSION, "built_at": meta, "cards": cards})
-
-
-@app.get("/api/research-map")
-def api_research_map():
-    from radar.core.lit_index import research_map
-    return jsonify(research_map())
-
-
-@app.post("/api/gap-candidates/rebuild")
-def api_gap_candidates_rebuild():
-    from radar.core.lit_index import run as lit_run
-    return jsonify({"ok": True, "stats": lit_run(BASE_DIR)})
-
-
 @app.get("/api/reading")
 def api_reading():
     from radar.core.reading import reading_list

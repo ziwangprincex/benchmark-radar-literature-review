@@ -1,10 +1,11 @@
-"""每周刷新：抓 arXiv 新论文 → 分类 → 重建索引 → 撞车提醒。
+"""每周刷新：抓 arXiv 新论文 → 分类 → 重建 Benchmark 索引 → 推送待读提醒。
 
 用法: python3 scripts/weekly_refresh.py [--no-push] [--from 论文文件.jsonl]
 每周一 15:00（北京时间）由内网开发机定时器调用（会推送）；GitHub Actions 用 --no-push 调用，只更新网页版。
 --from 用于机器上不了外网：直接导入别处抓好的论文文件。
-结果写到 reports/weekly_refresh.md，
-有新论文挤进某个方向“最像的 10 篇”且未核对时，在报告顶部提醒。
+结果写到 reports/weekly_refresh.md。
+
+2026-10-09 起不再做研究地图和撞车提醒，可做方向看文献综述。
 """
 import json
 import shutil
@@ -29,8 +30,7 @@ def main() -> None:
         sweep_cmd += ["600"]
     sweep = subprocess.run(sweep_cmd, cwd=ROOT, capture_output=True, text=True)
     last = [ln for ln in sweep.stdout.splitlines() if ln.startswith("done")]
-    sweep_ok = sweep.returncode == 0
-    if not sweep_ok:
+    if sweep.returncode != 0:
         tail = "\n".join((sweep.stdout + sweep.stderr).splitlines()[-8:])
         (ROOT / "reports" / "weekly_refresh.md").write_text(
             f"# 每周刷新 {datetime.now():%Y-%m-%d}：抓取失败\n\n"
@@ -43,30 +43,29 @@ def main() -> None:
     run_pipeline(False)
     with db() as conn:
         reclassify_stale_signals(conn)
-    from radar.core.lit_index import research_map, run
+    from radar.core.lit_index import run
     run(ROOT)
-    m = research_map()
 
-    alerts = []
-    for d in m["domains"]:
-        for x in d["can_do"]:
-            for o in x["check_overlap"]:
-                alerts.append(f"- {d['label']} · {x['title']}：[{o['name']}]({o['url']})（相似度 {o['score']}）")
+    from radar.core.reading import reading_list
+    rd = reading_list()
+    new_week = [x for x in rd["items"] if x["week"] == rd["latest_week"]]
+    label = {d["domain"]: d["label"] for d in rd["domains"]}
+    count = {}
+    for x in new_week:
+        count[x["domain"]] = count.get(x["domain"], 0) + 1
     lines = [f"# 每周刷新 {datetime.now():%Y-%m-%d}", "",
-             f"抓取：{last[0] if last else '失败，见日志'}", ""]
-    lines += (["## 需要人工核对的疑似撞车论文", ""] + alerts) if alerts else ["没有新论文挤进任何方向最像的 10 篇。"]
-    lines += ["", "## 各领域数量", ""] + [f"- {d['label']}：已有 {d['counts']['benchmarks']}，缺口 {d['counts']['gaps']}，可做 {d['counts']['can_do']}" for d in m["domains"]]
-    (ROOT / "reports" / "weekly_refresh.md").write_text("\n".join(lines), encoding="utf-8")
-    (ROOT / "reports" / "weekly_alerts.json").write_text(
-        json.dumps({"date": f"{datetime.now():%Y-%m-%d}", "alerts": alerts}, ensure_ascii=False, indent=2), encoding="utf-8")
+             f"抓取：{last[0] if last else '失败，见日志'}", "",
+             f"## 本周新收 {len(new_week)} 篇", ""]
+    lines += [f"- {label.get(d, d)}：{n}" for d, n in sorted(count.items(), key=lambda kv: -kv[1])]
+    (ROOT / "reports" / "weekly_refresh.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     from radar.publish.wecom_push import push
     try:
-        pushed = push(alerts=alerts, dry_run="--no-push" in sys.argv)
+        pushed = push(dry_run="--no-push" in sys.argv)
         pushed.pop("text", None)
     except Exception as exc:  # 推送失败不影响刷新结果
         pushed = {"ok": False, "error": str(exc)}
-    print(json.dumps({"alerts": len(alerts), "sweep": last, "wecom": pushed}, ensure_ascii=False))
+    print(json.dumps({"new_this_week": len(new_week), "sweep": last, "wecom": pushed}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

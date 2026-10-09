@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT))
 from radar.review.corpus import REVIEW_DOMAINS  # noqa: E402
 from radar.web.app import app  # noqa: E402
 
-GET_ENDPOINTS = ["reading", "research-map", "dashboard", "ideas", "sources", "signals", "review/config"] + \
+GET_ENDPOINTS = ["reading", "dashboard", "ideas", "sources", "signals", "review/config"] + \
                 [f"review/{d}" for d in REVIEW_DOMAINS]
 
 
