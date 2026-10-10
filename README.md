@@ -45,8 +45,6 @@ python3 -m radar.web.app
 
 在线打开：<https://ziwangprincex.github.io/benchmark-radar-literature-review/>
 
-网页版部署在 GitHub Pages 上，只能看：待读清单可以勾"已读""不用读"，但勾选只存在你自己的浏览器里，换浏览器或清缓存就没了。跑模型写综述、重新生成索引，要在本地运行（见上面"怎么用"）。
-
 ## 每周自动更新
 
 GitHub Actions（`.github/workflows/weekly.yml`）每周一 15:00（北京时间）跑一遍：抓 arXiv 新论文、分类，重新生成上面的网页版。不推送消息。
