@@ -38,8 +38,7 @@ function renderReview(){
 
 function rvScope(R){
   const d=rv.cfg.domains.find(x=>x.domain===rv.dom)||{};const wkLabel=R.week?`${+R.week.slice(5,7)}月${+R.week.slice(8,10)}日那周`:'本周';
-  $('#rv-scope').innerHTML=`<div class="seg rv-sseg"><button class="${rv.scope==='all'?'on':''}" data-s="all">全部综述<b>${d.papers??''} 篇</b></button><button class="${rv.scope==='week'?'on':''}" data-s="week">本周小结<b>${d.week_papers??''} 篇</b></button></div><small>${rv.scope==='all'?'用截至上周累计的全部论文写（含补的 2023 年以来的历史论文，不含本周新收的）：大家在研究什么、还没研究什么、我们能研究什么。每周一更新后，上一周的论文会并进来。':`只看${wkLabel}新收的论文：先放进全部综述已有的类，放不进的算新方向；再看补上了哪些空白、和我们的方向撞没撞车。卡片和全部综述共用，不重复抽。`}</small>${window.RADAR_STATIC?'':`<p class="rv-sess"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>分类和综述只保存在这台电脑的浏览器里，保存到 ${new Date(RV_SESS.at+RV_DAY).toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}，别人打开看不到。要长期留着请点"下载"。<button class="text-btn" id="rv-reset">清空重来</button></p>`}`;
-  const rs=$('#rv-reset');if(rs)rs.onclick=rvReset;
+  $('#rv-scope').innerHTML=`<div class="seg rv-sseg"><button class="${rv.scope==='all'?'on':''}" data-s="all">全部综述<b>${d.papers??''} 篇</b></button><button class="${rv.scope==='week'?'on':''}" data-s="week">本周小结<b>${d.week_papers??''} 篇</b></button></div><small>${rv.scope==='all'?'用截至上周累计的全部论文写（含补的 2023 年以来的历史论文，不含本周新收的）：大家在研究什么、还没研究什么、我们能研究什么。每周一更新后，上一周的论文会并进来。':`只看${wkLabel}新收的论文：先放进全部综述已有的类，放不进的算新方向；再看补上了哪些空白、和我们的方向撞没撞车。卡片和全部综述共用，不重复抽。`}</small>`;
   $$('#rv-scope [data-s]').forEach(b=>b.onclick=async()=>{if(b.dataset.s===rv.scope)return;if(rv.dirty&&!confirm('分类改了还没保存，切换会丢掉，继续？'))return;rv.dirty=false;rv.scope=b.dataset.s;rv.view='review';stopRvPoll();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()});
 }
 
@@ -71,7 +70,7 @@ function rvSteps(R,L){
   const s1=`<div class="rv-step ${nc?'done':''}"><div class="rv-step-h"><span>01</span><b>逐篇抽卡</b></div><p class="big">${nc}<small>/ ${n} 篇</small></p><p class="sub">${P.no_card?`<em class="amb">${P.no_card} 篇还没抽</em>`:nc?'每篇摘要都抽好了':'每篇摘要抽出：测什么、输入、怎么判分、主要发现、作者承认的局限'}</p>${live('cards')}<div class="rv-step-b">${P.no_card&&nc?`<button class="btn ghost" data-run="cards" ${ok?'':'disabled'}>补抽 ${P.no_card} 篇</button>`:''}${nc?`<button class="btn ghost" data-run="cards-all" ${ok?'':'disabled'}>全部重抽</button>`:`<button class="btn ghost" data-run="cards" ${ok?'':'disabled'}>开始抽卡</button>`}</div></div>`;
   const s2=`<div class="rv-step ${T?'done':''}"><div class="rv-step-h"><span>02</span><b>分类</b>${T?`<i class="by">${T.by==='user'?'你调整过':'模型提出'}</i>`:''}</div><p class="big">${T?T.categories.length:0}<small>个主题 · ${inN} 篇${outN?`，${outN} 篇不算`:''}</small></p>${T?`<p class="rv-gline">${RV_G.map(g=>{const cs=T.categories.filter(c=>(c.group||'QA')===g);return `<span class="g-${g} ${cs.length?'':'z'}">${RV_GCN[g]} ${cs.reduce((a,c)=>a+c.ids.length,0)} 篇 · ${cs.length} 个主题</span>`}).join('')}</p>`:''}<p class="sub">${P.not_classified?`<em class="amb">${P.not_classified} 篇新论文还没分类</em>`:wk?(T?(R.base?.reviewed?(newN?`<em class="amb">${newN} 类是全部综述里没有的</em>`:'都放进了全部综述已有的类'):'在"分类"里可以挪动论文'):(R.base?.reviewed?'先往全部综述已有的类里放，放不进的算新方向':'还没有全部综述，按本周论文自己分类')):T?'在"分类"里可以挪动论文、改类名':'先分 QA / Agent 两个大类，再按"测什么"分主题'}</p>${live('taxonomy')}<div class="rv-step-b"><button class="btn ghost" data-run="taxonomy" ${ok&&nc?'':'disabled'}>${T?'重新分类':'开始分类'}</button></div></div>`;
   const chk=M?.check;const s3=`<div class="rv-step ${M?(chk.ok?'done':'bad'):''}"><div class="rv-step-h"><span>03</span><b>${wk?'写本周小结':'写综述'}</b></div><p class="big">${M?(chk.ok?'已写好':'有问题'):'—'}<small>${M?rvT(M.built_at):''}</small></p><p class="sub">${P.taxonomy_newer?`<em class="amb">分类改过了，${wk?'小结':'综述'}还是按旧分类写的</em>`:M?(chk.ok?`原话核对通过 ${chk.quotes_ok} 处`:'有原话或编号对不上，见右侧'):(wk?'程序写第一节（分类）和第四节（边界），模型写第二、三节':'程序写第一节（分类）和第五节（边界），模型写第二到四节')}</p>${live('review')}<div class="rv-step-b"><button class="btn ghost" data-run="review" ${ok&&T?'':'disabled'}>${M?(wk?'重写小结':'重写综述'):'开始写'}</button></div></div>`;
-  const allBtn=`<div class="rv-step all"><b>一键更新</b><p class="sub">${wk?'只抽本周论文里还没抽过的卡，然后分类、写小结。':'只抽新论文的卡，然后重新分类、重写综述。'}${T?.by==='user'?'<em class="amb">会覆盖你调整过的分类</em>':''}</p><button class="btn primary" data-run="all" ${ok?'':'disabled'}>${run?'进行中…':'更新'}</button>${st.state==='error'?`<p class="err">${esc(st.error||'')}</p>`:''}${st.state==='stale'?'<p class="err">服务重启过，上次没跑完，重新点一下就行</p>':''}</div>`;
+  const allBtn=`<div class="rv-step all"><b>更新与下载</b><p class="sub">${wk?'只抽本周论文里还没抽过的卡，然后分类、写小结。':'只抽新论文的卡，然后重新分类、重写综述。'}${T?.by==='user'?'<em class="amb">会覆盖你调整过的分类</em>':''}</p><div class="rv-all-b"><button class="btn primary" data-run="all" ${ok?'':'disabled'}>${run?'进行中…':'更新'}</button><button class="btn ghost" id="rv-dl" ${R.review?'':'disabled'}>下载 .md</button></div>${st.state==='error'?`<p class="err">${esc(st.error||'')}</p>`:''}${st.state==='stale'?'<p class="err">服务重启过，上次没跑完，重新点一下就行</p>':''}</div>`;
   $('#rv-run').className='';$('#rv-run').innerHTML=`${baseNote}<div class="rv-steps">${s1}${s2}${s3}${allBtn}</div>`;
   $$('#rv-run [data-run]').forEach(b=>b.onclick=()=>{const k=b.dataset.run;
     if(k==='cards')rvRun({start:'cards'});
@@ -79,6 +78,7 @@ function rvSteps(R,L){
     else if(k==='taxonomy')rvRun({start:'taxonomy'},T?.by==='user'?'重新分类会覆盖你调整过的分类，并重写综述。继续？':(T?'重新分类并重写综述，继续？':null));
     else if(k==='review')rvRun({start:'review'},M?`重写会覆盖当前${wk?'小结':'综述'}（批注记录保留）。继续？`:null);
     else rvRun({start:'cards'},T?.by==='user'?'一键更新会重新分类，覆盖你调整过的分类。继续？':null)});
+  $('#rv-dl').onclick=()=>rvDownload(R);
   $('#rv-progress').innerHTML='';
 }
 
@@ -97,13 +97,12 @@ function rvReviewView(R){
   const box=$('#rv-view'),M=R.meta;
   const wk=R.scope==='week',what=wk?'本周小结':'综述';
   if(!R.papers.length&&wk){box.innerHTML='<div class="rv-empty">这个领域本周没有新论文。</div>';return}
-  if(!R.review){box.innerHTML=`<div class="rv-empty">${window.RADAR_STATIC?`这个领域还没写${what}。`:rv.cfg.llm.ready?`还没写${what}。按上面的步骤从抽卡开始，或直接点"一键更新"。卡片会缓存，抽过的不用重抽。`:'先在上面接入模型接口。'}</div>`;return}
+  if(!R.review){box.innerHTML=`<div class="rv-empty">${window.RADAR_STATIC?`这个领域还没写${what}。`:rv.cfg.llm.ready?`还没写${what}。按上面的步骤从抽卡开始，或直接点"更新"。`:'先在上面接入模型接口。'}</div>`;return}
   const meta=rvMeta(R),chk=M.check,p=chk.problems,w=chk.warnings;
   const list=(t,xs,f,cls)=>xs&&xs.length?`<details class="rv-iss ${cls}" open><summary>${t}<b>${xs.length}</b></summary><ul>${xs.slice(0,60).map(f).join('')}</ul></details>`:'';
   const notes=(M.notes||[]).slice().reverse();
   box.innerHTML=`<div class="rv-body"><article class="rv-doc">${rvMd(R.review,meta)}</article>
   <aside class="rv-side">
-   <div class="rv-dl"><div><b>下载${what}</b><small>浏览器里只保存一天</small></div><button class="btn primary" id="rv-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Markdown</button></div>
    <div class="rv-chk ${chk.ok?'':'bad'}"><b>${chk.ok?'没发现编造':'有对不上的地方'}</b><small>原话核对通过 ${chk.quotes_ok} 处 · 引用了 ${chk.cited.length} 篇${M.fixed_once?' · 已让模型按核对结果改过一次':''}</small><small>${esc(M.model||'')} · ${esc(rvT(M.built_at))}</small></div>
    ${list('原话对不上',p.fake_quotes,q=>`<li>「${esc(q.quote)}」<small>${esc(q.reason)}</small></li>`,'bad')}
    ${list('编号不存在',p.invalid_ids,i=>`<li>#${i}</li>`,'bad')}
@@ -113,7 +112,6 @@ function rvReviewView(R){
    ${notes.length?`<details class="rv-hist"><summary>改过 ${notes.length} 次</summary>${notes.map(x=>`<div><small>${esc(rvT(x.at))}</small><p>${esc(x.text)}</p></div>`).join('')}</details>`:''}</div>
    <p class="rv-caveat">程序只核对编号存在、原话没改，核对不了理解得对不对。用之前请自己读一遍，点 #编号 能打开原文。</p>
   </aside></div>`;
-  $('#rv-dl').onclick=()=>rvDownload(R);
   $('#rv-revise').onclick=()=>{const t=$('#rv-notes').value.trim();if(!t){toast('先写批注');return}rvRun({notes:t})};
 }
 
