@@ -51,7 +51,7 @@ def reading_list() -> dict[str, Any]:
     with db() as conn:
         rows = conn.execute(
             """SELECT s.id, s.title, s.url, s.content, s.published_at, s.collected_at,
-                      l.domain, l.role, l.name, r.state, r.updated_at AS state_at
+                      l.domain, l.role, l.kind AS tag, l.name, r.state, r.updated_at AS state_at
                FROM lit_index l
                JOIN source_items s ON s.id = l.source_item_id
                LEFT JOIN reading_status r ON r.source_item_id = s.id
@@ -59,7 +59,7 @@ def reading_list() -> dict[str, Any]:
                  AND s.source_id NOT LIKE 'arxiv-backfill%'  -- 回补的旧论文只进综述，不算本周新收
                ORDER BY s.collected_at DESC, s.id DESC"""
         ).fetchall()
-    from radar.core.lit_index import _other_domain
+    from radar.core.lit_index import KIND_CN, _other_domain
     items = []
     for r in rows:
         dom = r["domain"] if r["domain"] in DOMAIN_CN else "unclassified"
@@ -74,7 +74,8 @@ def reading_list() -> dict[str, Any]:
             # 规则兜底返回"通用"，和领域里的"通用"重名，这里改叫"杂项"
             "sub": (_other_domain(r["title"], (r["content"] or "")[:600]).replace("通用", "杂项")
                     if dom == "unclassified" else ""),
-            "kind": "Benchmark" if r["role"] == "benchmark" else "相关论文",
+            # 标签只用来筛选、排序，不删论文：新 Benchmark / 评测研究 / 可能是方法
+            "kind": KIND_CN.get(r["tag"], "新 Benchmark") if r["role"] == "benchmark" else "相关论文",
             "collected_at": r["collected_at"],
             "week": _week_start(r["collected_at"]),
             "state": r["state"] or "unread",

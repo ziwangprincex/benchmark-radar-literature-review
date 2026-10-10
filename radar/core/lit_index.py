@@ -15,7 +15,7 @@ from typing import Any
 
 from radar.core.radar_core import db, now_iso, strip_feed_prefix
 
-LIT_VERSION = "lit-v5"
+LIT_VERSION = "lit-v6"
 MIN_TEXT = 300  # 短于此长度基本只有标题，抽不出维度
 
 # 六个垂类领域（覆盖表只统计这几个）
@@ -79,9 +79,29 @@ METRICS = {
     "执行/成功率": r"pass@|success rate|task completion|executab|成功率",
 }
 
-# 2026-10-10 收紧：之前摘要里一句 "we propose X ... on the Y benchmark"（提出方法、在某个
-# Benchmark 上测一下）就会被当成 Benchmark 论文。回补历史论文后，医疗、编程抽查约三成是
-# 方法 / 模型论文。现在只认三种：
+# 收录与打标签分开（2026-10-10，参考 ktwu01/benchmark-radar：宽进，只打标签不删）。
+#   收录：下面三套规则任一命中就算 Benchmark 相关论文，进待读清单和综述语料
+#     - 旧的宽规则 LOOSE_TITLE / LOOSE_INTRO（标题或"我们构建…数据集"）
+#     - 参考项目的入口短语 REF_PHRASES（config.yml 的 rss_keywords）
+#     - 下面的严格规则
+#   标签 kind：严格规则只用来分"新 Benchmark / 评测研究 / 可能是方法"，不再删论文。
+#   哪些写进综述，由抽卡时模型判的类型和你在待读清单里标的"不用读"决定。
+LOOSE_TITLE = re.compile(
+    r"benchmark|dataset|corpus|test suite|evaluation suite|leaderboard|基准|评测集|数据集", re.I)
+LOOSE_INTRO = re.compile(
+    r"(introduce|present|construct|release|propose|build|curate)\w*\b[^.]{0,120}?"
+    r"(benchmark|dataset|corpus|test suite|evaluation suite)", re.I)
+REF_PHRASES = (
+    "benchmark for", " bench:", "new benchmark", "novel benchmark", "benchmark dataset", "benchmark suite",
+    "leaderboard", "evaluation benchmark", "evaluation suite", "evaluation dataset",
+    "we introduce a benchmark", "we present a benchmark", "we release a benchmark",
+    "we introduce a dataset", "we present a dataset", "we release a dataset",
+    "a new dataset for", "a novel dataset for", "curated dataset", "data contamination", "benchmark leakage",
+    "agent benchmark", "agentic benchmark", "agent evaluation", "agentic evaluation",
+    "multi-agent benchmark", "benchmark for agent",
+)
+
+# 严格规则（只决定标签）：
 #   1. 标题里有 benchmark / dataset 这类词（"dataset-agnostic" 这种不算）
 #   2. 标题本身就是评测研究（Evaluating…、How well do LLMs…、An empirical study of…）
 #   3. 摘要里"我们构建 / 发布了一个 benchmark / dataset"，动词和名词之间不能隔着
@@ -202,17 +222,30 @@ def dedup_key(title: str, url: str) -> str:
     return f"arxiv:{m.group(1)}" if m else "t:" + re.sub(r"[^a-z0-9]+", " ", (title or "").lower()).strip()
 
 
-def classify_role(radar: str, title: str, body: str) -> str:
+KIND_CN = {"new": "新 Benchmark", "eval": "评测研究", "method": "可能是方法"}
+
+
+def classify(radar: str, title: str, body: str) -> tuple[str, str]:
+    """返回 (role, kind)。kind 只对 Benchmark 相关论文有意义，其余为空。"""
     if radar in DEMAND_RADARS:
-        return "demand"
+        return "demand", ""
     if radar != "benchmark":
-        return "other"
+        return "other", ""
     if SURVEY.search(title):
-        return "not_benchmark"
-    if IS_BENCH.search(title) or EVAL_NAME.search(title) or EVAL_TITLE.search(title) \
-            or _introduces_benchmark(title, body) or EVAL_STUDY.search(f"{title}. {body}"):
-        return "benchmark"
-    return "not_benchmark"  # benchmark 采集源里的方法/模型论文
+        return "not_benchmark", ""
+    text = f"{title}. {body}"
+    if IS_BENCH.search(title) or EVAL_NAME.search(title) or _introduces_benchmark(title, body):
+        return "benchmark", "new"
+    if EVAL_TITLE.search(title) or EVAL_STUDY.search(text):
+        return "benchmark", "eval"
+    low = text.casefold()
+    if LOOSE_TITLE.search(title) or LOOSE_INTRO.search(body) or any(p in low for p in REF_PHRASES):
+        return "benchmark", "method"
+    return "not_benchmark", ""  # benchmark 采集源里和 Benchmark 都不沾边的论文
+
+
+def classify_role(radar: str, title: str, body: str) -> str:
+    return classify(radar, title, body)[0]
 
 
 def analyze(radar: str, title: str, content: str) -> dict[str, Any]:
@@ -220,8 +253,10 @@ def analyze(radar: str, title: str, content: str) -> dict[str, Any]:
     text = f"{title}. {body}"
     low = text.lower()
     too_short = len(body) < MIN_TEXT
+    role, kind = classify(radar, title, body)
     return {
-        "role": classify_role(radar, title, body),
+        "role": role,
+        "kind": kind,
         "name": _bench_name(title, body),
         "named": bench_name(title, body)[1],
         "tasks": _hits(TASKS, low),
@@ -245,7 +280,7 @@ def ensure_tables(conn) -> None:
             tasks_json TEXT NOT NULL, inputs_json TEXT NOT NULL, concerns_json TEXT NOT NULL,
             metrics_json TEXT NOT NULL,
             text_len INTEGER NOT NULL, too_short INTEGER NOT NULL,
-            version TEXT NOT NULL, built_at TEXT NOT NULL)"""
+            version TEXT NOT NULL, built_at TEXT NOT NULL, kind TEXT NOT NULL DEFAULT '')"""
     )
     conn.execute("DROP TABLE IF EXISTS gap_candidates")  # 研究地图已停用，清掉旧表
 
@@ -284,10 +319,10 @@ def build_index() -> dict[str, int]:
                     a["role"] = "duplicate"
                 seen.add(k)
             conn.execute(
-                "INSERT INTO lit_index VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO lit_index VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 (r["id"], r["radar"], r["domain"], a["role"], a["name"],
                  *(json.dumps(a[k], ensure_ascii=False) for k in JSON_COLS),
-                 a["text_len"], int(a["too_short"]), LIT_VERSION, ts),
+                 a["text_len"], int(a["too_short"]), LIT_VERSION, ts, a["kind"]),
             )
             stats[a["role"]] += 1
             stats["too_short"] += int(a["too_short"])

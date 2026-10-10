@@ -15,6 +15,7 @@ from datetime import datetime
 from email.utils import parsedate_to_datetime
 from typing import Any
 
+from radar.core.lit_index import KIND_CN
 from radar.core.radar_core import db
 from radar.core.reading import DOMAIN_CN, _ARXIV_HEAD, _week_start, ensure_table
 
@@ -73,7 +74,7 @@ def load_corpus(domain: str, limit: int | None = None, scope: str = "all") -> li
     ensure_table()
     with db() as conn:
         rows = conn.execute(
-            f"""SELECT s.id, s.title, s.url, s.content, s.published_at, s.collected_at, s.source_id, l.role
+            f"""SELECT s.id, s.title, s.url, s.content, s.published_at, s.collected_at, s.source_id, l.role, l.kind AS tag
                 {_BASE_SQL} AND COALESCE(r.state, 'unread') != 'skip'
                 ORDER BY s.collected_at DESC, s.id DESC""",
             (domain,),
@@ -86,7 +87,7 @@ def load_corpus(domain: str, limit: int | None = None, scope: str = "all") -> li
         "id": r["id"],
         "title": re.sub(r"\s+", " ", r["title"] or "").strip(),
         "url": r["url"],
-        "kind": "Benchmark" if r["role"] == "benchmark" else "相关论文",
+        "kind": KIND_CN.get(r["tag"], "新 Benchmark") if r["role"] == "benchmark" else "相关论文",
         "date": _date(r["published_at"], r["collected_at"]),
         "abstract": clean_abstract(r["content"]),
     } for r in rows]

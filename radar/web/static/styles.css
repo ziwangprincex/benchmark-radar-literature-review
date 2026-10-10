@@ -340,6 +340,7 @@ td .text-btn{white-space:nowrap}
 .rd-meta{display:flex;gap:6px;margin-bottom:4px}
 .rd-meta i{font-style:normal;font-size:11px;font-weight:550;color:var(--muted);background:var(--sunken);border-radius:4px;padding:0 6px}
 .rd-meta i.k.b{color:var(--accent-ink);background:var(--accent-bg)}
+.rd-meta i.k.m{color:var(--faint);background:transparent;border:1px dashed var(--line)}
 .rd-title{display:block;font-size:14px;font-weight:600;line-height:1.45;color:var(--ink);text-decoration:none}
 .rd-title b{font-weight:400;font-size:11px;color:var(--faint);margin-left:4px}
 .rd-title:hover{color:var(--accent)}
@@ -541,6 +542,7 @@ q.orig{quotes:none;font-family:Georgia,"Times New Roman",serif;font-style:italic
 .rv-card .cn{display:block;color:var(--muted)}
 .rv-card s{color:var(--faint);font-size:12px}
 @media (max-width:1200px){.rv-steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:700px){.rv-tabs{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:860px){.rv-steps{grid-template-columns:1fr}.rv-cards{grid-template-columns:1fr}.rv-trow{grid-template-columns:1fr}.rv-cbar input{width:100%}}
 
 /* 全部综述 / 本周小结 切换（2026-10-10） */
