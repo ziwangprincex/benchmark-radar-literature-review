@@ -88,6 +88,30 @@ class TaxonomyTest(unittest.TestCase):
         self.assertIn("问答与检索", sent[1])
         self.assertIn('"tests": "x"', sent[1])  # 带上了模型原始回复
 
+    def test_assign_step_fills_missing_ids(self):
+        """2026-10-10 开发机金融本周实测：deepseek-flash 第一次给的主题全都没写 ids。
+        改为单独问一次每篇属于哪个主题（含 QA、Agent 下同名的"其他"）。"""
+        sent = []
+        replies = iter([
+            json.dumps({"categories": [{"group": "QA", "name": "问答与检索", "tests": "x"},
+                                       {"group": "QA", "name": "其他", "tests": "y"},
+                                       {"group": "Agent", "name": "其他", "tests": "z"}], "outside": []}, ensure_ascii=False),
+            json.dumps({"assign": [{"id": 1, "topic": "问答与检索"}, {"id": 3, "topic": "[QA] 问答与检索"},
+                                   {"id": 2, "topic": "[Agent] 其他"}, {"id": 4, "topic": "outside"}]}, ensure_ascii=False),
+        ])
+
+        def chat(msgs):
+            sent.append(msgs[-1]["content"])
+            return next(replies)
+        lines = {i: f"#{i}｜Benchmark｜论文{i}" for i in (1, 2, 3, 4)}
+        tax = P._ask_taxonomy("legal", "分类", {1, 2, 3, 4}, chat, lines)
+        self.assertEqual(len(sent), 2)
+        self.assertIn("[Agent] 其他", sent[1])
+        self.assertIn("#2｜Benchmark｜论文2", sent[1])
+        self.assertEqual([(c["group"], c["name"], c["ids"]) for c in tax["categories"]],
+                         [("QA", "问答与检索", [1, 3]), ("Agent", "其他", [2])])
+        self.assertEqual(tax["outside"], [{"id": 4, "reason": "模型判为与选题无关"}])
+
     def test_all_empty_raises(self):
         bad = json.dumps({"categories": [{"name": "A"}], "outside": []})
         with self.assertRaisesRegex(ValueError, "分类失败"):

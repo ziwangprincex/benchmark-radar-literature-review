@@ -330,7 +330,8 @@ def normalize_taxonomy(data: Any, ids: set[int]) -> dict[str, Any]:
         got = take(c.get("ids"))
         name = str(c.get("name") or "").strip()[:40]
         if name and not got:
-            no_ids.append(name)
+            no_ids.append({"group": _group(c.get("group")), "name": name,
+                           "tests": str(c.get("tests") or "").strip(), "why": str(c.get("why") or "").strip()})
         if got and name:
             cats.append({"group": _group(c.get("group")), "name": name, "tests": str(c.get("tests") or "").strip(),
                          "why": str(c.get("why") or "").strip(), "ids": got})
@@ -344,16 +345,69 @@ def normalize_taxonomy(data: Any, ids: set[int]) -> dict[str, Any]:
     return {"categories": cats, "outside": outside, "missing": sorted(ids - seen), "no_ids": no_ids}
 
 
-def _ask_taxonomy(domain: str, msg: str, ids: set[int], chat_fn: ChatFn) -> dict[str, Any]:
-    """让模型分类；有论文没出现就把漏的列给它补一次，还漏的放进"不算"并注明。"""
+ASSIGN_PROMPT = """下面是已经定好的主题，以及还没归到主题里的论文。给每篇论文选一个主题，主题名一字不改照抄；
+和选题无关的方法论文、综述写 "outside"。每篇都要写，一篇不能漏。
+
+只输出 JSON，不要输出其他文字：
+{"assign": [{"id": 编号, "topic": "[大类] 主题名，或 outside"}]}"""
+
+
+def _assign_ids(tax: dict[str, Any], lines: dict[int, str], ids: set[int], chat_fn: ChatFn) -> dict[str, Any]:
+    """模型给了主题却没写 ids（deepseek-flash 常把末尾的 ids 漏掉）时，单独再问一次"每篇属于哪个主题"。
+    只发主题名和论文的一行摘要，篇幅小，模型不容易漏。"""
+    topics = tax["categories"] + [dict(t, ids=[]) for t in tax["no_ids"]]
+    todo = [i for i in tax["missing"] if i in lines]
+    if not topics or not todo:
+        return tax
+    msg = (ASSIGN_PROMPT + "\n\n---\n\n主题：\n"
+           + "\n".join(f"- [{t['group']}] {t['name']}：{t['tests']}" for t in topics)
+           + "\n\n论文：\n" + "\n".join(lines[i] for i in todo))
+    data = extract_json(_ask(chat_fn, msg))
+    rows = data.get("assign") if isinstance(data, dict) else data
+    by_name: dict[str, dict] = {}
+    for t in topics:  # QA 和 Agent 下可能都有"其他"：既认"[Agent] 其他"，也认裸名（取第一个）
+        by_name[f"[{t['group']}] {t['name']}"] = t
+        by_name.setdefault(t["name"], t)
+    for r in rows if isinstance(rows, list) else []:
+        if not isinstance(r, dict):
+            continue
+        try:
+            i = int(str(r.get("id")).lstrip("#"))
+        except ValueError:
+            continue
+        topic = str(r.get("topic") or "").strip()
+        if i not in todo:
+            continue
+        if topic.lower() == "outside":
+            tax["outside"].append({"id": i, "reason": "模型判为与选题无关"})
+        elif topic in by_name:
+            by_name[topic]["ids"].append(i)
+        else:
+            continue
+        todo.remove(i)
+    cats = [t for t in topics if t["ids"]]
+    cats.sort(key=lambda c: GROUPS.index(c["group"]))
+    return {**tax, "categories": cats, "missing": sorted(set(todo) | (set(tax["missing"]) - set(lines))),
+            "no_ids": []}
+
+
+def _ask_taxonomy(domain: str, msg: str, ids: set[int], chat_fn: ChatFn,
+                  lines: dict[int, str] | None = None) -> dict[str, Any]:
+    """让模型分类。主题没写 ids 就单独问一次每篇的归属；还有漏的把漏的列给它补一次；
+    最后还漏的放进"不算"并注明。"""
     raw = _ask(chat_fn, msg)
     tax = normalize_taxonomy(extract_json(raw), ids)
+    if tax["no_ids"] and lines:
+        try:
+            tax = _assign_ids(tax, lines, ids, chat_fn)
+        except Exception:
+            pass
     if tax["missing"]:
         # 把模型原始回复和具体问题发回去，不要发整理后的结果（没有 ids 的类会被整理掉，模型看不出错在哪）
         why = []
         if tax["no_ids"]:
             why.append("这些类没有写 ids（每一类都必须有 \"ids\": [编号, …]，列出归到这一类的论文编号）："
-                       + "、".join(tax["no_ids"]))
+                       + "、".join(t["name"] for t in tax["no_ids"]))
         why.append("这些编号一次都没出现：" + "、".join(f"#{i}" for i in tax["missing"]))
         fix = (msg + "\n\n---\n\n你上一次的回复：\n" + raw[:6000] + "\n\n问题：\n" + "\n".join(why)
                + "\n\n每篇必须出现一次。改正后输出完整的 JSON，格式和上面要求的一样。")
@@ -365,7 +419,7 @@ def _ask_taxonomy(domain: str, msg: str, ids: set[int], chat_fn: ChatFn) -> dict
             pass
     tax.pop("no_ids", None)
     if not tax["categories"]:
-        raise ValueError("分类失败：模型两次都没给出可用的分类（类里没有论文编号）。可以重试，或换个模型")
+        raise ValueError("分类失败：模型返回的主题均未包含论文编号，请重试或更换模型")
     for i in tax.pop("missing"):
         tax["outside"].append({"id": i, "reason": "模型没归类，需要你手动放进某一类"})
     return tax
@@ -378,7 +432,8 @@ def make_taxonomy(domain: str, papers: list[dict[str, Any]], cards: dict[str, An
     _status(domain, stage="taxonomy", step="分类", done=0, total=len(use))
     msg = (f"{prompt('taxonomy')}\n\n---\n\n领域：{DOMAIN_CN[domain]}，共 {len(use)} 篇。\n\n"
            + "\n".join(_card_line(cards[str(p["id"])], p) for p in use))
-    tax = _ask_taxonomy(domain, msg, {p["id"] for p in use}, chat_fn)
+    lines = {p["id"]: _card_line(cards[str(p["id"])], p) for p in use}
+    tax = _ask_taxonomy(domain, msg, {p["id"] for p in use}, chat_fn, lines)
     tax.update(by="model", updated_at=_now())
     _write(out_dir(domain) / "taxonomy.json", tax)
     _status(domain, done=len(use))
@@ -411,7 +466,8 @@ def make_week_taxonomy(domain: str, papers: list[dict[str, Any]], cards: dict[st
     msg = (prompt("week_taxonomy").replace("{base}", btxt)
            + f"\n\n---\n\n领域：{DOMAIN_CN[domain]}，本周（{wk} 起）共 {len(use)} 篇。\n\n"
            + "\n".join(_card_line(cards[str(p["id"])], p) for p in use))
-    tax = _mark_new(_ask_taxonomy(domain, msg, {p["id"] for p in use}, chat_fn), base)
+    lines = {p["id"]: _card_line(cards[str(p["id"])], p) for p in use}
+    tax = _mark_new(_ask_taxonomy(domain, msg, {p["id"] for p in use}, chat_fn, lines), base)
     tax.update(by="model", updated_at=_now(), week=wk, base_at=(base or {}).get("updated_at"))
     _write(week_dir(domain) / "taxonomy.json", tax)
     _status(domain, done=len(use))

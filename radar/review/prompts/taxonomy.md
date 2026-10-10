@@ -24,6 +24,6 @@
 
 只输出下面格式的 JSON，不要输出其他文字。每个主题都必须有 group 和 ids，ids 列出归到这个主题的论文编号（就是 # 后面的数字），不能只写主题名和说明；tests 和 why 各写一两句，不要把论文内容抄进去：
 
-{"categories": [{"group": "QA", "name": "主题名", "tests": "这个主题测什么、输入是什么", "why": "为什么归一类", "ids": [编号, 编号]},
-                {"group": "Agent", "name": "主题名", "tests": "…", "why": "…", "ids": [编号, 编号]}],
+{"categories": [{"group": "QA", "name": "主题名", "ids": [编号, 编号], "tests": "这个主题测什么、输入是什么", "why": "为什么归一类"},
+                {"group": "Agent", "name": "主题名", "ids": [编号, 编号], "tests": "…", "why": "…"}],
  "outside": [{"id": 编号, "reason": "为什么不算"}]}
