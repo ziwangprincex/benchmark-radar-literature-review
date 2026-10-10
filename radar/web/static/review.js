@@ -29,7 +29,7 @@ function renderReview(){
   const wk=rv.scope==='week';
   $('#rv-tabs').innerHTML=c.domains.map(d=>{const x=wk?d.week:d;const tag=x.state==='running'?'<em class="run">进行中</em>':x.reviewed?`<em class="${x.review_ok?'ok':'bad'}">${x.review_ok?(wk?'已写小结':'已写综述'):(wk?'小结有问题':'综述有问题')}</em>`:x.categories?`<em>已分 ${x.categories} 类</em>`:(!wk&&d.cards)?`<em>已抽 ${d.cards} 张卡</em>`:'<em>未开始</em>';
     return `<button class="rd-tab rv-tab ${d.domain===rv.dom?'on':''}" data-d="${d.domain}"><span>${esc(d.label)}</span><div><i><b>${wk?d.week_papers:d.papers}</b>${wk?'篇本周新':'篇'}</i>${tag}</div></button>`}).join('');
-  $$('#rv-tabs [data-d]').forEach(b=>b.onclick=async()=>{if(rv.dirty&&!confirm('分类改了还没保存，切换会丢掉，继续？'))return;rv.dirty=false;rv.dom=b.dataset.d;stopRvPoll();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()});
+  $$('#rv-tabs [data-d]').forEach(b=>b.onclick=async()=>{if(rv.dirty&&!confirm('分类修改未保存，切换后将丢失，是否继续？'))return;rv.dirty=false;rv.dom=b.dataset.d;stopRvPoll();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()});
   const R=rvCur();if(!R)return;
   rvScope(R);rvSteps(R,L);rvViews(R);
 }
@@ -37,7 +37,7 @@ function renderReview(){
 function rvScope(R){
   const d=rv.cfg.domains.find(x=>x.domain===rv.dom)||{};const wkLabel=R.week?`${+R.week.slice(5,7)}月${+R.week.slice(8,10)}日那周`:'本周';
   $('#rv-scope').innerHTML=`<div class="seg rv-sseg"><button class="${rv.scope==='all'?'on':''}" data-s="all">全部综述<b>${d.papers??''} 篇</b></button><button class="${rv.scope==='week'?'on':''}" data-s="week">本周小结<b>${d.week_papers??''} 篇</b></button></div>`;
-  $$('#rv-scope [data-s]').forEach(b=>b.onclick=async()=>{if(b.dataset.s===rv.scope)return;if(rv.dirty&&!confirm('分类改了还没保存，切换会丢掉，继续？'))return;rv.dirty=false;rv.scope=b.dataset.s;rv.view='review';stopRvPoll();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()});
+  $$('#rv-scope [data-s]').forEach(b=>b.onclick=async()=>{if(b.dataset.s===rv.scope)return;if(rv.dirty&&!confirm('分类修改未保存，切换后将丢失，是否继续？'))return;rv.dirty=false;rv.scope=b.dataset.s;rv.view='review';stopRvPoll();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()});
 }
 
 function rvConn(L){const box=$('#rv-conn');
@@ -61,19 +61,19 @@ function rvConn(L){const box=$('#rv-conn');
 function rvSteps(R,L){
   const st=R.status||{},run=st.state==='running',n=R.papers.length,P=R.pending,T=R.taxonomy,M=R.meta,wk=R.scope==='week';
   const newN=T&&wk?T.categories.filter(c=>c.new).length:0;
-  const baseNote=wk?(!R.base?.reviewed?'<p class="rv-basenote amb">还没写全部综述，第三节没法比</p>':P.base_newer?'<p class="rv-basenote amb">全部综述更新过，这份小结是按旧版比的</p>':`<p class="rv-basenote">对比用的是 ${esc(rvT(R.base.built_at))} 写的全部综述（${R.base.papers} 篇）。</p>`):'';
+  const baseNote=wk?(!R.base?.reviewed?'<p class="rv-basenote amb">缺少全部综述，第三节无法对比</p>':P.base_newer?'<p class="rv-basenote amb">全部综述已更新，本小结基于旧版</p>':`<p class="rv-basenote">对比基准：${esc(rvT(R.base.built_at))} 版全部综述（${R.base.papers} 篇）</p>`):'';
   const nc=Object.keys(R.cards).length,ok=L.ready&&!run&&n>0;
   const live=k=>run&&st.stage===k?`<p class="rv-live"><i class="spin"></i>${esc(st.step||'')}${st.total?` · ${st.done||0}/${st.total}`:''}</p>`:'';
   const outN=T?T.outside.length:0,inN=T?T.categories.reduce((a,c)=>a+c.ids.length,0):0;
-  const s1=`<div class="rv-step ${nc?'done':''}"><div class="rv-step-h"><span>01</span><b>逐篇抽卡</b></div><p class="big">${nc}<small>/ ${n} 篇</small></p><p class="sub">${P.no_card?`<em class="amb">${P.no_card} 篇还没抽</em>`:''}</p>${live('cards')}<div class="rv-step-b">${P.no_card&&nc?`<button class="btn ghost" data-run="cards" ${ok?'':'disabled'}>补抽 ${P.no_card} 篇</button>`:''}${nc?`<button class="btn ghost" data-run="cards-all" ${ok?'':'disabled'}>全部重抽</button>`:`<button class="btn ghost" data-run="cards" ${ok?'':'disabled'}>开始抽卡</button>`}</div></div>`;
-  const s2=`<div class="rv-step ${T?'done':''}"><div class="rv-step-h"><span>02</span><b>分类</b>${T?`<i class="by">${T.by==='user'?'你调整过':'模型提出'}</i>`:''}</div><p class="big">${T?T.categories.length:0}<small>个主题 · ${inN} 篇${outN?`，${outN} 篇不算`:''}</small></p>${T?`<p class="rv-gline">${RV_G.map(g=>{const cs=T.categories.filter(c=>(c.group||'QA')===g);return `<span class="g-${g} ${cs.length?'':'z'}">${RV_GCN[g]} ${cs.reduce((a,c)=>a+c.ids.length,0)} 篇 · ${cs.length} 个主题</span>`}).join('')}</p>`:''}<p class="sub">${P.not_classified?`<em class="amb">${P.not_classified} 篇新论文还没分类</em>`:wk&&T&&R.base?.reviewed&&newN?`<em class="amb">${newN} 个新主题</em>`:''}</p>${live('taxonomy')}<div class="rv-step-b"><button class="btn ghost" data-run="taxonomy" ${ok&&nc?'':'disabled'}>${T?'重新分类':'开始分类'}</button></div></div>`;
-  const chk=M?.check;const s3=`<div class="rv-step ${M?(chk.ok?'done':'bad'):''}"><div class="rv-step-h"><span>03</span><b>${wk?'写本周小结':'写综述'}</b></div><p class="big">${M?(chk.ok?'已写好':'有问题'):'—'}<small>${M?rvT(M.built_at):''}</small></p><p class="sub">${P.taxonomy_newer?`<em class="amb">分类改过了，${wk?'小结':'综述'}还是按旧分类写的</em>`:M&&!chk.ok?'<em class="amb">有原话或编号对不上</em>':''}</p>${live('review')}<div class="rv-step-b"><button class="btn ghost" data-run="review" ${ok&&T?'':'disabled'}>${M?(wk?'重写小结':'重写综述'):'开始写'}</button></div></div>`;
-  const allBtn=`<div class="rv-step all"><b>更新与下载</b>${T?.by==='user'?'<p class="sub"><em class="amb">会覆盖你调整过的分类</em></p>':''}<div class="rv-all-b"><button class="btn primary" data-run="all" ${ok?'':'disabled'}>${run?'进行中…':'更新'}</button><button class="btn ghost" id="rv-dl" ${R.review?'':'disabled'}>下载 .md</button></div>${st.state==='error'?`<p class="err">${esc(st.error||'')}</p>`:''}${st.state==='stale'?'<p class="err">服务重启过，上次没跑完，重新点一下就行</p>':''}</div>`;
+  const s1=`<div class="rv-step ${nc?'done':''}"><div class="rv-step-h"><span>01</span><b>逐篇抽卡</b></div><p class="big">${nc}<small>/ ${n} 篇</small></p><p class="sub">${P.no_card?`<em class="amb">未抽卡 ${P.no_card} 篇</em>`:''}</p>${live('cards')}<div class="rv-step-b">${P.no_card&&nc?`<button class="btn ghost" data-run="cards" ${ok?'':'disabled'}>补抽 ${P.no_card} 篇</button>`:''}${nc?`<button class="btn ghost" data-run="cards-all" ${ok?'':'disabled'}>全部重抽</button>`:`<button class="btn ghost" data-run="cards" ${ok?'':'disabled'}>开始抽卡</button>`}</div></div>`;
+  const s2=`<div class="rv-step ${T?'done':''}"><div class="rv-step-h"><span>02</span><b>分类</b>${T?`<i class="by">${T.by==='user'?'手动调整':'模型生成'}</i>`:''}</div><p class="big">${T?T.categories.length:0}<small>个主题 · ${inN} 篇${outN?`，${outN} 篇不算`:''}</small></p>${T?`<p class="rv-gline">${RV_G.map(g=>{const cs=T.categories.filter(c=>(c.group||'QA')===g);return `<span class="g-${g} ${cs.length?'':'z'}">${RV_GCN[g]} ${cs.reduce((a,c)=>a+c.ids.length,0)} 篇 · ${cs.length} 个主题</span>`}).join('')}</p>`:''}<p class="sub">${P.not_classified?`<em class="amb">未分类 ${P.not_classified} 篇</em>`:wk&&T&&R.base?.reviewed&&newN?`<em class="amb">新增主题 ${newN} 个</em>`:''}</p>${live('taxonomy')}<div class="rv-step-b"><button class="btn ghost" data-run="taxonomy" ${ok&&nc?'':'disabled'}>${T?'重新分类':'开始分类'}</button></div></div>`;
+  const chk=M?.check;const s3=`<div class="rv-step ${M?(chk.ok?'done':'bad'):''}"><div class="rv-step-h"><span>03</span><b>${wk?'写本周小结':'写综述'}</b></div><p class="big">${M?(chk.ok?'已写好':'有问题'):'—'}<small>${M?rvT(M.built_at):''}</small></p><p class="sub">${P.taxonomy_newer?`<em class="amb">分类已变更，${wk?'小结':'综述'}未同步</em>`:M&&!chk.ok?'<em class="amb">引文核对未通过</em>':''}</p>${live('review')}<div class="rv-step-b"><button class="btn ghost" data-run="review" ${ok&&T?'':'disabled'}>${M?(wk?'重写小结':'重写综述'):'开始写'}</button></div></div>`;
+  const allBtn=`<div class="rv-step all"><b>更新与下载</b>${T?.by==='user'?'<p class="sub"><em class="amb">将覆盖手动调整的分类</em></p>':''}<div class="rv-all-b"><button class="btn primary" data-run="all" ${ok?'':'disabled'}>${run?'进行中…':'更新'}</button><button class="btn ghost" id="rv-dl" ${R.review?'':'disabled'}>下载 .md</button></div>${st.state==='error'?`<p class="err">${esc(st.error||'')}</p>`:''}${st.state==='stale'?'<p class="err">任务因服务重启中断，请重新运行</p>':''}</div>`;
   $('#rv-run').className='';$('#rv-run').innerHTML=`${baseNote}<div class="rv-steps">${s1}${s2}${s3}${allBtn}</div>`;
   $$('#rv-run [data-run]').forEach(b=>b.onclick=()=>{const k=b.dataset.run;
     if(k==='cards')rvRun({start:'cards'});
     else if(k==='cards-all')rvRun({start:'cards',force_cards:true},`重新抽 ${n} 篇的卡片，并重新分类、重写综述。继续？`);
-    else if(k==='taxonomy')rvRun({start:'taxonomy'},T?.by==='user'?'重新分类会覆盖你调整过的分类，并重写综述。继续？':(T?'重新分类并重写综述，继续？':null));
+    else if(k==='taxonomy')rvRun({start:'taxonomy'},T?.by==='user'?'重新分类将覆盖手动调整的分类并重写综述，是否继续？':(T?'重新分类并重写综述，是否继续？':null));
     else if(k==='review')rvRun({start:'review'},M?`重写会覆盖当前${wk?'小结':'综述'}（批注记录保留）。继续？`:null);
     else rvRun({start:'cards'},T?.by==='user'?'一键更新会重新分类，覆盖你调整过的分类。继续？':null)});
   $('#rv-dl').onclick=()=>rvDownload(R);
@@ -94,15 +94,15 @@ function rvMeta(R){const m={};R.papers.forEach(p=>m[p.id]=p);return m}
 function rvReviewView(R){
   const box=$('#rv-view'),M=R.meta;
   const wk=R.scope==='week',what=wk?'本周小结':'综述';
-  if(!R.papers.length&&wk){box.innerHTML='<div class="rv-empty">这个领域本周没有新论文。</div>';return}
-  if(!R.review){box.innerHTML=`<div class="rv-empty">${window.RADAR_STATIC?`这个领域还没写${what}。`:rv.cfg.llm.ready?`还没写${what}`:'还没接入模型'}</div>`;return}
+  if(!R.papers.length&&wk){box.innerHTML='<div class="rv-empty">本周无新论文</div>';return}
+  if(!R.review){box.innerHTML=`<div class="rv-empty">${window.RADAR_STATIC?`暂无${what}`:rv.cfg.llm.ready?`暂无${what}`:'未接入模型'}</div>`;return}
   const meta=rvMeta(R),chk=M.check,p=chk.problems,w=chk.warnings;
   const list=(t,xs,f,cls)=>xs&&xs.length?`<details class="rv-iss ${cls}" open><summary>${t}<b>${xs.length}</b></summary><ul>${xs.slice(0,60).map(f).join('')}</ul></details>`:'';
   const notes=(M.notes||[]).slice().reverse();
   box.innerHTML=`<div class="rv-body"><article class="rv-doc">${rvMd(R.review,meta)}</article>
   <aside class="rv-side">
-   <div class="rv-chk ${chk.ok?'':'bad'}"><b>${chk.ok?'没发现编造':'有对不上的地方'}</b><small>原话核对通过 ${chk.quotes_ok} 处 · 引用了 ${chk.cited.length} 篇${M.fixed_once?' · 已让模型按核对结果改过一次':''}</small><small>${esc(M.model||'')} · ${esc(rvT(M.built_at))}</small></div>
-   ${list('原话对不上',p.fake_quotes,q=>`<li>「${esc(q.quote)}」<small>${esc(q.reason)}</small></li>`,'bad')}
+   <div class="rv-chk ${chk.ok?'':'bad'}"><b>${chk.ok?'核对通过':'核对未通过'}</b><small>原话 ${chk.quotes_ok} 处 · 引用 ${chk.cited.length} 篇${M.fixed_once?' · 已按核对结果修订 1 次':''}</small><small>${esc(M.model||'')} · ${esc(rvT(M.built_at))}</small></div>
+   ${list('原话不一致',p.fake_quotes,q=>`<li>「${esc(q.quote)}」<small>${esc(q.reason)}</small></li>`,'bad')}
    ${list('编号不存在',p.invalid_ids,i=>`<li>#${i}</li>`,'bad')}
    ${list('缺少的节',p.missing_sections,x=>`<li>${esc(x)}</li>`,'bad')}
    ${list('第二节没写到的类',w.categories_not_discussed,x=>`<li>${esc(x)}</li>`,'warn')}
@@ -127,18 +127,18 @@ function rvDownload(R){
 
 function rvTaxView(R){
   const box=$('#rv-view'),T=rv.tax;
-  if(!T){box.innerHTML=`<div class="rv-empty">还没分类。先抽卡，再点上面的"开始分类"。</div>`;return}
+  if(!T){box.innerHTML=`<div class="rv-empty">暂无分类</div>`;return}
   const meta=rvMeta(R),cards=R.cards;
   const placed=new Set([...T.categories.flatMap(c=>c.ids),...T.outside.map(o=>o.id)]);
   const newOnes=R.papers.filter(p=>cards[p.id]&&!placed.has(p.id)).map(p=>p.id);
   T.categories.forEach(c=>{if(!RV_G.includes(c.group))c.group='QA'});
   const opts=cur=>RV_G.map(g=>`<optgroup label="${RV_GCN[g]}">${T.categories.map((c,i)=>c.group===g?`<option value="c${i}" ${cur==='c'+i?'selected':''}>${esc(c.name)}</option>`:'').join('')}</optgroup>`).join('')+`<option value="out" ${cur==='out'?'selected':''}>不算（移出）</option>${cur==='new'?'<option value="new" selected>还没分类</option>':''}<option value="add">＋ 新建一类…</option>`;
   const row=(id,cur,extra='')=>{const p=meta[id],c=cards[id]||{};if(!p)return '';return `<div class="rv-trow"><div><a href="${esc(p.url||'#')}" target="_blank" rel="noopener">${esc(p.title)}</a><small>#${id}${c.kind?' · '+esc(c.kind):''}${c.task?' · '+esc(c.task):''}</small>${extra}</div><select data-id="${id}" data-cur="${cur}">${opts(cur)}</select></div>`};
-  box.innerHTML=`${rv.dirty?`<div class="rv-dirty"><span>分类改了还没保存。保存后要点上面"重写综述"，综述才会按新分类写。</span><button class="btn ghost" id="rv-undo">撤销</button><button class="btn primary" id="rv-savetax">保存分类</button></div>`:''}
-  ${newOnes.length?`<div class="rv-cat newc"><div class="rv-cat-h"><b>还没分类的新论文</b><span>${newOnes.length} 篇</span></div>${newOnes.map(id=>row(id,'new')).join('')}</div>`:''}
+  box.innerHTML=`${rv.dirty?`<div class="rv-dirty"><span>分类修改未保存</span><button class="btn ghost" id="rv-undo">撤销</button><button class="btn primary" id="rv-savetax">保存分类</button></div>`:''}
+  ${newOnes.length?`<div class="rv-cat newc"><div class="rv-cat-h"><b>未分类论文</b><span>${newOnes.length} 篇</span></div>${newOnes.map(id=>row(id,'new')).join('')}</div>`:''}
   ${RV_G.map(g=>{const cs=T.categories.map((c,i)=>[c,i]).filter(([c])=>c.group===g),n=cs.reduce((a,[c])=>a+c.ids.length,0);
-    return `<section class="rv-grp g-${g}"><div class="rv-grp-h"><b>${RV_GCN[g]}</b><span>${n} 篇 · ${cs.length} 个主题</span></div>${cs.map(([c,i])=>`<div class="rv-cat ${c.new&&R.scope==='week'&&R.base?.reviewed?'isnew':''}"><div class="rv-cat-h"><input class="rv-cname" data-i="${i}" value="${esc(c.name)}" aria-label="主题名">${c.new&&R.scope==='week'&&R.base?.reviewed?'<em class="newtag">新方向</em>':''}<select class="rv-cgrp" data-i="${i}" aria-label="大类">${RV_G.map(x=>`<option value="${x}" ${x===g?'selected':''}>${RV_GCN[x]}</option>`).join('')}</select><span>${c.ids.length} 篇</span></div><textarea class="rv-ctests" data-i="${i}" rows="2" placeholder="这个主题测什么、输入是什么">${esc(c.tests)}</textarea>${c.why?`<p class="why">归为一类的理由：${esc(c.why)}</p>`:''}${c.ids.map(id=>row(id,'c'+i)).join('')}</div>`).join('')||'<p class="rv-grp-empty">这个大类没有论文</p>'}</section>`}).join('')}
-  ${T.outside.length?`<div class="rv-cat outc"><div class="rv-cat-h"><b>不算进来的</b><span>${T.outside.length} 篇</span></div>${T.outside.map(o=>row(o.id,'out',o.reason?`<em>${esc(o.reason)}</em>`:'')).join('')}</div>`:''}`;
+    return `<section class="rv-grp g-${g}"><div class="rv-grp-h"><b>${RV_GCN[g]}</b><span>${n} 篇 · ${cs.length} 个主题</span></div>${cs.map(([c,i])=>`<div class="rv-cat ${c.new&&R.scope==='week'&&R.base?.reviewed?'isnew':''}"><div class="rv-cat-h"><input class="rv-cname" data-i="${i}" value="${esc(c.name)}" aria-label="主题名">${c.new&&R.scope==='week'&&R.base?.reviewed?'<em class="newtag">新方向</em>':''}<select class="rv-cgrp" data-i="${i}" aria-label="大类">${RV_G.map(x=>`<option value="${x}" ${x===g?'selected':''}>${RV_GCN[x]}</option>`).join('')}</select><span>${c.ids.length} 篇</span></div><textarea class="rv-ctests" data-i="${i}" rows="2" placeholder="这个主题测什么、输入是什么">${esc(c.tests)}</textarea>${c.why?`<p class="why">归为一类的理由：${esc(c.why)}</p>`:''}${c.ids.map(id=>row(id,'c'+i)).join('')}</div>`).join('')||'<p class="rv-grp-empty">暂无论文</p>'}</section>`}).join('')}
+  ${T.outside.length?`<div class="rv-cat outc"><div class="rv-cat-h"><b>已排除</b><span>${T.outside.length} 篇</span></div>${T.outside.map(o=>row(o.id,'out',o.reason?`<em>${esc(o.reason)}</em>`:'')).join('')}</div>`:''}`;
   const mark=()=>{rv.dirty=true;rvTaxView(R)};
   $$('#rv-view select[data-id]').forEach(s=>s.onchange=()=>{const id=+s.dataset.id,from=s.dataset.cur;let to=s.value;
     if(to==='add'){const name=(prompt('新主题的名字（建好后可以在主题右边改成 QA 类或 Agent 类）')||'').trim();if(!name){s.value=from;return}T.categories.push({group:from.startsWith('c')?T.categories[+from.slice(1)].group:'QA',name,tests:'',why:'',ids:[]});to='c'+(T.categories.length-1)}
@@ -156,13 +156,13 @@ function rvTaxView(R){
 function rvCardsView(R){
   const box=$('#rv-view'),meta=rvMeta(R),q=rv.q.toLowerCase();
   const ids=R.papers.map(p=>p.id).filter(id=>R.cards[id]);
-  if(!ids.length){box.innerHTML='<div class="rv-empty">还没抽卡。</div>';return}
+  if(!ids.length){box.innerHTML='<div class="rv-empty">暂无卡片</div>';return}
   const shown=ids.filter(id=>{if(!q)return true;const c=R.cards[id],p=meta[id];return `${p.title} ${c.task} ${c.finding} ${c.input}`.toLowerCase().includes(q)});
   const noQ=ids.filter(id=>!R.cards[id].limit_quote).length,drop=ids.filter(id=>R.cards[id].quote_dropped).length;
-  box.innerHTML=`<div class="rv-cbar"><input id="rv-q" placeholder="搜标题 / 测什么 / 发现" value="${esc(rv.q)}"><small>${ids.length} 张卡 · ${ids.length-noQ} 张找到了作者承认的局限${drop?` · ${drop} 张模型给的原话对不上摘要，已删掉`:''}</small></div>
+  box.innerHTML=`<div class="rv-cbar"><input id="rv-q" placeholder="搜标题 / 测什么 / 发现" value="${esc(rv.q)}"><small>${ids.length} 张卡 · ${ids.length-noQ} 张含作者自述局限${drop?` · ${drop} 张原话与摘要不符，已移除`:''}</small></div>
   <div class="rv-cards">${shown.map(id=>{const c=R.cards[id],p=meta[id];return `<div class="rv-card"><div class="rv-card-h"><i class="k ${c.kind==='Benchmark'?'b':''}">${esc(c.kind||'')}</i><a href="${esc(p.url||'#')}" target="_blank" rel="noopener">${esc(p.title)}</a><small>#${id} · ${esc(p.date||'')}</small></div>
    <dl><dt>测什么</dt><dd>${esc(c.task)||'<span class="mut">摘要没写</span>'}</dd><dt>输入</dt><dd>${esc(c.input)||'<span class="mut">摘要没写</span>'}</dd><dt>判分</dt><dd>${esc(c.scoring)||'<span class="mut">摘要没写</span>'}</dd><dt>数据</dt><dd>${esc(c.data)||'<span class="mut">摘要没写</span>'}</dd><dt>发现</dt><dd>${esc(c.finding)||'<span class="mut">摘要没写</span>'}</dd>
-   <dt>局限</dt><dd>${c.limit_quote?`<q class="orig">${esc(c.limit_quote)}</q><span class="cn">${esc(c.limit_cn)}</span>`:c.quote_dropped?`<span class="mut">模型给的原话对不上摘要，已删掉：</span><s>${esc(c.quote_dropped)}</s>`:'<span class="mut">摘要里没写局限</span>'}</dd></dl></div>`}).join('')||'<p class="rv-empty">没搜到</p>'}</div>`;
+   <dt>局限</dt><dd>${c.limit_quote?`<q class="orig">${esc(c.limit_quote)}</q><span class="cn">${esc(c.limit_cn)}</span>`:c.quote_dropped?`<span class="mut">原话与摘要不符，已移除：</span><s>${esc(c.quote_dropped)}</s>`:'<span class="mut">摘要未提及局限</span>'}</dd></dl></div>`}).join('')||'<p class="rv-empty">没搜到</p>'}</div>`;
   const inp=$('#rv-q');inp.oninput=()=>{rv.q=inp.value;const pos=inp.selectionStart;rvCardsView(R);const n=$('#rv-q');n.focus();n.setSelectionRange(pos,pos)};
 }
 
