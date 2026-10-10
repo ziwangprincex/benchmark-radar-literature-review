@@ -2,6 +2,11 @@
 
 口径和待读清单一致：lit_index 里判为 Benchmark / 相关论文的 arXiv 条目，
 去掉你在待读清单里标为"不用读"的。核对原话用的也是这里截好的摘要，和发给模型的完全一样。
+
+两种范围：
+  all   该领域收进来的全部论文，含补的历史论文
+  week  最近一周新收的论文（和待读清单的"本周新进"同一口径：按收进来的那一周算，
+        补的历史论文不算本周）
 """
 from __future__ import annotations
 
@@ -11,10 +16,11 @@ from email.utils import parsedate_to_datetime
 from typing import Any
 
 from radar.core.radar_core import db
-from radar.core.reading import DOMAIN_CN, _ARXIV_HEAD, ensure_table
+from radar.core.reading import DOMAIN_CN, _ARXIV_HEAD, _week_start, ensure_table
 
 ABSTRACT_LIMIT = 1500
 REVIEW_DOMAINS = ("legal", "financial", "medical", "scientific", "agent", "coding", "general")
+SCOPES = ("all", "week")
 
 
 def clean_abstract(content: str, limit: int = ABSTRACT_LIMIT) -> str:
@@ -50,17 +56,32 @@ _BASE_SQL = """FROM lit_index l
                WHERE l.role IN ('benchmark','demand') AND s.source_id LIKE 'arxiv%' AND l.domain = ?"""
 
 
-def load_corpus(domain: str, limit: int | None = None) -> list[dict[str, Any]]:
+def latest_week() -> str:
+    """最近一周（周一的日期）。和待读清单一样，只看每周抓进来的论文，不看补的历史论文。"""
+    with db() as conn:
+        row = conn.execute(
+            "SELECT MAX(collected_at) FROM source_items WHERE source_id LIKE 'arxiv%' "
+            "AND source_id NOT LIKE 'arxiv-backfill%'").fetchone()
+    return _week_start(row[0]) if row and row[0] else ""
+
+
+def load_corpus(domain: str, limit: int | None = None, scope: str = "all") -> list[dict[str, Any]]:
     if domain not in DOMAIN_CN:
         raise ValueError(f"未知领域：{domain}")
+    if scope not in SCOPES:
+        raise ValueError(f"范围只能是 {'、'.join(SCOPES)}")
     ensure_table()
     with db() as conn:
         rows = conn.execute(
-            f"""SELECT s.id, s.title, s.url, s.content, s.published_at, s.collected_at, l.role
+            f"""SELECT s.id, s.title, s.url, s.content, s.published_at, s.collected_at, s.source_id, l.role
                 {_BASE_SQL} AND COALESCE(r.state, 'unread') != 'skip'
                 ORDER BY s.collected_at DESC, s.id DESC""",
             (domain,),
         ).fetchall()
+    if scope == "week":
+        wk = latest_week()
+        rows = [r for r in rows if not r["source_id"].startswith("arxiv-backfill")
+                and _week_start(r["collected_at"]) == wk]
     papers = [{
         "id": r["id"],
         "title": re.sub(r"\s+", " ", r["title"] or "").strip(),

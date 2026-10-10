@@ -313,17 +313,15 @@ def api_review_ping():
         return jsonify({"error": str(exc)}), 400
 
 
-@app.get("/api/review/<domain>")
-def api_review_get(domain: str):
+def _review_get(domain: str, scope: str):
     from radar.review.pipeline import load_result
     if not _review_domain_ok(domain):
         return jsonify({"error": "未知领域"}), 400
-    return jsonify(load_result(domain))
+    return jsonify(load_result(domain, scope))
 
 
-@app.post("/api/review/<domain>/run")
-def api_review_run(domain: str):
-    """从某一步开始往后跑：cards（逐篇抽卡，默认只抽新论文）/ taxonomy（分类）/ review（写综述）。
+def _review_run(domain: str, scope: str):
+    """从某一步开始往后跑：cards（逐篇抽卡，默认只抽新论文）/ taxonomy（分类）/ review（写综述或本周小结）。
     带 notes 时只做"按批注改稿"。"""
     from radar.review.llm import public_config
     from radar.review.pipeline import STAGES, start_background
@@ -337,21 +335,51 @@ def api_review_run(domain: str):
     if start not in STAGES:
         return jsonify({"error": "start 不对"}), 400
     try:
-        return jsonify(start_background(domain, start=start, force_cards=bool(payload.get("force_cards")),
-                                        notes=notes))
+        return jsonify(start_background(domain, scope=scope, start=start,
+                                        force_cards=bool(payload.get("force_cards")), notes=notes))
     except RuntimeError as exc:
         return jsonify({"error": str(exc)}), 409
 
 
-@app.put("/api/review/<domain>/taxonomy")
-def api_review_taxonomy(domain: str):
+def _review_taxonomy(domain: str, scope: str):
     from radar.review.pipeline import save_taxonomy
     if not _review_domain_ok(domain):
         return jsonify({"error": "未知领域"}), 400
     try:
-        return jsonify({"taxonomy": save_taxonomy(domain, request.get_json(force=True) or {})})
+        return jsonify({"taxonomy": save_taxonomy(domain, request.get_json(force=True) or {}, scope)})
     except ValueError as exc:
         return jsonify({"error": str(exc)}), 400
+
+
+# 全部综述：/api/review/<领域>；本周小结：/api/review/<领域>/week（网页版按路径导出成静态文件）
+@app.get("/api/review/<domain>")
+def api_review_get(domain: str):
+    return _review_get(domain, "all")
+
+
+@app.get("/api/review/<domain>/week")
+def api_review_week_get(domain: str):
+    return _review_get(domain, "week")
+
+
+@app.post("/api/review/<domain>/run")
+def api_review_run(domain: str):
+    return _review_run(domain, "all")
+
+
+@app.post("/api/review/<domain>/week/run")
+def api_review_week_run(domain: str):
+    return _review_run(domain, "week")
+
+
+@app.put("/api/review/<domain>/taxonomy")
+def api_review_taxonomy(domain: str):
+    return _review_taxonomy(domain, "all")
+
+
+@app.put("/api/review/<domain>/week/taxonomy")
+def api_review_week_taxonomy(domain: str):
+    return _review_taxonomy(domain, "week")
 
 
 @app.get("/api/health")

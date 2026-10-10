@@ -385,7 +385,7 @@ td .text-btn{white-space:nowrap}
 .rv-form label{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
 .rv-form input,.rv-run select{height:34px;border:1px solid var(--line);border-radius:8px;padding:0 10px;font:inherit;font-size:13px;color:var(--ink);background:#fff}
 .rv-form input:focus,.rv-run select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
-.rv-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px}
+.rv-tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:14px}
 .rv-tab>div{align-items:flex-end;justify-content:space-between}
 .rv-tab em{font-style:normal;font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
 .rv-tab em.ok{color:var(--accent);font-weight:600}
@@ -461,7 +461,7 @@ q.orig{quotes:none;font-family:Georgia,"Times New Roman",serif;font-style:italic
 .rv-iss li{margin:4px 0;line-height:1.5}
 .rv-iss li small{display:block;color:var(--muted)}
 .rv-caveat{font-size:12px;color:var(--muted);line-height:1.6;padding:2px 2px}
-@media (max-width:1100px){.rv-tabs{grid-template-columns:repeat(3,1fr)}.rv-form{grid-template-columns:1fr 1fr}.rv-form-b{grid-column:1/-1}}
+@media (max-width:1100px){.rv-tabs{grid-template-columns:repeat(4,1fr)}.rv-form{grid-template-columns:1fr 1fr}.rv-form-b{grid-column:1/-1}}
 @media (max-width:860px){.rv-body{grid-template-columns:1fr}.rv-side{position:static}.rv-run,.rv-conn.ok{flex-direction:column;align-items:stretch}.rv-run-r{justify-content:space-between}.rv-form{grid-template-columns:1fr}.rv-doc{padding:18px 18px}.rv-table{font-size:11.5px}.rv-table th:nth-child(5),.rv-table td:nth-child(5),.rv-table th:nth-child(6),.rv-table td:nth-child(6){display:none}}
 .rv-table,.rv-doc table{min-width:0;table-layout:auto}
 .rv-table td{border-top:0;font-size:12.5px;vertical-align:middle}
@@ -542,3 +542,14 @@ q.orig{quotes:none;font-family:Georgia,"Times New Roman",serif;font-style:italic
 .rv-card s{color:var(--faint);font-size:12px}
 @media (max-width:1200px){.rv-steps{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:860px){.rv-steps{grid-template-columns:1fr}.rv-cards{grid-template-columns:1fr}.rv-trow{grid-template-columns:1fr}.rv-cbar input{width:100%}}
+
+/* 全部综述 / 本周小结 切换（2026-10-10） */
+.rv-scope{display:flex;align-items:center;gap:14px;margin:0 0 14px;flex-wrap:wrap}
+.rv-scope small{color:var(--muted);font-size:12.5px;line-height:1.5;flex:1;min-width:260px}
+.rv-sseg{flex:none}
+.rv-basenote{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.rv-basenote.amb{color:#b45309}
+.rv-cat.isnew{border-color:var(--accent)}
+.rv-cat .newtag{font-style:normal;font-size:11px;font-weight:600;color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:0 6px;margin:0 8px}
+.rv-hist-w{font-size:12px;color:var(--muted);margin:10px 0}
+.rv-hist-w b{display:block;color:var(--ink);margin-bottom:2px}

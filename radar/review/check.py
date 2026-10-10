@@ -16,6 +16,7 @@ from typing import Any
 CITE_RE = re.compile(r"\[#\s*(\d+(?:\s*[,，、]\s*#?\s*\d+)*)\s*\]")
 QUOTE_RE = re.compile(r"「([^」]{4,})」")
 BODY_SECTIONS = [("二", "各类做到哪、共同短板"), ("三", "大家还没研究什么"), ("四", "我们能研究什么")]
+WEEK_SECTIONS = [("二", "本周新论文说明了什么"), ("三", "和全部综述比")]
 
 
 def cites(text: str) -> list[int]:
@@ -38,21 +39,23 @@ def quote_in(quote: str, paper: dict[str, Any]) -> bool:
     return len(q) >= 8 and q in norm(paper["title"] + " " + paper["abstract"])
 
 
-def _section_key(line: str) -> str | None:
+def _section_key(line: str, sections=BODY_SECTIONS) -> str | None:
     if not line.startswith("## "):
         return None
     head = line[3:].strip()
-    for key, _ in BODY_SECTIONS:
+    for key, _ in sections:
         if head.startswith(key):
             return key
     return "_other"
 
 
-def check_body(body: str, papers: list[dict[str, Any]], taxonomy: dict[str, Any] | None) -> dict[str, Any]:
+def check_body(body: str, papers: list[dict[str, Any]], taxonomy: dict[str, Any] | None,
+               sections=BODY_SECTIONS) -> dict[str, Any]:
+    """sections 默认是全部综述的第二到四节；本周小结传 WEEK_SECTIONS（第二、三节）。"""
     by_id = {p["id"]: p for p in papers}
     lines = body.splitlines()
-    present = {k for k in (_section_key(x) for x in lines) if k}
-    missing = [f"{k}、{w}" for k, w in BODY_SECTIONS if k not in present]
+    present = {k for k in (_section_key(x, sections) for x in lines) if k}
+    missing = [f"{k}、{w}" for k, w in sections if k not in present]
     invalid = sorted({i for i in cites(body) if i not in by_id})
 
     fake, ok = [], 0
@@ -68,7 +71,7 @@ def check_body(body: str, papers: list[dict[str, Any]], taxonomy: dict[str, Any]
     # 第二节写到了哪些类
     heads, cur = [], None
     for line in lines:
-        k = _section_key(line)
+        k = _section_key(line, sections)
         if k:
             cur = k
         elif cur == "二" and line.startswith("### "):

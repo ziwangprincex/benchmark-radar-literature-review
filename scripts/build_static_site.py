@@ -18,7 +18,7 @@ from radar.review.corpus import REVIEW_DOMAINS  # noqa: E402
 from radar.web.app import app  # noqa: E402
 
 GET_ENDPOINTS = ["reading", "dashboard", "ideas", "sources", "signals", "review/config"] + \
-                [f"review/{d}" for d in REVIEW_DOMAINS]
+                [f"review/{d}" for d in REVIEW_DOMAINS] + [f"review/{d}/week" for d in REVIEW_DOMAINS]
 
 
 def main() -> None:
@@ -40,6 +40,7 @@ def main() -> None:
             data["llm"] = {"base_url": "", "model": "", "max_tokens": 0, "api_key_set": False,
                            "api_key_hint": "", "ready": False}
         path = out / "api" / f"{ep}.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
         sizes[ep] = path.stat().st_size
 

@@ -24,6 +24,23 @@ def test_benchmark_vs_method_paper():
     assert analyze("benchmark", "A survey of agent benchmarks", "We review." + PAD)["role"] == "not_benchmark"
 
 
+def test_method_paper_with_side_dataset_not_benchmark():
+    """2026-10-10：提出方法、顺带"在某 Benchmark 上测""造了训练数据"的不算 Benchmark。"""
+    role = lambda t, b: analyze("benchmark", t, b + PAD)["role"]
+    assert role("SQLFixAgent: Towards Semantic-Accurate Text-to-SQL Parsing",
+                "We propose SQLFixAgent, which achieves state-of-the-art results on the BIRD benchmark.") == "not_benchmark"
+    assert role("CoRNStack: High-Quality Contrastive Data for Better Code Retrieval",
+                "We introduce CoRNStack, a large-scale, high-quality contrastive training dataset for code.") == "not_benchmark"
+    assert role("NumLLM: Numeric-Sensitive Large Language Model for Chinese Finance",
+                "We construct a financial corpus from textbooks and fine-tune a model.") == "not_benchmark"
+    # 真 Benchmark：名字带 Bench/Eval、标题评的是模型、摘要里 "we introduce X, a … benchmark"
+    assert role("CodeRAG-Bench: Can Retrieval Augment Code Generation?", "We study retrieval.") == "benchmark"
+    assert role("VerilogEval: Evaluating Large Language Models for Verilog Code Generation", "We study.") == "benchmark"
+    assert role("MedHELM: Holistic Evaluation of Large Language Models for Medical Tasks", "We study.") == "benchmark"
+    assert role("Graph-Enhanced Retrieval for Repositories", "We propose a retriever.") == "not_benchmark"
+    assert role("RepoQA Long", "We introduce RepoQA, a benchmark for long-context code understanding.") == "benchmark"
+
+
 def test_generic_risk_word_not_safety():
     a = analyze("benchmark", "X: dataset", "However, over-pruning risk remains open for this method." + PAD)
     assert "安全/风险" not in a["concerns"]

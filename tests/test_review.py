@@ -87,6 +87,28 @@ class TaxonomyTest(unittest.TestCase):
         self.assertIn("3 篇分 2 类", md)
 
 
+WEEK = [
+    {"id": 5, "title": "StatuteQA", "url": "u5", "date": "2026-10-06",
+     "abstract": "StatuteQA asks questions about statutes with citations."},
+    {"id": 6, "title": "XDocConflict", "url": "u6", "date": "2026-10-07",
+     "abstract": "We build XDocConflict to test cross-document conflicts between master agreements and annexes."},
+]
+
+WEEK_BODY = """## 二、本周新论文说明了什么
+### 问答与检索
+- 法条问答加了引用 [#5]
+### 多文件冲突检测
+- 「test cross-document conflicts between master agreements and annexes」 [#6]
+## 三、和全部综述比
+### 新方向
+- 多文件冲突检测 [#6]
+### 补上了哪些空白
+- 跨文件冲突那条空白，#6 做了 [#6]
+### 和我们的方向撞车
+- 主协议和附件的冲突检测：撞车 [#6]
+"""
+
+
 def fake_model(log):
     """按提示词判断是哪一步，返回对应的假结果。故意制造：一个假原话卡片、分类漏一篇、综述编一句原话。"""
     def chat(msgs):
@@ -104,6 +126,14 @@ def fake_model(log):
             if "一次都没出现" in t:
                 return json.dumps(TAX, ensure_ascii=False)
             return "好的：" + json.dumps({"categories": TAX["categories"], "outside": []}, ensure_ascii=False)
+        if "本周新收的论文卡片" in t:
+            return json.dumps({"categories": [{"name": "问答与检索", "tests": "", "why": "", "ids": [5]},
+                                              {"name": "多文件冲突检测", "tests": "主协议和附件对不上", "why": "", "ids": [6]}],
+                               "outside": []}, ensure_ascii=False)
+        if "本周新论文小结" in t:
+            if "程序核对发现这些问题" in t:
+                return WEEK_BODY
+            return WEEK_BODY.replace("cross-document conflicts between", "conflicts everywhere in")
         if "写第二、三、四节" in t:
             if "程序核对发现这些问题" in t:
                 return BODY
@@ -174,6 +204,99 @@ class PipelineTest(unittest.TestCase):
                 mock.patch.object(P, "load_config", lambda: {"model": "fake"}):
             with self.assertRaisesRegex(RuntimeError, "401"):
                 P.run("legal", chat_fn=boom)
+
+
+class WeekTest(unittest.TestCase):
+    def _patches(self, tmp):
+        return [mock.patch.object(P, "OUT_ROOT", Path(tmp)),
+                mock.patch.object(P, "load_corpus",
+                                  lambda d, limit=None, scope="all": WEEK if scope == "week" else PAPERS),
+                mock.patch.object(P, "latest_week", lambda: "2026-10-05"),
+                mock.patch.object(P, "skipped_count", lambda d: 0),
+                mock.patch.object(P, "load_config", lambda: {"model": "fake"})]
+
+    def test_week_compares_with_full_review(self):
+        log = []
+        with tempfile.TemporaryDirectory() as tmp:
+            ps = self._patches(tmp)
+            for x in ps:
+                x.start()
+            try:
+                P.run("legal", chat_fn=fake_model(log))                 # 先写全部综述
+                n = len(log)
+                st = P.run("legal", scope="week", chat_fn=fake_model(log))
+                self.assertEqual(st["state"], "done")
+                week_log = log[n:]
+                # 只为本周两篇抽卡，存进共用的 cards.json
+                card_calls = [t for t in week_log if "做一张卡片" in t]
+                self.assertEqual(len(card_calls), 1)
+                self.assertNotIn("#1｜", card_calls[0])
+                cards = json.loads((Path(tmp) / "legal" / "cards.json").read_text(encoding="utf-8"))["cards"]
+                self.assertEqual(sorted(cards, key=int), ["1", "2", "3", "4", "5", "6"])
+                # 分类时带上全部综述的已有类；写小结时带上全部综述的第三、四节
+                tax_msg = next(t for t in week_log if "本周新收的论文卡片" in t)
+                self.assertIn("- 问答与检索：答题和找判例", tax_msg)
+                week_msg = next(t for t in week_log if "本周新论文小结" in t)
+                self.assertIn("## 三、大家还没研究什么", week_msg)
+                self.assertIn("## 四、我们能研究什么", week_msg)
+                self.assertNotIn("## 二、各类做到哪", week_msg)
+
+                d = Path(tmp) / "legal" / "week" / "2026-10-05"
+                tax = json.loads((d / "taxonomy.json").read_text(encoding="utf-8"))
+                self.assertEqual({c["name"]: c["new"] for c in tax["categories"]},
+                                 {"问答与检索": False, "多文件冲突检测": True})
+                md = (d / "review.md").read_text(encoding="utf-8")
+                meta = json.loads((d / "review.json").read_text(encoding="utf-8"))
+                self.assertTrue(meta["check"]["ok"], meta["check"]["problems"])   # 编的原话被打回改掉了
+                self.assertTrue(meta["fixed_once"])
+                self.assertIn("## 一、本周新论文分几类：2 篇分 2 类，1 类是全部综述里没有的", md)
+                self.assertIn("| 多文件冲突检测 | 1 | 新 |", md)
+                self.assertIn("## 四、这份小结的边界", md)
+                self.assertIn("对比用的是", md)
+                # 全部综述没被本周小结动过
+                self.assertIn("## 一、大家在研究什么：3 篇分 2 类", (Path(tmp) / "legal" / "review.md").read_text(encoding="utf-8"))
+
+                r = P.load_result("legal", "week")
+                self.assertEqual(r["week"], "2026-10-05")
+                self.assertEqual([p["id"] for p in r["papers"]], [5, 6])
+                self.assertEqual(sorted(r["cards"], key=int), ["5", "6"])
+                self.assertTrue(r["base"]["reviewed"])
+                self.assertFalse(r["pending"]["base_newer"])
+                self.assertEqual(r["history"], ["2026-10-05"])
+                self.assertEqual(r["status"]["state"], "done")
+                self.assertEqual(P.load_result("legal")["status"]["state"], "done")  # 两块状态分开存
+
+                # 全部综述重写后，小结提示要更新
+                P.run("legal", start="review", chat_fn=fake_model(log))
+                self.assertTrue(P.load_result("legal", "week")["pending"]["base_newer"])
+            finally:
+                for x in ps:
+                    x.stop()
+
+    def test_week_without_full_review(self):
+        log = []
+        with tempfile.TemporaryDirectory() as tmp:
+            ps = self._patches(tmp)
+            for x in ps:
+                x.start()
+            try:
+                P.run("legal", scope="week", chat_fn=fake_model(log))
+                tax_msg = next(t for t in log if "本周新收的论文卡片" in t)
+                self.assertIn("还没有已有分类", tax_msg)
+                self.assertIn("还没有全部综述。", next(t for t in log if "本周新论文小结" in t))
+                md = (Path(tmp) / "legal" / "week" / "2026-10-05" / "review.md").read_text(encoding="utf-8")
+                self.assertIn("## 一、本周新论文分几类：2 篇分 2 类\n", md)
+                self.assertIn("还没写全部综述", md)
+                self.assertFalse(P.load_result("legal", "week")["base"]["reviewed"])
+            finally:
+                for x in ps:
+                    x.stop()
+
+    def test_week_check_sections(self):
+        r = C.check_body(WEEK_BODY, PAPERS + WEEK, None, C.WEEK_SECTIONS)
+        self.assertTrue(r["ok"], r["problems"])
+        r = C.check_body(WEEK_BODY.split("## 三、")[0], PAPERS + WEEK, None, C.WEEK_SECTIONS)
+        self.assertEqual(r["problems"]["missing_sections"], ["三、和全部综述比"])
 
 
 if __name__ == "__main__":

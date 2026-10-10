@@ -15,7 +15,7 @@ from typing import Any
 
 from radar.core.radar_core import db, now_iso, strip_feed_prefix
 
-LIT_VERSION = "lit-v4"
+LIT_VERSION = "lit-v5"
 MIN_TEXT = 300  # 短于此长度基本只有标题，抽不出维度
 
 # 六个垂类领域（覆盖表只统计这几个）
@@ -79,20 +79,73 @@ METRICS = {
     "执行/成功率": r"pass@|success rate|task completion|executab|成功率",
 }
 
+# 2026-10-10 收紧：之前摘要里一句 "we propose X ... on the Y benchmark"（提出方法、在某个
+# Benchmark 上测一下）就会被当成 Benchmark 论文。回补历史论文后，医疗、编程抽查约三成是
+# 方法 / 模型论文。现在只认三种：
+#   1. 标题里有 benchmark / dataset 这类词（"dataset-agnostic" 这种不算）
+#   2. 标题本身就是评测研究（Evaluating…、How well do LLMs…、An empirical study of…）
+#   3. 摘要里"我们构建 / 发布了一个 benchmark / dataset"，动词和名词之间不能隔着
+#      on / using / across 这类介词（那是在别人的 Benchmark 上做实验）
 IS_BENCH = re.compile(
-    r"benchmark|dataset|corpus|test suite|evaluation suite|leaderboard|基准|评测集|数据集",
+    r"benchmark|(?<![a-z])datasets?(?![- ](agnostic|free|independent|distillation|condensation|pruning))"
+    r"|\bcorpus\b|test suite|evaluation suite|leaderboard|基准|评测集|数据集",
     re.I,
 )
+# 标题就看得出是评测：
+#   - 名字里带 Bench / Eval / Arena / Gym（CodeRAG-Bench、VerilogEval、TAM-Eval）。区分大小写，
+#     否则 Retrieval、Medieval 里的 "eval" 也会命中
+#   - 标题写了 Evaluating / Evaluation of / Benchmarking，而且评的是模型（LLM、Agent……），
+#     评"变点检测方法""决策模型"的不算
+#   - "LLM 能不能……"这种问句
+_MODEL = (r"(llms?|large language models?|language models?|lms|vlms?|mllms?|lmms?|foundation models?|"
+          r"agents?|chatgpt|gpt-?\w*|ai assistants?|ai systems?|generative ai|code models?)")
+EVAL_NAME = re.compile(r"[A-Za-z0-9](-)?(Bench|BENCH|Eval|EVAL|Arena|ARENA|Gym)s?\b")
+EVAL_TITLE = re.compile(
+    r"\b(evaluation|evaluating|benchmarking|assessing|assessment)\b.{0,100}\b" + _MODEL + r"\b"
+    r"|\b" + _MODEL + r"\b.{0,60}\b(evaluation|evaluating|benchmarking|assessment)\b"
+    r"|^(how (well|good|robust|reliable|accurate|far|much|do|does|can)|can|do|does|are|is)\b[^:?]{0,80}\b"
+    + _MODEL + r"\b",
+    re.I,
+)
+_NOT_BETWEEN = r"(?:(?!\b(?:on|using|across|over|against|via|through|with|outperform\w*|achiev\w*|surpass\w*|"
+_NOT_BETWEEN += r"experiments?|results?|evaluat\w*|tested|validated|demonstrat\w*)\b)[^.;])"
 INTRO_BENCH = re.compile(
-    r"(introduce|present|construct|release|propose|build|curate)\w*\b[^.]{0,120}?"
-    r"(benchmark|dataset|corpus|test suite|evaluation suite)",
+    r"\b(introduce|present|construct|release|propose|build|curate|contribute)\w*\b"
+    + _NOT_BETWEEN + r"{0,80}?\b(benchmark|dataset|corpus|test suite|evaluation suite|testbed)s?\b",
     re.I,
 )
+# 摘要里说"我们构建了一个数据集"的，还要排除两种方法论文：
+#   - 造的是训练数据（training / preference / instruction / contrastive dataset）
+#   - 数据集只是方法的附带产出：论文主角是方法，数据集名字不在标题里
+# 名字在标题里，或者写成 "we introduce X, a … benchmark" 才算。
+TRAIN_DATA = re.compile(
+    r"\b(training|pre-?training|fine-?tuning|instruction(-tuning)?|preference|alignment|contrastive|sft|"
+    r"synthetic training)\s+(data|dataset|corpus|set)s?\b", re.I)
+NAMED_BENCH = re.compile(
+    r"\b(introduce|present|release|propose|contribute)\w*\s+[A-Z][\w\-\+]*[A-Z0-9][\w\-\+]*,?\s+(a|an|the)\s+"
+    r"([\w\-]+\s+){0,5}(benchmark|test suite|evaluation suite|evaluation set|testbed)\b")
+
+
+def _introduces_benchmark(title: str, body: str) -> bool:
+    if NAMED_BENCH.search(body):
+        return True
+    low = title.lower()
+    for m in INTRO_BENCH.finditer(body):
+        frag = m.group(0)
+        if TRAIN_DATA.search(frag):
+            continue
+        names = [w for w in re.findall(r"[A-Za-z][A-Za-z0-9\-\+]{2,}", frag) if looks_named(w)]
+        if any(n.lower().split("-")[0] in low for n in names):
+            return True
+    return False
+
+
 EVAL_STUDY = re.compile(
     r"(protocol|framework|method) for (testing|evaluating|measuring)|reusable offline protocol|"
     r"(propose|introduce)\w* an? (new |novel )?([\w-]+ ){0,3}evaluation (pipeline|framework|protocol)|"
-    r"\bwe (evaluate|assess|benchmark|test) \d+|evaluate (five|six|seven|eight|ten|\d+) "
-    r"(open-weight |proprietary )?(llms|models|systems)|are llms (fragile|robust|able)",
+    r"\bwe (systematically |comprehensively )?(evaluate|assess|benchmark|test) \d+|evaluate (five|six|seven|eight|nine|ten|twelve|\d+) "
+    r"(open-weight |open-source |proprietary |state-of-the-art |frontier )*(llms|models|systems|agents|vlms|mllms)|"
+    r"are llms (fragile|robust|able)",
     re.I,
 )
 SURVEY = re.compile(r"\bsurvey\b|综述", re.I)
@@ -156,7 +209,8 @@ def classify_role(radar: str, title: str, body: str) -> str:
         return "other"
     if SURVEY.search(title):
         return "not_benchmark"
-    if IS_BENCH.search(title) or INTRO_BENCH.search(body) or EVAL_STUDY.search(f"{title}. {body}"):
+    if IS_BENCH.search(title) or EVAL_NAME.search(title) or EVAL_TITLE.search(title) \
+            or _introduces_benchmark(title, body) or EVAL_STUDY.search(f"{title}. {body}"):
         return "benchmark"
     return "not_benchmark"  # benchmark 采集源里的方法/模型论文
 
