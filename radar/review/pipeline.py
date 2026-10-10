@@ -14,22 +14,32 @@
         已有类里放，放不进的才算新方向；小结只写本周带来了什么变化：新方向、补上了哪些空白、
         和"我们能研究什么"撞车的
 
-产物在 reports/lit_review/<领域>/：
-  cards.json     每篇的卡片（按摘要内容缓存，新论文进来只抽新的；全部和本周共用）
-  taxonomy.json  分类（by=model 或 by=user）
-  review.md      完整综述；review_body.md 是模型写的第二到四节
-  review.json    核对结果、生成时间、批注记录
-  status.json    运行状态（网页轮询用）
-  week/<周一日期>/  本周小结：taxonomy.json、review.md、review_body.md、review.json
-  week/status.json  本周小结的运行状态
+分类分两层（2026-10-10）：先分 QA / Agent 两个大类，再在大类里分主题。taxonomy 里每个主题带 group。
+
+每次打开网页是一个会话（sid，页面里随机生成，刷新就换）。分类、综述、批注、运行状态都只存在这个
+会话里，别人打开看不到，关掉页面就删，要留着就在页面上下载。只有卡片按摘要内容缓存、所有人共用
+（不显示，只是省得重抽）。
+
+产物：
+  reports/lit_review/<领域>/cards.json                   卡片缓存（全部和本周、所有会话共用）
+  reports/lit_review/_sessions/<sid>/<领域>/               这次打开页面的结果，6 小时没动就清掉
+      taxonomy.json  分类（by=model 或 by=user）
+      review.md      完整综述；review_body.md 是模型写的第二到四节
+      review.json    核对结果、生成时间、批注记录
+      status.json    运行状态（网页轮询用）
+      week/          本周小结：同上四个文件
+不传 sid（命令行、测试）时直接用 reports/lit_review/<领域>/。
 """
 from __future__ import annotations
 
 import hashlib
 import json
 import re
+import shutil
 import threading
+import time
 import traceback
+from contextlib import contextmanager
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
@@ -49,11 +59,17 @@ STAGES = ("cards", "taxonomy", "review")
 KINDS = ("Benchmark", "评测研究", "方法", "其他")
 CARD_FIELDS = ("kind", "task", "input", "scoring", "data", "finding", "limit_quote", "limit_cn")
 SYSTEM = "你是严谨的文献综述作者。只依据给定资料写作，不编造，原话一字不改。"
+GROUPS = ("QA", "Agent")
+GROUP_CN = {"QA": "QA 类", "Agent": "Agent 类"}
+GROUP_DEF = {"QA": "模型拿到题目和材料，答一次就判分（问答、选择、抽取、分类、检索、写文书、判决等）。",
+             "Agent": "模型要在环境里做一串动作才能完成任务（调用工具、浏览网页、操作界面或代码仓库、多智能体协作等）。"}
+SID_RE = re.compile(r"^[A-Za-z0-9_-]{8,64}$")
+SESSION_TTL_H = 6
 
 ChatFn = Callable[[list[dict[str, str]]], str]
 _RUN_LOCK = threading.Lock()
 _IO_LOCK = threading.Lock()
-_RUNNING: set[str] = set()
+_RUNNING: set[tuple[str | None, str]] = set()  # (会话, 领域)
 _TL = threading.local()  # 当前线程在跑哪个范围，决定状态写到哪
 
 
@@ -65,12 +81,71 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="milliseconds")
 
 
+def _sid() -> str | None:
+    return getattr(_TL, "sid", None)
+
+
+@contextmanager
+def session(sid: str | None):
+    """在这个会话里读写。sid=None 是命令行 / 测试，直接用 reports/lit_review/<领域>/。"""
+    if sid is not None and not SID_RE.match(sid):
+        raise ValueError("会话编号不对")
+    old = _sid()
+    _TL.sid = sid
+    try:
+        yield
+    finally:
+        _TL.sid = old
+
+
+def _sess_root() -> Path:
+    return OUT_ROOT / "_sessions"
+
+
 def out_dir(domain: str) -> Path:
-    return OUT_ROOT / domain
+    sid = _sid()
+    return _sess_root() / sid / domain if sid else OUT_ROOT / domain
+
+
+def cards_path(domain: str) -> Path:
+    return OUT_ROOT / domain / "cards.json"  # 所有会话共用
 
 
 def week_dir(domain: str, wk: str | None = None) -> Path:
-    return OUT_ROOT / domain / "week" / (wk or latest_week() or "none")
+    return out_dir(domain) / "week"
+
+
+def touch(sid: str | None) -> None:
+    if sid:
+        d = _sess_root() / sid
+        d.mkdir(parents=True, exist_ok=True)
+        (d / ".seen").write_text(_now(), encoding="utf-8")
+
+
+def cleanup_sessions(max_age_h: float = SESSION_TTL_H) -> int:
+    """删掉很久没动的会话（关页面时没来得及删的）。正在跑的不删。"""
+    root = _sess_root()
+    if not root.exists():
+        return 0
+    busy = {s for s, _ in _RUNNING}
+    n, now = 0, time.time()
+    for d in root.iterdir():
+        if not d.is_dir() or d.name in busy:
+            continue
+        f = d / ".seen"
+        t = f.stat().st_mtime if f.exists() else d.stat().st_mtime
+        if now - t > max_age_h * 3600:
+            shutil.rmtree(d, ignore_errors=True)
+            n += 1
+    return n
+
+
+def forget(sid: str) -> bool:
+    """关页面时调用：删掉这个会话的全部结果。还有任务在跑就先不删，等过期清理。"""
+    if not SID_RE.match(sid or "") or any(s == sid for s, _ in _RUNNING):
+        return False
+    shutil.rmtree(_sess_root() / sid, ignore_errors=True)
+    return True
 
 
 def _status_path(domain: str, scope: str) -> Path:
@@ -151,7 +226,7 @@ def _card_batch(batch: list[dict[str, Any]], chat_fn: ChatFn) -> dict[int, dict[
 
 
 def make_cards(domain: str, papers: list[dict[str, Any]], chat_fn: ChatFn, force: bool = False) -> dict[str, Any]:
-    path = out_dir(domain) / "cards.json"
+    path = cards_path(domain)
     store = _read(path, {"cards": {}})
     cards: dict[str, Any] = store.setdefault("cards", {})
     todo = [p for p in papers if force or cards.get(str(p["id"]), {}).get("hash") != paper_hash(p)]
@@ -179,16 +254,21 @@ def make_cards(domain: str, papers: list[dict[str, Any]], chat_fn: ChatFn, force
             except Exception as e:  # 单批出错不中断，下次运行会补
                 errors.append(str(e)[:300])
                 got = {}
-            with _IO_LOCK:
-                cards.update({str(k): v for k, v in got.items()})
-                store["updated_at"] = _now()
-                _write(path, store)
+            with _IO_LOCK:  # 别的会话可能同时在抽同一领域：先读盘上最新的再合并，不互相覆盖
+                disk = _read(path, {"cards": {}})
+                disk.setdefault("cards", {}).update({str(k): v for k, v in got.items()})
+                disk["updated_at"] = _now()
+                _write(path, disk)
+                cards.update(disk["cards"])
             done += len(b)
             _status(domain, done=done)
     if batches and not got_any:
         raise RuntimeError("抽卡全部失败：" + (errors[0] if errors else "模型没有返回卡片"))
-    store["errors"] = errors[-5:]
-    _write(path, store)
+    with _IO_LOCK:
+        store = _read(path, {"cards": {}})
+        store.setdefault("cards", {}).update(cards)
+        store["errors"] = errors[-5:]
+        _write(path, store)
     return store
 
 
@@ -198,6 +278,31 @@ def _card_line(c: dict[str, Any], p: dict[str, Any]) -> str:
     return (f"#{p['id']}｜{c.get('kind', '')}｜{p['title'][:140]}\n"
             f"  测什么：{c.get('task', '')}｜输入：{c.get('input', '')}｜判分：{c.get('scoring', '')}"
             f"｜发现：{c.get('finding', '')}")
+
+
+def _group(v: Any) -> str:
+    """大类只有 QA 和 Agent。模型没写或写成别的，按 QA 算（页面上能改）。"""
+    s = str(v or "").strip().lower()
+    return "Agent" if ("agent" in s or "智能体" in s) else "QA"
+
+
+def ensure_groups(tax: dict[str, Any] | None) -> dict[str, Any] | None:
+    """老的分类文件没有大类，补成 QA。"""
+    for c in (tax or {}).get("categories", []):
+        c["group"] = _group(c.get("group"))
+    return tax
+
+
+def group_counts(cats: list[dict[str, Any]]) -> dict[str, tuple[int, int]]:
+    """每个大类：(篇数, 主题数)。"""
+    return {g: (sum(len(c["ids"]) for c in cats if c["group"] == g), sum(1 for c in cats if c["group"] == g))
+            for g in GROUPS}
+
+
+def _group_head(cats: list[dict[str, Any]]) -> str:
+    gc = group_counts(cats)
+    n = sum(v[0] for v in gc.values())
+    return f"{n} 篇，" + "，".join(f"{GROUP_CN[g]} {gc[g][0]} 篇（{gc[g][1]} 个主题）" for g in GROUPS)
 
 
 def normalize_taxonomy(data: Any, ids: set[int]) -> dict[str, Any]:
@@ -226,8 +331,9 @@ def normalize_taxonomy(data: Any, ids: set[int]) -> dict[str, Any]:
         if name and not got:
             no_ids.append(name)
         if got and name:
-            cats.append({"name": name, "tests": str(c.get("tests") or "").strip(),
+            cats.append({"group": _group(c.get("group")), "name": name, "tests": str(c.get("tests") or "").strip(),
                          "why": str(c.get("why") or "").strip(), "ids": got})
+    cats.sort(key=lambda c: GROUPS.index(c["group"]))  # QA 在前，Agent 在后；大类内保持模型给的顺序
     outside = []
     for o in data.get("outside") or []:
         if isinstance(o, dict):
@@ -279,10 +385,13 @@ def make_taxonomy(domain: str, papers: list[dict[str, Any]], cards: dict[str, An
 
 
 def _mark_new(tax: dict[str, Any], base: dict[str, Any] | None) -> dict[str, Any]:
-    """本周的类在全部综述里没有的，标 new。"""
-    names = {c["name"] for c in (base or {}).get("categories", [])}
+    """本周的主题在全部综述里没有的，标 new；照抄已有主题的，大类也跟全部综述一致。"""
+    groups = {c["name"]: c.get("group", "QA") for c in (base or {}).get("categories", [])}
     for c in tax["categories"]:
-        c["new"] = c["name"] not in names
+        c["new"] = c["name"] not in groups
+        if not c["new"]:
+            c["group"] = groups[c["name"]]
+    tax["categories"].sort(key=lambda c: GROUPS.index(c["group"]))
     return tax
 
 
@@ -293,8 +402,8 @@ def make_week_taxonomy(domain: str, papers: list[dict[str, Any]], cards: dict[st
         raise ValueError("本周论文还没有卡片，先抽卡")
     base = _read(out_dir(domain) / "taxonomy.json", None)
     if base:
-        btxt = "已有分类（全部综述里的类，能放进去的就照抄类名）：\n" + "\n".join(
-            f"- {c['name']}：{c['tests']}" for c in base["categories"])
+        btxt = "已有分类（全部综述里的主题，方括号里是大类，能放进去的就照抄主题名和大类）：\n" + "\n".join(
+            f"- [{c.get('group', 'QA')}] {c['name']}：{c['tests']}" for c in base["categories"])
     else:
         btxt = "还没有已有分类（全部综述还没写），请自己分类。"
     _status(domain, stage="taxonomy", step="分类", done=0, total=len(use))
@@ -303,12 +412,17 @@ def make_week_taxonomy(domain: str, papers: list[dict[str, Any]], cards: dict[st
            + "\n".join(_card_line(cards[str(p["id"])], p) for p in use))
     tax = _mark_new(_ask_taxonomy(domain, msg, {p["id"] for p in use}, chat_fn), base)
     tax.update(by="model", updated_at=_now(), week=wk, base_at=(base or {}).get("updated_at"))
-    _write(week_dir(domain, wk) / "taxonomy.json", tax)
+    _write(week_dir(domain) / "taxonomy.json", tax)
     _status(domain, done=len(use))
     return tax
 
 
-def save_taxonomy(domain: str, payload: dict[str, Any], scope: str = "all") -> dict[str, Any]:
+def save_taxonomy(domain: str, payload: dict[str, Any], scope: str = "all", sid: str | None = None) -> dict[str, Any]:
+    with session(sid):
+        return _save_taxonomy(domain, payload, scope)
+
+
+def _save_taxonomy(domain: str, payload: dict[str, Any], scope: str) -> dict[str, Any]:
     papers = load_corpus(domain, scope=scope) if scope == "week" else load_corpus(domain)
     tax = normalize_taxonomy(payload, {p["id"] for p in papers})
     tax.pop("missing")
@@ -318,10 +432,10 @@ def save_taxonomy(domain: str, payload: dict[str, Any], scope: str = "all") -> d
     tax.update(by="user", updated_at=_now())
     if scope == "week":
         wk = latest_week()
-        old = _read(week_dir(domain, wk) / "taxonomy.json", {})
+        old = _read(week_dir(domain) / "taxonomy.json", {})
         _mark_new(tax, _read(out_dir(domain) / "taxonomy.json", None))
         tax.update(week=wk, base_at=old.get("base_at"))
-        _write(week_dir(domain, wk) / "taxonomy.json", tax)
+        _write(week_dir(domain) / "taxonomy.json", tax)
     else:
         _write(out_dir(domain) / "taxonomy.json", tax)
     return tax
@@ -333,19 +447,38 @@ def _cell(s: str) -> str:
     return s.replace("|", "／").replace("\n", " ")
 
 
+def _paper_lines(c: dict[str, Any], by: dict[int, dict], cards: dict[str, Any]) -> list[str]:
+    out = []
+    for i in c["ids"]:
+        if i in by:
+            task = cards.get(str(i), {}).get("task", "")
+            out.append(f"- {by[i]['title']} [#{i}]" + (f"：{task}" if task else ""))
+    return out
+
+
+def _group_blocks(cats: list[dict[str, Any]], by: dict[int, dict], cards: dict[str, Any],
+                  tag=lambda c: "", explain: bool = True) -> list[str]:
+    """### 大类 → #### 主题 → 论文列表。"""
+    L: list[str] = []
+    gc = group_counts(cats)
+    for g in GROUPS:
+        cs = [c for c in cats if c["group"] == g]
+        L += ["", f"### {GROUP_CN[g]}：{gc[g][0]} 篇，{gc[g][1]} 个主题", "", GROUP_DEF[g]]
+        if not cs:
+            L += ["", "这批资料里没有这一类。"]
+        for c in cs:
+            L += ["", f"#### {c['name']}（{len(c['ids'])} 篇{tag(c)}）", ""]
+            if explain and (c["tests"] or c["why"]):
+                L += [c["tests"] + (f" 归为一类的理由：{c['why']}" if c["why"] else ""), ""]
+            L += _paper_lines(c, by, cards)
+    return L
+
+
 def render_section1(tax: dict[str, Any], by: dict[int, dict], cards: dict[str, Any]) -> str:
-    cats = tax["categories"]
-    n = sum(len(c["ids"]) for c in cats)
-    L = [f"## 一、大家在研究什么：{n} 篇分 {len(cats)} 类", "", "| 类别 | 篇数 | 测什么 |", "|---|---|---|"]
-    L += [f"| {_cell(c['name'])} | {len(c['ids'])} | {_cell(c['tests'])} |" for c in cats]
-    for c in cats:
-        L += ["", f"### {c['name']}（{len(c['ids'])} 篇）", ""]
-        if c["tests"] or c["why"]:
-            L += [c["tests"] + (f" 归为一类的理由：{c['why']}" if c["why"] else ""), ""]
-        for i in c["ids"]:
-            if i in by:
-                task = cards.get(str(i), {}).get("task", "")
-                L.append(f"- {by[i]['title']} [#{i}]" + (f"：{task}" if task else ""))
+    cats = ensure_groups(tax)["categories"]
+    L = [f"## 一、大家在研究什么：{_group_head(cats)}", "", "| 大类 | 主题 | 篇数 | 测什么 |", "|---|---|---|---|"]
+    L += [f"| {c['group']} | {_cell(c['name'])} | {len(c['ids'])} | {_cell(c['tests'])} |" for c in cats]
+    L += _group_blocks(cats, by, cards)
     if tax["outside"]:
         L += ["", f"### 没算进来的（{len(tax['outside'])} 篇）", ""]
         L += [f"- {by[o['id']]['title']} [#{o['id']}]：{o['reason'] or '不是 Benchmark'}" for o in tax["outside"]
@@ -372,11 +505,14 @@ def render_section5(domain: str, papers: list[dict], tax: dict[str, Any], cards:
     return "\n".join(L)
 
 
-def _material(tax: dict[str, Any], papers: list[dict], cards: dict[str, Any]) -> str:
+def _material(tax: dict[str, Any], papers: list[dict], cards: dict[str, Any],
+              title: str = "### 分类（方括号里是大类：QA 或 Agent）") -> str:
     by = {p["id"]: p for p in papers}
-    L = ["### 分类"]
+    ensure_groups(tax)
+    L = [title]
     for k, c in enumerate(tax["categories"], 1):
-        L.append(f"{k}. {c['name']}（{len(c['ids'])} 篇）：{c['tests']}")
+        new = "【新】" if c.get("new") and tax.get("_mark_new_in_material") else ""
+        L.append(f"{k}. [{c['group']}] {c['name']}{new}（{len(c['ids'])} 篇）：{c['tests']}")
         L.append("   编号：" + " ".join(f"#{i}" for i in c["ids"]))
     if tax["outside"]:
         L.append("不算进来的：" + "；".join(f"#{o['id']}（{o['reason']}）" for o in tax["outside"]))
@@ -461,25 +597,19 @@ def write_review(domain: str, papers: list[dict], cards: dict[str, Any], tax: di
 # ---------- 本周小结 ----------
 
 def render_week_section1(tax: dict[str, Any], by: dict[int, dict], cards: dict[str, Any], has_base: bool) -> str:
-    cats = tax["categories"]
-    n = sum(len(c["ids"]) for c in cats)
+    cats = ensure_groups(tax)["categories"]
     newn = sum(1 for c in cats if c.get("new"))
-    head = f"## 一、本周新论文分几类：{n} 篇分 {len(cats)} 类"
+    head = f"## 一、本周新论文分几类：{_group_head(cats)}"
     if has_base:
-        head += f"，{newn} 类是全部综述里没有的" if newn else "，都能放进全部综述已有的类"
+        head += f"；{newn} 个主题是全部综述里没有的" if newn else "；都能放进全部综述已有的主题"
     if has_base:
-        L = [head, "", "| 类别 | 篇数 | 全部综述里 | 测什么 |", "|---|---|---|---|"]
-        L += [f"| {_cell(c['name'])} | {len(c['ids'])} | {'新' if c.get('new') else '已有'} | {_cell(c['tests'])} |"
-              for c in cats]
+        L = [head, "", "| 大类 | 主题 | 篇数 | 全部综述里 | 测什么 |", "|---|---|---|---|---|"]
+        L += [f"| {c['group']} | {_cell(c['name'])} | {len(c['ids'])} | {'新' if c.get('new') else '已有'} | "
+              f"{_cell(c['tests'])} |" for c in cats]
     else:  # 没有全部综述就没法判断新不新，不显示这一列
-        L = [head, "", "| 类别 | 篇数 | 测什么 |", "|---|---|---|"]
-        L += [f"| {_cell(c['name'])} | {len(c['ids'])} | {_cell(c['tests'])} |" for c in cats]
-    for c in cats:
-        L += ["", f"### {c['name']}（{len(c['ids'])} 篇{'，新' if c.get('new') and has_base else ''}）", ""]
-        for i in c["ids"]:
-            if i in by:
-                task = cards.get(str(i), {}).get("task", "")
-                L.append(f"- {by[i]['title']} [#{i}]" + (f"：{task}" if task else ""))
+        L = [head, "", "| 大类 | 主题 | 篇数 | 测什么 |", "|---|---|---|---|"]
+        L += [f"| {c['group']} | {_cell(c['name'])} | {len(c['ids'])} | {_cell(c['tests'])} |" for c in cats]
+    L += _group_blocks(cats, by, cards, tag=lambda c: "，新" if c.get("new") and has_base else "", explain=False)
     if tax["outside"]:
         L += ["", f"### 没算进来的（{len(tax['outside'])} 篇）", ""]
         L += [f"- {by[o['id']]['title']} [#{o['id']}]：{o['reason'] or '不是 Benchmark'}" for o in tax["outside"]
@@ -520,10 +650,8 @@ def write_week(domain: str, wk: str, papers: list[dict], cards: dict[str, Any], 
     prev = (d / "review_body.md").read_text(encoding="utf-8") if (d / "review_body.md").exists() else ""
     base_meta = _read(out_dir(domain) / "review.json", None)
     base = _base_sections(domain)
-    mat = _material(tax, papers, cards).replace("### 分类", "### 本周分类（标\"新\"的是全部综述里没有的类）")
-    for c in tax["categories"]:
-        if c.get("new"):
-            mat = mat.replace(f". {c['name']}（", f". {c['name']}【新】（", 1)
+    mat = _material({**tax, "_mark_new_in_material": bool(base_meta)}, papers, cards,
+                    "### 本周分类（方括号里是大类；标\"新\"的是全部综述里没有的主题）")
     msg = (f"{prompt('week')}\n\n---\n\n领域：{DOMAIN_CN[domain]}，本周（{wk} 起）\n\n{mat}\n\n---\n\n"
            + (f"### 全部综述的第三、四节\n\n{base}" if base else "### 全部综述\n\n还没有全部综述。"))
     if notes and prev:
@@ -556,21 +684,24 @@ def write_week(domain: str, wk: str, papers: list[dict], cards: dict[str, Any], 
 # ---------- 运行 ----------
 
 def run(domain: str, start: str = "cards", force_cards: bool = False, notes: str | None = None,
-        chat_fn: ChatFn | None = None, scope: str = "all") -> dict[str, Any]:
+        chat_fn: ChatFn | None = None, scope: str = "all", sid: str | None = None) -> dict[str, Any]:
     if scope not in SCOPES:
         raise ValueError(f"范围只能是 {'、'.join(SCOPES)}")
+    key = (sid, domain)
     with _RUN_LOCK:
-        if domain in _RUNNING:  # 全部和本周共用卡片，同一领域一次只跑一个
+        if key in _RUNNING:  # 同一会话里全部和本周共用分类基准，同一领域一次只跑一个
             raise RuntimeError(f"{DOMAIN_CN.get(domain, domain)}的综述正在生成，等它跑完")
-        _RUNNING.add(domain)
+        _RUNNING.add(key)
     _TL.scope = scope
     try:
-        fn = _run_week if scope == "week" else _run
-        return fn(domain, start, force_cards, notes, chat_fn or (lambda m: chat(m)))
+        with session(sid):
+            touch(sid)
+            fn = _run_week if scope == "week" else _run
+            return fn(domain, start, force_cards, notes, chat_fn or (lambda m: chat(m)))
     finally:
         _TL.scope = "all"
         with _RUN_LOCK:
-            _RUNNING.discard(domain)
+            _RUNNING.discard(key)
 
 
 def _begin(domain, start, notes):
@@ -590,7 +721,7 @@ def _run(domain, start, force_cards, notes, chat_fn):
         raise ValueError(f"{DOMAIN_CN[domain]}领域没有可用的论文")
     todo = _begin(domain, start, notes)
     d = out_dir(domain)
-    cards = _read(d / "cards.json", {}).get("cards", {})
+    cards = _read(cards_path(domain), {}).get("cards", {})
     if "cards" in todo:
         cards = make_cards(domain, papers, chat_fn, force_cards)["cards"]
     tax = _read(d / "taxonomy.json", None)
@@ -608,10 +739,10 @@ def _run_week(domain, start, force_cards, notes, chat_fn):
     if not papers:
         raise ValueError(f"{DOMAIN_CN[domain]}领域本周没有新论文")
     todo = _begin(domain, start, notes)
-    cards = _read(out_dir(domain) / "cards.json", {}).get("cards", {})
+    cards = _read(cards_path(domain), {}).get("cards", {})
     if "cards" in todo:  # 只抽本周论文的卡，存进全部综述共用的 cards.json
         cards = make_cards(domain, papers, chat_fn, force_cards)["cards"]
-    tax = _read(week_dir(domain, wk) / "taxonomy.json", None)
+    tax = _read(week_dir(domain) / "taxonomy.json", None)
     if "taxonomy" in todo:
         tax = make_week_taxonomy(domain, papers, cards, chat_fn, wk)
     if not tax:
@@ -620,17 +751,19 @@ def _run_week(domain, start, force_cards, notes, chat_fn):
     return _status(domain, state="done", step="完成", finished_at=_now())
 
 
-def start_background(domain: str, scope: str = "all", **kw: Any) -> dict[str, Any]:
-    if domain in _RUNNING:
+def start_background(domain: str, scope: str = "all", sid: str | None = None, **kw: Any) -> dict[str, Any]:
+    if (sid, domain) in _RUNNING:
         raise RuntimeError(f"{DOMAIN_CN.get(domain, domain)}的综述正在生成，等它跑完")
+    cleanup_sessions()
 
     def work():
         try:
-            run(domain, scope=scope, **kw)
+            run(domain, scope=scope, sid=sid, **kw)
         except Exception as e:
             _TL.scope = scope
-            _status(domain, state="error", step="出错", error=str(e)[:500], finished_at=_now(),
-                    trace=traceback.format_exc()[-1500:])
+            with session(sid):
+                _status(domain, state="error", step="出错", error=str(e)[:500], finished_at=_now(),
+                        trace=traceback.format_exc()[-1500:])
             _TL.scope = "all"
 
     threading.Thread(target=work, daemon=True).start()
@@ -641,14 +774,14 @@ def start_background(domain: str, scope: str = "all", **kw: Any) -> dict[str, An
 
 def _state(domain: str, scope: str) -> dict[str, Any]:
     st = _read(_status_path(domain, scope), {})
-    if st.get("state") == "running" and domain not in _RUNNING:
+    if st.get("state") == "running" and (_sid(), domain) not in _RUNNING:
         st["state"] = "stale"  # 服务重启过，后台任务已经不在了
     return st
 
 
 def summary(domain: str, scope: str = "all") -> dict[str, Any]:
     d = out_dir(domain) if scope == "all" else week_dir(domain)
-    cards = _read(out_dir(domain) / "cards.json", {}).get("cards", {})
+    cards = _read(cards_path(domain), {}).get("cards", {})
     tax = _read(d / "taxonomy.json", None)
     meta = _read(d / "review.json", None)
     return {"state": _state(domain, scope).get("state"), "cards": len(cards),
@@ -656,21 +789,33 @@ def summary(domain: str, scope: str = "all") -> dict[str, Any]:
             "reviewed": bool(meta), "review_ok": bool(meta and meta["check"]["ok"])}
 
 
-def domain_list() -> list[dict[str, Any]]:
+def domain_list(sid: str | None = None) -> list[dict[str, Any]]:
+    with session(sid):
+        return _domain_list()
+
+
+def _domain_list() -> list[dict[str, Any]]:
     return [{"domain": dm, "label": DOMAIN_CN[dm], "papers": len(load_corpus(dm)),
              "week_papers": len(load_corpus(dm, scope="week")), **summary(dm),
              "week": summary(dm, "week")}
             for dm in REVIEW_DOMAINS]
 
 
-def load_result(domain: str, scope: str = "all") -> dict[str, Any]:
+def load_result(domain: str, scope: str = "all", sid: str | None = None) -> dict[str, Any]:
+    with session(sid):
+        if sid and (_sess_root() / sid).exists():
+            touch(sid)  # 页面开着就一直轮询，不会被过期清理删掉
+        return _load_result(domain, scope)
+
+
+def _load_result(domain: str, scope: str) -> dict[str, Any]:
     if scope not in SCOPES:
         raise ValueError(f"范围只能是 {'、'.join(SCOPES)}")
     wk = latest_week() if scope == "week" else None
-    d = week_dir(domain, wk) if scope == "week" else out_dir(domain)
+    d = week_dir(domain) if scope == "week" else out_dir(domain)
     papers = load_corpus(domain, scope="week") if scope == "week" else load_corpus(domain)
-    cards = _read(out_dir(domain) / "cards.json", {}).get("cards", {})
-    tax = _read(d / "taxonomy.json", None)
+    cards = _read(cards_path(domain), {}).get("cards", {})
+    tax = ensure_groups(_read(d / "taxonomy.json", None))
     meta = _read(d / "review.json", None)
     review = (d / "review.md").read_text(encoding="utf-8") if (d / "review.md").exists() else ""
     fresh = {str(p["id"]) for p in papers if cards.get(str(p["id"]), {}).get("hash") == paper_hash(p)}
@@ -692,7 +837,4 @@ def load_result(domain: str, scope: str = "all") -> dict[str, Any]:
         out["base"] = {"reviewed": bool(base_meta), "built_at": (base_meta or {}).get("built_at"),
                        "papers": (base_meta or {}).get("papers")}
         out["pending"]["base_newer"] = bool(meta and base_meta and meta.get("base_at") != base_meta.get("built_at"))
-        wroot = out_dir(domain) / "week"
-        out["history"] = sorted([p.name for p in wroot.iterdir() if (p / "review.md").exists()],
-                                reverse=True) if wroot.exists() else []
     return out

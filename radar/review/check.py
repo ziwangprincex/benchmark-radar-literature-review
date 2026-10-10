@@ -78,8 +78,9 @@ def check_body(body: str, papers: list[dict[str, Any]], taxonomy: dict[str, Any]
         k = _section_key(line, sections)
         if k:
             cur = k
-        elif cur == "二" and line.startswith("### "):
-            heads.append(re.sub(r"[（(].*?[）)]", "", line[4:]).strip())
+        elif cur == "二" and (line.startswith("### ") or line.startswith("#### ")):
+            # 两层分类：### QA 类 / ### Agent 类，下面 #### 主题名
+            heads.append(re.sub(r"[（(].*?[）)]", "", line.lstrip("#")).strip())
     not_discussed = []
     for c in (taxonomy or {}).get("categories", []):
         n = c["name"]

@@ -290,11 +290,23 @@ def _review_domain_ok(domain: str) -> bool:
     return domain in REVIEW_DOMAINS
 
 
+BLANK_SID = "blank-session"  # 没带会话编号时看到的空白页（网页版导出、直接打开接口）
+
+
+def _review_sid(required: bool = False) -> str | None:
+    """每次打开页面一个会话编号（页面里随机生成，放在 ?sid= 里）。结果只存在这个会话里。"""
+    from radar.review.pipeline import SID_RE
+    s = (request.args.get("sid") or "").strip()
+    if SID_RE.match(s) and s != BLANK_SID:
+        return s
+    return None if required else BLANK_SID
+
+
 @app.get("/api/review/config")
 def api_review_config():
     from radar.review.llm import public_config
     from radar.review.pipeline import PROMPTS, domain_list
-    return jsonify({"llm": public_config(), "domains": domain_list(),
+    return jsonify({"llm": public_config(), "domains": domain_list(_review_sid()),
                     "prompts_path": str(PROMPTS.relative_to(BASE_DIR))})
 
 
@@ -317,7 +329,7 @@ def _review_get(domain: str, scope: str):
     from radar.review.pipeline import load_result
     if not _review_domain_ok(domain):
         return jsonify({"error": "未知领域"}), 400
-    return jsonify(load_result(domain, scope))
+    return jsonify(load_result(domain, scope, _review_sid()))
 
 
 def _review_run(domain: str, scope: str):
@@ -329,13 +341,16 @@ def _review_run(domain: str, scope: str):
         return jsonify({"error": "未知领域"}), 400
     if not public_config()["ready"]:
         return jsonify({"error": "还没接入模型：先填接口地址、密钥和模型名"}), 400
+    sid = _review_sid(required=True)
+    if not sid:
+        return jsonify({"error": "页面太旧了，刷新一下再试"}), 400
     payload = request.get_json(force=True) or {}
     notes = (payload.get("notes") or "").strip() or None
     start = "review" if notes else payload.get("start", "cards")
     if start not in STAGES:
         return jsonify({"error": "start 不对"}), 400
     try:
-        return jsonify(start_background(domain, scope=scope, start=start,
+        return jsonify(start_background(domain, scope=scope, sid=sid, start=start,
                                         force_cards=bool(payload.get("force_cards")), notes=notes))
     except RuntimeError as exc:
         return jsonify({"error": str(exc)}), 409
@@ -345,8 +360,11 @@ def _review_taxonomy(domain: str, scope: str):
     from radar.review.pipeline import save_taxonomy
     if not _review_domain_ok(domain):
         return jsonify({"error": "未知领域"}), 400
+    sid = _review_sid(required=True)
+    if not sid:
+        return jsonify({"error": "页面太旧了，刷新一下再试"}), 400
     try:
-        return jsonify({"taxonomy": save_taxonomy(domain, request.get_json(force=True) or {}, scope)})
+        return jsonify({"taxonomy": save_taxonomy(domain, request.get_json(force=True) or {}, scope, sid)})
     except ValueError as exc:
         return jsonify({"error": str(exc)}), 400
 
@@ -380,6 +398,14 @@ def api_review_taxonomy(domain: str):
 @app.put("/api/review/<domain>/week/taxonomy")
 def api_review_week_taxonomy(domain: str):
     return _review_taxonomy(domain, "week")
+
+
+@app.post("/api/review/forget")
+def api_review_forget():
+    """关页面时由浏览器发过来：删掉这次打开页面写的分类和综述。"""
+    from radar.review.pipeline import forget
+    sid = _review_sid(required=True)
+    return jsonify({"forgot": bool(sid and forget(sid))})
 
 
 @app.get("/api/health")

@@ -103,10 +103,85 @@ class TaxonomyTest(unittest.TestCase):
 
     def test_section1_counts_come_from_taxonomy(self):
         md = P.render_section1({**TAX, "by": "model"}, {p["id"]: p for p in PAPERS}, {})
-        self.assertIn("### 问答与检索（2 篇）", md)
-        self.assertIn("### 合同审查（1 篇）", md)
+        self.assertIn("#### 问答与检索（2 篇）", md)
+        self.assertIn("#### 合同审查（1 篇）", md)
         self.assertIn("### 没算进来的（1 篇）", md)
-        self.assertIn("3 篇分 2 类", md)
+        self.assertIn("3 篇，QA 类 3 篇（2 个主题），Agent 类 0 篇（0 个主题）", md)
+
+    def test_two_levels_qa_then_agent(self):
+        """2026-10-10：先分 QA / Agent，再分主题。模型写乱顺序、写成小写或中文，都整理成 QA 在前。"""
+        t = P.normalize_taxonomy({"categories": [
+            {"group": "agent", "name": "网页办事", "ids": [3]},
+            {"group": "QA", "name": "法条问答", "ids": [1]},
+            {"group": "智能体", "name": "多智能体协作", "ids": [2]},
+            {"name": "没写大类", "ids": [4]}], "outside": []}, {1, 2, 3, 4})
+        self.assertEqual([(c["group"], c["name"]) for c in t["categories"]],
+                         [("QA", "法条问答"), ("QA", "没写大类"), ("Agent", "网页办事"), ("Agent", "多智能体协作")])
+        md = P.render_section1(t, {p["id"]: p for p in PAPERS}, {})
+        self.assertIn("| 大类 | 主题 | 篇数 | 测什么 |", md)
+        self.assertIn("### QA 类：2 篇，2 个主题", md)
+        self.assertIn("### Agent 类：2 篇，2 个主题", md)
+        self.assertLess(md.index("#### 没写大类"), md.index("### Agent 类"))
+        # 第二节写成 ### 大类 / #### 主题 也算写到了
+        body = BODY.replace("### 问答与检索", "### QA 类\n#### 问答与检索").replace("### 合同审查", "#### 合同审查")
+        self.assertEqual(C.check_body(body, PAPERS, TAX)["warnings"]["categories_not_discussed"], [])
+
+    def test_week_copies_group_from_full_review(self):
+        base = {"categories": [{"group": "Agent", "name": "网页办事", "ids": [1]}]}
+        t = P._mark_new({"categories": [{"group": "QA", "name": "网页办事", "ids": [5]},
+                                        {"group": "QA", "name": "新主题", "ids": [6]}]}, base)
+        self.assertEqual([(c["group"], c["name"], c["new"]) for c in t["categories"]],
+                         [("QA", "新主题", True), ("Agent", "网页办事", False)])
+
+
+class SessionTest(unittest.TestCase):
+    """2026-10-10：每次打开页面一个会话，结果互不可见；卡片缓存共用。"""
+
+    def test_sessions_are_isolated_and_cards_shared(self):
+        log = []
+        with tempfile.TemporaryDirectory() as tmp, \
+                mock.patch.object(P, "OUT_ROOT", Path(tmp)), \
+                mock.patch.object(P, "load_corpus", lambda d, limit=None, scope="all": PAPERS), \
+                mock.patch.object(P, "skipped_count", lambda d: 0), \
+                mock.patch.object(P, "load_config", lambda: {"model": "fake"}):
+            a, b = "sessionAAAA1", "sessionBBBB2"
+            P.run("legal", chat_fn=fake_model(log), sid=a)
+            self.assertTrue(P.load_result("legal", sid=a)["review"])
+            self.assertEqual(P.load_result("legal", sid=b)["review"], "")       # 别人打开是空白
+            self.assertIsNone(P.load_result("legal", sid=b)["taxonomy"])
+            self.assertEqual(len(P.load_result("legal", sid=b)["cards"]), 4)    # 卡片共用
+            self.assertTrue((Path(tmp) / "legal" / "cards.json").exists())
+            self.assertFalse((Path(tmp) / "legal" / "review.md").exists())      # 不写到公共目录
+            n = len(log)
+            P.run("legal", chat_fn=fake_model(log), sid=b)
+            self.assertFalse(any("做一张卡片" in t for t in log[n:]))           # 第二个人不用重抽卡
+            self.assertTrue(P.forget(a))
+            self.assertEqual(P.load_result("legal", sid=a)["review"], "")
+            self.assertTrue(P.load_result("legal", sid=b)["review"])
+
+    def test_cleanup_old_sessions(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(P, "OUT_ROOT", Path(tmp)):
+            P.touch("oldsession01")
+            P.touch("newsession01")
+            import os
+            old = Path(tmp) / "_sessions" / "oldsession01" / ".seen"
+            os.utime(old, (0, 0))
+            self.assertEqual(P.cleanup_sessions(), 1)
+            self.assertFalse(old.parent.exists())
+            self.assertTrue((Path(tmp) / "_sessions" / "newsession01").exists())
+
+    def test_bad_sid_rejected(self):
+        with self.assertRaises(ValueError):
+            with P.session("../../etc"):
+                pass
+
+    def test_card_writes_merge(self):
+        """两个会话同时抽同一领域的卡，后写的不能把先写的冲掉。"""
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(P, "OUT_ROOT", Path(tmp)):
+            path = P.cards_path("legal")
+            P._write(path, {"cards": {"9": {"id": 9}}})
+            P.make_cards("legal", PAPERS[:1], fake_model([]))
+            self.assertEqual(sorted(json.loads(path.read_text(encoding="utf-8"))["cards"]), ["1", "9"])
 
 
 WEEK = [
@@ -150,7 +225,7 @@ def fake_model(log):
             return "好的：" + json.dumps({"categories": TAX["categories"], "outside": []}, ensure_ascii=False)
         if "本周新收的论文卡片" in t:
             return json.dumps({"categories": [{"name": "问答与检索", "tests": "", "why": "", "ids": [5]},
-                                              {"name": "多文件冲突检测", "tests": "主协议和附件对不上", "why": "", "ids": [6]}],
+                                              {"group": "Agent", "name": "多文件冲突检测", "tests": "主协议和附件对不上", "why": "", "ids": [6]}],
                                "outside": []}, ensure_ascii=False)
         if "本周新论文小结" in t:
             if "程序核对发现这些问题" in t:
@@ -194,7 +269,7 @@ class PipelineTest(unittest.TestCase):
             self.assertTrue(meta["fixed_once"])
             self.assertNotIn("never check citations", md)
             self.assertNotIn("我多写的", md)                          # 模型多写的第一节被丢掉
-            self.assertIn("## 一、大家在研究什么：3 篇分 2 类", md)
+            self.assertIn("## 一、大家在研究什么：3 篇，QA 类 3 篇（2 个主题），Agent 类 0 篇（0 个主题）", md)
             self.assertIn("## 五、这份综述的边界", md)
             self.assertIn("标为\"不用读\"的 2 篇", md)
             self.assertLess(md.index("## 一、"), md.index("## 二、"))
@@ -257,13 +332,13 @@ class WeekTest(unittest.TestCase):
                 self.assertEqual(sorted(cards, key=int), ["1", "2", "3", "4", "5", "6"])
                 # 分类时带上全部综述的已有类；写小结时带上全部综述的第三、四节
                 tax_msg = next(t for t in week_log if "本周新收的论文卡片" in t)
-                self.assertIn("- 问答与检索：答题和找判例", tax_msg)
+                self.assertIn("- [QA] 问答与检索：答题和找判例", tax_msg)
                 week_msg = next(t for t in week_log if "本周新论文小结" in t)
                 self.assertIn("## 三、大家还没研究什么", week_msg)
                 self.assertIn("## 四、我们能研究什么", week_msg)
                 self.assertNotIn("## 二、各类做到哪", week_msg)
 
-                d = Path(tmp) / "legal" / "week" / "2026-10-05"
+                d = Path(tmp) / "legal" / "week"
                 tax = json.loads((d / "taxonomy.json").read_text(encoding="utf-8"))
                 self.assertEqual({c["name"]: c["new"] for c in tax["categories"]},
                                  {"问答与检索": False, "多文件冲突检测": True})
@@ -271,12 +346,13 @@ class WeekTest(unittest.TestCase):
                 meta = json.loads((d / "review.json").read_text(encoding="utf-8"))
                 self.assertTrue(meta["check"]["ok"], meta["check"]["problems"])   # 编的原话被打回改掉了
                 self.assertTrue(meta["fixed_once"])
-                self.assertIn("## 一、本周新论文分几类：2 篇分 2 类，1 类是全部综述里没有的", md)
-                self.assertIn("| 多文件冲突检测 | 1 | 新 |", md)
+                self.assertIn("## 一、本周新论文分几类：2 篇，QA 类 1 篇（1 个主题），Agent 类 1 篇（1 个主题）；1 个主题是全部综述里没有的", md)
+                self.assertIn("| Agent | 多文件冲突检测 | 1 | 新 |", md)
+                self.assertLess(md.index("### QA 类"), md.index("### Agent 类"))
                 self.assertIn("## 四、这份小结的边界", md)
                 self.assertIn("对比用的是", md)
                 # 全部综述没被本周小结动过
-                self.assertIn("## 一、大家在研究什么：3 篇分 2 类", (Path(tmp) / "legal" / "review.md").read_text(encoding="utf-8"))
+                self.assertIn("## 一、大家在研究什么：3 篇，QA 类 3 篇", (Path(tmp) / "legal" / "review.md").read_text(encoding="utf-8"))
 
                 r = P.load_result("legal", "week")
                 self.assertEqual(r["week"], "2026-10-05")
@@ -284,7 +360,6 @@ class WeekTest(unittest.TestCase):
                 self.assertEqual(sorted(r["cards"], key=int), ["5", "6"])
                 self.assertTrue(r["base"]["reviewed"])
                 self.assertFalse(r["pending"]["base_newer"])
-                self.assertEqual(r["history"], ["2026-10-05"])
                 self.assertEqual(r["status"]["state"], "done")
                 self.assertEqual(P.load_result("legal")["status"]["state"], "done")  # 两块状态分开存
 
@@ -306,8 +381,8 @@ class WeekTest(unittest.TestCase):
                 tax_msg = next(t for t in log if "本周新收的论文卡片" in t)
                 self.assertIn("还没有已有分类", tax_msg)
                 self.assertIn("还没有全部综述。", next(t for t in log if "本周新论文小结" in t))
-                md = (Path(tmp) / "legal" / "week" / "2026-10-05" / "review.md").read_text(encoding="utf-8")
-                self.assertIn("## 一、本周新论文分几类：2 篇分 2 类\n", md)
+                md = (Path(tmp) / "legal" / "week" / "review.md").read_text(encoding="utf-8")
+                self.assertIn("## 一、本周新论文分几类：2 篇，QA 类 1 篇（1 个主题），Agent 类 1 篇（1 个主题）\n", md)
                 self.assertIn("还没写全部综述", md)
                 self.assertFalse(P.load_result("legal", "week")["base"]["reviewed"])
             finally:
