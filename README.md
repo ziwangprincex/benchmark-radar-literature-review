@@ -43,20 +43,13 @@ python3 -m radar.web.app
 
 在线打开：<https://ziwangprincex.github.io/benchmark-radar-literature-review/>
 
-网页版只能看：待读清单可以勾"已读""不用读"，但勾选只存在你自己的浏览器里，换浏览器或清缓存就没了。跑模型写综述、重新生成索引，要在本地运行（见上面"怎么用"）。
+网页版部署在 GitHub Pages 上，只能看：待读清单可以勾"已读""不用读"，但勾选只存在你自己的浏览器里，换浏览器或清缓存就没了。跑模型写综述、重新生成索引，要在本地运行（见上面"怎么用"）。
 
 ## 每周自动更新
 
-每周一 15:00（北京时间）有两处各跑一遍，分工不同：
+GitHub Actions（`.github/workflows/weekly.yml`）每周一 15:00（北京时间）跑一遍：抓 arXiv 新论文、分类，重新生成上面的网页版。不推送消息。
 
-| 在哪跑 | 做什么 | 推企业微信 |
-|---|---|---|
-| 内网开发机（`deploy/radar-weekly.timer`） | 抓 arXiv、分类，更新内网网页 | 推，同一周只推一次 |
-| GitHub Actions（`.github/workflows/weekly.yml`） | 抓 arXiv、分类，更新上面的网页版 | 不推 |
-
-推送内容：本周新收多少篇、各领域未读几篇、前几篇标题和链接。
-
-GitHub 这边不用开电脑，定时任务偶尔会晚几分钟到几十分钟，运行结果在仓库 Actions 页面看。数据库跑完存到 `data` 分支，下次接着用。想马上更新网页：Actions → weekly → Run workflow，或者：
+不用开电脑，定时任务偶尔会晚几分钟到几十分钟，运行结果在仓库 Actions 页面看。数据库跑完存到 `data` 分支，下次接着用。想马上更新网页：Actions → weekly → Run workflow，或者：
 
 ```bash
 gh workflow run weekly.yml
@@ -65,12 +58,8 @@ gh workflow run weekly.yml
 本地手动跑，结果写到 `reports/weekly_refresh.md`：
 
 ```bash
-python3 scripts/weekly_refresh.py --no-push                # 刷新，不推送
-python3 -m radar.publish.wecom_push --dry-run              # 看看推送消息长什么样
-python3 -m radar.publish.wecom_push --set-webhook "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=..."
+python3 scripts/weekly_refresh.py --no-push
 ```
-
-群机器人地址只存在本机 `data/wecom_config.json`，不进 git。
 
 ## 目录
 
@@ -81,7 +70,7 @@ python3 -m radar.publish.wecom_push --set-webhook "https://qyapi.weixin.qq.com/c
 | `radar/review/prompts/` | 三步的写作要求，想改综述格式改这里，不用动代码 |
 | `radar/web/` | 网页（`static/static_shim.js` 是网页版专用） |
 | `scripts/` | 每周刷新、arXiv 批量抓取、导出网页版（`build_static_site.py`） |
-| `data/radar.db` | 所有论文和阅读状态（最新的一份在 `data` 分支） |
+| `data/radar.db` | 所有论文和阅读状态（不在 main 分支，最新的一份在 `data` 分支） |
 | `reports/lit_review/<领域>/` | 生成的综述、卡片、分类 |
 | `reports/lit_coverage.md` | 各领域"任务 × 输入"覆盖表，看哪里没收全 |
 | `archive/` | 旧版本资料（早期的 Idea 打分、Mini Eval、2026-10-09 停用的研究地图和撞车提醒），已不再使用 |
