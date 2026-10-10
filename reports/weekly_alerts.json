@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-09",
+  "alerts": [
+    "- 法律 · 法条已经废止或被修订，模型还照用：[PARCEL](https://arxiv.org/abs/2610.10971v1)（相似度 0.294）",
+    "- 医疗 · 诊断对了，治疗建议却不安全：[ParanoiaEval](https://arxiv.org/abs/2610.08662v2)（相似度 0.167）",
+    "- 医疗 · 病历里前一位医生写错了，模型会跟着错：[From Scores to Steps: Diagnosing and Improving LLM Performance in Evidence-Based Medical Calculations](https://arxiv.org/abs/2509.16584)（相似度 0.211）",
+    "- 医疗 · 病历里前一位医生写错了，模型会跟着错：[MedCalc-Bench](https://arxiv.org/abs/2406.12036)（相似度 0.196）",
+    "- 医疗 · 病历里前一位医生写错了，模型会跟着错：[Scalable Stewardship of an LLM-Assisted Clinical Benchmark with Physician Oversight](https://arxiv.org/abs/2512.19691)（相似度 0.191）",
+    "- 医疗 · 病历里前一位医生写错了，模型会跟着错：[MEDEC](https://arxiv.org/abs/2412.19260)（相似度 0.178）",
+    "- 医疗 · 病理切片明明正常，模型却报出病变：[PathLang](https://arxiv.org/abs/2610.11329v1)（相似度 0.14）",
+    "- 医疗 · 每一步都对，连起来却错了：[From Scores to Steps: Diagnosing and Improving LLM Performance in Evidence-Based Medical Calculations](https://arxiv.org/abs/2509.16584)（相似度 0.212）",
+    "- 医疗 · 每一步都对，连起来却错了：[MEDEC](https://arxiv.org/abs/2412.19260)（相似度 0.206）",
+    "- 医疗 · 每一步都对，连起来却错了：[MedRECT](https://arxiv.org/abs/2511.00421)（相似度 0.166）",
+    "- 科研 · 引用的证据撑不起结论：[PARCEL](https://arxiv.org/abs/2610.10971v1)（相似度 0.231）",
+    "- 科研 · 多步科学计算里单位和数量级出错：[MedCalc-Bench](https://arxiv.org/abs/2406.12036)（相似度 0.286）",
+    "- 科研 · 多步科学计算里单位和数量级出错：[From Scores to Steps: Diagnosing and Improving LLM Performance in Evidence-Based Medical Calculations](https://arxiv.org/abs/2509.16584)（相似度 0.21）",
+    "- 科研 · 多步科学计算里单位和数量级出错：[MedCalc-Eval and MedCalc-Env](https://arxiv.org/abs/2510.27267)（相似度 0.186）",
+    "- Agent · 工具返回了错误结果，Agent 照单全收：[RecToolBench](https://arxiv.org/abs/2609.30717v2)（相似度 0.17）"
+  ]
+}
