@@ -71,6 +71,28 @@ class CheckTest(unittest.TestCase):
 
 
 class TaxonomyTest(unittest.TestCase):
+    def test_retry_when_categories_have_no_ids(self):
+        """2026-10-10 开发机实测：模型第一次只写了类名和说明，没写 ids，结果 5 篇全被放进"不算"。"""
+        sent = []
+        replies = iter([
+            json.dumps({"categories": [{"name": "问答与检索", "tests": "x", "why": "y"}], "outside": []}, ensure_ascii=False),
+            json.dumps(TAX, ensure_ascii=False),
+        ])
+
+        def chat(msgs):
+            sent.append(msgs[-1]["content"])
+            return next(replies)
+        tax = P._ask_taxonomy("legal", "分类", {1, 2, 3, 4}, chat)
+        self.assertEqual(len(tax["categories"]), 2)
+        self.assertIn("这些类没有写 ids", sent[1])
+        self.assertIn("问答与检索", sent[1])
+        self.assertIn('"tests": "x"', sent[1])  # 带上了模型原始回复
+
+    def test_all_empty_raises(self):
+        bad = json.dumps({"categories": [{"name": "A"}], "outside": []})
+        with self.assertRaisesRegex(ValueError, "分类失败"):
+            P._ask_taxonomy("legal", "分类", {1, 2}, lambda m: bad)
+
     def test_normalize_drops_unknown_and_duplicate_ids(self):
         t = P.normalize_taxonomy({"categories": [{"name": "A", "ids": [1, 1, 99]}, {"name": "B", "ids": [1]},
                                                  {"name": "C", "ids": ["#2"]}],

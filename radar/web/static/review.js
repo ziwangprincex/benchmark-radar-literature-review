@@ -147,6 +147,7 @@ function rvCardsView(R){
 function rvInline(s,meta){
   s=esc(s);
   s=s.replace(/\[#\s*(\d+(?:\s*[,，、]\s*#?\s*\d+)*)\s*\]/g,(m,g)=>g.match(/\d+/g).map(i=>{const p=meta[i];return p?`<a class="cite" href="${esc(p.url)}" target="_blank" rel="noopener" title="${esc(p.title)}">#${i}</a>`:`<span class="cite bad" title="资料里没有这个编号">#${i}</span>`}).join(''));
+  s=s.replace(/(^|[^\w#\["'>])#(\d{2,6})\b/g,(m,pre,i)=>{const p=meta[i];return p?`${pre}<a class="cite" href="${esc(p.url)}" target="_blank" rel="noopener" title="${esc(p.title)}">#${i}</a>`:m});
   s=s.replace(/「([^」]+)」/g,'<q class="orig">$1</q>');
   s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`]+)`/g,'<code>$1</code>');
   return s;

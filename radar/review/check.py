@@ -19,10 +19,14 @@ BODY_SECTIONS = [("二", "各类做到哪、共同短板"), ("三", "大家还�
 WEEK_SECTIONS = [("二", "本周新论文说明了什么"), ("三", "和全部综述比")]
 
 
+BARE_RE = re.compile(r"(?<![\[\w#])#(\d{2,6})\b")  # 模型有时不加方括号，直接写 #1672
+
+
 def cites(text: str) -> list[int]:
     out: list[int] = []
     for m in CITE_RE.finditer(text):
         out += [int(x) for x in re.findall(r"\d+", m.group(1))]
+    out += [int(x) for x in BARE_RE.findall(CITE_RE.sub("", text))]
     return out
 
 

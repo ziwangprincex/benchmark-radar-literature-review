@@ -217,12 +217,14 @@ def normalize_taxonomy(data: Any, ids: set[int]) -> dict[str, Any]:
         return out
 
     data = data if isinstance(data, dict) else {}
-    cats = []
+    cats, no_ids = [], []
     for c in data.get("categories") or []:
         if not isinstance(c, dict):
             continue
         got = take(c.get("ids"))
         name = str(c.get("name") or "").strip()[:40]
+        if name and not got:
+            no_ids.append(name)
         if got and name:
             cats.append({"name": name, "tests": str(c.get("tests") or "").strip(),
                          "why": str(c.get("why") or "").strip(), "ids": got})
@@ -232,23 +234,31 @@ def normalize_taxonomy(data: Any, ids: set[int]) -> dict[str, Any]:
             got = take([o.get("id")])
             if got:
                 outside.append({"id": got[0], "reason": str(o.get("reason") or "").strip()})
-    return {"categories": cats, "outside": outside, "missing": sorted(ids - seen)}
+    return {"categories": cats, "outside": outside, "missing": sorted(ids - seen), "no_ids": no_ids}
 
 
 def _ask_taxonomy(domain: str, msg: str, ids: set[int], chat_fn: ChatFn) -> dict[str, Any]:
     """让模型分类；有论文没出现就把漏的列给它补一次，还漏的放进"不算"并注明。"""
-    tax = normalize_taxonomy(extract_json(_ask(chat_fn, msg)), ids)
+    raw = _ask(chat_fn, msg)
+    tax = normalize_taxonomy(extract_json(raw), ids)
     if tax["missing"]:
-        fix = (msg + "\n\n---\n\n你上一次的结果：\n" + json.dumps({k: tax[k] for k in ("categories", "outside")},
-                                                                ensure_ascii=False)
-               + "\n\n这些编号一次都没出现：" + "、".join(f"#{i}" for i in tax["missing"])
-               + "\n每篇必须出现一次。把它们放进合适的类或 outside，输出完整的 JSON。")
+        # 把模型原始回复和具体问题发回去，不要发整理后的结果（没有 ids 的类会被整理掉，模型看不出错在哪）
+        why = []
+        if tax["no_ids"]:
+            why.append("这些类没有写 ids（每一类都必须有 \"ids\": [编号, …]，列出归到这一类的论文编号）："
+                       + "、".join(tax["no_ids"]))
+        why.append("这些编号一次都没出现：" + "、".join(f"#{i}" for i in tax["missing"]))
+        fix = (msg + "\n\n---\n\n你上一次的回复：\n" + raw[:6000] + "\n\n问题：\n" + "\n".join(why)
+               + "\n\n每篇必须出现一次。改正后输出完整的 JSON，格式和上面要求的一样。")
         try:
             tax2 = normalize_taxonomy(extract_json(_ask(chat_fn, fix)), ids)
             if len(tax2["missing"]) < len(tax["missing"]) and tax2["categories"]:
                 tax = tax2
         except Exception:
             pass
+    tax.pop("no_ids", None)
+    if not tax["categories"]:
+        raise ValueError("分类失败：模型两次都没给出可用的分类（类里没有论文编号）。可以重试，或换个模型")
     for i in tax.pop("missing"):
         tax["outside"].append({"id": i, "reason": "模型没归类，需要你手动放进某一类"})
     return tax
@@ -302,6 +312,7 @@ def save_taxonomy(domain: str, payload: dict[str, Any], scope: str = "all") -> d
     papers = load_corpus(domain, scope=scope) if scope == "week" else load_corpus(domain)
     tax = normalize_taxonomy(payload, {p["id"] for p in papers})
     tax.pop("missing")
+    tax.pop("no_ids", None)
     if not tax["categories"]:
         raise ValueError("至少要有一类")
     tax.update(by="user", updated_at=_now())
