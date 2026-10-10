@@ -28,9 +28,12 @@ def load_config() -> dict[str, Any]:
             cfg = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             cfg = {}
+    base = (cfg.get("base_url") or os.getenv("RADAR_LLM_BASE_URL") or os.getenv("OPENAI_BASE_URL")
+            or DEFAULT_BASE).strip().rstrip("/")
+    # 把完整地址（…/chat/completions）也当成接口地址，避免拼出两遍路径
+    base = re.sub(r"/chat/completions$", "", base)
     return {
-        "base_url": (cfg.get("base_url") or os.getenv("RADAR_LLM_BASE_URL") or os.getenv("OPENAI_BASE_URL")
-                     or DEFAULT_BASE).rstrip("/"),
+        "base_url": base,
         "api_key": cfg.get("api_key") or os.getenv("RADAR_LLM_API_KEY") or os.getenv("OPENAI_API_KEY") or "",
         "model": cfg.get("model") or os.getenv("RADAR_LLM_MODEL") or "",
         "max_tokens": int(cfg.get("max_tokens") or 8000),
