@@ -456,9 +456,13 @@ def render_week_section1(tax: dict[str, Any], by: dict[int, dict], cards: dict[s
     head = f"## 一、本周新论文分几类：{n} 篇分 {len(cats)} 类"
     if has_base:
         head += f"，{newn} 类是全部综述里没有的" if newn else "，都能放进全部综述已有的类"
-    L = [head, "", "| 类别 | 篇数 | 全部综述里 | 测什么 |", "|---|---|---|---|"]
-    L += [f"| {_cell(c['name'])} | {len(c['ids'])} | {'新' if c.get('new') else '已有'} | {_cell(c['tests'])} |"
-          for c in cats]
+    if has_base:
+        L = [head, "", "| 类别 | 篇数 | 全部综述里 | 测什么 |", "|---|---|---|---|"]
+        L += [f"| {_cell(c['name'])} | {len(c['ids'])} | {'新' if c.get('new') else '已有'} | {_cell(c['tests'])} |"
+              for c in cats]
+    else:  # 没有全部综述就没法判断新不新，不显示这一列
+        L = [head, "", "| 类别 | 篇数 | 测什么 |", "|---|---|---|"]
+        L += [f"| {_cell(c['name'])} | {len(c['ids'])} | {_cell(c['tests'])} |" for c in cats]
     for c in cats:
         L += ["", f"### {c['name']}（{len(c['ids'])} 篇{'，新' if c.get('new') and has_base else ''}）", ""]
         for i in c["ids"]:

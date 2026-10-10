@@ -19,7 +19,7 @@ from radar.core.lit_index import KIND_CN
 from radar.core.radar_core import db
 from radar.core.reading import DOMAIN_CN, _ARXIV_HEAD, _week_start, ensure_table
 
-ABSTRACT_LIMIT = 1500
+ABSTRACT_LIMIT = 4000  # 2026-10-10 从 1500 提高：结尾的实验结论常被截掉（法律 66 篇、编程 503 篇超 1500）
 REVIEW_DOMAINS = ("legal", "financial", "medical", "scientific", "agent", "coding", "general")
 SCOPES = ("all", "week")
 

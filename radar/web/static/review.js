@@ -155,7 +155,7 @@ function rvMd(md,meta){
   const out=[];let list=null,para=[],table=[];
   const flushP=()=>{if(para.length){out.push(`<p>${rvInline(para.join(' '),meta)}</p>`);para=[]}};
   const flushL=()=>{if(list){out.push(`<${list.t}>${list.items.map(x=>`<li>${rvInline(x,meta)}</li>`).join('')}</${list.t}>`);list=null}};
-  const flushT=()=>{if(table.length){const rows=table.filter(r=>!/^\s*\|?\s*:?-{2,}/.test(r)).map(r=>r.replace(/^\s*\||\|\s*$/g,'').split('|'));out.push(`<table>${rows.map((r,i)=>`<tr>${r.map(c=>i?`<td>${rvInline(c.trim(),meta)}</td>`:`<th>${rvInline(c.trim(),meta)}</th>`).join('')}</tr>`).join('')}</table>`);table=[]}};
+  const flushT=()=>{if(table.length){const rows=table.filter(r=>!/^\s*\|?\s*:?-{2,}/.test(r)).map(r=>r.replace(/^\s*\||\|\s*$/g,'').split('|'));out.push(`<div class="rv-tbl"><table>${rows.map((r,i)=>`<tr>${r.map(c=>i?`<td>${rvInline(c.trim(),meta)}</td>`:`<th>${rvInline(c.trim(),meta)}</th>`).join('')}</tr>`).join('')}</table></div>`);table=[]}};
   const flush=()=>{flushP();flushL();flushT()};
   for(const raw of md.split('\n')){const l=raw.trimEnd();let m;
     if(!l.trim()){flush();continue}
