@@ -40,6 +40,6 @@
   document.addEventListener('DOMContentLoaded', () => {
     ['#add-signal', '#collect-online'].forEach(s => { const el = document.querySelector(s); if (el) el.hidden = true });
     const h = document.querySelector('.health span'); if (h) h.textContent = '网页版 · 每周一更新';
-    const f = document.querySelector('#foot-llm'); if (f) f.textContent = '已读勾选只存在这个浏览器里';
+
   });
 })();
