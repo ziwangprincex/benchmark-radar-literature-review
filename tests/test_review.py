@@ -175,6 +175,19 @@ class SessionTest(unittest.TestCase):
             with P.session("../../etc"):
                 pass
 
+    def test_week_summary_expires_when_week_rolls_over(self):
+        with tempfile.TemporaryDirectory() as tmp, \
+                mock.patch.object(P, "OUT_ROOT", Path(tmp)), \
+                mock.patch.object(P, "load_corpus", lambda d, limit=None, scope="all": WEEK if scope == "week" else PAPERS), \
+                mock.patch.object(P, "latest_week", lambda: "2026-10-12"):
+            sid = "rolloverSID1"
+            with P.session(sid):
+                P._write(P.week_dir("legal") / "review.json", {"week": "2026-10-05", "check": {"ok": True}})
+                (P.week_dir("legal") / "review.md").write_text("上周的小结", encoding="utf-8")
+            r = P.load_result("legal", "week", sid)
+            self.assertEqual(r["review"], "")
+            self.assertIsNone(r["meta"])
+
     def test_card_writes_merge(self):
         """两个会话同时抽同一领域的卡，后写的不能把先写的冲掉。"""
         with tempfile.TemporaryDirectory() as tmp, mock.patch.object(P, "OUT_ROOT", Path(tmp)):

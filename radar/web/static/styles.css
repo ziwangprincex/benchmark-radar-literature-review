@@ -762,3 +762,4 @@ main{margin-left:0}
 .rv-doc h4:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--faint);flex:none}
 @media (max-width:860px){.rv-dl{flex-direction:column;align-items:stretch}}
 .rv-gline span.z,.rv-gline .g-Agent.z{background:transparent;color:var(--faint);border:1px dashed #cbd5e1}
+.rv-sess .text-btn{margin-left:auto;flex:none;font-size:12.5px;padding:0}

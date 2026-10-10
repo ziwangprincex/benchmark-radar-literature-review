@@ -3,8 +3,9 @@
 口径和待读清单一致：lit_index 里判为 Benchmark / 相关论文的 arXiv 条目，
 去掉你在待读清单里标为"不用读"的。核对原话用的也是这里截好的摘要，和发给模型的完全一样。
 
-两种范围：
-  all   该领域收进来的全部论文，含补的历史论文
+两种范围（2026-10-10 起两块不重叠）：
+  all   截至上周累计的全部论文，含补的历史论文；不含最近一周新收的。
+        每周一更新后，上一周的论文自动并进来
   week  最近一周新收的论文（和待读清单的"本周新进"同一口径：按收进来的那一周算，
         补的历史论文不算本周）
 """
@@ -79,10 +80,11 @@ def load_corpus(domain: str, limit: int | None = None, scope: str = "all") -> li
                 ORDER BY s.collected_at DESC, s.id DESC""",
             (domain,),
         ).fetchall()
-    if scope == "week":
-        wk = latest_week()
-        rows = [r for r in rows if not r["source_id"].startswith("arxiv-backfill")
-                and _week_start(r["collected_at"]) == wk]
+    wk = latest_week()
+    this_week = lambda r: (not r["source_id"].startswith("arxiv-backfill")  # noqa: E731
+                           and _week_start(r["collected_at"]) == wk)
+    # 本周小结只看本周新收的；全部综述是截至上周的累计，本周的不算进去，这样本周小结才能拿它比出新方向
+    rows = [r for r in rows if this_week(r)] if scope == "week" else [r for r in rows if not this_week(r)]
     papers = [{
         "id": r["id"],
         "title": re.sub(r"\s+", " ", r["title"] or "").strip(),

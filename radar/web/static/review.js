@@ -1,17 +1,18 @@
 // 文献综述页：接模型 → 选领域 → ①逐篇抽卡 ②分类 ③写综述 → 看、调分类、写批注改稿
 // 每个领域两块：全部综述（scope=all，全部论文）和本周小结（scope=week，最近一周新收的论文）
-// 每次打开页面一个会话：分类、综述只存在这个会话里，别人看不到，刷新或关掉就没了（要留着就下载）
-const RV_SID=(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)).replace(/[^A-Za-z0-9_-]/g,'');
+// 会话：编号只记在这台电脑的这个浏览器里（localStorage），保存一天。别人的浏览器有自己的编号，互相看不到。
+const RV_KEY='radar-review-session',RV_DAY=864e5;
+const RV_SESS=(()=>{const now=Date.now();try{const o=JSON.parse(localStorage.getItem(RV_KEY)||'null');if(o&&/^[A-Za-z0-9_-]{8,64}$/.test(o.id)&&now-o.at<RV_DAY)return o}catch(e){}
+  const id=(crypto.randomUUID?crypto.randomUUID():now.toString(36)+Math.random().toString(36).slice(2)).replace(/[^A-Za-z0-9_-]/g,''),o={id,at:now};
+  try{localStorage.setItem(RV_KEY,JSON.stringify(o))}catch(e){}return o})();
+const RV_SID=RV_SESS.id;
+async function rvReset(){if(!confirm('清掉这台电脑上保存的分类和综述，重新开始？别人的不受影响。'))return;try{await fetch(`/api/review/forget?sid=${RV_SID}`,{method:'POST'})}catch(e){}try{localStorage.removeItem(RV_KEY)}catch(e){}location.reload()}
 let rv={cfg:null,dom:'legal',scope:'all',data:{},timer:null,editing:false,view:'review',tax:null,dirty:false,q:''};
 const rvKey=()=>rv.dom+'|'+rv.scope;
 const rvUrl=(d,sc,tail='')=>`/api/review/${d}`+(sc==='week'?'/week':'')+tail+`?sid=${RV_SID}`;
 const rvCfgUrl=`/api/review/config?sid=${RV_SID}`;
 const RV_G=['QA','Agent'],RV_GCN={QA:'QA 类',Agent:'Agent 类'},RV_GDEF={QA:'模型拿到题目和材料，答一次就判分',Agent:'模型要在环境里连续行动才能完成任务'};
-const rvHasWork=()=>Object.values(rv.data).some(r=>r&&(r.review||r.taxonomy||r.status?.state==='running'));
-if(!window.RADAR_STATIC){
-  addEventListener('beforeunload',e=>{if(rvHasWork()){e.preventDefault();e.returnValue=''}});
-  addEventListener('pagehide',()=>{try{navigator.sendBeacon(`/api/review/forget?sid=${RV_SID}`)}catch(e){}});
-}
+
 const rvCur=()=>rv.data[rvKey()];
 const rvT=iso=>{if(!iso)return '';const d=new Date(iso);return isNaN(d)?iso:d.toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})};
 const RV_STATE={running:'进行中',done:'已完成',error:'出错',stale:'已中断'};
@@ -37,7 +38,8 @@ function renderReview(){
 
 function rvScope(R){
   const d=rv.cfg.domains.find(x=>x.domain===rv.dom)||{};const wkLabel=R.week?`${+R.week.slice(5,7)}月${+R.week.slice(8,10)}日那周`:'本周';
-  $('#rv-scope').innerHTML=`<div class="seg rv-sseg"><button class="${rv.scope==='all'?'on':''}" data-s="all">全部综述<b>${d.papers??''} 篇</b></button><button class="${rv.scope==='week'?'on':''}" data-s="week">本周小结<b>${d.week_papers??''} 篇</b></button></div><small>${rv.scope==='all'?'用这个领域收进来的全部论文写（含补的 2023 年以来的历史论文）：大家在研究什么、还没研究什么、我们能研究什么。':`只看${wkLabel}新收的论文：先放进全部综述已有的类，放不进的算新方向；再看补上了哪些空白、和我们的方向撞没撞车。卡片和全部综述共用，不重复抽。`}</small>${window.RADAR_STATIC?'':'<p class="rv-sess"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>每次打开都是新的：这里写的分类和综述只在这个页面里，别人看不到，刷新或关掉就没了。要留着请点"下载"。</p>'}`;
+  $('#rv-scope').innerHTML=`<div class="seg rv-sseg"><button class="${rv.scope==='all'?'on':''}" data-s="all">全部综述<b>${d.papers??''} 篇</b></button><button class="${rv.scope==='week'?'on':''}" data-s="week">本周小结<b>${d.week_papers??''} 篇</b></button></div><small>${rv.scope==='all'?'用截至上周累计的全部论文写（含补的 2023 年以来的历史论文，不含本周新收的）：大家在研究什么、还没研究什么、我们能研究什么。每周一更新后，上一周的论文会并进来。':`只看${wkLabel}新收的论文：先放进全部综述已有的类，放不进的算新方向；再看补上了哪些空白、和我们的方向撞没撞车。卡片和全部综述共用，不重复抽。`}</small>${window.RADAR_STATIC?'':`<p class="rv-sess"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>分类和综述只保存在这台电脑的浏览器里，保存到 ${new Date(RV_SESS.at+RV_DAY).toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}，别人打开看不到。要长期留着请点"下载"。<button class="text-btn" id="rv-reset">清空重来</button></p>`}`;
+  const rs=$('#rv-reset');if(rs)rs.onclick=rvReset;
   $$('#rv-scope [data-s]').forEach(b=>b.onclick=async()=>{if(b.dataset.s===rv.scope)return;if(rv.dirty&&!confirm('分类改了还没保存，切换会丢掉，继续？'))return;rv.dirty=false;rv.scope=b.dataset.s;rv.view='review';stopRvPoll();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()});
 }
 
@@ -95,13 +97,13 @@ function rvReviewView(R){
   const box=$('#rv-view'),M=R.meta;
   const wk=R.scope==='week',what=wk?'本周小结':'综述';
   if(!R.papers.length&&wk){box.innerHTML='<div class="rv-empty">这个领域本周没有新论文。</div>';return}
-  if(!R.review){box.innerHTML=`<div class="rv-empty">${window.RADAR_STATIC?`这个领域还没写${what}。`:rv.cfg.llm.ready?`这次打开还没写${what}。按上面的步骤从抽卡开始，或直接点"一键更新"。卡片会缓存，抽过的不用重抽。`:'先在上面接入模型接口。'}</div>`;return}
+  if(!R.review){box.innerHTML=`<div class="rv-empty">${window.RADAR_STATIC?`这个领域还没写${what}。`:rv.cfg.llm.ready?`还没写${what}。按上面的步骤从抽卡开始，或直接点"一键更新"。卡片会缓存，抽过的不用重抽。`:'先在上面接入模型接口。'}</div>`;return}
   const meta=rvMeta(R),chk=M.check,p=chk.problems,w=chk.warnings;
   const list=(t,xs,f,cls)=>xs&&xs.length?`<details class="rv-iss ${cls}" open><summary>${t}<b>${xs.length}</b></summary><ul>${xs.slice(0,60).map(f).join('')}</ul></details>`:'';
   const notes=(M.notes||[]).slice().reverse();
   box.innerHTML=`<div class="rv-body"><article class="rv-doc">${rvMd(R.review,meta)}</article>
   <aside class="rv-side">
-   <div class="rv-dl"><div><b>下载${what}</b><small>只在这个页面里，刷新或关掉就没了</small></div><button class="btn primary" id="rv-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Markdown</button></div>
+   <div class="rv-dl"><div><b>下载${what}</b><small>浏览器里只保存一天</small></div><button class="btn primary" id="rv-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Markdown</button></div>
    <div class="rv-chk ${chk.ok?'':'bad'}"><b>${chk.ok?'没发现编造':'有对不上的地方'}</b><small>原话核对通过 ${chk.quotes_ok} 处 · 引用了 ${chk.cited.length} 篇${M.fixed_once?' · 已让模型按核对结果改过一次':''}</small><small>${esc(M.model||'')} · ${esc(rvT(M.built_at))}</small></div>
    ${list('原话对不上',p.fake_quotes,q=>`<li>「${esc(q.quote)}」<small>${esc(q.reason)}</small></li>`,'bad')}
    ${list('编号不存在',p.invalid_ids,i=>`<li>#${i}</li>`,'bad')}

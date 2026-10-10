@@ -16,13 +16,14 @@
 
 分类分两层（2026-10-10）：先分 QA / Agent 两个大类，再在大类里分主题。taxonomy 里每个主题带 group。
 
-每次打开网页是一个会话（sid，页面里随机生成，刷新就换）。分类、综述、批注、运行状态都只存在这个
-会话里，别人打开看不到，关掉页面就删，要留着就在页面上下载。只有卡片按摘要内容缓存、所有人共用
+每个浏览器一个会话（sid，页面里随机生成，记在这个浏览器的 localStorage 里一天）。分类、综述、
+批注、运行状态都只存在这个会话里，别人打开看不到；一天没动就清掉，要长期留着在页面上下载。
+全部综述 = 截至上周的累计；本周小结 = 最近一周新收的，两块不重叠（见 corpus.py）。只有卡片按摘要内容缓存、所有人共用
 （不显示，只是省得重抽）。
 
 产物：
   reports/lit_review/<领域>/cards.json                   卡片缓存（全部和本周、所有会话共用）
-  reports/lit_review/_sessions/<sid>/<领域>/               这次打开页面的结果，6 小时没动就清掉
+  reports/lit_review/_sessions/<sid>/<领域>/               这个浏览器的结果，一天没动就清掉
       taxonomy.json  分类（by=model 或 by=user）
       review.md      完整综述；review_body.md 是模型写的第二到四节
       review.json    核对结果、生成时间、批注记录
@@ -64,7 +65,7 @@ GROUP_CN = {"QA": "QA 类", "Agent": "Agent 类"}
 GROUP_DEF = {"QA": "模型拿到题目和材料，答一次就判分（问答、选择、抽取、分类、检索、写文书、判决等）。",
              "Agent": "模型要在环境里做一串动作才能完成任务（调用工具、浏览网页、操作界面或代码仓库、多智能体协作等）。"}
 SID_RE = re.compile(r"^[A-Za-z0-9_-]{8,64}$")
-SESSION_TTL_H = 6
+SESSION_TTL_H = 24  # 和浏览器里记的会话一样，保存一天
 
 ChatFn = Callable[[list[dict[str, str]]], str]
 _RUN_LOCK = threading.Lock()
@@ -495,6 +496,9 @@ def render_section5(domain: str, papers: list[dict], tax: dict[str, Any], cards:
          f"- 资料：Radar 收进来的{DOMAIN_CN[domain]}领域 arXiv 论文 {len(papers)} 篇，只读了标题和摘要，没读全文。"]
     if dates:
         L.append(f"- 时间：{dates[0]} 至 {dates[-1]}。")
+    wk = latest_week()
+    if wk:
+        L.append(f"- 这是截至上周的累计，不含 {wk} 那周新收的论文，那些在本周小结里。下周一更新后会并进来。")
     if skipped:
         L.append(f"- 你在待读清单里标为\"不用读\"的 {skipped} 篇没算进来。")
     if left:
@@ -813,6 +817,8 @@ def _load_result(domain: str, scope: str) -> dict[str, Any]:
         raise ValueError(f"范围只能是 {'、'.join(SCOPES)}")
     wk = latest_week() if scope == "week" else None
     d = week_dir(domain) if scope == "week" else out_dir(domain)
+    if scope == "week" and _read(d / "review.json", {}).get("week") not in (None, wk):
+        shutil.rmtree(d, ignore_errors=True)  # 会话跨过了周一更新：上周的小结不再算"本周"
     papers = load_corpus(domain, scope="week") if scope == "week" else load_corpus(domain)
     cards = _read(cards_path(domain), {}).get("cards", {})
     tax = ensure_groups(_read(d / "taxonomy.json", None))
