@@ -35,6 +35,8 @@ async function rvFetch(d,sc=rv.scope){
     if(job.status?.state!=="running"){await api(`/api/review/${d}/ack?sid=${RV_SID}`,{method:"POST",body:"{}"});rvActive.delete(d)}
   }else{
     r=await api(rvUrl(d,sc,"/local"),{method:"POST",body:JSON.stringify({files:await RV_LOCAL.read(d)})});
+    // 本页没提交过任务：服务器残留的 running/stale 状态与本浏览器无关，不显示中断提示
+    if(r.status?.state==="running"||r.status?.state==="stale")r.status={...r.status,state:"idle"};
     await rvPersist(d,r);
   }
   rv.data[d+"|"+sc]=r;
