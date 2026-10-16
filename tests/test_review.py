@@ -70,6 +70,137 @@ class CheckTest(unittest.TestCase):
         self.assertEqual(r["warnings"]["categories_not_discussed"], ["合同审查"])
 
 
+class TruncationTest(unittest.TestCase):
+    """2026-10-16：max_tokens 写死 8000 是输出上限，大领域分类会被截断成残缺 JSON，
+    旧代码把它误报成"模型没写编号"。现在不设上限 + 识别 finish_reason + 自动缩小批次。"""
+
+    def _resp(self, content, reason="stop", comp=10):
+        return {"choices": [{"message": {"content": content}, "finish_reason": reason}],
+                "usage": {"prompt_tokens": 100, "completion_tokens": comp}}
+
+    def _call(self, resp, cfg):
+        from radar.review import llm as L
+        payloads = []
+
+        class FakeResp:
+            def __enter__(s):
+                return s
+
+            def __exit__(s, *a):
+                return False
+
+            def read(s):
+                return json.dumps(resp).encode()
+
+        def fake_open(req, timeout=None):
+            payloads.append(json.loads(req.data.decode()))
+            return FakeResp()
+        with mock.patch("urllib.request.urlopen", fake_open):
+            out = L.chat([{"role": "user", "content": "x"}], cfg)
+        return out, payloads[0]
+
+    def base_cfg(self, **kw):
+        from radar.review import llm as L
+        return {**L.make_config("http://x/v1", "sk-test", "m"), **kw}
+
+    def test_no_cap_omits_max_tokens_field(self):
+        """不设上限时请求里不带 max_tokens，由服务端按模型默认上限给。"""
+        out, payload = self._call(self._resp("hi"), self.base_cfg())
+        self.assertEqual(out, "hi")
+        self.assertNotIn("max_tokens", payload)
+
+    def test_explicit_cap_is_sent(self):
+        _, payload = self._call(self._resp("hi"), self.base_cfg(max_tokens=4096))
+        self.assertEqual(payload["max_tokens"], 4096)
+
+    def test_blank_cap_means_no_cap(self):
+        from radar.review import llm as L
+        for v in ("", 0, None, "abc"):
+            self.assertIsNone(L.make_config("http://x/v1", "k", "m", v)["max_tokens"])
+
+    def test_truncation_raises_dedicated_error(self):
+        from radar.review import llm as L
+        with self.assertRaises(L.LLMTruncated) as cm:
+            self._call(self._resp('{"categories":[{"name":"问', "length", 8000), self.base_cfg())
+        self.assertIn("截断", str(cm.exception))
+        self.assertEqual(cm.exception.completion_tokens, 8000)
+
+    def test_usage_is_recorded(self):
+        from radar.review import llm as L
+        L.reset_usage()
+        self._call(self._resp("hi", comp=42), self.base_cfg())
+        self.assertEqual(L.usage_stats()["calls"], 1)
+        self.assertEqual(L.usage_stats()["max_completion"], 42)
+
+    def test_truncation_not_reported_as_missing_ids(self):
+        """截断必须往上抛，不能被 except Exception 吞掉后报成"模型没归类"。"""
+        from radar.review import llm as L
+
+        def chat(msgs):
+            raise L.LLMTruncated("截断", 8000)
+        with self.assertRaises(L.LLMTruncated):
+            P._ask_taxonomy("legal", "分类", {1, 2}, chat, {1: "a", 2: "b"})
+
+    def test_big_domain_splits_and_merges_topics(self):
+        """超过一批的领域分批分类，同名主题跨批合并，每篇只归一次。"""
+        from radar.review import llm as L
+        n = 320
+        papers = [{"id": i, "title": f"P{i}", "url": f"u{i}", "date": "2026-09-01", "abstract": "a"}
+                  for i in range(1, n + 1)]
+        cards = {str(i): {"kind": "Benchmark", "task": "t", "input": "i", "scoring": "s",
+                          "finding": "f", "hash": "h"} for i in range(1, n + 1)}
+        seen_batches = []
+
+        def chat(msgs):
+            text = msgs[-1]["content"]
+            ids = [int(x) for x in re.findall(r"^#(\d+)｜", text, re.M)]
+            seen_batches.append(len(ids))
+            if len(ids) > 200:
+                raise L.LLMTruncated("截断", 8000)
+            half = len(ids) // 2
+            return json.dumps({"categories": [
+                {"group": "QA", "name": "问答与检索", "tests": "t", "why": "w", "ids": ids[:half]},
+                {"group": "Agent", "name": "工具调用", "tests": "t", "why": "w", "ids": ids[half:]}],
+                "outside": []}, ensure_ascii=False)
+        with tempfile.TemporaryDirectory() as d:
+            with mock.patch.object(P, "OUT_ROOT", Path(d)), mock.patch.object(P, "_status", lambda *a, **k: None):
+                tax = P.make_taxonomy("legal", papers, cards, chat)
+        self.assertTrue(len(seen_batches) > 1, "应该分成多批")
+        self.assertTrue(max(seen_batches) <= P.TAX_BATCH)
+        names = [c["name"] for c in tax["categories"]]
+        self.assertEqual(set(names), {"问答与检索", "工具调用"}, "同名主题应跨批合并")
+        self.assertEqual(len(names), 2, "不该每批各出一套主题")
+        got = [i for c in tax["categories"] for i in c["ids"]]
+        self.assertEqual(len(got), len(set(got)), "不能重复归类")
+        self.assertEqual(len(got), n, "每篇都要归类")
+
+    def test_batch_halves_on_truncation(self):
+        """一批太大被截断时自动切小重试，不需要事先知道模型输出上限。"""
+        from radar.review import llm as L
+        n = 120
+        papers = [{"id": i, "title": f"P{i}", "url": f"u{i}", "date": "2026-09-01", "abstract": "a"}
+                  for i in range(1, n + 1)]
+        cards = {str(i): {"kind": "Benchmark", "task": "t", "input": "i", "scoring": "s",
+                          "finding": "f", "hash": "h"} for i in range(1, n + 1)}
+        sizes = []
+
+        def chat(msgs):
+            ids = [int(x) for x in re.findall(r"^#(\d+)｜", msgs[-1]["content"], re.M)]
+            sizes.append(len(ids))
+            if len(ids) > 40:  # 模型只能写下 40 篇
+                raise L.LLMTruncated("截断", 8000)
+            return json.dumps({"categories": [{"group": "QA", "name": "问答与检索",
+                                               "tests": "t", "why": "w", "ids": ids}], "outside": []},
+                              ensure_ascii=False)
+        with tempfile.TemporaryDirectory() as d:
+            with mock.patch.object(P, "OUT_ROOT", Path(d)), mock.patch.object(P, "_status", lambda *a, **k: None):
+                tax = P.make_taxonomy("legal", papers, cards, chat)
+        self.assertTrue(max(sizes) > 40, "先用大批试")
+        self.assertTrue(min(sizes) <= 40, "截断后应缩小到能写完")
+        got = [i for c in tax["categories"] for i in c["ids"]]
+        self.assertEqual(len(got), n, "缩小批次后每篇仍要归类")
+
+
 class TaxonomyTest(unittest.TestCase):
     def test_retry_when_categories_have_no_ids(self):
         """2026-10-10 开发机实测：模型第一次只写了类名和说明，没写 ids，结果 5 篇全被放进"不算"。"""

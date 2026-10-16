@@ -40,7 +40,7 @@ from radar.core.reading import DOMAIN_CN
 from radar.review import check as C
 from radar.review import session_store as M
 from radar.review.corpus import REVIEW_DOMAINS, SCOPES, corpus_text, latest_week, load_corpus, skipped_count
-from radar.review.llm import chat, extract_json, load_config, strip_fence, use_config
+from radar.review.llm import LLMTruncated, chat, extract_json, load_config, strip_fence, use_config
 
 PROMPTS = Path(__file__).with_name("prompts")
 OUT_ROOT = BASE_DIR / "reports" / "lit_review"
@@ -399,6 +399,8 @@ def _ask_taxonomy(domain: str, msg: str, ids: set[int], chat_fn: ChatFn,
     if tax["no_ids"] and lines:
         try:
             tax = _assign_ids(tax, lines, ids, chat_fn)
+        except LLMTruncated:
+            raise  # 截断要往上抛，让调用方缩小批次；不能当成"模型没归类"
         except Exception:
             pass
     if tax["missing"]:
@@ -414,9 +416,10 @@ def _ask_taxonomy(domain: str, msg: str, ids: set[int], chat_fn: ChatFn,
             tax2 = normalize_taxonomy(extract_json(_ask(chat_fn, fix)), ids)
             if len(tax2["missing"]) < len(tax["missing"]) and tax2["categories"]:
                 tax = tax2
+        except LLMTruncated:
+            raise
         except Exception:
             pass
-    tax.pop("no_ids", None)
     if not tax["categories"]:
         raise ValueError("分类失败：模型返回的主题均未包含论文编号，请重试或更换模型")
     for i in tax.pop("missing"):
@@ -424,15 +427,87 @@ def _ask_taxonomy(domain: str, msg: str, ids: set[int], chat_fn: ChatFn,
     return tax
 
 
+TAX_BATCH = 150  # 一批最多多少篇；遇到输出截断会自动减半
+
+
+def _merge_tax(parts: list[dict[str, Any]]) -> dict[str, Any]:
+    """把各批的分类并成一份：同名主题（忽略大小写和空格）合并编号，大类取先出现的。"""
+    cats: dict[str, dict[str, Any]] = {}
+    outside: list[dict[str, Any]] = []
+    for part in parts:
+        for c in part.get("categories") or []:
+            key = re.sub(r"\s+", "", c["name"]).lower()
+            if key in cats:
+                cur = cats[key]
+                have = set(cur["ids"])
+                cur["ids"].extend(i for i in c["ids"] if i not in have)
+                if not cur.get("tests"):
+                    cur["tests"] = c.get("tests", "")
+                if not cur.get("why"):
+                    cur["why"] = c.get("why", "")
+            else:
+                cats[key] = dict(c, ids=list(c["ids"]))
+        outside.extend(part.get("outside") or [])
+    out = list(cats.values())
+    out.sort(key=lambda c: GROUPS.index(c["group"]))
+    seen: set[int] = set()
+    ded = []
+    for o in outside:
+        if o["id"] not in seen:
+            seen.add(o["id"])
+            ded.append(o)
+    return {"categories": out, "outside": ded}
+
+
+def _tax_batch(domain: str, use: list[dict[str, Any]], cards: dict[str, Any], chat_fn: ChatFn,
+               known: list[str], size: int) -> dict[str, Any]:
+    """分批分类。某批输出被截断就把这批再切小重试，不需要事先知道模型的输出上限。"""
+    parts: list[dict[str, Any]] = []
+    done = 0
+    queue = [use[i:i + size] for i in range(0, len(use), size)]
+    while queue:
+        batch = queue.pop(0)
+        ids = {p["id"] for p in batch}
+        lines = {p["id"]: _card_line(cards[str(p["id"])], p) for p in batch}
+        hint = ""
+        if known:
+            hint = ("\n\n已经定好的主题（能放进去就照抄主题名，一字不改；放不进去再新建）：\n"
+                    + "\n".join("- " + n for n in known))
+        msg = (f"{prompt('taxonomy')}\n\n---\n\n领域：{DOMAIN_CN[domain]}，这一批 {len(batch)} 篇。{hint}\n\n"
+               + "\n".join(lines[p["id"]] for p in batch))
+        try:
+            part = _ask_taxonomy(domain, msg, ids, chat_fn, lines)
+        except LLMTruncated:
+            if len(batch) <= 10:
+                raise
+            half = max(len(batch) // 2, 10)
+            queue[:0] = [batch[:half], batch[half:]]  # 这批太大，切小后重试
+            _status(domain, note=f"输出被截断，改为每批 {half} 篇重试")
+            continue
+        parts.append(part)
+        for c in part.get("categories") or []:
+            if c["name"] not in known:
+                known.append(c["name"])
+        done += len(batch)
+        _status(domain, done=done)
+    return _merge_tax(parts)
+
+
 def make_taxonomy(domain: str, papers: list[dict[str, Any]], cards: dict[str, Any], chat_fn: ChatFn) -> dict[str, Any]:
     use = [p for p in papers if str(p["id"]) in cards]
     if not use:
         raise ValueError("还没有卡片，先抽卡")
     _status(domain, stage="taxonomy", step="分类", done=0, total=len(use))
-    msg = (f"{prompt('taxonomy')}\n\n---\n\n领域：{DOMAIN_CN[domain]}，共 {len(use)} 篇。\n\n"
-           + "\n".join(_card_line(cards[str(p["id"])], p) for p in use))
-    lines = {p["id"]: _card_line(cards[str(p["id"])], p) for p in use}
-    tax = _ask_taxonomy(domain, msg, {p["id"] for p in use}, chat_fn, lines)
+    if len(use) <= TAX_BATCH:
+        msg = (f"{prompt('taxonomy')}\n\n---\n\n领域：{DOMAIN_CN[domain]}，共 {len(use)} 篇。\n\n"
+               + "\n".join(_card_line(cards[str(p["id"])], p) for p in use))
+        lines = {p["id"]: _card_line(cards[str(p["id"])], p) for p in use}
+        try:
+            tax = _ask_taxonomy(domain, msg, {p["id"] for p in use}, chat_fn, lines)
+        except LLMTruncated:
+            tax = _tax_batch(domain, use, cards, chat_fn, [], max(len(use) // 2, 10))
+    else:
+        tax = _tax_batch(domain, use, cards, chat_fn, [], TAX_BATCH)
     tax.update(by="model", updated_at=_now())
     _write(out_dir(domain) / "taxonomy.json", tax)
     _status(domain, done=len(use))
