@@ -16,20 +16,9 @@
 
 分类分两层（2026-10-10）：先分 QA / Agent 两个大类，再在大类里分主题。taxonomy 里每个主题带 group。
 
-每个浏览器一个会话（sid，页面里随机生成，记在这个浏览器的 localStorage 里一天）。分类、综述、
-批注、运行状态都只存在这个会话里，别人打开看不到；一天没动就清掉，要长期留着在页面上下载。
-全部综述 = 截至上周的累计；本周小结 = 最近一周新收的，两块不重叠（见 corpus.py）。
-卡片也只在会话里（是用这个人自己的密钥抽的），不在会话之间共用。模型密钥由浏览器每次请求带来，服务器不保存。
-
-产物：
-  reports/lit_review/_sessions/<sid>/<领域>/               这个浏览器的结果，一天没动或关页面就清掉
-      cards.json     卡片（全部和本周共用）
-      taxonomy.json  分类（by=model 或 by=user）
-      review.md      完整综述；review_body.md 是模型写的第二到四节
-      review.json    核对结果、生成时间、批注记录
-      status.json    运行状态（网页轮询用）
-      week/          本周小结：同上四个文件
-不传 sid（命令行、测试）时直接用 reports/lit_review/<领域>/。
+网页结果保存在浏览器 IndexedDB；服务器只在任务期间使用内存，下载仍为 Markdown。
+网页任务通过显式配置调用模型，不读取服务器密钥。
+命令行不传 sid 时仍使用 reports/lit_review/<领域>/。
 """
 from __future__ import annotations
 
@@ -49,6 +38,7 @@ from typing import Any, Callable
 from radar.core.radar_core import BASE_DIR
 from radar.core.reading import DOMAIN_CN
 from radar.review import check as C
+from radar.review import session_store as M
 from radar.review.corpus import REVIEW_DOMAINS, SCOPES, corpus_text, latest_week, load_corpus, skipped_count
 from radar.review.llm import chat, extract_json, load_config, strip_fence, use_config
 
@@ -118,56 +108,65 @@ def week_dir(domain: str, wk: str | None = None) -> Path:
 
 def touch(sid: str | None) -> None:
     if sid:
-        d = _sess_root() / sid
-        d.mkdir(parents=True, exist_ok=True)
-        (d / ".seen").write_text(_now(), encoding="utf-8")
-
+        M.touch(sid)
 
 def cleanup_sessions(max_age_h: float = SESSION_TTL_H) -> int:
-    """删掉很久没动的会话（关页面时没来得及删的）。正在跑的不删。"""
-    root = _sess_root()
-    if not root.exists():
-        return 0
-    busy = {s for s, _ in _RUNNING}
-    n, now = 0, time.time()
-    for d in root.iterdir():
-        if not d.is_dir() or d.name in busy:
-            continue
-        f = d / ".seen"
-        t = f.stat().st_mtime if f.exists() else d.stat().st_mtime
-        if now - t > max_age_h * 3600:
-            shutil.rmtree(d, ignore_errors=True)
-            n += 1
-    return n
-
+    with _RUN_LOCK:
+        busy = {s for s, _ in _RUNNING if s}
+    return M.cleanup(max_age_h * 3600, busy)
 
 def forget(sid: str) -> bool:
-    """关页面时调用：删掉这个会话的全部结果。还有任务在跑就先不删，等过期清理。"""
-    if not SID_RE.match(sid or "") or any(s == sid for s, _ in _RUNNING):
+    if not SID_RE.match(sid or ""):
         return False
-    shutil.rmtree(_sess_root() / sid, ignore_errors=True)
+    with _RUN_LOCK:
+        busy = any(s == sid for s, _ in _RUNNING)
+        M.forget(sid, busy)
     return True
-
 
 def _status_path(domain: str, scope: str) -> Path:
     return out_dir(domain) / ("week" if scope == "week" else "") / "status.json"
 
 
-def _read(p: Path, default: Any) -> Any:
-    if not p.exists():
-        return default
+def _memory_path(p: Path):
     try:
-        return json.loads(p.read_text(encoding="utf-8"))
+        rel = p.relative_to(_sess_root())
+    except ValueError:
+        return None
+    return (rel.parts[0], "/".join(rel.parts[1:])) if len(rel.parts) > 1 else None
+
+def _read_text(p: Path, default: str = "") -> str:
+    mem = _memory_path(p)
+    if mem:
+        return M.read(*mem, default)
+    return p.read_text(encoding="utf-8") if p.exists() else default
+
+def _write_text(p: Path, text: str) -> None:
+    mem = _memory_path(p)
+    if mem:
+        M.write(*mem, text)
+        return
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(text, encoding="utf-8")
+
+def _mkdir(p: Path) -> None:
+    if not _memory_path(p):
+        p.mkdir(parents=True, exist_ok=True)
+
+def _read(p: Path, default: Any) -> Any:
+    try:
+        return json.loads(_read_text(p))
     except json.JSONDecodeError:
         return default
 
-
 def _write(p: Path, obj: Any) -> None:
+    text = json.dumps(obj, ensure_ascii=False, indent=1)
+    if _memory_path(p):
+        _write_text(p, text)
+        return
     p.parent.mkdir(parents=True, exist_ok=True)
     tmp = p.with_suffix(p.suffix + ".tmp")
-    tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
+    tmp.write_text(text, encoding="utf-8")
     tmp.replace(p)
-
 
 def prompt(name: str) -> str:
     return (PROMPTS / f"{name}.md").read_text(encoding="utf-8")
@@ -255,7 +254,7 @@ def make_cards(domain: str, papers: list[dict[str, Any]], chat_fn: ChatFn, force
             except Exception as e:  # 单批出错不中断，下次运行会补
                 errors.append(str(e)[:300])
                 got = {}
-            with _IO_LOCK:  # 别的会话可能同时在抽同一领域：先读盘上最新的再合并，不互相覆盖
+            with _IO_LOCK:  # 原子合并当前任务已完成的卡片
                 disk = _read(path, {"cards": {}})
                 disk.setdefault("cards", {}).update({str(k): v for k, v in got.items()})
                 disk["updated_at"] = _now()
@@ -627,7 +626,7 @@ def write_review(domain: str, papers: list[dict], cards: dict[str, Any], tax: di
                  notes: str | None = None) -> dict[str, Any]:
     d = out_dir(domain)
     meta = _read(d / "review.json", {})
-    prev = (d / "review_body.md").read_text(encoding="utf-8") if (d / "review_body.md").exists() else ""
+    prev = _read_text(d / "review_body.md")
     base = f"{prompt('review')}\n\n---\n\n领域：{DOMAIN_CN[domain]}\n\n{_material(tax, papers, cards)}"
     if notes and prev:
         _status(domain, stage="review", step="按批注改稿", done=0, total=1)
@@ -642,8 +641,8 @@ def write_review(domain: str, papers: list[dict], cards: dict[str, Any], tax: di
     model = load_config().get("model", "")
     full = "\n\n".join([render_section1(tax, by, cards), body.strip(),
                         render_section5(domain, papers, tax, cards, skipped_count(domain), model)]) + "\n"
-    (d / "review_body.md").write_text(body, encoding="utf-8")
-    (d / "review.md").write_text(full, encoding="utf-8")
+    _write_text(d / "review_body.md", body)
+    _write_text(d / "review.md", full)
     hist = meta.get("notes", [])
     if notes:
         hist.append({"at": _now(), "text": notes})
@@ -691,10 +690,8 @@ def render_week_section4(domain: str, wk: str, papers: list[dict], base_meta: di
 def _base_sections(domain: str) -> str:
     """全部综述里模型写的第三、四节（还没研究什么、我们能研究什么），给本周小结比对用。"""
     p = out_dir(domain) / "review_body.md"
-    if not p.exists():
-        return ""
     out, keep = [], False
-    for line in p.read_text(encoding="utf-8").splitlines():
+    for line in _read_text(p).splitlines():
         if line.startswith("## "):
             h = line[3:].strip()
             keep = h.startswith("三") or h.startswith("四")
@@ -707,7 +704,7 @@ def write_week(domain: str, wk: str, papers: list[dict], cards: dict[str, Any], 
                chat_fn: ChatFn, notes: str | None = None) -> dict[str, Any]:
     d = week_dir(domain, wk)
     meta = _read(d / "review.json", {})
-    prev = (d / "review_body.md").read_text(encoding="utf-8") if (d / "review_body.md").exists() else ""
+    prev = _read_text(d / "review_body.md")
     base_meta = _read(out_dir(domain) / "review.json", None)
     base = _base_sections(domain)
     mat = _material({**tax, "_mark_new_in_material": bool(base_meta)}, papers, cards,
@@ -727,9 +724,9 @@ def write_week(domain: str, wk: str, papers: list[dict], cards: dict[str, Any], 
     model = load_config().get("model", "")
     full = "\n\n".join([render_week_section1(tax, by, cards, bool(base_meta)), body.strip(),
                          render_week_section4(domain, wk, papers, base_meta, model)]) + "\n"
-    d.mkdir(parents=True, exist_ok=True)
-    (d / "review_body.md").write_text(body, encoding="utf-8")
-    (d / "review.md").write_text(full, encoding="utf-8")
+    _mkdir(d)
+    _write_text(d / "review_body.md", body)
+    _write_text(d / "review.md", full)
     hist = meta.get("notes", [])
     if notes:
         hist.append({"at": _now(), "text": notes})
@@ -745,12 +742,12 @@ def write_week(domain: str, wk: str, papers: list[dict], cards: dict[str, Any], 
 
 def run(domain: str, start: str = "cards", force_cards: bool = False, notes: str | None = None,
         chat_fn: ChatFn | None = None, scope: str = "all", sid: str | None = None,
-        llm_cfg: dict[str, Any] | None = None) -> dict[str, Any]:
+        llm_cfg: dict[str, Any] | None = None, _reserved: bool = False) -> dict[str, Any]:
     if scope not in SCOPES:
         raise ValueError(f"范围只能是 {'、'.join(SCOPES)}")
     key = (sid, domain)
     with _RUN_LOCK:
-        if key in _RUNNING:  # 同一会话里全部和本周共用分类基准，同一领域一次只跑一个
+        if key in _RUNNING and not _reserved:  # 同一会话里全部和本周共用分类基准，同一领域一次只跑一个
             raise RuntimeError(f"{DOMAIN_CN.get(domain, domain)}的综述正在生成，等它跑完")
         _RUNNING.add(key)
     _TL.scope = scope
@@ -758,7 +755,19 @@ def run(domain: str, start: str = "cards", force_cards: bool = False, notes: str
         with session(sid), use_config(llm_cfg):
             touch(sid)
             fn = _run_week if scope == "week" else _run
-            return fn(domain, start, force_cards, notes, chat_fn or (lambda m: chat(m)))
+            cfg = dict(llm_cfg) if llm_cfg is not None else ({} if sid else dict(load_config()))
+            if sid and chat_fn is None and (not cfg.get("api_key") or not cfg.get("model")):
+                raise ValueError("网页任务缺少模型配置")
+            def call(messages):
+                if sid and M.abandoned(sid):
+                    raise RuntimeError("页面已关闭，任务已终止")
+                try:
+                    return chat(messages, cfg)
+                except Exception as exc:
+                    secret = cfg.get("api_key", "")
+                    error = str(exc).replace(secret, "***") if secret else str(exc)
+                    raise RuntimeError(error) from None
+            return fn(domain, start, force_cards, notes, chat_fn or call)
     finally:
         _TL.scope = "all"
         with _RUN_LOCK:
@@ -770,7 +779,7 @@ def _begin(domain, start, notes):
         start = "review"  # 按批注改稿只动模型写的那几节，不能重新分类覆盖你的调整
     if start not in STAGES:
         raise ValueError(f"start 只能是 {', '.join(STAGES)}")
-    out_dir(domain).mkdir(parents=True, exist_ok=True)
+    _mkdir(out_dir(domain))
     _status(domain, state="running", stage=start, step="准备资料", done=0, total=0, error=None,
             started_at=_now(), finished_at=None, model=load_config().get("model", ""))
     return STAGES[STAGES.index(start):]
@@ -812,25 +821,75 @@ def _run_week(domain, start, force_cards, notes, chat_fn):
     return _status(domain, state="done", step="完成", finished_at=_now())
 
 
-def start_background(domain: str, scope: str = "all", sid: str | None = None, **kw: Any) -> dict[str, Any]:
-    if (sid, domain) in _RUNNING:
-        raise RuntimeError(f"{DOMAIN_CN.get(domain, domain)}的综述正在生成，等它跑完")
-    cleanup_sessions()
-
+def start_background(domain: str, scope: str = "all", sid: str | None = None,
+                     files: dict[str, str] | None = None, **kw: Any) -> dict[str, Any]:
+    cleanup_sessions(max_age_h=1 / 60)
+    key = (sid, domain)
+    if sid:
+        files = M.validate(files or {})
+    with _RUN_LOCK:
+        if key in _RUNNING:
+            raise RuntimeError("该领域已有任务运行中")
+        if sid:
+            M.restore(sid, domain, files)
+        _RUNNING.add(key)
     def work():
         try:
-            run(domain, scope=scope, sid=sid, **kw)
+            run(domain, scope=scope, sid=sid, _reserved=True, **kw)
         except Exception as e:
             _TL.scope = scope
-            key = ((kw.get("llm_cfg") or {}).get("api_key") or "")
-            hide = (lambda t: t.replace(key, "***")) if len(key) >= 4 else (lambda t: t)  # 状态文件里不留密钥
-            with session(sid):
-                _status(domain, state="error", step="出错", error=hide(str(e))[:500], finished_at=_now(),
-                        trace=hide(traceback.format_exc())[-1500:])
+            secret = ((kw.get("llm_cfg") or {}).get("api_key") or "")
+            error = str(e).replace(secret, "***") if secret else str(e)
+            if not (sid and M.abandoned(sid)):
+                with session(sid):
+                    _status(domain, state="error", step="出错", error=error[:500], finished_at=_now())
+        finally:
             _TL.scope = "all"
-
-    threading.Thread(target=work, daemon=True).start()
+            with _RUN_LOCK:
+                _RUNNING.discard(key)
+                if sid and M.abandoned(sid):
+                    M.forget(sid, busy=any(s == sid for s, _ in _RUNNING))
+            if sid:
+                def expire():
+                    with _RUN_LOCK:
+                        if key not in _RUNNING:
+                            M.delete_domain(sid, domain)
+                timer = threading.Timer(60, expire)
+                timer.daemon = True
+                timer.start()
+    thread = threading.Thread(target=work, daemon=True)
+    try:
+        thread.start()
+    except Exception:
+        with _RUN_LOCK:
+            _RUNNING.discard(key)
+            if sid:
+                M.delete_domain(sid, domain)
+        raise
     return {"started": True, "domain": domain, "scope": scope}
+
+def browser_result(domain: str, scope: str, sid: str, files: Any, taxonomy: dict | None = None) -> dict:
+    """浏览器提交本地快照，临时计算状态后立即释放，不保留服务器副本。"""
+    data = M.validate(files)
+    with _RUN_LOCK:
+        if (sid, domain) in _RUNNING:
+            raise RuntimeError("该领域已有任务运行中")
+        M.restore(sid, domain, data)
+        try:
+            if taxonomy is not None:
+                save_taxonomy(domain, taxonomy, scope, sid)
+            result = load_result(domain, scope, sid)
+            result["files"] = M.snapshot(sid, domain)
+            return result
+        finally:
+            M.delete_domain(sid, domain)
+
+def acknowledge(domain: str, sid: str) -> bool:
+    with _RUN_LOCK:
+        if (sid, domain) in _RUNNING:
+            return False
+        M.delete_domain(sid, domain)
+        return True
 
 
 # ---------- 读取 ----------
@@ -866,7 +925,7 @@ def _domain_list() -> list[dict[str, Any]]:
 
 def load_result(domain: str, scope: str = "all", sid: str | None = None) -> dict[str, Any]:
     with session(sid):
-        if sid and (_sess_root() / sid).exists():
+        if sid and M.exists(sid):
             touch(sid)  # 页面开着就一直轮询，不会被过期清理删掉
         return _load_result(domain, scope)
 
@@ -877,12 +936,15 @@ def _load_result(domain: str, scope: str) -> dict[str, Any]:
     wk = latest_week() if scope == "week" else None
     d = week_dir(domain) if scope == "week" else out_dir(domain)
     if scope == "week" and _read(d / "review.json", {}).get("week") not in (None, wk):
-        shutil.rmtree(d, ignore_errors=True)  # 会话跨过了周一更新：上周的小结不再算"本周"
+        if _sid():
+            M.delete_domain(_sid(), domain, week_only=True)
+        else:
+            shutil.rmtree(d, ignore_errors=True)
     papers = load_corpus(domain, scope="week") if scope == "week" else load_corpus(domain)
     cards = _read(cards_path(domain), {}).get("cards", {})
     tax = ensure_groups(_read(d / "taxonomy.json", None))
     meta = _read(d / "review.json", None)
-    review = (d / "review.md").read_text(encoding="utf-8") if (d / "review.md").exists() else ""
+    review = _read_text(d / "review.md")
     fresh = {str(p["id"]) for p in papers if cards.get(str(p["id"]), {}).get("hash") == paper_hash(p)}
     placed = ({i for c in tax["categories"] for i in c["ids"]} | {o["id"] for o in tax["outside"]}) if tax else set()
     out = {

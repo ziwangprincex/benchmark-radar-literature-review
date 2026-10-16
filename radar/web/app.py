@@ -38,7 +38,7 @@ init_db()
 def home():
     import os
     static = os.path.join(os.path.dirname(__file__), "static")
-    asset_v = int(max(os.path.getmtime(os.path.join(static, f)) for f in ("app.js", "review.js", "styles.css")))
+    asset_v = int(max(os.path.getmtime(os.path.join(static, f)) for f in ("app.js", "review.js", "review_store.js", "styles.css")))
     resp = app.make_response(render_template("index.html", asset_v=asset_v))
     resp.headers["Cache-Control"] = "no-cache"
     return resp
@@ -329,10 +329,28 @@ def api_review_ping():
 
 def _review_get(domain: str, scope: str):
     from radar.review.pipeline import load_result
+    from radar.review import session_store as M
     if not _review_domain_ok(domain):
         return jsonify({"error": "未知领域"}), 400
-    return jsonify(load_result(domain, scope, _review_sid()))
+    sid = _review_sid()
+    result = load_result(domain, scope, sid)
+    result["files"] = M.snapshot(sid, domain)
+    return jsonify(result)
 
+def _review_local(domain: str, scope: str):
+    from radar.review.pipeline import browser_result
+    if not _review_domain_ok(domain):
+        return jsonify({"error": "未知领域"}), 400
+    sid = _review_sid(required=True)
+    if not sid:
+        return jsonify({"error": "缺少会话编号"}), 400
+    payload = request.get_json(force=True) or {}
+    try:
+        return jsonify(browser_result(domain, scope, sid, payload.get("files", {}), payload.get("taxonomy")))
+    except ValueError as exc:
+        return jsonify({"error": str(exc)}), 400
+    except RuntimeError as exc:
+        return jsonify({"error": str(exc)}), 409
 
 def _review_run(domain: str, scope: str):
     """从某一步开始往后跑：cards（逐篇抽卡，默认只抽新论文）/ taxonomy（分类）/ review（写综述或本周小结）。
@@ -353,22 +371,15 @@ def _review_run(domain: str, scope: str):
         return jsonify({"error": "start 不对"}), 400
     try:
         return jsonify(start_background(domain, scope=scope, sid=sid, start=start, llm_cfg=cfg,
-                                        force_cards=bool(payload.get("force_cards")), notes=notes))
+                                        force_cards=bool(payload.get("force_cards")), notes=notes, files=payload.get("files", {})))
     except RuntimeError as exc:
         return jsonify({"error": str(exc)}), 409
+    except ValueError as exc:
+        return jsonify({"error": str(exc)}), 400
 
 
 def _review_taxonomy(domain: str, scope: str):
-    from radar.review.pipeline import save_taxonomy
-    if not _review_domain_ok(domain):
-        return jsonify({"error": "未知领域"}), 400
-    sid = _review_sid(required=True)
-    if not sid:
-        return jsonify({"error": "页面太旧了，刷新一下再试"}), 400
-    try:
-        return jsonify({"taxonomy": save_taxonomy(domain, request.get_json(force=True) or {}, scope, sid)})
-    except ValueError as exc:
-        return jsonify({"error": str(exc)}), 400
+    return _review_local(domain, scope)
 
 
 # 全部综述：/api/review/<领域>；本周小结：/api/review/<领域>/week（网页版按路径导出成静态文件）
@@ -402,9 +413,34 @@ def api_review_week_taxonomy(domain: str):
     return _review_taxonomy(domain, "week")
 
 
+@app.post("/api/review/<domain>/local")
+def api_review_local(domain: str):
+    return _review_local(domain, "all")
+
+@app.post("/api/review/<domain>/week/local")
+def api_review_week_local(domain: str):
+    return _review_local(domain, "week")
+
+@app.post("/api/review/<domain>/ack")
+def api_review_ack(domain: str):
+    from radar.review.pipeline import acknowledge
+    sid = _review_sid(required=True)
+    if not sid or not _review_domain_ok(domain):
+        return jsonify({"error": "无效请求"}), 400
+    return jsonify({"released": acknowledge(domain, sid)})
+
+@app.after_request
+def review_no_cache(response):
+    if request.path.startswith("/api/review/"):
+        response.headers["Cache-Control"] = "no-store"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+    return response
+
+
 @app.post("/api/review/forget")
 def api_review_forget():
-    """关页面时由浏览器发过来：删掉这次打开页面写的分类和综述。"""
+    """关页面时由浏览器发过来：释放当前页面的任务内存。"""
     from radar.review.pipeline import forget
     sid = _review_sid(required=True)
     return jsonify({"forgot": bool(sid and forget(sid))})

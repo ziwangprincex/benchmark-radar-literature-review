@@ -1,17 +1,13 @@
 // 文献综述页：接模型 → 选领域 → ①逐篇抽卡 ②分类 ③写综述 → 看、调分类、写批注改稿
 // 每个领域两块：全部综述（scope=all，全部论文）和本周小结（scope=week，最近一周新收的论文）
-// 会话：编号只记在这台电脑的这个浏览器里（localStorage），保存一天。别人的浏览器有自己的编号，互相看不到。
-const RV_KEY='radar-review-session',RV_DAY=864e5;
-const RV_SESS=(()=>{const now=Date.now();try{const o=JSON.parse(localStorage.getItem(RV_KEY)||'null');if(o&&/^[A-Za-z0-9_-]{8,64}$/.test(o.id)&&now-o.at<RV_DAY)return o}catch(e){}
-  const id=(crypto.randomUUID?crypto.randomUUID():now.toString(36)+Math.random().toString(36).slice(2)).replace(/[^A-Za-z0-9_-]/g,''),o={id,at:now};
-  try{localStorage.setItem(RV_KEY,JSON.stringify(o))}catch(e){}return o})();
-const RV_SID=RV_SESS.id;
+// 每个页面独立任务编号；结果在本浏览器 IndexedDB 保存一天，不在服务器保存。
+const RV_SID=(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)).replace(/[^A-Za-z0-9_-]/g,"");
 // 模型设置（含密钥）只存在这个浏览器的 localStorage，跑任务时放在请求头里带给服务器，服务器不保存
 const RV_LLM='radar-review-llm';
 const rvLlm=()=>{try{const o=JSON.parse(localStorage.getItem(RV_LLM)||'{}');return{base_url:o.base_url||'',model:o.model||'',api_key:o.api_key||''}}catch(e){return{base_url:'',model:'',api_key:''}}};
 const rvLlmPub=()=>{const c=rvLlm(),k=c.api_key;return{base_url:c.base_url,model:c.model,api_key_set:!!k,api_key_hint:k.length>8?k.slice(0,3)+'…'+k.slice(-4):(k?'已填':''),ready:!!(k&&c.model)}};
 const rvHdr=()=>{const c=rvLlm();return{'Content-Type':'application/json','X-LLM-Base':c.base_url,'X-LLM-Model':c.model,'X-LLM-Key':c.api_key}};
-async function rvLoadCfg(){rv.cfg=await api(rvCfgUrl);rv.cfg.llm=rvLlmPub();return rv.cfg}
+async function rvLoadCfg(){rv.cfg=await api(rvCfgUrl);rv.cfg.llm=rvLlmPub();if(!window.RADAR_STATIC){for(const d of rv.cfg.domains){const files=await RV_LOCAL.read(d.domain);Object.assign(d,RV_LOCAL.summary(files));d.week=RV_LOCAL.summary(files,"week")}}return rv.cfg}
 let rv={cfg:null,dom:'legal',scope:'all',data:{},timer:null,editing:false,view:'review',tax:null,dirty:false,q:''};
 const rvKey=()=>rv.dom+'|'+rv.scope;
 const rvUrl=(d,sc,tail='')=>`/api/review/${d}`+(sc==='week'?'/week':'')+tail+`?sid=${RV_SID}`;
@@ -23,10 +19,39 @@ const rvT=iso=>{if(!iso)return '';const d=new Date(iso);return isNaN(d)?iso:d.to
 const RV_STATE={running:'进行中',done:'已完成',error:'出错',stale:'已中断'};
 
 function stopRvPoll(){if(rv.timer){clearTimeout(rv.timer);rv.timer=null}}
-async function rvFetch(d,sc=rv.scope){const r=await api(rvUrl(d,sc));rv.data[d+'|'+sc]=r;if(d===rv.dom&&sc===rv.scope&&!rv.dirty)rv.tax=r.taxonomy?JSON.parse(JSON.stringify(r.taxonomy)):null;return r}
-async function loadReview(){await rvLoadCfg();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()}
-function pollReview(){stopRvPoll();rv.timer=setTimeout(async()=>{try{const r=await rvFetch(rv.dom);if(r.status?.state!=='running'){await rvLoadCfg();if(r.status?.state==='done')toast('完成了');else if(r.status?.state==='error')toast('出错：'+(r.status.error||''))}renderReview();if(r.status?.state==='running')pollReview()}catch(e){pollReview()}},2500)}
-async function rvRun(body,confirmMsg){if(confirmMsg&&!confirm(confirmMsg))return;try{await api(rvUrl(rv.dom,rv.scope,'/run'),{method:'POST',headers:rvHdr(),body:JSON.stringify(body)});const R=rvCur();R.status={...(R.status||{}),state:'running',step:'准备资料',done:0,total:0};renderReview();pollReview()}catch(e){toast(e.message)}}
+const rvActive=new Map();
+async function rvPersist(d,r){
+  if(window.RADAR_STATIC)return;
+  await RV_LOCAL.write(d,r.files||{});
+}
+async function rvFetch(d,sc=rv.scope){
+  let r;
+  if(window.RADAR_STATIC)r=await api(rvUrl(d,sc));
+  else if(rvActive.has(d)){
+    const job=await api(rvUrl(d,rvActive.get(d)));
+    r=rvActive.get(d)===sc?job:await api(rvUrl(d,sc));
+    if(!Object.keys(r.files||{}).length){rvActive.delete(d);r=await api(rvUrl(d,sc,"/local"),{method:"POST",body:JSON.stringify({files:await RV_LOCAL.read(d)})});if(r.status?.state==="running")r.status.state="stale"}
+    await rvPersist(d,r);
+    if(job.status?.state!=="running"){await api(`/api/review/${d}/ack?sid=${RV_SID}`,{method:"POST",body:"{}"});rvActive.delete(d)}
+  }else{
+    r=await api(rvUrl(d,sc,"/local"),{method:"POST",body:JSON.stringify({files:await RV_LOCAL.read(d)})});
+    await rvPersist(d,r);
+  }
+  rv.data[d+"|"+sc]=r;
+  if(d===rv.dom&&sc===rv.scope&&!rv.dirty)rv.tax=r.taxonomy?JSON.parse(JSON.stringify(r.taxonomy)):null;
+  return r;
+}
+async function loadReview(){await rvLoadCfg();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==="running")pollReview()}
+function pollReview(){stopRvPoll();rv.timer=setTimeout(async()=>{try{const d=rv.dom;const r=await rvFetch(d);for(const other of [...rvActive.keys()]){if(other!==d)await rvFetch(other,rvActive.get(other))}await rvLoadCfg();if(r.status?.state!=="running"){if(r.status?.state==="done")toast("已完成");else if(r.status?.state==="error")toast("出错："+(r.status.error||""))}renderReview();if(rvActive.size)pollReview()}catch(e){toast(e.message);if(rvActive.size)pollReview()}},2500)}
+async function rvRun(body,confirmMsg){
+  if(confirmMsg&&!confirm(confirmMsg))return;
+  try{const files=await RV_LOCAL.read(rv.dom);await RV_LOCAL.write(rv.dom,files);
+    await api(rvUrl(rv.dom,rv.scope,"/run"),{method:"POST",headers:rvHdr(),body:JSON.stringify({...body,files})});
+    rvActive.set(rv.dom,rv.scope);const R=rvCur();R.status={...(R.status||{}),state:"running",step:"准备资料",done:0,total:0};renderReview();pollReview();
+  }catch(e){toast(e.message)}
+}
+window.addEventListener("pageshow",e=>{if(e.persisted){rvActive.clear();loadReview().catch(err=>toast(err.message))}});
+window.addEventListener("pagehide",()=>{if(!window.RADAR_STATIC)navigator.sendBeacon(`/api/review/forget?sid=${RV_SID}`,new Blob(["{}"],{type:"application/json"}))});
 
 function renderReview(){
   const c=rv.cfg;if(!c)return;const L=c.llm;
@@ -35,7 +60,7 @@ function renderReview(){
   const wk=rv.scope==='week';
   $('#rv-tabs').innerHTML=c.domains.map(d=>{const x=wk?d.week:d;const tag=x.state==='running'?'<em class="run">进行中</em>':x.reviewed?`<em class="${x.review_ok?'ok':'bad'}">${x.review_ok?(wk?'已写小结':'已写综述'):(wk?'小结有问题':'综述有问题')}</em>`:x.categories?`<em>已分 ${x.categories} 类</em>`:(!wk&&d.cards)?`<em>已抽 ${d.cards} 张卡</em>`:'<em>未开始</em>';
     return `<button class="rd-tab rv-tab ${d.domain===rv.dom?'on':''}" data-d="${d.domain}"><span>${esc(d.label)}</span><div><i><b>${wk?d.week_papers:d.papers}</b>${wk?'篇本周新':'篇'}</i>${tag}</div></button>`}).join('');
-  $$('#rv-tabs [data-d]').forEach(b=>b.onclick=async()=>{if(rv.dirty&&!confirm('分类修改未保存，切换后将丢失，是否继续？'))return;rv.dirty=false;rv.dom=b.dataset.d;stopRvPoll();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()});
+  $$('#rv-tabs [data-d]').forEach(b=>b.onclick=async()=>{if(rv.dirty&&!confirm('分类修改未保存，切换后将丢失，是否继续？'))return;rv.dirty=false;rv.dom=b.dataset.d;stopRvPoll();await rvFetch(rv.dom);renderReview();if(rvActive.size)pollReview()});
   const R=rvCur();if(!R)return;
   rvScope(R);rvSteps(R,L);rvViews(R);
 }
@@ -43,7 +68,7 @@ function renderReview(){
 function rvScope(R){
   const d=rv.cfg.domains.find(x=>x.domain===rv.dom)||{};const wkLabel=R.week?`${+R.week.slice(5,7)}月${+R.week.slice(8,10)}日那周`:'本周';
   $('#rv-scope').innerHTML=`<div class="seg rv-sseg"><button class="${rv.scope==='all'?'on':''}" data-s="all">全部综述<b>${d.papers??''} 篇</b></button><button class="${rv.scope==='week'?'on':''}" data-s="week">本周小结<b>${d.week_papers??''} 篇</b></button></div>`;
-  $$('#rv-scope [data-s]').forEach(b=>b.onclick=async()=>{if(b.dataset.s===rv.scope)return;if(rv.dirty&&!confirm('分类修改未保存，切换后将丢失，是否继续？'))return;rv.dirty=false;rv.scope=b.dataset.s;rv.view='review';stopRvPoll();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()});
+  $$('#rv-scope [data-s]').forEach(b=>b.onclick=async()=>{if(b.dataset.s===rv.scope)return;if(rv.dirty&&!confirm('分类修改未保存，切换后将丢失，是否继续？'))return;rv.dirty=false;rv.scope=b.dataset.s;rv.view='review';stopRvPoll();await rvFetch(rv.dom);renderReview();if(rvActive.size)pollReview()});
 }
 
 function rvConn(L){const box=$('#rv-conn');
@@ -160,7 +185,7 @@ function rvTaxView(R){
   $$('#rv-view .rv-ctests').forEach(x=>x.onchange=()=>{T.categories[+x.dataset.i].tests=x.value.trim();mark()});
   $$('#rv-view .rv-cgrp').forEach(x=>x.onchange=()=>{T.categories[+x.dataset.i].group=x.value;mark()});
   const u=$('#rv-undo');if(u)u.onclick=()=>{rv.dirty=false;rv.tax=R.taxonomy?JSON.parse(JSON.stringify(R.taxonomy)):null;rvTaxView(R)};
-  const sv=$('#rv-savetax');if(sv)sv.onclick=async()=>{T.categories=T.categories.filter(c=>c.ids.length);try{const r=await api(rvUrl(rv.dom,rv.scope,'/taxonomy'),{method:'PUT',body:JSON.stringify(T)});rv.dirty=false;R.taxonomy=r.taxonomy;rv.tax=JSON.parse(JSON.stringify(r.taxonomy));await rvFetch(rv.dom);rv.cfg=await api(rvCfgUrl);renderReview();toast(R.scope==='week'?'分类已保存，点"重写小结"让小结按新分类写':'分类已保存，点"重写综述"让综述按新分类写')}catch(e){toast(e.message)}};
+  const sv=$('#rv-savetax');if(sv)sv.onclick=async()=>{T.categories=T.categories.filter(c=>c.ids.length);try{const r=await api(rvUrl(rv.dom,rv.scope,'/local'),{method:'POST',body:JSON.stringify({taxonomy:T,files:await RV_LOCAL.read(rv.dom)})});await rvPersist(rv.dom,r);rv.dirty=false;rv.data[rvKey()]=r;rv.tax=JSON.parse(JSON.stringify(r.taxonomy));await rvLoadCfg();renderReview();toast('分类已保存')}catch(e){toast(e.message)}};
 }
 
 function rvCardsView(R){

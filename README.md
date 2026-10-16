@@ -69,8 +69,8 @@ python3 -m radar.web.app
 
 ### 数据保存
 
-- 分类与综述按浏览器会话隔离，保存 24 小时。不同用户互不可见，首次打开均为空白。
-- 抽卡结果仅属于当前会话，不在用户之间共用；同一会话内已抽取的论文不重复调用模型。
+- 卡片、分类、综述与批注仅保存在当前浏览器的 IndexedDB 中，有效期为 24 小时，不在用户之间共用。
+- 服务器仅在任务期间使用内存；浏览器保存结果后立即释放，未确认接收的结果最多暂存 60 秒。关闭页面后不再发起后续模型调用。
 - 服务器不保存模型密钥。命令行运行时从环境变量 `RADAR_LLM_*` 或本机 `data/llm_config.json` 读取，后者不纳入版本控制。
 
 ## 网页版
@@ -106,8 +106,8 @@ python3 scripts/weekly_refresh.py --no-push
 | `scripts/` | 每周刷新、arXiv 批量采集、静态站导出（`build_static_site.py`） |
 | `data/radar.db` | 论文与阅读状态（不在 main 分支，最新版本位于 `data` 分支） |
 | `data/backfill/` | 四个领域的历史论文 |
-| `reports/lit_review/_sessions/<会话>/<领域>/cards.json` | 当前会话的抽卡结果，会话过期或关闭页面后删除 |
-| `reports/lit_review/_sessions/` | 各会话的分类与综述，24 小时无访问后清理 |
+| `radar/review/session_store.py` | 网页任务的临时内存存储，不写入服务器文件 |
+| `radar/web/static/review_store.js` | 浏览器 IndexedDB 结果存储 |
 | `reports/lit_coverage.md` | 各领域"任务 × 输入"覆盖表，用于检查收录缺口 |
 | `archive/` | 已停用的历史模块（早期 Idea 打分、Mini Eval，以及 2026-10-09 停用的研究地图与撞车提醒） |
 

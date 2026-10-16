@@ -174,22 +174,22 @@ class SessionTest(unittest.TestCase):
             self.assertEqual(P.load_result("legal", sid=b)["review"], "")       # 别人打开是空白
             self.assertIsNone(P.load_result("legal", sid=b)["taxonomy"])
             self.assertEqual(len(P.load_result("legal", sid=b)["cards"]), 0)    # 卡片也看不到
-            self.assertFalse((Path(tmp) / "legal").exists())                     # 不写公共目录
+            self.assertEqual(list(Path(tmp).iterdir()), [])                     # 网页任务零落盘
             P.run("legal", chat_fn=fake_model(log), sid=b)
             self.assertTrue(P.forget(a))
             self.assertFalse((Path(tmp) / "_sessions" / a).exists())
             self.assertTrue(P.load_result("legal", sid=b)["review"])
 
     def test_cleanup_old_sessions(self):
-        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(P, "OUT_ROOT", Path(tmp)):
-            P.touch("oldsession01")
-            P.touch("newsession01")
-            import os
-            old = Path(tmp) / "_sessions" / "oldsession01" / ".seen"
-            os.utime(old, (0, 0))
+        from radar.review import session_store as M
+        with mock.patch.object(M.time, "monotonic", return_value=0):
+            M.restore("oldsession01", "legal", {})
+        with mock.patch.object(M.time, "monotonic", return_value=100000):
+            M.restore("newsession01", "legal", {})
             self.assertEqual(P.cleanup_sessions(), 1)
-            self.assertFalse(old.parent.exists())
-            self.assertTrue((Path(tmp) / "_sessions" / "newsession01").exists())
+        self.assertFalse(M.exists("oldsession01"))
+        self.assertTrue(M.exists("newsession01"))
+        P.forget("newsession01")
 
     def test_bad_sid_rejected(self):
         with self.assertRaises(ValueError):
@@ -204,7 +204,7 @@ class SessionTest(unittest.TestCase):
             sid = "rolloverSID1"
             with P.session(sid):
                 P._write(P.week_dir("legal") / "review.json", {"week": "2026-10-05", "check": {"ok": True}})
-                (P.week_dir("legal") / "review.md").write_text("上周的小结", encoding="utf-8")
+                P._write_text(P.week_dir("legal") / "review.md", "上周的小结")
             r = P.load_result("legal", "week", sid)
             self.assertEqual(r["review"], "")
             self.assertIsNone(r["meta"])
