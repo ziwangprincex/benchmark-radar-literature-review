@@ -62,7 +62,7 @@ python3 -m radar.web.app
 
 文献综述使用步骤：
 
-1. 在"文献综述"页填写接口地址、密钥和模型名称。支持任意 OpenAI 兼容接口（OpenAI、DeepSeek、混元、本地 vLLM 等）。
+1. 在"文献综述"页填写接口地址、密钥和模型名称。支持任意 OpenAI 兼容接口（OpenAI、DeepSeek、混元、本地 vLLM 等）。设置仅保存在当前浏览器的 localStorage 中，每次运行时随请求发送，服务器不保存。
 2. 选择领域与范围（全部综述或本周小结），点击"更新"。建议先生成全部综述，本周小结以其为对比基准。
 3. 审阅结果。分类有误时，在"分类"页调整论文归属或主题所属大类；内容有误时，在右侧填写批注并点击"按批注改稿"。
 4. 在"更新与下载"中点击"下载 .md"导出，文中编号均链接至论文原文。
@@ -70,8 +70,8 @@ python3 -m radar.web.app
 ### 数据保存
 
 - 分类与综述按浏览器会话隔离，保存 24 小时。不同用户互不可见，首次打开均为空白。
-- 抽卡结果按摘要内容缓存，所有用户共用，已抽取的论文不重复调用模型。
-- 模型密钥仅保存在本机 `data/llm_config.json`，不纳入版本控制。
+- 抽卡结果仅属于当前会话，不在用户之间共用；同一会话内已抽取的论文不重复调用模型。
+- 服务器不保存模型密钥。命令行运行时从环境变量 `RADAR_LLM_*` 或本机 `data/llm_config.json` 读取，后者不纳入版本控制。
 
 ## 网页版
 
@@ -106,7 +106,7 @@ python3 scripts/weekly_refresh.py --no-push
 | `scripts/` | 每周刷新、arXiv 批量采集、静态站导出（`build_static_site.py`） |
 | `data/radar.db` | 论文与阅读状态（不在 main 分支，最新版本位于 `data` 分支） |
 | `data/backfill/` | 四个领域的历史论文 |
-| `reports/lit_review/<领域>/cards.json` | 抽卡缓存（所有用户共用） |
+| `reports/lit_review/_sessions/<会话>/<领域>/cards.json` | 当前会话的抽卡结果，会话过期或关闭页面后删除 |
 | `reports/lit_review/_sessions/` | 各会话的分类与综述，24 小时无访问后清理 |
 | `reports/lit_coverage.md` | 各领域"任务 × 输入"覆盖表，用于检查收录缺口 |
 | `archive/` | 已停用的历史模块（早期 Idea 打分、Mini Eval，以及 2026-10-09 停用的研究地图与撞车提醒） |

@@ -1,9 +1,9 @@
 """模型接口：任何 OpenAI 兼容的 /chat/completions 都行（OpenAI、DeepSeek、混元、本地 vLLM……）。
 
-配置优先级：网页上保存的 data/llm_config.json > 环境变量
-  RADAR_LLM_BASE_URL / OPENAI_BASE_URL
-  RADAR_LLM_API_KEY  / OPENAI_API_KEY
-  RADAR_LLM_MODEL
+网页：接口地址、模型名、密钥只存在用户自己浏览器的 localStorage，每次请求放在请求头里带过来，
+服务器只在这次任务的内存里用，不写文件、不进日志（use_config）。服务器上不保存任何人的密钥。
+命令行：读环境变量 RADAR_LLM_BASE_URL / RADAR_LLM_API_KEY / RADAR_LLM_MODEL（或 OPENAI_*），
+或本机 data/llm_config.json（不进 git，只在自己电脑上用）。
 只用标准库，不额外装包。
 """
 from __future__ import annotations
@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import threading
 import urllib.error
 import urllib.request
 from typing import Any
@@ -21,17 +22,44 @@ CONFIG_PATH = BASE_DIR / "data" / "llm_config.json"
 DEFAULT_BASE = "https://api.openai.com/v1"
 
 
+_TL = threading.local()
+
+
+class use_config:
+    """在这个线程里用指定的配置（网页请求带来的），不读文件和环境变量。"""
+
+    def __init__(self, cfg: dict[str, Any] | None):
+        self.cfg = cfg
+
+    def __enter__(self):
+        self.old = getattr(_TL, "cfg", None)
+        _TL.cfg = self.cfg
+        return self.cfg
+
+    def __exit__(self, *a):
+        _TL.cfg = self.old
+
+
+def _norm_base(base: str) -> str:
+    base = (base or DEFAULT_BASE).strip().rstrip("/")
+    return re.sub(r"/chat/completions$", "", base)  # 填了完整地址也能用
+
+
+def make_config(base_url: str, api_key: str, model: str, max_tokens: int = 8000) -> dict[str, Any]:
+    return {"base_url": _norm_base(base_url), "api_key": (api_key or "").strip(), "model": (model or "").strip(),
+            "max_tokens": int(max_tokens or 8000), "temperature": 0.2}
+
+
 def load_config() -> dict[str, Any]:
+    if getattr(_TL, "cfg", None) is not None:
+        return _TL.cfg
     cfg: dict[str, Any] = {}
     if CONFIG_PATH.exists():
         try:
             cfg = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             cfg = {}
-    base = (cfg.get("base_url") or os.getenv("RADAR_LLM_BASE_URL") or os.getenv("OPENAI_BASE_URL")
-            or DEFAULT_BASE).strip().rstrip("/")
-    # 把完整地址（…/chat/completions）也当成接口地址，避免拼出两遍路径
-    base = re.sub(r"/chat/completions$", "", base)
+    base = _norm_base(cfg.get("base_url") or os.getenv("RADAR_LLM_BASE_URL") or os.getenv("OPENAI_BASE_URL") or "")
     return {
         "base_url": base,
         "api_key": cfg.get("api_key") or os.getenv("RADAR_LLM_API_KEY") or os.getenv("OPENAI_API_KEY") or "",
@@ -41,34 +69,12 @@ def load_config() -> dict[str, Any]:
     }
 
 
-def public_config() -> dict[str, Any]:
-    c = load_config()
+def public_config(c: dict[str, Any] | None = None) -> dict[str, Any]:
+    c = c or load_config()
     k = c["api_key"]
     return {"base_url": c["base_url"], "model": c["model"], "max_tokens": c["max_tokens"],
             "api_key_set": bool(k), "api_key_hint": (k[:3] + "…" + k[-4:]) if len(k) > 8 else ("已填" if k else ""),
             "ready": bool(k and c["model"])}
-
-
-def save_config(payload: dict[str, Any]) -> dict[str, Any]:
-    old: dict[str, Any] = {}
-    if CONFIG_PATH.exists():
-        try:
-            old = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            old = {}
-    for k in ("base_url", "model", "max_tokens"):
-        if payload.get(k) not in (None, ""):
-            old[k] = payload[k]
-    # 密钥留空表示不改
-    if payload.get("api_key"):
-        old["api_key"] = payload["api_key"].strip()
-    CONFIG_PATH.parent.mkdir(exist_ok=True)
-    CONFIG_PATH.write_text(json.dumps(old, ensure_ascii=False, indent=2), encoding="utf-8")
-    try:
-        os.chmod(CONFIG_PATH, 0o600)
-    except OSError:
-        pass
-    return public_config()
 
 
 class LLMError(RuntimeError):
@@ -123,6 +129,6 @@ def strip_fence(text: str) -> str:
     return (m.group(1) if m else t).strip() + "\n"
 
 
-def ping() -> dict[str, Any]:
-    out = chat([{"role": "user", "content": "只回复两个字：收到"}], {**load_config(), "max_tokens": 20})
+def ping(cfg: dict[str, Any] | None = None) -> dict[str, Any]:
+    out = chat([{"role": "user", "content": "只回复两个字：收到"}], {**(cfg or load_config()), "max_tokens": 20})
     return {"ok": True, "reply": out.strip()[:50]}

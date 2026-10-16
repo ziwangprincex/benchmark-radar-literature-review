@@ -6,6 +6,12 @@ const RV_SESS=(()=>{const now=Date.now();try{const o=JSON.parse(localStorage.get
   const id=(crypto.randomUUID?crypto.randomUUID():now.toString(36)+Math.random().toString(36).slice(2)).replace(/[^A-Za-z0-9_-]/g,''),o={id,at:now};
   try{localStorage.setItem(RV_KEY,JSON.stringify(o))}catch(e){}return o})();
 const RV_SID=RV_SESS.id;
+// 模型设置（含密钥）只存在这个浏览器的 localStorage，跑任务时放在请求头里带给服务器，服务器不保存
+const RV_LLM='radar-review-llm';
+const rvLlm=()=>{try{const o=JSON.parse(localStorage.getItem(RV_LLM)||'{}');return{base_url:o.base_url||'',model:o.model||'',api_key:o.api_key||''}}catch(e){return{base_url:'',model:'',api_key:''}}};
+const rvLlmPub=()=>{const c=rvLlm(),k=c.api_key;return{base_url:c.base_url,model:c.model,api_key_set:!!k,api_key_hint:k.length>8?k.slice(0,3)+'…'+k.slice(-4):(k?'已填':''),ready:!!(k&&c.model)}};
+const rvHdr=()=>{const c=rvLlm();return{'Content-Type':'application/json','X-LLM-Base':c.base_url,'X-LLM-Model':c.model,'X-LLM-Key':c.api_key}};
+async function rvLoadCfg(){rv.cfg=await api(rvCfgUrl);rv.cfg.llm=rvLlmPub();return rv.cfg}
 let rv={cfg:null,dom:'legal',scope:'all',data:{},timer:null,editing:false,view:'review',tax:null,dirty:false,q:''};
 const rvKey=()=>rv.dom+'|'+rv.scope;
 const rvUrl=(d,sc,tail='')=>`/api/review/${d}`+(sc==='week'?'/week':'')+tail+`?sid=${RV_SID}`;
@@ -18,9 +24,9 @@ const RV_STATE={running:'进行中',done:'已完成',error:'出错',stale:'已�
 
 function stopRvPoll(){if(rv.timer){clearTimeout(rv.timer);rv.timer=null}}
 async function rvFetch(d,sc=rv.scope){const r=await api(rvUrl(d,sc));rv.data[d+'|'+sc]=r;if(d===rv.dom&&sc===rv.scope&&!rv.dirty)rv.tax=r.taxonomy?JSON.parse(JSON.stringify(r.taxonomy)):null;return r}
-async function loadReview(){rv.cfg=await api(rvCfgUrl);await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()}
-function pollReview(){stopRvPoll();rv.timer=setTimeout(async()=>{try{const r=await rvFetch(rv.dom);if(r.status?.state!=='running'){rv.cfg=await api(rvCfgUrl);if(r.status?.state==='done')toast('完成了');else if(r.status?.state==='error')toast('出错：'+(r.status.error||''))}renderReview();if(r.status?.state==='running')pollReview()}catch(e){pollReview()}},2500)}
-async function rvRun(body,confirmMsg){if(confirmMsg&&!confirm(confirmMsg))return;try{await api(rvUrl(rv.dom,rv.scope,'/run'),{method:'POST',body:JSON.stringify(body)});const R=rvCur();R.status={...(R.status||{}),state:'running',step:'准备资料',done:0,total:0};renderReview();pollReview()}catch(e){toast(e.message)}}
+async function loadReview(){await rvLoadCfg();await rvFetch(rv.dom);renderReview();if(rvCur()?.status?.state==='running')pollReview()}
+function pollReview(){stopRvPoll();rv.timer=setTimeout(async()=>{try{const r=await rvFetch(rv.dom);if(r.status?.state!=='running'){await rvLoadCfg();if(r.status?.state==='done')toast('完成了');else if(r.status?.state==='error')toast('出错：'+(r.status.error||''))}renderReview();if(r.status?.state==='running')pollReview()}catch(e){pollReview()}},2500)}
+async function rvRun(body,confirmMsg){if(confirmMsg&&!confirm(confirmMsg))return;try{await api(rvUrl(rv.dom,rv.scope,'/run'),{method:'POST',headers:rvHdr(),body:JSON.stringify(body)});const R=rvCur();R.status={...(R.status||{}),state:'running',step:'准备资料',done:0,total:0};renderReview();pollReview()}catch(e){toast(e.message)}}
 
 function renderReview(){
   const c=rv.cfg;if(!c)return;const L=c.llm;
@@ -44,18 +50,22 @@ function rvConn(L){const box=$('#rv-conn');
   if(window.RADAR_STATIC){box.className='rv-conn';
     box.innerHTML='<div class="rv-conn-head"><b>网页版不能写综述</b><small>综述要接模型现写，写好的结果不在网上保存。请在本地运行并接入模型，见 README。</small></div>';return}
   if(L.ready&&!rv.editing){box.className='rv-conn ok';
-    box.innerHTML=`<div class="rv-conn-l"><i class="dot"></i><div><b>已接入模型</b><small>${esc(L.model)} · ${esc(L.base_url)} · 密钥 ${esc(L.api_key_hint)}</small></div></div><div class="rv-conn-r"><button class="btn ghost" id="rv-ping">测试连接</button><button class="btn ghost" id="rv-edit">改设置</button></div>`;
+    box.innerHTML=`<div class="rv-conn-l"><i class="dot"></i><div><b>已接入模型</b><small>${esc(L.model)} · ${esc(L.base_url)} · 密钥 ${esc(L.api_key_hint)}</small></div></div><div class="rv-conn-r"><button class="btn ghost" id="rv-ping">测试连接</button><button class="btn ghost" id="rv-edit">改设置</button><button class="btn ghost" id="rv-clear">清除</button></div>`;
     $('#rv-edit').onclick=()=>{rv.editing=true;renderReview()};
+    $('#rv-clear').onclick=()=>{if(!confirm('从本浏览器删除模型设置和密钥？'))return;localStorage.removeItem(RV_LLM);rv.cfg.llm=rvLlmPub();rv.editing=false;renderReview()};
   }else{box.className='rv-conn';
     box.innerHTML=`<div class="rv-conn-head"><b>接入模型接口</b></div>
     <div class="rv-form"><label>接口地址<input id="rv-base" value="${esc(L.base_url||'')}" placeholder="https://api.openai.com/v1"></label>
     <label>模型名<input id="rv-model" value="${esc(L.model||'')}" placeholder="例如 gpt-4.1、deepseek-chat"></label>
     <label>密钥<input id="rv-key" type="password" placeholder="${L.api_key_set?'已填 '+esc(L.api_key_hint)+'，留空不改':'sk-...'}"></label>
     <div class="rv-form-b"><button class="btn primary" id="rv-save">保存</button>${L.ready?'<button class="btn ghost" id="rv-cancel">取消</button>':''}<button class="btn ghost" id="rv-ping">测试连接</button></div></div>`;
-    $('#rv-save').onclick=async()=>{try{const r=await api('/api/review/config',{method:'PUT',body:JSON.stringify({base_url:$('#rv-base').value.trim(),model:$('#rv-model').value.trim(),api_key:$('#rv-key').value.trim()})});rv.cfg.llm=r.llm;rv.editing=!r.llm.ready;toast(r.llm.ready?'已保存':'还缺模型名或密钥');renderReview()}catch(e){toast(e.message)}};
+    $('#rv-save').onclick=()=>{const o=rvLlm(),k=$('#rv-key').value.trim();
+      const n={base_url:$('#rv-base').value.trim(),model:$('#rv-model').value.trim(),api_key:k||o.api_key};
+      try{localStorage.setItem(RV_LLM,JSON.stringify(n))}catch(e){toast('浏览器不允许本地存储');return}
+      rv.cfg.llm=rvLlmPub();rv.editing=!rv.cfg.llm.ready;toast(rv.cfg.llm.ready?'已保存在本浏览器':'缺少模型名或密钥');renderReview()};
     const cc=$('#rv-cancel');if(cc)cc.onclick=()=>{rv.editing=false;renderReview()};
   }
-  $('#rv-ping').onclick=async e=>{const b=e.target;b.disabled=true;b.textContent='连接中…';try{const r=await api('/api/review/ping',{method:'POST'});toast('连上了，模型回复：'+r.reply)}catch(err){toast(err.message)}finally{b.disabled=false;b.textContent='测试连接'}};
+  $('#rv-ping').onclick=async e=>{const b=e.target;b.disabled=true;b.textContent='连接中…';try{const r=await api('/api/review/ping',{method:'POST',headers:rvHdr()});toast('连上了，模型回复：'+r.reply)}catch(err){toast(err.message)}finally{b.disabled=false;b.textContent='测试连接'}};
 }
 
 function rvSteps(R,L){

@@ -302,27 +302,29 @@ def _review_sid(required: bool = False) -> str | None:
     return None if required else BLANK_SID
 
 
+def _request_llm():
+    """模型设置只从这次请求的请求头里拿（浏览器 localStorage 里存的），服务器不保存。"""
+    from radar.review.llm import make_config
+    h = request.headers
+    return make_config(h.get("X-LLM-Base", ""), h.get("X-LLM-Key", ""), h.get("X-LLM-Model", ""))
+
+
 @app.get("/api/review/config")
 def api_review_config():
-    from radar.review.llm import public_config
     from radar.review.pipeline import PROMPTS, domain_list
-    return jsonify({"llm": public_config(), "domains": domain_list(_review_sid()),
-                    "prompts_path": str(PROMPTS.relative_to(BASE_DIR))})
-
-
-@app.put("/api/review/config")
-def api_review_config_set():
-    from radar.review.llm import save_config
-    return jsonify({"llm": save_config(request.get_json(force=True) or {})})
+    return jsonify({"domains": domain_list(_review_sid()), "prompts_path": str(PROMPTS.relative_to(BASE_DIR))})
 
 
 @app.post("/api/review/ping")
 def api_review_ping():
     from radar.review.llm import LLMError, ping
+    cfg = _request_llm()
+    if not cfg["api_key"] or not cfg["model"]:
+        return jsonify({"error": "缺少模型名或密钥"}), 400
     try:
-        return jsonify(ping())
+        return jsonify(ping(cfg))
     except LLMError as exc:
-        return jsonify({"error": str(exc)}), 400
+        return jsonify({"error": str(exc).replace(cfg["api_key"], "***")}), 400
 
 
 def _review_get(domain: str, scope: str):
@@ -335,12 +337,12 @@ def _review_get(domain: str, scope: str):
 def _review_run(domain: str, scope: str):
     """从某一步开始往后跑：cards（逐篇抽卡，默认只抽新论文）/ taxonomy（分类）/ review（写综述或本周小结）。
     带 notes 时只做"按批注改稿"。"""
-    from radar.review.llm import public_config
     from radar.review.pipeline import STAGES, start_background
     if not _review_domain_ok(domain):
         return jsonify({"error": "未知领域"}), 400
-    if not public_config()["ready"]:
-        return jsonify({"error": "还没接入模型：先填接口地址、密钥和模型名"}), 400
+    cfg = _request_llm()
+    if not cfg["api_key"] or not cfg["model"]:
+        return jsonify({"error": "未接入模型"}), 400
     sid = _review_sid(required=True)
     if not sid:
         return jsonify({"error": "页面太旧了，刷新一下再试"}), 400
@@ -350,7 +352,7 @@ def _review_run(domain: str, scope: str):
     if start not in STAGES:
         return jsonify({"error": "start 不对"}), 400
     try:
-        return jsonify(start_background(domain, scope=scope, sid=sid, start=start,
+        return jsonify(start_background(domain, scope=scope, sid=sid, start=start, llm_cfg=cfg,
                                         force_cards=bool(payload.get("force_cards")), notes=notes))
     except RuntimeError as exc:
         return jsonify({"error": str(exc)}), 409

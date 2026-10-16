@@ -159,9 +159,9 @@ class TaxonomyTest(unittest.TestCase):
 
 
 class SessionTest(unittest.TestCase):
-    """2026-10-10：每次打开页面一个会话，结果互不可见；卡片缓存共用。"""
+    """2026-10-10：每次打开页面一个会话，结果互不可见。2026-10-16 起卡片也不共用（是用各自的密钥抽的）。"""
 
-    def test_sessions_are_isolated_and_cards_shared(self):
+    def test_sessions_are_isolated_including_cards(self):
         log = []
         with tempfile.TemporaryDirectory() as tmp, \
                 mock.patch.object(P, "OUT_ROOT", Path(tmp)), \
@@ -173,14 +173,11 @@ class SessionTest(unittest.TestCase):
             self.assertTrue(P.load_result("legal", sid=a)["review"])
             self.assertEqual(P.load_result("legal", sid=b)["review"], "")       # 别人打开是空白
             self.assertIsNone(P.load_result("legal", sid=b)["taxonomy"])
-            self.assertEqual(len(P.load_result("legal", sid=b)["cards"]), 4)    # 卡片共用
-            self.assertTrue((Path(tmp) / "legal" / "cards.json").exists())
-            self.assertFalse((Path(tmp) / "legal" / "review.md").exists())      # 不写到公共目录
-            n = len(log)
+            self.assertEqual(len(P.load_result("legal", sid=b)["cards"]), 0)    # 卡片也看不到
+            self.assertFalse((Path(tmp) / "legal").exists())                     # 不写公共目录
             P.run("legal", chat_fn=fake_model(log), sid=b)
-            self.assertFalse(any("做一张卡片" in t for t in log[n:]))           # 第二个人不用重抽卡
             self.assertTrue(P.forget(a))
-            self.assertEqual(P.load_result("legal", sid=a)["review"], "")
+            self.assertFalse((Path(tmp) / "_sessions" / a).exists())
             self.assertTrue(P.load_result("legal", sid=b)["review"])
 
     def test_cleanup_old_sessions(self):
@@ -435,3 +432,34 @@ class WeekTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class KeyNotStoredTest(unittest.TestCase):
+    """2026-10-16：密钥不能存在服务器上，卡片不能在会话之间共用。"""
+
+    def test_no_save_endpoint_and_header_only(self):
+        from radar.web.app import app
+        from radar.review import llm
+        c = app.test_client()
+        self.assertFalse(hasattr(llm, "save_config"))
+        self.assertEqual(c.put("/api/review/config", json={"api_key": "sk-x"}).status_code, 405)
+        self.assertNotIn("llm", c.get("/api/review/config").get_json())
+        r = c.post("/api/review/legal/run?sid=testsession01", json={"start": "cards"})
+        self.assertEqual(r.status_code, 400)
+
+    def test_use_config_overrides_and_restores(self):
+        from radar.review import llm
+        cfg = llm.make_config("http://x/v1/chat/completions", "sk-abc", "m")
+        self.assertEqual(cfg["base_url"], "http://x/v1")
+        with llm.use_config(cfg):
+            self.assertEqual(llm.load_config()["api_key"], "sk-abc")
+        self.assertNotEqual(llm.load_config().get("api_key"), "sk-abc")
+
+    def test_cards_per_session(self):
+        with P.session("sessaaaaaaaa"):
+            a = P.cards_path("legal")
+        with P.session("sessbbbbbbbb"):
+            b = P.cards_path("legal")
+        self.assertNotEqual(a, b)
+        self.assertIn("sessaaaaaaaa", str(a))
+

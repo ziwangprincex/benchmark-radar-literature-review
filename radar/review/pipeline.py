@@ -18,12 +18,12 @@
 
 每个浏览器一个会话（sid，页面里随机生成，记在这个浏览器的 localStorage 里一天）。分类、综述、
 批注、运行状态都只存在这个会话里，别人打开看不到；一天没动就清掉，要长期留着在页面上下载。
-全部综述 = 截至上周的累计；本周小结 = 最近一周新收的，两块不重叠（见 corpus.py）。只有卡片按摘要内容缓存、所有人共用
-（不显示，只是省得重抽）。
+全部综述 = 截至上周的累计；本周小结 = 最近一周新收的，两块不重叠（见 corpus.py）。
+卡片也只在会话里（是用这个人自己的密钥抽的），不在会话之间共用。模型密钥由浏览器每次请求带来，服务器不保存。
 
 产物：
-  reports/lit_review/<领域>/cards.json                   卡片缓存（全部和本周、所有会话共用）
-  reports/lit_review/_sessions/<sid>/<领域>/               这个浏览器的结果，一天没动就清掉
+  reports/lit_review/_sessions/<sid>/<领域>/               这个浏览器的结果，一天没动或关页面就清掉
+      cards.json     卡片（全部和本周共用）
       taxonomy.json  分类（by=model 或 by=user）
       review.md      完整综述；review_body.md 是模型写的第二到四节
       review.json    核对结果、生成时间、批注记录
@@ -50,7 +50,7 @@ from radar.core.radar_core import BASE_DIR
 from radar.core.reading import DOMAIN_CN
 from radar.review import check as C
 from radar.review.corpus import REVIEW_DOMAINS, SCOPES, corpus_text, latest_week, load_corpus, skipped_count
-from radar.review.llm import chat, extract_json, load_config, strip_fence
+from radar.review.llm import chat, extract_json, load_config, strip_fence, use_config
 
 PROMPTS = Path(__file__).with_name("prompts")
 OUT_ROOT = BASE_DIR / "reports" / "lit_review"
@@ -109,7 +109,7 @@ def out_dir(domain: str) -> Path:
 
 
 def cards_path(domain: str) -> Path:
-    return OUT_ROOT / domain / "cards.json"  # 所有会话共用
+    return out_dir(domain) / "cards.json"  # 只在这个会话里，别人看不到、用不上
 
 
 def week_dir(domain: str, wk: str | None = None) -> Path:
@@ -744,7 +744,8 @@ def write_week(domain: str, wk: str, papers: list[dict], cards: dict[str, Any], 
 # ---------- 运行 ----------
 
 def run(domain: str, start: str = "cards", force_cards: bool = False, notes: str | None = None,
-        chat_fn: ChatFn | None = None, scope: str = "all", sid: str | None = None) -> dict[str, Any]:
+        chat_fn: ChatFn | None = None, scope: str = "all", sid: str | None = None,
+        llm_cfg: dict[str, Any] | None = None) -> dict[str, Any]:
     if scope not in SCOPES:
         raise ValueError(f"范围只能是 {'、'.join(SCOPES)}")
     key = (sid, domain)
@@ -754,7 +755,7 @@ def run(domain: str, start: str = "cards", force_cards: bool = False, notes: str
         _RUNNING.add(key)
     _TL.scope = scope
     try:
-        with session(sid):
+        with session(sid), use_config(llm_cfg):
             touch(sid)
             fn = _run_week if scope == "week" else _run
             return fn(domain, start, force_cards, notes, chat_fn or (lambda m: chat(m)))
@@ -821,9 +822,11 @@ def start_background(domain: str, scope: str = "all", sid: str | None = None, **
             run(domain, scope=scope, sid=sid, **kw)
         except Exception as e:
             _TL.scope = scope
+            key = ((kw.get("llm_cfg") or {}).get("api_key") or "")
+            hide = (lambda t: t.replace(key, "***")) if len(key) >= 4 else (lambda t: t)  # 状态文件里不留密钥
             with session(sid):
-                _status(domain, state="error", step="出错", error=str(e)[:500], finished_at=_now(),
-                        trace=traceback.format_exc()[-1500:])
+                _status(domain, state="error", step="出错", error=hide(str(e))[:500], finished_at=_now(),
+                        trace=hide(traceback.format_exc())[-1500:])
             _TL.scope = "all"
 
     threading.Thread(target=work, daemon=True).start()
